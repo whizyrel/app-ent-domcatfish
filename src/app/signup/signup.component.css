@@ -1,0 +1,38 @@
+div {
+  box-sizing: border-box;
+}
+.el {
+  max-width: 375px;
+  box-sizing: border-box;
+  width: fit-content;
+  height: fit-content;
+  padding: 10px;
+}
+mat-card-content {
+  padding: 5px 0 5px 0!important;
+}
+mat-form-field {
+  padding: 5px;
+  width: 100%;
+}
+mat-card-actions {
+  padding-left: 10px !important;
+}
+.text-left {
+  padding-top: 5px;
+}
+.mismatchError {
+  padding-bottom: 5px;
+}
+.progress-bar {
+  width: 100%;
+  margin: auto;
+  height: fit-content;
+  box-sizing: border-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  border-top-left-radius: 1;
+  border-top-right-radius: 1;
+}

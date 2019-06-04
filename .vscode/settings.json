@@ -1,0 +1,4 @@
+{
+  "emmet.showSuggestionsAsSnippets": true,
+  "go.useCodeSnippetsOnFunctionSuggest": true
+}

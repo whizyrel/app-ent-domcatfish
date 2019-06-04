@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/app-ent-domcatfish",
+            "outputPath": "dist/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -23,8 +23,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
-            ],
+		"src/styles.css",
+		"./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css"
+	],
             "scripts": []
           },
           "configurations": {
@@ -78,10 +79,11 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
-            "styles": [
-              "src/styles.css"
-            ],
-            "scripts": [],
+            "styles": [],
+            "scripts": [
+	      "src/styles.css",
+		"./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css"
+	    ],
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -98,6 +100,24 @@
             "exclude": [
               "**/node_modules/**"
             ]
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/server",
+            "main": "src/main.server.ts",
+            "tsConfig": "src/tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            }
           }
         }
       }

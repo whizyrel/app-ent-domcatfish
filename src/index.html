@@ -5,10 +5,35 @@
   <title>AppEntDomcatfish</title>
   <base href="/">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="./assets/vendor/bootstrap/css/bootstrap.min.css">
+  <link href="./assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/libs/css/style.css">
+  <link rel="stylesheet" href="./assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-  <app-root></app-root>
+  <app-root>
+    <div class="spinner-div">
+      <!-- <mat-progress-spinner
+        class="spinner-div"
+        [color]="primary"
+        [mode]="indeterminate"
+        [value]="50">
+      </mat-progress-spinner> -->
+      <div class="app-loading">
+        <!-- <div class="logo">use logo later</div> -->
+        <svg class="spinner" viewBox="25 25 50 50">
+          <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+        </svg>
+      </div>
+    </div>
+  </app-root>
+  <script src="./assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+  <script src="./assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+  <!-- Bootstrap JS-->
+  <script src="./assets/vendor/bootstrap-4.1/popper.min.js"></script>
+  <script src="./assets/vendor/bootstrap-4.1/bootstrap.min.js"></script>
 </body>
 </html>
