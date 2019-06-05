@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 import { Signupprop } from '../interfaces/signupprop';
+import { HttpResponse } from '../interfaces/http-response';
 
 import { SnackbarmsgComponent } from '../snackbarmsg/snackbarmsg.component';
 
@@ -23,11 +24,9 @@ export class SignupComponent implements OnInit {
   public hide = true;
   public queryBar = false;
   public countryList: string[];
+  public submitted = true;
 
-  private _response: {
-    message?: string,
-    error?: string;
-  };
+  private _response: HttpResponse;
 
   color = 'primary';
   mode = 'query';
@@ -39,7 +38,7 @@ export class SignupComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private _signupService: SignupService,
     private _snackbarService: InitsnackbarService,
-    private _codelist: CountrycodelistService,
+    private _codelist: CountrycodelistService
   ) {}
 
   get status() {
@@ -75,7 +74,7 @@ export class SignupComponent implements OnInit {
             /[a-zA-Z0-9!#$%&' * +/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?/
           )
         ]),
-        acctType: new FormControl(this.who),
+        accountType: new FormControl(this.who),
         // countrycode: new FormControl('', Validators.required),
         phone: new FormControl('', [Validators.required, Validators.minLength(8)]),
         password: new FormControl('', [
@@ -97,16 +96,15 @@ export class SignupComponent implements OnInit {
     this.signupDet = this.signupform.getRawValue();
     this.queryBar = true;
     if (!this.disableBtn()) {
+      this.submitted = true;
       this._signupService
       .submitDetails(this.signupDet)
-      .subscribe((data: {body?: Object}) => {
+      .subscribe((data: HttpResponse) => {
         this.bufferValue = 100;
         this.value = 100;
         this.queryBar = false;
-        this._response = data.body;
-        console.log(this._response);
-        if (this._response) {
-          this._snackbarService.showSnackBarFromComponent(SnackbarmsgComponent, this._response.message, 5000);
+        if (data) {
+          this._snackbarService.showSnackBarFromComponent(SnackbarmsgComponent, data.message, 7000);
         }
         console.log(data);
       }, (error) => {
@@ -114,10 +112,10 @@ export class SignupComponent implements OnInit {
         this.value = 100;
         this.queryBar = false;
         this._response = error.error;
-        console.log(error);
         if (this._response) {
-          this._snackbarService.showSnackBarFromComponent(SnackbarmsgComponent, this._response.message, 5000);
+          this._snackbarService.showSnackBarFromComponent(SnackbarmsgComponent, this._response.message, 7000);
         }
+        console.log(error);
       });
     }
   }

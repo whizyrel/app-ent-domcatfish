@@ -18,6 +18,7 @@ export class SignupService {
   ) { }
 
   submitDetails(details: Signupprop): Observable<Object> {
+    // const _url = 'http://localhost:8006/users/signup';
     const _url = this.apiUrls.userUrls.signup;
     console.log(details);
     return this._httpClient.post<Object>(_url, details, {

@@ -6,9 +6,11 @@ import { Router } from '@angular/router';
 import { SnackbarmsgComponent } from '../snackbarmsg/snackbarmsg.component';
 
 import { Loginprop } from '../interfaces/loginprop';
+import { HttpResponse } from '../interfaces/http-response';
 
 import { LoginService } from '../services/login.service';
 import { InitsnackbarService } from '../services/initsnackbar.service';
+import { IndexedDBService } from '../services/indexed-db.service';
 
 @Component({
   selector: 'app-login',
@@ -41,7 +43,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private _loginService: LoginService,
-    private _snackbarService: InitsnackbarService
+    private _snackbarService: InitsnackbarService,
+    private _indexedDB: IndexedDBService,
   ) { }
 
   ngOnInit() {
@@ -77,13 +80,16 @@ export class LoginComponent implements OnInit {
       this.loginDetails = this.loginform.getRawValue();
       // submit to database
       this._loginService.submitUserData(this.loginDetails)
-      .subscribe((data: {body?: Object}) => {
+      .subscribe((data: HttpResponse) => {
         this.bufferValue = 100;
         this.value = 100;
         this.queryBar = false;
-        this._response = data.body;
-        if (this._response) {
-          this._snackbarService.showSnackBarFromComponent(SnackbarmsgComponent, this._response.message, 5000);
+        if (data) {
+          this._snackbarService.showSnackBarFromComponent(SnackbarmsgComponent, data.message, 7000);
+          this._indexedDB.alert();
+          this._indexedDB
+          .setIDBOBJStoreProp({title: 'sessid', keyPath: 'sessid', data: {'sessid': data.sessid}})
+          .openDB('IDStore', 1);
         }
         console.log(data);
       }, (error) => {
@@ -92,7 +98,7 @@ export class LoginComponent implements OnInit {
         this.queryBar = false;
         this._response = error.error;
         if (this._response) {
-          this._snackbarService.showSnackBarFromComponent(SnackbarmsgComponent, this._response.message, 5000);
+          this._snackbarService.showSnackBarFromComponent(SnackbarmsgComponent, this._response.message, 7000);
         }
         console.log(error.error);
       });
