@@ -5,5 +5,5 @@ export interface Signupprop {
   email: String;
   password: String;
   confirm: String;
-  acctType: String;
+  accountType: String;
 }
