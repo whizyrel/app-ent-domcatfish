@@ -1,0 +1,7 @@
+export interface PubUserDetails {
+  email: string;
+  accountType: string;
+  firstname: string;
+  lastname: string;
+  phone: string;
+}

@@ -1,29 +1,27 @@
 import { Injectable } from '@angular/core';
-
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
 import { APIURLService } from './apiurl.service';
 
-import { Loginprop } from '../interfaces/loginprop';
-
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class SessValService {
 
   constructor(
-    private apiUrls: APIURLService,
+    private _apiUrlService: APIURLService,
     private _httpClient: HttpClient
   ) { }
 
-  submitUserData(details: Loginprop, who: string): Observable<Object> {
-    const _url = this.apiUrls.userUrls.signin.replace('users', who === 'user' ? 'users' : who);
+  valSession(id: string): Observable<Object> {
+    const _url = this._apiUrlService.userUrls.sessVal;
     console.log(_url);
-    return this._httpClient.put<Object>(_url, details, {
+    return this._httpClient.post<Object>(_url, null, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
+        'authorization': `Bearer ${id}`
       }),
       observe: 'body',
       responseType: 'json'

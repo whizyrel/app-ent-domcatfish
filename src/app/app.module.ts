@@ -8,12 +8,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatIconModule} from '@angular/material/icon';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import {MatButtonModule} from '@angular/material/button';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -34,39 +34,57 @@ import { LoginService } from './services/login.service';
 import { SignupService } from './services/signup.service';
 import { InitsnackbarService } from './services/initsnackbar.service';
 import { CountrycodelistService } from './services/countrycodelist.service';
+import { SessValService } from './services/sess-val.service';
+
+import { LoginAuthGuard } from './guards/login-auth.guard';
+import { DashboardAuthGuard } from './guards/dashboard-auth.guard';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomePageComponent, VerifyComponent,
-    LoginComponent, ForgotComponent,
-    SignupComponent, SnackbarmsgComponent,
-    DashboardComponent, ShopComponent
+    HomePageComponent,
+    VerifyComponent,
+    LoginComponent,
+    ForgotComponent,
+    SignupComponent,
+    SnackbarmsgComponent,
+    DashboardComponent,
+    ShopComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({
-      appId: 'app-ent-domcatfish'
+      appId: 'app-ent-domcatfish',
     }),
-    BrowserAnimationsModule, MatButtonModule,
-    AppRoutingModule, MatInputModule,
-    MatFormFieldModule, MatIconModule,
-    FormsModule, ReactiveFormsModule,
-    MatCardModule, MatProgressBarModule,
-    MatProgressBarModule, HttpClientModule,
-    MatTabsModule, MatSnackBarModule,
-    MatProgressSpinnerModule
+    BrowserAnimationsModule,
+    MatButtonModule,
+    AppRoutingModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatIconModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatProgressBarModule,
+    MatProgressBarModule,
+    HttpClientModule,
+    MatTabsModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
     // InternationalPhoneNumberModule,
     // BsDropdownModule.forRoot(),
     // NgxIntlTelInputModule,
   ],
   providers: [
-    APIURLService, LoginService,
-    SignupService, InitsnackbarService,
-    CountrycodelistService
+    APIURLService,
+    LoginService,
+    SignupService,
+    InitsnackbarService,
+    CountrycodelistService,
+    SessValService,
+    LoginAuthGuard,
+    DashboardAuthGuard,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [
-    SnackbarmsgComponent
-  ]
+  entryComponents: [SnackbarmsgComponent],
 })
-export class AppModule { }
+export class AppModule {}

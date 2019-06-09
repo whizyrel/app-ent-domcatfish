@@ -47,7 +47,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     this.countryList = this._codelist.getList();
-    this.activatedRoute.url.subscribe((URLSegment) => {
+    this.activatedRoute.parent.url.subscribe((URLSegment) => {
       let who = '';
       URLSegment.some((cur) => {
         return cur.path === 'user';
@@ -60,7 +60,7 @@ export class SignupComponent implements OnInit {
             who = 'New Admin';
             this.who = 'admin';
           })();
-
+      console.log(who);
       this.welcomeMsg = `Hello ${who}`;
     });
     this.signupform = this.formBuilder.group(

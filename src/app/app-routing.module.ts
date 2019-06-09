@@ -9,39 +9,68 @@ import { SignupComponent } from './signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ShopComponent } from './shop/shop.component';
 
+import { DashboardAuthGuard } from './guards/dashboard-auth.guard';
+import { LoginAuthGuard } from './guards/login-auth.guard';
+
 const routes: Routes = [
   {
-  path: '', component: HomePageComponent, pathMatch: 'full'
+    path: '', component: HomePageComponent, pathMatch: 'full'
   },
   {
-  path: 'admin/login', component: LoginComponent, pathMatch: 'full'
+    path: 'admin', // pathMatch: 'full',
+    children: [
+      {
+        path: 'login', component: LoginComponent, pathMatch: 'full',
+        canActivate: [LoginAuthGuard]
+      },
+      {
+        path: 'signup', component: SignupComponent, pathMatch: 'full'
+      },
+      {
+        path: 'forgot', component: ForgotComponent, pathMatch: 'full'
+      },
+      {
+        path: 'verify', component: VerifyComponent, pathMatch: 'full'
+      },
+      {
+        path: 'dashboard', component: DashboardComponent, pathMatch: 'full',
+        canActivate: [DashboardAuthGuard], data: {role: 'admin'}
+      },
+      {
+        path: '', redirectTo: '/admin/dashboard', pathMatch: 'full'
+      },
+      {
+        path: '**', redirectTo: '/admin/login', pathMatch: 'full'
+      }
+    ]
   },
   {
-  path: 'admin/signup', component: SignupComponent, pathMatch: 'full'
+    path: 'user', // pathMatch: 'full',
+    children: [
+      {
+        path: 'login', component: LoginComponent, pathMatch: 'full',
+        canActivate: [LoginAuthGuard] // future use
+      },
+      {
+        path: 'signup', component: SignupComponent, pathMatch: 'full'
+      },
+      {
+        path: 'forgot', component: ForgotComponent, pathMatch: 'full'
+      },
+      {
+        path: 'verify', component: VerifyComponent, pathMatch: 'full'
+      },
+      {
+        path: '', redirectTo: '/user/login', pathMatch: 'full'
+      },
+      {
+        path: '**', redirectTo: '/user/login', pathMatch: 'full'
+      }
+    ]
   },
   {
-  path: 'user/login', component: LoginComponent, pathMatch: 'full'
-  },
-  {
-  path: 'user/signup', component: SignupComponent, pathMatch: 'full'
-  },
-  {
-  path: 'user/forgot', component: ForgotComponent, pathMatch: 'full'
-  },
-  {
-  path: 'admin/forgot', component: ForgotComponent, pathMatch: 'full'
-  },
-  {
-  path: 'admin/verify', component: VerifyComponent, pathMatch: 'full'
-  },
-  {
-  path: 'user/verify', component: VerifyComponent, pathMatch: 'full'
-  },
-  {
-    path: 'admin/dashboard', component: DashboardComponent, pathMatch: 'full'
-  },
-  {
-    path: 'shop', component: ShopComponent, pathMatch: 'full'
+    path: 'shop', component: ShopComponent, pathMatch: 'full',
+    children: []
   },
   {
     path: '**', component: HomePageComponent, redirectTo: ''
