@@ -1,0 +1,13 @@
+app-snackbarmsg {
+  float: right !important;
+  z-index: 100 !important;
+}
+.snackPos {
+  float: right;
+  align-self: left !important;
+  align-items: center !important;
+  padding: 5px;
+  height: fit-content;
+  width: fit-content !important;
+  z-index: 100 !important;
+}

@@ -9,13 +9,16 @@ import {
 
 import { SnackbarmsgComponent } from '../snackbarmsg/snackbarmsg.component';
 
-import { Loginprop } from '../interfaces/loginprop';
+import { LoginProps } from '../interfaces/login-props';
 import { HttpResponse } from '../interfaces/http-response';
-import { IdbTypes } from '../interfaces/idb-types';
+import { LinkProps } from '../interfaces/link-props';
+import { SessStoreProps } from '../interfaces/sess-store-props';
+import { CartStoreProps } from '../interfaces/cart-store-props';
 
 import { LoginService } from '../services/login.service';
-import { InitsnackbarService } from '../services/initsnackbar.service';
-import { IndexedDBService } from '../services/indexed-db.service';
+import { InitSnackbarService } from '../services/init-snackbar.service';
+import { LinksService } from '../services/links.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +27,7 @@ import { IndexedDBService } from '../services/indexed-db.service';
 })
 export class LoginComponent implements OnInit {
   loginform: FormGroup;
-  private loginDetails: Loginprop;
+  private loginDetails: LoginProps;
 
   private who: string;
   private welcomeMsg: string;
@@ -37,21 +40,19 @@ export class LoginComponent implements OnInit {
   bufferValue = 75;
   public queryBar = false;
 
-  links: Array<{ link: String; title: String }>;
+  links: LinkProps[];
   activeLink: String;
 
-  private _response: {
-    message?: string;
-    error?: string;
-  };
+  private _response: HttpResponse;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private router: Router,
+    private _linksService: LinksService,
     private _loginService: LoginService,
-    private _snackbarService: InitsnackbarService,
-    private _indexedDB: IndexedDBService
+    private _snackbarService: InitSnackbarService,
+    private _localStorage: LocalStorageService
   ) {}
 
   ngOnInit() {
@@ -66,10 +67,7 @@ export class LoginComponent implements OnInit {
 
       this.welcomeMsg = `Hello ${who}`;
       this.who = who.toLowerCase();
-      this.links = [
-        { link: `/${who.toLowerCase()}/signup`, title: 'Create An Account' },
-        { link: `/${who.toLowerCase()}/forgot`, title: 'Forgot Password' },
-      ];
+      this.links = this._linksService.getLoginBottomLinks(this.who);
       this.activeLink = this.links[0].link;
     });
     this.loginform = this.formBuilder.group({
@@ -90,10 +88,10 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    const duration = 7000;
-    const DBName = 'str';
-    const ionstrttl = 'ionstr';
-    // const cartstrttl = 'crtstr';
+    const crtstrttl: string = 'crtstr';
+    const ionstrttl: string = 'ionstr';
+
+    const duration: number = 7000;
 
     if (this.loginform.valid) {
       this.queryBar = true;
@@ -111,16 +109,65 @@ export class LoginComponent implements OnInit {
             data.hasOwnProperty('userDetails')
           ) {
             const { message, sessid, userDetails } = data;
-            const ions = {
+
+            const ionarray: SessStoreProps[] = [];
+            const cartStoreArray: CartStoreProps[] = [];
+
+            const ions: SessStoreProps = {
               id: sessid,
               dt: userDetails,
+              active: true,
             };
 
-            // console.log(Buffer.from(JSON.stringify(ions), 'hex'));
-            window.localStorage.setItem(ionstrttl, JSON.stringify(ions));
+            const ps = JSON.parse(this._localStorage.getItem(ionstrttl));
+
+            if (ps === null) {
+              ionarray.push(ions);
+              this._localStorage.setItem(ionstrttl, ionarray);
+            } else {
+              ps.length === 0
+                ? (() => {
+                    ionarray.push(ions);
+                    this._localStorage.setItem(ionstrttl, ionarray);
+                  })()
+                : (() => {
+                    ps.push(ions);
+                    this._localStorage.setItem(ionstrttl, ps);
+                  })();
+            }
+
+            // considered add-account-login
+            // if crtstr === null do previous else push new into it
+            // get cartStore first
+            console.log(`setting cart store`);
+            const cartStore: CartStoreProps[] | null = JSON.parse(
+              this._localStorage.getItem(crtstrttl)
+            );
+
+            console.log(cartStore);
+
+            cartStore === null || cartStore === undefined
+              ? (() => {
+                  console.log(`fresh pushing`);
+                  cartStoreArray.push({
+                    em: userDetails.email,
+                    crt: [],
+                  });
+                  this._localStorage.setItem(crtstrttl, cartStoreArray);
+                })()
+              : (() => {
+                  cartStore.push({
+                    em: userDetails.email,
+                    crt: [],
+                  });
+                  this._localStorage.setItem(crtstrttl, cartStore);
+                })();
+
             this.who === 'user' && userDetails.accountType === 'client'
-              ? this.router.navigate(['shop'])
-              : this.router.navigate([this.who, 'dashboard']);
+              ? this.router.navigate(['shop'], { replaceUrl: true })
+              : this.router.navigate([this.who, 'dashboard'], {
+                  replaceUrl: true,
+                });
 
             this._snackbarService.showSnackBarFromComponent(
               SnackbarmsgComponent,
@@ -128,21 +175,31 @@ export class LoginComponent implements OnInit {
               duration
             );
           }
-          console.log(data);
         },
-        (error) => {
+        (error: HttpResponse) => {
           this.bufferValue = 100;
           this.value = 100;
           this.queryBar = false;
           this._response = error.error;
-          if (this._response) {
-            this._snackbarService.showSnackBarFromComponent(
-              SnackbarmsgComponent,
-              this._response.message,
-              duration
-            );
-          }
-          console.log(error.error);
+
+          console.log(error);
+
+          // handled no network error
+          error.status === 0
+            ? this._snackbarService.showSnackBarFromComponent(
+                SnackbarmsgComponent,
+                `${error.statusText}. Please check your network connection.`,
+                duration
+              )
+            : (() => {
+                if (this._response) {
+                  this._snackbarService.showSnackBarFromComponent(
+                    SnackbarmsgComponent,
+                    this._response.message,
+                    duration
+                  );
+                }
+              })();
         }
       );
     }
@@ -152,11 +209,11 @@ export class LoginComponent implements OnInit {
     return this.loginform.controls;
   }
 
-  getWelcomeMsg(): String {
+  getWelcomeMsg(): string {
     return this.welcomeMsg;
   }
 
-  getErrorMessage(): Object {
+  getErrorMessage(): object {
     return {
       passwordError: () => {
         if (this.status.password.hasError) {
@@ -177,25 +234,25 @@ export class LoginComponent implements OnInit {
     };
   }
 
-  initObjectStores(
-    DBName: string,
-    strNames: IdbTypes,
-    keyPath,
-    data,
-    sessid,
-    vrs = 2
-  ) {
-    const { ionidstrttl, ionstrttl, cartstrttl } = strNames;
-    this._indexedDB.alert();
-    // .hasOwnProperty
-    this._indexedDB
-      .openDB(DBName, [ionidstrttl, cartstrttl, ionstrttl], keyPath, 1)
-      .addToIDB(ionidstrttl, { email: this.loginDetails.email, id: sessid });
-
-    this._indexedDB
-      .openDB(DBName, [ionidstrttl, cartstrttl, ionstrttl], keyPath, 1)
-      .addToIDB(ionstrttl, data.userDetails);
-  }
+  // initObjectStores(
+  //   DBName: string,
+  //   strNames: {},
+  //   keyPath,
+  //   data,
+  //   sessid,
+  //   vrs = 2
+  // ) {
+  //   const { ionidstrttl, ionstrttl, cartstrttl } = strNames;
+  //   this._indexedDB.alert();
+  //   // .hasOwnProperty
+  //   this._indexedDB
+  //     .openDB(DBName, [ionidstrttl, cartstrttl, ionstrttl], keyPath, 1)
+  //     .addToIDB(ionidstrttl, { email: this.loginDetails.email, id: sessid });
+  //
+  //   this._indexedDB
+  //     .openDB(DBName, [ionidstrttl, cartstrttl, ionstrttl], keyPath, 1)
+  //     .addToIDB(ionstrttl, data.userDetails);
+  // }
 }
 
 // this._indexedDB

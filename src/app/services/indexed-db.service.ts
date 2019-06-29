@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
-import { InitsnackbarService } from '../services/initsnackbar.service';
+import { InitSnackbarService } from '../services/init-snackbar.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IndexedDBService {
   public request;
 
-  constructor(
-    private _initSnackbar: InitsnackbarService
-  ) { }
+  constructor(private _initSnackbar: InitSnackbarService) {}
   alert() {
-    const alertMsg = 'Your browser doesn\'t support a stable version of IndexedDB.' +
-    ' Persistence will not be available. Kindly update or change your browsers';
+    const alertMsg =
+      "Your browser doesn't support a stable version of IndexedDB." +
+      ' Persistence will not be available. Kindly update or change your browsers';
     const duration = 7000;
     if (!window.indexedDB) {
       // window.alert(alertMsg);
@@ -23,8 +22,9 @@ export class IndexedDBService {
 
   openDB(
     DBtitle: string,
-    objectStoreTitle:  string | string[],
-    keyPath: string | string[], vrs: number
+    objectStoreTitle: string | string[],
+    keyPath: string | string[],
+    vrs: number
   ) {
     console.log(`[IndexedDB] opening DB...!`);
 
@@ -54,26 +54,27 @@ export class IndexedDBService {
         console.log(`[IndexedDB] DB open failed. [Error] at db.error`);
       };
       // Create an objectStore for this database - i dont need previous object store except new ones
-      Array.isArray(objectStoreTitle) ?
-      ((objstrs) => {
-        objstrs.forEach((cur, i) => {
-          console.log(`[IndexedDB] creating Object Store ${cur}`);
-          db.createObjectStore(cur,
-            {
+      Array.isArray(objectStoreTitle)
+        ? ((objstrs) => {
+            objstrs.forEach((cur, i) => {
+              console.log(`[IndexedDB] creating Object Store ${cur}`);
+              db.createObjectStore(cur, {
+                keyPath: keyPath,
+                autoIncrement: true,
+              }).createIndex(keyPath, keyPath); // { keyPath: 'usn' }
+              console.log(`created ${cur} ${i}`);
+            });
+          })(objectStoreTitle)
+        : ((objstr) => {
+            console.log(
+              `[IndexedDB] creating Object Store ${objectStoreTitle}`
+            );
+            db.createObjectStore(objstr, {
               keyPath: keyPath,
-              autoIncrement: true
-          }).createIndex(keyPath, keyPath); // { keyPath: 'usn' }
-          console.log(`created ${cur} ${i}`);
-        });
-      })(objectStoreTitle) :
-      ((objstr) => {
-        console.log(`[IndexedDB] creating Object Store ${objectStoreTitle}`);
-        db.createObjectStore(
-          objstr,
-          { keyPath: keyPath, autoIncrement: true }
-        ).createIndex(keyPath);
-        console.log(`created ${objstr}`);
-      })(objectStoreTitle);
+              autoIncrement: true,
+            }).createIndex(keyPath);
+            console.log(`created ${objstr}`);
+          })(objectStoreTitle);
       console.log(`[IndexedDB] DB upgraded!`);
     };
     console.log(`[IndexedDB] Opened Database`);
@@ -84,18 +85,24 @@ export class IndexedDBService {
     this.request.onsuccess = (event) => {
       const db = event.target.result;
       db.onerror = (_event) => {
-        console.log(`[IndexedDB] DB open failed. [Error]: db.error ${_event.target.error}`);
+        console.log(
+          `[IndexedDB] DB open failed. [Error]: db.error ${_event.target.error}`
+        );
       };
-      const objectStore = db.transaction(objStrTitle, 'readwrite').objectStore(objStrTitle);
-      Array.isArray(data) ? ((dts) => {
-        dts.forEach((dt, i) => {
-          objectStore.add(dt);
-          console.log(`added to ${dt} ${i}`);
-        });
-      })(data) : ((dt) => {
-        objectStore.add(dt);
-        console.log(`added to ${dt}`);
-      })(data);
+      const objectStore = db
+        .transaction(objStrTitle, 'readwrite')
+        .objectStore(objStrTitle);
+      Array.isArray(data)
+        ? ((dts) => {
+            dts.forEach((dt, i) => {
+              objectStore.add(dt);
+              console.log(`added to ${dt} ${i}`);
+            });
+          })(data)
+        : ((dt) => {
+            objectStore.add(dt);
+            console.log(`added to ${dt}`);
+          })(data);
 
       if (typeof data === 'string') {
         objectStore.add(data);
@@ -113,7 +120,13 @@ export class IndexedDBService {
     };
   }
 
-  updateFromIDB(DBtitle: string, objStrTitle: string, keyPath: string, data, dataPath: string) {
+  updateFromIDB(
+    DBtitle: string,
+    objStrTitle: string,
+    keyPath: string,
+    data,
+    dataPath: string
+  ) {
     this.request = window.indexedDB.open(DBtitle);
     this.request.onsuccess = (event) => {
       const db = event.target.result;
@@ -125,7 +138,7 @@ export class IndexedDBService {
       };
     };
   }
-  clearObjectStore (DBtitle: string, objStrTitle: string) {
+  clearObjectStore(DBtitle: string, objStrTitle: string) {
     this.request = window.indexedDB.open(DBtitle);
     this.request.onsuccess = (event) => {
       const db = event.target.result;

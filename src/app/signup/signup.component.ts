@@ -1,30 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
+import {
+  FormControl,
+  Validators,
+  FormGroup,
+  FormBuilder,
+} from '@angular/forms';
 
-import { Signupprop } from '../interfaces/signupprop';
+import { SignupProps } from '../interfaces/signup-props';
 import { HttpResponse } from '../interfaces/http-response';
+import { CountryCodeProp } from '../interfaces/country-code-prop';
 
 import { SnackbarmsgComponent } from '../snackbarmsg/snackbarmsg.component';
 
-import { InitsnackbarService } from '../services/initsnackbar.service';
+import { InitSnackbarService } from '../services/init-snackbar.service';
 import { SignupService } from '../services/signup.service';
 import { CountrycodelistService } from '../services/countrycodelist.service';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent implements OnInit {
   signupform: FormGroup;
-  private signupDet: Signupprop;
-  private welcomeMsg: String;
-  public who: String;
+  private signupDet: SignupProps;
+
+  private welcomeMsg: string;
+  public who: string;
+  public where: string;
+
   public hide = true;
   public queryBar = false;
-  public countryList: string[];
   public submitted = true;
+
+  public ctycodelist: CountryCodeProp[];
 
   private _response: HttpResponse;
 
@@ -37,7 +47,7 @@ export class SignupComponent implements OnInit {
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private _signupService: SignupService,
-    private _snackbarService: InitsnackbarService,
+    private _snackbarService: InitSnackbarService,
     private _codelist: CountrycodelistService
   ) {}
 
@@ -46,7 +56,7 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.countryList = this._codelist.getList();
+    this.ctycodelist = this._codelist.getList();
     this.activatedRoute.parent.url.subscribe((URLSegment) => {
       let who = '';
       URLSegment.some((cur) => {
@@ -54,75 +64,123 @@ export class SignupComponent implements OnInit {
       })
         ? (() => {
             who = 'Prospective Client';
+            this.where = 'users';
             this.who = 'client';
           })()
         : (() => {
             who = 'New Admin';
+            this.where = 'admin';
             this.who = 'admin';
           })();
-      console.log(who);
       this.welcomeMsg = `Hello ${who}`;
     });
     this.signupform = this.formBuilder.group(
       {
-        firstname: new FormControl('', [Validators.required, Validators.minLength(2)]),
-        lastname: new FormControl('', [Validators.required, , Validators.minLength(2)]),
+        firstname: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+        ]),
+        lastname: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+        ]),
         email: new FormControl('', [
           Validators.required,
           Validators.pattern(
             // tslint:disable-next-line:max-line-length
             /[a-zA-Z0-9!#$%&' * +/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?/
-          )
+          ),
         ]),
+        countrycode: new FormControl('', Validators.required),
         accountType: new FormControl(this.who),
-        // countrycode: new FormControl('', Validators.required),
-        phone: new FormControl('', [Validators.required, Validators.minLength(8)]),
+        phone: new FormControl('', [
+          Validators.required,
+          Validators.minLength(8),
+        ]),
         password: new FormControl('', [
           Validators.required,
           Validators.minLength(8),
-          Validators.pattern('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,})$')
+          Validators.pattern(
+            '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,})$'
+          ),
         ]),
         confirm: new FormControl('', [
           Validators.required,
           Validators.minLength(8),
-          Validators.pattern('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,})$')
-        ])
+          Validators.pattern(
+            '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,})$'
+          ),
+        ]),
       },
       { validator: this.passwordMatchValidator }
     );
   }
 
   onSubmit() {
-    this.signupDet = this.signupform.getRawValue();
+    const duration = 7000;
     this.queryBar = true;
-    if (!this.disableBtn()) {
-      this.submitted = true;
-      this._signupService
-      .submitDetails(this.signupDet)
-      .subscribe((data: HttpResponse) => {
-        this.bufferValue = 100;
-        this.value = 100;
-        this.queryBar = false;
-        if (data) {
-          this._snackbarService.showSnackBarFromComponent(SnackbarmsgComponent, data.message, 7000);
+
+    this.signupDet = this.signupform.getRawValue();
+    this.signupDet.phone = `+${this.status.countrycode.value}${
+      this.signupDet.phone
+    }`;
+
+    console.log(this.signupDet.phone);
+
+    if (!this.disableBtn() && this.submitted === false) {
+      this._signupService.submitDetails(this.signupDet).subscribe(
+        (data: HttpResponse) => {
+          this.submitted = true;
+
+          this.bufferValue = 100;
+          this.value = 100;
+          this.queryBar = false;
+
+          if (data) {
+            this._snackbarService.showSnackBarFromComponent(
+              SnackbarmsgComponent,
+              data.message,
+              duration
+            );
+          }
+          console.log(data);
+        },
+        (error: HttpResponse) => {
+          this.bufferValue = 100;
+          this.value = 100;
+          this.queryBar = false;
+
+          this.submitted = false;
+
+          this._response = error.error;
+
+          error.status === 0
+            ? this._snackbarService.showSnackBarFromComponent(
+                SnackbarmsgComponent,
+                `${error.statusText}. Please check your network connection.`,
+                duration
+              )
+            : (() => {
+                if (this._response) {
+                  this._snackbarService.showSnackBarFromComponent(
+                    SnackbarmsgComponent,
+                    this._response.message,
+                    duration
+                  );
+                }
+              })();
+          console.log(error.error);
         }
-        console.log(data);
-      }, (error) => {
-        this.bufferValue = 100;
-        this.value = 100;
-        this.queryBar = false;
-        this._response = error.error;
-        if (this._response) {
-          this._snackbarService.showSnackBarFromComponent(SnackbarmsgComponent, this._response.message, 7000);
-        }
-        console.log(error);
-      });
+      );
     }
   }
 
   passwordMatchValidator(form: FormGroup) {
-    return form.get('password').value === form.get('confirm').value ? null : { mismatch: true };
+    return form.get('password').value === form.get('confirm').value
+      ? null
+      : { mismatch: true };
   }
+
   getErrorMessage(): Object {
     return {
       emailError: () => {
@@ -139,11 +197,11 @@ export class SignupComponent implements OnInit {
         if (this.status.password.hasError) {
           return this.status.password.hasError('required')
             ? 'You must enter a value'
-            : (this.status.password.hasError('minlength')
+            : this.status.password.hasError('minlength')
             ? 'Should be minimum 8 characters long'
             : this.status.password.hasError('pattern')
             ? 'Password must contain at least 1 Uppercase letter and number'
-            : '');
+            : '';
         }
       },
       confirmPasswordError: () => {
@@ -164,13 +222,13 @@ export class SignupComponent implements OnInit {
             : null;
         }
       },
-      // countrycodeError: () => {
-      //   if (this.status.countrycode.hasError) {
-      //     return this.status.countrycode.hasError('required')
-      //       ? 'Should be minimum 8 characters long'
-      //       : null;
-      //   }
-      // },
+      countrycodeError: () => {
+        if (this.status.countrycode.hasError) {
+          return this.status.countrycode.hasError('required')
+            ? 'this is required'
+            : null;
+        }
+      },
       phoneError: () => {
         if (this.status.phone.hasError) {
           return this.status.confirm.hasError('minlength')
@@ -197,7 +255,7 @@ export class SignupComponent implements OnInit {
             ? 'You must enter a value'
             : '';
         }
-      }
+      },
     };
   }
 
@@ -210,6 +268,7 @@ export class SignupComponent implements OnInit {
       this.status.firstname.value === '' ||
       this.status.lastname.value === '' ||
       (this.status.email.value === '' || this.status.email.invalid) ||
+      this.status.countrycode.invalid ||
       (this.status.password.value === '' || this.status.password.invalid) ||
       (this.status.confirm.value === '' || this.status.confirm.invalid) ||
       this.signupform.hasError('mismatch')

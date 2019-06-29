@@ -1,0 +1,88 @@
+html,
+body,
+header,
+.carousel {
+  height: 60vh !important;
+  margin-top: 2.5rem;
+}
+
+@media (max-width: 740px) {
+
+  html,
+  body,
+  header,
+  .carousel {
+    height: 100vh!important;
+  }
+  margin-top: none 1important;
+}
+
+@media (min-width: 800px) and (max-width: 850px) {
+
+  html,
+  body,
+  header,
+  .carousel {
+    height: 100vh!important;
+    margin-top: none;
+  }
+}
+
+/* My Styles */
+.nav-fix {
+  right: 0 !important;
+  left: 0 !important;
+  top: 0 !important;
+}
+.navbar-brand {
+  width: fit-content !important;
+}
+.nav-container {
+  width: 100% !important;
+  justify-content: center !important;
+}
+.user-btn {
+  display: flex;
+  width: 25px;
+  height: 25px;
+  box-sizing: border-box;
+}
+.user-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+.actv-usr-pn {
+  box-sizing: border-box!important;
+  height: fit-content;
+  width: fit-content;
+  text-align: center;
+}
+.img-circle {
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+}
+.sub-img-circle {
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+}
+.user-ctrl {
+  width: 100%;
+  box-sizing: border-box!important;
+  height: fit-content;
+}
+.add-user {
+  width: 100%;
+  display: flex;
+}
+.static-dp {
+  box-sizing: border-box!important;
+  position: static !important;
+  border-color: #fff !important;
+}
+.dropdown-item {
+  padding: 0.5rem!important;
+}

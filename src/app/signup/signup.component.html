@@ -1,84 +1,206 @@
-<form class="splash-container" [formGroup]='signupform' (ngSubmit)='onSubmit()'>
-  <div class="progress-bar" *ngIf="queryBar">
-    <mat-progress-bar
+<div class="page-wide">
+  <form
+    class="splash-container"
+    [formGroup]="signupform"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="header-container pd-1">
+      <div class="text-center">
+        <a [routerLink]="['']"
+          ><img class="logo-img" src="../assets/images/logo.png" alt="logo"
+        /></a>
+        <p class="pd-t-p5">
+          {{ getWelcomeMsg() }}. Please enter your user information.
+        </p>
+      </div>
+    </div>
+    <div class="progress-bar" *ngIf="queryBar">
+      <mat-progress-bar
         [color]="color"
         [mode]="mode"
         [value]="value"
-        [bufferValue]="bufferValue">
-    </mat-progress-bar>
-  </div>
-  <div>
-    <mat-card>
-      <div class="card-header">
-          <h3 class="mb-1 text-center">Create an Account</h3>
-          <p class="text-left">Please enter your user information.</p>
-      </div>
-      <mat-card-content class="el">
-          <mat-form-field appearance="outline">
-              <mat-label>Firstname</mat-label>
-              <input matInput formControlName="firstname" class="form-control form-control-lg" type="text" placeholder="Firstname" required>
-              <mat-icon matSuffix>person</mat-icon>
-              <mat-error *ngIf="status.firstname.invalid">{{ getErrorMessage().firstnameError() }}</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-              <mat-label>Lastname</mat-label>
-              <input matInput formControlName="lastname" class="form-control form-control-lg" type="text" placeholder="Lastname" required>
-              <mat-icon matSuffix>person</mat-icon>
-              <mat-error *ngIf="status.lastname.invalid">{{ getErrorMessage().lastnameError() }}</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Phone</mat-label>
-            <input matInput formControlName="phone" class="form-control form-control-lg"
-            type="tel" placeholder="Enter phone number" required>
-            <mat-icon matSuffix>contact_phone</mat-icon>
-            <mat-error *ngIf="status.phone.invalid">{{ getErrorMessage().phoneError() }}</mat-error>
-          </mat-form-field>
+        [bufferValue]="bufferValue"
+      >
+      </mat-progress-bar>
+    </div>
+    <div>
+      <mat-card>
+        <mat-card-content class="el">
+          <div class="form-row row">
+            <div class="col col-sm-6">
+              <mat-form-field appearance="outline">
+                <mat-label>Firstname</mat-label>
+                <input
+                  matInput
+                  formControlName="firstname"
+                  class="form-control-sm"
+                  type="text"
+                  placeholder="Firstname"
+                  required
+                />
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error *ngIf="status.firstname.invalid">{{
+                  getErrorMessage().firstnameError()
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col col-sm-6">
+              <mat-form-field appearance="outline">
+                <mat-label>Lastname</mat-label>
+                <input
+                  matInput
+                  formControlName="lastname"
+                  class="form-control-sm"
+                  type="text"
+                  placeholder="Lastname"
+                  required
+                />
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error *ngIf="status.lastname.invalid">{{
+                  getErrorMessage().lastnameError()
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-5">
+              <mat-form-field appearance="outline">
+                <mat-label>Code</mat-label>
+                <mat-select [formControl]="status.countrycode" required>
+                  <mat-option
+                    class="form-control-sm"
+                    *ngFor="let ctycode of ctycodelist"
+                    [value]="ctycode.ctycode"
+                  >
+                    {{ '+(' + ctycode.ctycode + ')' + ' ' + ctycode.cty }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="status.countrycode.invalid">{{
+                  getErrorMessage().countrycodeError()
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-7">
+              <mat-form-field appearance="outline">
+                <mat-label>Phone</mat-label>
+                <input
+                  matInput
+                  formControlName="phone"
+                  class="form-control-sm"
+                  type="tel"
+                  placeholder="8123456789"
+                  required
+                />
+                <mat-icon matSuffix>contact_phone</mat-icon>
+                <mat-error *ngIf="status.phone.invalid">{{
+                  getErrorMessage().phoneError()
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
           <mat-form-field appearance="outline">
             <mat-label>Email</mat-label>
-            <input matInput formControlName="email" class="form-control form-control-lg" type="email" placeholder="name@example.com" required>
+            <input
+              matInput
+              formControlName="email"
+              class="form-control-sm"
+              type="email"
+              placeholder="name@example.com"
+              required
+            />
             <mat-icon matSuffix>alternate_email</mat-icon>
-            <mat-error *ngIf="status.email.invalid">{{ getErrorMessage().emailError() }}</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-              <mat-label>Password</mat-label>
-              <input matInput placeholder="Enter your password" formControlName="password" [type]="hide ? 'password' : 'text'"
-                  [ngClass]="{ 'is-invalid': submitted && status.password.errors }" class="form-control form-control-lg" required />
-              <mat-icon matSuffix (click)="hide = !hide">{{
-                  hide ? "visibility_off" : "visibility"
-                  }}</mat-icon>
-              <mat-error *ngIf="status.password.invalid">{{ getErrorMessage().passwordError() }}</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-              <mat-label>Confirm Password</mat-label>
-              <input matInput placeholder="Confirm Password" [type]="hide ? 'password' : 'text'"
-                  [ngClass]="{ 'is-invalid': submitted && status.confirm.errors }" formControlName="confirm" class="form-control form-control-lg" required />
-              <mat-icon matSuffix (click)="hide = !hide">{{
-                  hide ? "visibility_off" : "visibility"
-              }}</mat-icon>
-              <mat-error *ngIf="status.confirm.invalid">{{
-                  getErrorMessage().confirmPasswordError()
-              }}</mat-error>
-          </mat-form-field>
-          <div class="mismatchError">
-            <mat-error *ngIf="status.confirm.value !== '' && status.password.value !== ''">{{
-                getErrorMessage().mismatchError()
+            <mat-error *ngIf="status.email.invalid">{{
+              getErrorMessage().emailError()
             }}</mat-error>
-          </div>
-      <div class="form-group">
-          <label>
-              <span>By creating an account, you agree the <a href="#">terms and conditions</a></span>
-          </label>
-      </div>
-      <div class="form-group pt-2">
-          <mat-card-actions class="form-group pt-2">
-              <button mat-raised-button color="" type="submit" [disabled]="disableBtn()">
-                  Sign up</button>
-          </mat-card-actions>
-      </div>
-            <div class="card-footer bg-white">
-                <p>Already member? <a [routerLink]="[who, '/login']" class="text-secondary">Login Here.</a></p>
+          </mat-form-field>
+          <div class="form-row">
+            <div class="col col-md-6">
+              <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <!-- removed submitted && from ng class -->
+                <input
+                  matInput
+                  placeholder="Enter your password"
+                  formControlName="password"
+                  [type]="hide ? 'password' : 'text'"
+                  [ngClass]="{
+                    'is-invalid': status.password.errors
+                  }"
+                  class="form-control-sm"
+                  required
+                />
+                <mat-icon matSuffix (click)="hide = !hide">{{
+                  hide ? 'visibility_off' : 'visibility'
+                }}</mat-icon>
+                <mat-error *ngIf="status.password.invalid">{{
+                  getErrorMessage().passwordError()
+                }}</mat-error>
+              </mat-form-field>
             </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
-</form>
+            <div class="col col-md-6">
+              <mat-form-field appearance="outline">
+                <mat-label>Confirm Password</mat-label>
+                <!-- removed submitted && from ng class -->
+                <input
+                  matInput
+                  placeholder="Confirm Password"
+                  [type]="hide ? 'password' : 'text'"
+                  [ngClass]="{
+                    'is-invalid': status.confirm.errors
+                  }"
+                  formControlName="confirm"
+                  class="form-control-sm"
+                  required
+                />
+                <mat-icon matSuffix (click)="hide = !hide">{{
+                  hide ? 'visibility_off' : 'visibility'
+                }}</mat-icon>
+                <mat-error *ngIf="status.confirm.invalid">{{
+                  getErrorMessage().confirmPasswordError()
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="mismatchError">
+            <mat-error
+              *ngIf="
+                status.confirm.value !== '' && status.password.value !== ''
+              "
+              >{{ getErrorMessage().mismatchError() }}</mat-error
+            >
+          </div>
+          <div class="form-group">
+            <div class="form-control-sm">
+              <label>
+                <small id="passwordHelpInline" class="form-text text-muted">
+                  By creating an account, you agree the
+                  <a href="#">terms and conditions</a>
+                </small>
+              </label>
+            </div>
+          </div>
+          <div class="form-group pt-2">
+            <mat-card-actions class="form-group pt-2">
+              <button
+                mat-raised-button
+                color=""
+                type="submit"
+                [disabled]="disableBtn()"
+              >
+                Sign up
+              </button>
+            </mat-card-actions>
+          </div>
+          <div class="card-footer bg-white">
+            <p>
+              Already member?
+              <a [routerLink]="['/', where, 'login']" class="text-secondary"
+                >Login Here.</a
+              >
+            </p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </form>
+</div>

@@ -1,3 +1,468 @@
-<p>
-  home-page-component works!
-</p>
+<!-- Navbar -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <!-- Brand -->
+    <a class="navbar-brand" [routerLink]="['/']" target="_self">
+      <strong>{{ title }}</strong>
+    </a>
+
+    <!-- Collapse -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Left -->
+      <ul class="navbar-nav mr-auto">
+        <li *ngFor="let link of links" class="nav-item">
+          <a class="nav-link" href="{{link.link}}"> {{ link.title }} </a>
+        </li>
+      </ul>
+
+      <!-- Right -->
+      <ul class="navbar-nav nav-flex-icons">
+        <mat-chip-list>
+          <mat-chip>
+            <li class="nav-item">
+              <a href="{{soc_link.facebook}}" class="nav-link" target="_blank">
+                <i class="fab fa-facebook-f ico-bld soc-icon-col-fb"></i>
+              </a>
+            </li>
+          </mat-chip>
+          <mat-chip>
+            <li class="nav-item">
+              <a href="{{soc_link.twitter}}" class="nav-link" target="_blank">
+                <i class="fab fa-twitter ico-bld soc-icon-col-tw"></i>
+              </a>
+            </li>
+          </mat-chip>
+          <mat-chip>
+            <li class="nav-item">
+              <a href="{{soc_link.whatsapp}}" class="nav-link" target="_blank">
+                <i class="fab fa-whatsapp ico-bld soc-icon-col-wh"></i>
+              </a>
+            </li>
+          </mat-chip>
+          <mat-chip>
+            <li class="nav-item">
+              <a href="{{soc_link.instagram}}" class="nav-link" target="_blank">
+                <i class="fab fa-instagram ico-bold soc-icon-col-in"></i>
+              </a>
+            </li>
+          </mat-chip>
+        </mat-chip-list>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- Navbar -->
+
+<!-- Full Page Intro -->
+<div
+  class="view full-page-intro"
+  style="background-image: url('./assets/images/tmp_bkgd.png'); background-repeat: no-repeat; background-size: cover;"
+>
+  <!-- Mask & flexbox options -->
+  <div
+    class="mask rgba-black-light d-flex justify-content-center align-items-center"
+  >
+    <!-- Content -->
+    <div class="container">
+      <!-- Grid row -->
+      <div class="row wow fadeIn intro-box">
+        <!-- Grid column -->
+        <div class="col-md-6 mb-4 white-text text-center text-md-left">
+          <h1 class="display-4 font-weight-bold caption">
+            Dominion Dried Catfish
+          </h1>
+
+          <hr class="hr-light" />
+          <p>
+            <strong>A Product of {{ title }} Integrated Services</strong>
+          </p>
+          <p class="mb-4 d-none d-md-block">
+            <strong>
+              Freshly processed, hygenically packed for your nourishment and
+              delivered to any place you may desire in the world!
+            </strong>
+          </p>
+
+          <a
+            mat-raised-button
+            routerLink="['shop']"
+            target="_blank"
+            [routerLink]="['shop']"
+            color="primary"
+            class="btn btn-sm"
+          >
+            Visit our Shop <i class="fas fa-shopping-bag ml-2"></i>
+          </a>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-6 col-xl-5 mb-4">
+          <!-- Form -->
+          <form [formGroup]="feedbackform" (ngSubmit)="onSubmit()">
+            <div class="progress-bar" *ngIf="queryBar">
+              <mat-progress-bar
+                [color]="color"
+                [mode]="mode"
+                [value]="value"
+                [bufferValue]="bufferValue"
+              >
+              </mat-progress-bar>
+            </div>
+            <!-- Card -->
+            <mat-card>
+              <!-- Heading -->
+              <h3 class="dark-grey-text text-center">
+                <strong>Write to us:</strong>
+              </h3>
+              <!-- /Heading -->
+              <hr />
+              <mat-card-content>
+                <!-- Form body -->
+                <div class="">
+                  <mat-form-field>
+                    <mat-label>Name</mat-label>
+                    <input
+                      matInput
+                      formControlName="name"
+                      class="form-control-sm"
+                      type="text"
+                      placeholder="Your Name"
+                      required
+                    />
+                    <mat-icon matSuffix> person </mat-icon>
+                    <mat-error *ngIf="status.name.invalid">{{
+                      getErrorMessage().nameError()
+                    }}</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="">
+                  <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input
+                      matInput
+                      formControlName="email"
+                      class="form-control-sm"
+                      type="email"
+                      placeholder="name@example.com"
+                      required
+                    />
+                    <mat-icon matSuffix>alternate_email</mat-icon>
+                    <mat-error *ngIf="status.email.invalid">{{
+                      getErrorMessage().emailError()
+                    }}</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="">
+                  <mat-form-field>
+                    <mat-label>Message</mat-label>
+                    <textarea
+                      matInput
+                      formControlName="message"
+                      class="form-control-sm"
+                      type="text"
+                      required
+                    ></textarea>
+                    <mat-error *ngIf="status.email.invalid">{{
+                      getErrorMessage().messageError()
+                    }}</mat-error>
+                  </mat-form-field>
+                </div>
+                <mat-card-actions>
+                  <div class="text-center">
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      [disabled]="disableBtn()"
+                    >
+                      <div class="text-center spin">
+                        <div class="spinner-border" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                        Submit
+                      </div>
+                      <!--
+                        <div class="col-12">
+                          <div class="col-4">
+                            <div
+                              class="spinner-grow text-success spin"
+                              *ngIf="true"
+                              role="status"
+                            >
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                          </div>
+                          <div class="col-8">Submit</div>
+                        </div>
+                      -->
+                    </button>
+                  </div>
+                </mat-card-actions>
+                <!-- Form body -->
+              </mat-card-content>
+            </mat-card>
+            <!-- Card -->
+          </form>
+          <!-- /Form -->
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+    <!-- Content -->
+  </div>
+  <!-- Mask & flexbox options -->
+</div>
+<!-- Full Page Intro -->
+
+<!-- Main layout -->
+<main>
+  <div class="container">
+    <!-- Section: Main info -->
+    <section class="mt-5 wow fadeIn">
+      <!-- Grid row -->
+      <div class="col">
+        <!-- Grid column -->
+        <div class="card-deck">
+          <mat-card *ngFor="let cardlink of cardlinks" class="card col-md-4">
+            <mat-card-content>
+              <div>
+                <img
+                  class="card-img-top"
+                  src="{{ cardlink.srclink }}"
+                  alt="Card-image"
+                />
+                <div class="card-body">
+                  <h4 class="card-title">{{ cardlink.title }}</h4>
+                  {{ cardlink.body }}
+                  <p class="card-text">{{ cardlink.addition }}.</p>
+                </div>
+                <!--
+                  <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                  </div>
+                -->
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </section>
+    <!-- Section: Main info -->
+
+    <hr class="my-5" />
+
+    <!-- Section: Why Dominion Catfish -->
+    <section>
+      <h2 class="my-5 h3 text-center" id="about-our-products">
+        Why Dominion Catfish?
+      </h2>
+
+      <!-- First row -->
+      <div class="row features-small mb-5 mt-3 wow fadeIn">
+        <!-- First column -->
+        <div class="col-md-6">
+          <!-- First row -->
+          <div class="row">
+            <div class="col-2">
+              <i class="fas fa-check-circle fa-1x blue-text"></i>
+            </div>
+            <div class="col-10">
+              <h6 class="feature-title">Nutritional Benefits</h6>
+              <p class="grey-text">
+                <strong>
+                  Our Products have been Nutritionally tested to be rich in
+                  Selenium, Niacin, Selenium, Protein, Vitamin B6, Vitamin B12
+                </strong>
+              </p>
+              <div style="height:15px"></div>
+            </div>
+          </div>
+          <!-- /First row -->
+        </div>
+        <!-- /First column -->
+
+        <!-- Second column -->
+        <div class="col-md-6 mt-2">
+          <!-- First row -->
+          <div class="row">
+            <div class="col-2">
+              <i class="fas fa-check-circle fa-1x green-text"></i>
+            </div>
+            <div class="col-10">
+              <h6 class="feature-title">Delivery</h6>
+              <p class="grey-text">
+                <strong>
+                  We promptly process delivery and to Ibadan, Lagos, Akure
+                  e.t.c.
+                </strong>
+              </p>
+              <div style="height:15px"></div>
+            </div>
+          </div>
+          <!-- /First row -->
+        </div>
+        <!-- Second column -->
+      </div>
+      <!-- /First row -->
+    </section>
+    <!-- Section: why Dominion Cat Fish -->
+
+    <hr class="my-5" />
+
+    <!-- Section: Contact Us -->
+    <section>
+      <h3 class="h3 text-center mb-5" id="contact-us">Contact US</h3>
+
+      <!-- Grid row -->
+      <div class="row wow fadeIn">
+        <!-- Grid column -->
+        <div class="col-lg-4 col-md-12">
+          <!-- First row -->
+          <div class="col-12">
+            <div class="col-2 mr-3">
+              <i class="fas fa-phone-square fa-2x indigo-text"></i>
+            </div>
+            <div class="col-10">
+              <h5 class="feature-title">Phone</h5>
+              <p class="grey-text text-justify text-left font-weight-bold">
+                +(234) 8038079328, 8172297308, 8036840053
+              </p>
+            </div>
+          </div>
+          <!-- /First row -->
+        </div>
+        <!-- /Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-lg-4 col-md-12">
+          <!-- First row -->
+          <div class="col-12">
+            <div class="col-2 mr-3">
+              <i class="fas fa-map fa-2x indigo-text"></i>
+            </div>
+            <div class="col-10">
+              <h5 class="feature-title">Address</h5>
+              <p class="grey-text text-justify font-weight-boldtext-left">
+                Peace Avenue, Otun Abese Estate , Elebu Ibadan
+              </p>
+            </div>
+          </div>
+          <!-- /First row -->
+        </div>
+        <!-- /Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-lg-4 col-md-12">
+          <!-- First row -->
+          <div class="col-12">
+            <div class="col-2 mr-3">
+              <i class="fas fa-envelope fa-2x indigo-text"></i>
+            </div>
+            <div class="col-10">
+              <h5 class="feature-title">Email</h5>
+              <p class="grey-text text-justify text-left">
+                debimpeters@gmail.com, debim09@gmail.com
+              </p>
+            </div>
+          </div>
+          <!-- /First row -->
+        </div>
+        <!-- /Grid column -->
+      </div>
+      <!-- /Grid row -->
+    </section>
+    <!-- Section: Contact Us -->
+
+    <div style="height:15px"></div>
+
+    <!-- <hr class="mb-5" /> -->
+
+    <!-- Section: More -->
+    <!-- Section: More -->
+  </div>
+</main>
+<!-- Main layout -->
+
+<!-- Footer -->
+<footer class="page-footer text-center font-small mt-4 wow fadeIn">
+  <!-- Call to action -->
+  <div class="pt-4">
+    <a
+      class="btn btn-outline-white"
+      [routerLink]="['shop']"
+      target="_blank"
+      role="button"
+      >Visit the Shop<i class="fas fa-shopping-cart ml-2"></i>
+    </a>
+    <a
+      class="btn btn-outline-white"
+      [routerLink]="['']"
+      target="_blank"
+      role="button"
+    >
+      Find Us on the Map <i class="fas fa-map ml-2"></i>
+    </a>
+  </div>
+  <!-- /.Call to action -->
+
+  <hr class="my-4" />
+
+  <!-- Social icons -->
+  <div class="pb-4">
+    <a href="{{soc_link.facebook}}" target="_blank">
+      <i class="fab fa-facebook-f mr-3"></i>
+    </a>
+
+    <a href="{{soc_link.twitter}}" target="_blank">
+      <i class="fab fa-twitter mr-3"></i>
+    </a>
+
+    <a href="{{soc_link.whatsapp}}" target="_blank">
+      <i class="fab fa-whatsapp mr-3"></i>
+    </a>
+
+    <a href="{{soc_link.instagram}}" target="_blank">
+      <i class="fab fa-instagram mr-3"></i>
+    </a>
+  </div>
+  <!-- Social icons -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright py-3">
+    © 2019 Copyright:
+    <a [routerLink]="['']" target="_self"> {{ title }} Integrated Services </a>
+  </div>
+  <!-- /.Copyright -->
+</footer>
+<!-- /.Footer -->
+
+<!-- SCRIPTS -->
+<!-- JQuery -->
+<!-- <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script> -->
+<!-- Bootstrap tooltips -->
+<!-- <script type="text/javascript" src="js/popper.min.js"></script> -->
+<!-- Bootstrap core JavaScript -->
+<!-- <script type="text/javascript" src="js/bootstrap.min.js"></script> -->
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="js/mdb.min.js"></script>
+<!-- Initializations -->
+<script type="text/javascript">
+  // Animations initialization
+  new WOW().init();
+</script>

@@ -14,6 +14,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -24,17 +27,25 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ShopComponent } from './shop/shop.component';
 import { SnackbarmsgComponent } from './snackbarmsg/snackbarmsg.component';
 import { VerifyComponent } from './verify/verify.component';
-
-// import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
-// import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-// import {BsDropdownModule} from 'ngx-bootstrap';
+import { AddAccountLoginComponent } from './add-account-login/add-account-login.component';
+import { AdminHomePageComponent } from './admin-home-page/admin-home-page.component';
+import { RetrieveComponent } from './retrieve/retrieve.component';
 
 import { APIURLService } from './services/apiurl.service';
 import { LoginService } from './services/login.service';
 import { SignupService } from './services/signup.service';
-import { InitsnackbarService } from './services/initsnackbar.service';
+import { InitSnackbarService } from './services/init-snackbar.service';
 import { CountrycodelistService } from './services/countrycodelist.service';
 import { SessValService } from './services/sess-val.service';
+import { AddAccountLoginService } from './services/add-account-login.service';
+import { LinksService } from './services/links.service';
+import { HomepageCardService } from './services/homepage-card.service';
+import { UsersActiveInactiveService } from './services/users-active-inactive.service';
+import { GoogleImgService } from './services/google-img.service';
+import { LogoutService } from './services/logout.service';
+import { CartService } from './services/cart.service';
+import { LocalStorageService } from './services/local-storage.service';
+import { RetrievePasswordService } from './services/retrieve-password.service';
 
 import { LoginAuthGuard } from './guards/login-auth.guard';
 import { DashboardAuthGuard } from './guards/dashboard-auth.guard';
@@ -50,14 +61,18 @@ import { DashboardAuthGuard } from './guards/dashboard-auth.guard';
     SnackbarmsgComponent,
     DashboardComponent,
     ShopComponent,
+    AddAccountLoginComponent,
+    AdminHomePageComponent,
+    RetrieveComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({
       appId: 'app-ent-domcatfish',
     }),
+    AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    AppRoutingModule,
+    MatChipsModule,
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,
@@ -70,19 +85,27 @@ import { DashboardAuthGuard } from './guards/dashboard-auth.guard';
     MatTabsModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    // InternationalPhoneNumberModule,
-    // BsDropdownModule.forRoot(),
-    // NgxIntlTelInputModule,
+    MatSelectModule,
+    MatTooltipModule,
   ],
   providers: [
     APIURLService,
+    LinksService,
     LoginService,
     SignupService,
-    InitsnackbarService,
+    InitSnackbarService,
     CountrycodelistService,
     SessValService,
     LoginAuthGuard,
     DashboardAuthGuard,
+    AddAccountLoginService,
+    HomepageCardService,
+    UsersActiveInactiveService,
+    GoogleImgService,
+    LogoutService,
+    CartService,
+    LocalStorageService,
+    RetrievePasswordService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [SnackbarmsgComponent],

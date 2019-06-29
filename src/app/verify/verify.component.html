@@ -1,3 +1,8 @@
-<p>
-  verify works!
-</p>
+<div class="page-wide">
+  <div class="check-container">
+    <div class="checks img-sq-100">
+      <i *ngIf="status === true" class="fa fa-check-circle"></i>
+      <i *ngIf="status === false" class="fa fa-check-cancel"></i>
+    </div>
+  </div>
+</div>

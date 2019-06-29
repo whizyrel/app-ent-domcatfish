@@ -1,0 +1,103 @@
+<!-- Navbar -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <!-- Brand -->
+    <a class="navbar-brand" [routerLink]="['/']" target="_self">
+      <strong>{{ title }}</strong>
+    </a>
+
+    <!-- Collapse -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Left -->
+      <ul class="navbar-nav mr-auto">
+        <li *ngFor="let link of links" class="nav-item">
+          <a class="nav-link" href="{{link.link}}"> {{ link.title }} </a>
+        </li>
+      </ul>
+
+      <!-- Right -->
+      <ul class="navbar-nav nav-flex-icons">
+        <mat-chip-list>
+          <mat-chip>
+            <li class="nav-item">
+              <a href="{{soc_link.facebook}}" class="nav-link" target="_blank">
+                <i class="fab fa-facebook-f ico-bld soc-icon-col-fb"></i>
+              </a>
+            </li>
+          </mat-chip>
+          <mat-chip>
+            <li class="nav-item">
+              <a href="{{soc_link.twitter}}" class="nav-link" target="_blank">
+                <i class="fab fa-twitter ico-bld soc-icon-col-tw"></i>
+              </a>
+            </li>
+          </mat-chip>
+          <mat-chip>
+            <li class="nav-item">
+              <a href="{{soc_link.whatsapp}}" class="nav-link" target="_blank">
+                <i class="fab fa-whatsapp ico-bld soc-icon-col-wh"></i>
+              </a>
+            </li>
+          </mat-chip>
+          <mat-chip>
+            <li class="nav-item">
+              <a href="{{soc_link.instagram}}" class="nav-link" target="_blank">
+                <i class="fab fa-instagram ico-bold soc-icon-col-in"></i>
+              </a>
+            </li>
+          </mat-chip>
+        </mat-chip-list>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- Navbar -->
+<!-- Full Page Intro -->
+<div
+  class="view full-page-intro"
+  style="background-image: url('./assets/images/tmp_bkgd.png'); background-repeat: no-repeat; background-size: cover;"
+>
+  <!-- buttons -->
+  <div
+    class="mask rgba-black-light d-flex justify-content-center align-items-center"
+  >
+    <div class="form-row align-items-center">
+      <div class="col-md-12">
+        <a mat-raised-button class="mg-right" [routerLink]="['signup']"
+          >Signup</a
+        >
+        <a mat-raised-button class="mg-left" [routerLink]="['login']">Login</a>
+      </div>
+    </div>
+  </div>
+  <!-- /buttons -->
+</div>
+<!-- Full Page Intro -->
+
+<!-- SCRIPTS -->
+<!-- JQuery -->
+<!-- <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script> -->
+<!-- Bootstrap tooltips -->
+<!-- <script type="text/javascript" src="js/popper.min.js"></script> -->
+<!-- Bootstrap core JavaScript -->
+<!-- <script type="text/javascript" src="js/bootstrap.min.js"></script> -->
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="js/mdb.min.js"></script>
+<!-- Initializations -->
+<script type="text/javascript">
+  // Animations initialization
+  new WOW().init();
+</script>

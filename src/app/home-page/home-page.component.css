@@ -1,0 +1,60 @@
+.view {
+  height: 100%;
+}
+
+@media (max-width: 740px) {
+  .view {
+    height: 1000px;
+  }
+  .deck-ex {
+    padding: 10px;
+  }
+}
+
+@media (min-width: 800px) and (max-width: 850px) {
+  .view {
+    height: 650px !important;
+  }
+}
+@media (min-width: 800px) and (max-width: 850px) {
+  .navbar:not(.top-nav-collapse) {
+      background: #1C2331!important;
+  }
+}
+
+/* my styles */
+.soc-icon-col-fb {
+  color: #3c5a9a;
+}
+
+.soc-icon-col-tw {
+  color: #34cbff;
+}
+
+.soc-icon-col-in {
+  color: #e64583;
+}
+
+.soc-icon-col-wh {
+  color: #2dd049;
+}
+
+.intro-box {
+  margin-top: 4.5rem!important;
+}
+
+.caption {
+  color: #fff
+}
+
+.ico-bld {
+  font-weight: bold!important;
+}
+
+mat-form-field {
+  width: 100%;
+}
+.spin {
+  width: 100%;
+  height: 100%;
+}

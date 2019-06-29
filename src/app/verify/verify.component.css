@@ -1,0 +1,19 @@
+.page-wide {
+  width: 100%!important;
+  height: 100%!important;
+  display: flex;
+  align-items: center; /* main-axis: x axis || horizontal axis */
+  justify-content: center; /* cross-axis: y axis || vertical axis*/
+}
+.check-container {
+  margin: auto;
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  align-items: center!important;
+  justify-content: center!important;
+}
+.checks {
+  width: 100%!important;
+  height: 100%!important;
+}

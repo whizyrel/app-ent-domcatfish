@@ -2,16 +2,18 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-// import { IndexedDBService } from '../services/indexed-db.service';
+import { LocalStorageService } from '../services/local-storage.service';
+
+import { SessStoreProps } from '../interfaces/sess-store-props';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoginAuthGuard implements CanActivate {
   constructor(
-    // private _indexedDB: IndexedDBService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private _localStorage: LocalStorageService
   ) {}
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
@@ -19,25 +21,35 @@ export class LoginAuthGuard implements CanActivate {
     const ionstrttl = 'ionstr';
 
     return new Promise((resolve, reject) => {
-      const ions = window.localStorage.getItem(ionstrttl);
+      const ions: SessStoreProps[] = JSON.parse(
+        this._localStorage.getItem(ionstrttl)
+      );
+
       console.log(ions);
-      // if ions resolve false and reroute
+
+      // if ions, resolve false and reroute
       // else resolve true, continue to route
-      if (ions !== null && ions !== undefined) {
+      if (ions !== null && ions !== undefined && ions.length !== 0) {
         let who;
         const md = window.localStorage.getItem('md');
         console.log(md);
-        md === 'user' ?
-        (() => {
-          who = 'user';
-          this.router.navigate(['shop']);
-          reject(false);
-        })() :
-          (() => {
-            who = 'admin';
-            this.router.navigate([who, 'dashboard']);
-            reject(false);
-          })();
+        md === 'user'
+          ? (() => {
+              who = 'user';
+              this.router.navigate(['shop'], {
+                replaceUrl: true,
+                skipLocationChange: true,
+              });
+              reject(false);
+            })()
+          : (() => {
+              who = 'admin';
+              this.router.navigate([who, 'dashboard'], {
+                replaceUrl: false,
+                skipLocationChange: false,
+              });
+              reject(false);
+            })();
       } else {
         resolve(true);
       }
