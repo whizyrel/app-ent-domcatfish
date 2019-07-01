@@ -150,4 +150,8 @@ export class ShopComponent implements OnInit {
   checkout() {
     // if cart is empty disable Proceed to checkout button
   }
+  addAccount() {
+    // reroute to user/add
+    this.router.navigate(['/users', 'add']);
+  }
 }

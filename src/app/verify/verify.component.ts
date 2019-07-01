@@ -31,12 +31,6 @@ export class VerifyComponent implements OnInit {
 
   ngOnInit() {
     // get enc from link
-    this.submit();
-  }
-
-  submit() {
-    const duration: number = 15000;
-
     this.activatedRoute.params.subscribe((param) => {
       console.log(param);
       const { nc } = param;
@@ -52,6 +46,13 @@ export class VerifyComponent implements OnInit {
         ? (this.who = 'user')
         : (this.who = 'admin');
     });
+
+    this.submit();
+  }
+
+  submit() {
+    const duration: number = 15000;
+
     // this.status = false;
     if (this.enc) {
       // use matcard rather
@@ -75,15 +76,7 @@ export class VerifyComponent implements OnInit {
                 `${error.statusText}. Please check your network connection.`,
                 duration
               )
-            : (() => {
-                if (this._response) {
-                  this._snackbarService.showSnackBarFromComponent(
-                    SnackbarmsgComponent,
-                    this.message,
-                    duration
-                  );
-                }
-              })();
+            : (this.message = `An error has occured please write to us, we'd be happy to help. Thanks`);
         }
       );
     }

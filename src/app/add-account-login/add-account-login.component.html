@@ -1,3 +1,89 @@
-<p>
-  add-account-login works!
-</p>
+<div class="page-wide">
+  <form
+    [formGroup]="addaccountform"
+    (ngSubmit)="onSubmit()"
+    class="splash-container"
+  >
+    <div class="header-container pd-b-1">
+      <div class="text-center">
+        <a [routerLink]="['']"
+          ><img class="logo-img" src="../assets/images/logo.png" alt="logo"
+        /></a>
+        <p class="pd-t-p5">
+          {{ getWelcomeMsg() }}. Please enter your user information.
+        </p>
+      </div>
+    </div>
+    <div class="progress-bar" *ngIf="queryBar">
+      <mat-progress-bar
+        [color]="color"
+        [mode]="mode"
+        [value]="value"
+        [bufferValue]="bufferValue"
+      >
+      </mat-progress-bar>
+    </div>
+    <div>
+      <mat-card>
+        <mat-card-content class="el">
+          <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input
+              matInput
+              formControlName="email"
+              placeholder="name@example.com"
+              class="form-control-sm"
+              required
+            />
+            <mat-icon matSuffix>alternate_email</mat-icon>
+            <mat-error *ngIf="status.email.invalid">{{
+              getErrorMessage().emailError()
+            }}</mat-error>
+            <!-- <mat-hint>Hint</mat-hint> -->
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              placeholder="Enter your password"
+              class="form-control-sm"
+              formControlName="password"
+              [type]="hide ? 'password' : 'text'"
+              [ngClass]="{ 'is-invalid': submitted && status.password.errors }"
+              required
+            />
+            <mat-icon matSuffix (click)="hide = !hide">{{
+              hide ? 'visibility_off' : 'visibility'
+            }}</mat-icon>
+            <mat-error *ngIf="status.password.invalid">{{
+              getErrorMessage().passwordError()
+            }}</mat-error>
+          </mat-form-field>
+          <mat-card-actions>
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="loginform.invalid"
+            >
+              Login
+            </button>
+          </mat-card-actions>
+        </mat-card-content>
+      </mat-card>
+      <div class="others">
+        <nav mat-tab-nav-bar>
+          <a
+            mat-tab-link
+            *ngFor="let link of links"
+            [routerLink]="[link.link]"
+            (click)="activeLink = link.link"
+            [active]="activeLink == link.link"
+          >
+            {{ link.title }}
+          </a>
+        </nav>
+      </div>
+    </div>
+  </form>
+</div>

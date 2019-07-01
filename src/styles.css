@@ -87,6 +87,14 @@ app-snackbarmsg {
 
 
 /* My library */
+/* page wide */
+.page-wide {
+  width: 100%!important;
+  height: 100%!important;
+  display: flex;
+  align-items: center; /* main-axis: x axis || horizontal axis */
+  justify-content: center; /* cross-axis: y axis || vertical axis*/
+}
 .tooltip {
   z-index: 1030;
 }

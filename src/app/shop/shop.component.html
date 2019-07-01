@@ -101,7 +101,10 @@
                 class="dropdown-item add-user pd-t-p5"
                 *ngIf="showActvUser === true"
               >
-                <a [routerLink]="['/user', 'add']" class="add-link form-inline"
+                <a
+                  [routerLink]="['/user', 'admin', 'add']"
+                  class="add-link form-inline"
+                  (click)="addAccount()"
                   ><i class="fa fa-user-plus mg-l-1 add-link">
                     <p class="mg-l-1">add account</p></i
                   ></a
