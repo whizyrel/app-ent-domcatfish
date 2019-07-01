@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { SnackbarmsgComponent } from '../snackbarmsg/snackbarmsg.component';
+
 import { VerifyAccountService } from '../services/verify-account.service';
+import { InitSnackbarService } from '../services/init-snackbar.service';
 
 import { HttpResponse } from '../interfaces/http-response';
 
@@ -17,9 +20,11 @@ export class VerifyComponent implements OnInit {
   private enc: string;
 
   private _response: HttpResponse;
+  private message: string;
 
   constructor(
     private _verifyAccount: VerifyAccountService,
+    private _snackbarService: InitSnackbarService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
@@ -30,6 +35,8 @@ export class VerifyComponent implements OnInit {
   }
 
   submit() {
+    const duration: number = 15000;
+
     this.activatedRoute.params.subscribe((param) => {
       console.log(param);
       const { nc } = param;
@@ -51,14 +58,32 @@ export class VerifyComponent implements OnInit {
       this._verifyAccount.submitDetails(this.enc).subscribe(
         (data: HttpResponse) => {
           this.status = true;
-          // use snackbar instead
+          this.message = data.message;
         },
         (error: HttpResponse) => {
           this.status = false;
           this._response = error.error;
 
-          // use snackbar instead
+          // show message in DOM
+          this.message = this._response.message;
+          console.log(this.message);
+
           // consider error.status === 0
+          error.status === 0
+            ? this._snackbarService.showSnackBarFromComponent(
+                SnackbarmsgComponent,
+                `${error.statusText}. Please check your network connection.`,
+                duration
+              )
+            : (() => {
+                if (this._response) {
+                  this._snackbarService.showSnackBarFromComponent(
+                    SnackbarmsgComponent,
+                    this.message,
+                    duration
+                  );
+                }
+              })();
         }
       );
     }

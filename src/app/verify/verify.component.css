@@ -1,19 +1,46 @@
 .page-wide {
   width: 100%!important;
   height: 100%!important;
+  box-sizing: border-box;
   display: flex;
   align-items: center; /* main-axis: x axis || horizontal axis */
   justify-content: center; /* cross-axis: y axis || vertical axis*/
 }
-.check-container {
+.page-container {
+  box-sizing: border-box;
   margin: auto;
+  height: fit-content;
+  width: fit-content;
+}
+.check-container {
   display: flex;
   width: fit-content;
   height: fit-content;
-  align-items: center!important;
-  justify-content: center!important;
 }
-.checks {
+mat-card-content {
+  height: fit-content;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  display: flex;
+}
+.cancel-icon {
+  color: red;
+}
+.check-icon {
+  color: green;
+}
+.header-container {
+  height: fit-content;
   width: 100%!important;
-  height: 100%!important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+.header-img {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: fit-content;
 }

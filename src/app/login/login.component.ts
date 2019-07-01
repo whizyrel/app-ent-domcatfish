@@ -95,14 +95,18 @@ export class LoginComponent implements OnInit {
 
     if (this.loginform.valid) {
       this.queryBar = true;
+
       this.loginDetails = this.loginform.getRawValue();
+
       // submit to database
       this._loginService.submitUserData(this.loginDetails, this.who).subscribe(
         (data: HttpResponse) => {
           this.bufferValue = 100;
           this.value = 100;
           this.queryBar = false;
+
           window.localStorage.setItem('md', this.who);
+
           if (
             data &&
             data.hasOwnProperty('sessid') &&

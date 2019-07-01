@@ -14,7 +14,7 @@ export class VerifyAccountService {
   ) {}
   submitDetails(enc: string): Observable<Object> {
     // const _url = 'http://localhost:8006/users/signup';
-    const _url = `${this.apiUrls.userUrls.verify}/enc=${enc}`;
+    const _url = `${this.apiUrls.userUrls.verify}/?enc=${enc}`;
     console.log(_url);
 
     // uses queries and not params

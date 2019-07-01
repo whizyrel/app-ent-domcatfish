@@ -1,8 +1,40 @@
 <div class="page-wide">
-  <div class="check-container">
-    <div class="checks img-sq-100">
-      <i *ngIf="status === true" class="fa fa-check-circle"></i>
-      <i *ngIf="status === false" class="fa fa-check-cancel"></i>
+  <div class="page-container pd-2">
+    <div class="header-container pd-b-1">
+      <div class="text-center">
+        <a [routerLink]="['']"
+          ><img class="logo-img" src="../assets/images/logo.png" alt="logo"
+        /></a>
+      </div>
     </div>
+    <mat-card class="check-container">
+      <mat-card-content class="checks pd-1">
+        <div class="text-center">
+          <i
+            *ngIf="status === true"
+            class="fa fa-check-circle fa-5x check-icon"
+          ></i>
+          <p
+            *ngIf="status === true"
+            class="
+          pd-1 dark-grey-text"
+          >
+            {{ message }}
+          </p>
+
+          <i
+            *ngIf="status === false"
+            class="fa fa-times-circle fa-5x cancel-icon"
+          ></i>
+          <p
+            *ngIf="status === false"
+            class="
+          pd-1 dark-grey-text"
+          >
+            {{ message }}
+          </p>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>
