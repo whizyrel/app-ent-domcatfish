@@ -1,0 +1,58 @@
+mat-card {
+  background: #fff;
+}
+.el {
+  max-width: 375px;
+  box-sizing: border-box;
+  width: fit-content;
+  height: fit-content;
+  padding: 10px;
+}
+mat-card-content {
+  padding: 5px 0 5px 0!important;
+}
+mat-form-field {
+  padding: 5px;
+  width: 100%;
+}
+mat-form-field * {
+  align-items: center;
+  width: 100%;
+}
+mat-card-actions {
+  padding-left: 10px !important;
+}
+.progress-bar {
+  width: 100%;
+  margin: auto;
+  height: fit-content;
+  box-sizing: border-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  border-top-left-radius: 1;
+  border-top-right-radius: 1;
+}
+.others {
+  background: #fff;
+  margin-top: 10px;
+}
+input {
+  background: #fff!important;
+  height: 100%!important;
+}
+.header-container {
+  height: fit-content;
+  width: 100%!important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+.header-img {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: fit-content;
+}

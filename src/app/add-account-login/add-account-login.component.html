@@ -9,9 +9,7 @@
         <a [routerLink]="['']"
           ><img class="logo-img" src="../assets/images/logo.png" alt="logo"
         /></a>
-        <p class="pd-t-p5">
-          {{ getWelcomeMsg() }}. Please enter your user information.
-        </p>
+        <p class="pd-t-p5">Please enter your account information.</p>
       </div>
     </div>
     <div class="progress-bar" *ngIf="queryBar">
@@ -64,7 +62,7 @@
               mat-raised-button
               color="primary"
               type="submit"
-              [disabled]="loginform.invalid"
+              [disabled]="addaccountform.invalid"
             >
               Login
             </button>

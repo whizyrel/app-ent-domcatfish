@@ -160,6 +160,26 @@ const routes: Routes = [
         ],
       },
       {
+        path: 'account',
+        children: [
+          {
+            path: 'add',
+            component: AddAccountLoginComponent,
+            pathMatch: 'full',
+          },
+          {
+            path: '',
+            redirectTo: '/shop',
+            pathMatch: 'full',
+          },
+          {
+            path: '**',
+            redirectTo: '/shop',
+            pathMatch: 'full',
+          },
+        ],
+      },
+      {
         path: '',
         redirectTo: '/shop',
         pathMatch: 'full',
