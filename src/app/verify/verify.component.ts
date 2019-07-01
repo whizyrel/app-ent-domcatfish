@@ -11,7 +11,7 @@ import { HttpResponse } from '../interfaces/http-response';
   styleUrls: ['./verify.component.css'],
 })
 export class VerifyComponent implements OnInit {
-  private status: boolean;
+  public status: boolean;
 
   private who: string;
   private enc: string;
