@@ -78,6 +78,13 @@ header,
   width: 100%;
   display: flex;
 }
+.add-link {
+  width: 100%;
+  display: flex;
+  word-wrap: normal;
+  box-sizing: border-box;
+  height: fit-content;
+}
 .static-dp {
   box-sizing: border-box!important;
   position: static !important;

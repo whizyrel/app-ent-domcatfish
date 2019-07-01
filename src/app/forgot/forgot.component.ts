@@ -12,6 +12,7 @@ import { SnackbarmsgComponent } from '../snackbarmsg/snackbarmsg.component';
 import { ForgotDetailsProps } from '../interfaces/forgot-details-props';
 import { HttpResponse } from '../interfaces/http-response';
 import { SessStoreProps } from '../interfaces/sess-store-props';
+import { CartStoreProps } from '../interfaces/cart-store-props';
 
 import { ForgotDetailsService } from '../services/forgot-details.service';
 import { InitSnackbarService } from '../services/init-snackbar.service';
@@ -24,6 +25,9 @@ import { LocalStorageService } from '../services/local-storage.service';
 })
 export class ForgotComponent implements OnInit {
   public recoveryform: FormGroup;
+
+  private ionstrttl: string = 'ionstr';
+  private crtstrttl: string = 'crtstr';
 
   public hide: boolean = true;
   public submitted: boolean = false;
@@ -53,22 +57,8 @@ export class ForgotComponent implements OnInit {
     // submit button
     this.clicked = false;
 
-    const ionstrttl: string = 'ionstr';
-    // get active usr email
-    const ions: SessStoreProps[] = JSON.parse(
-      this._localStorage.getItem(ionstrttl)
-    );
-
-    const actvUser: SessStoreProps = ions.find((cur) => cur.active);
-
-    actvUser !== null && actvUser !== undefined
-      ? (() => {
-          const {
-            dt: { email: em },
-          } = actvUser;
-          this.email = em;
-        })()
-      : (this.email = '');
+    // initialize email uinput field with active user
+    this.actvUserCtrl();
 
     this.recoveryform = this.formBuilder.group({
       email: new FormControl('', [
@@ -88,7 +78,8 @@ export class ForgotComponent implements OnInit {
     if (this.recoveryform.valid && this.clicked === false) {
       this.clicked = true;
       const recoveryDetails: ForgotDetailsProps = this.recoveryform.getRawValue();
-      console.log(recoveryDetails);
+
+      const { email } = recoveryDetails;
 
       this._forgotDetailsService.submitDetails(recoveryDetails).subscribe(
         (data: HttpResponse) => {
@@ -100,6 +91,7 @@ export class ForgotComponent implements OnInit {
           if (data) {
             const { message, link, enc } = data;
 
+            this.clearUserData(email);
             this._snackbarService.showSnackBarFromComponent(
               SnackbarmsgComponent,
               message,
@@ -137,6 +129,54 @@ export class ForgotComponent implements OnInit {
         }
       );
     }
+  }
+  protected actvUserCtrl() {
+    // get active user email
+    const ions: SessStoreProps[] = JSON.parse(
+      this._localStorage.getItem(this.ionstrttl)
+    );
+
+    const actvUser: SessStoreProps = ions.find((cur) => cur.active);
+
+    actvUser !== null && actvUser !== undefined
+      ? (() => {
+          const {
+            dt: { email: em },
+          } = actvUser;
+          this.email = em;
+        })()
+      : (this.email = '');
+    return {
+      ions: ions,
+      actvUser: actvUser,
+    };
+  }
+  protected clearUserData(em: string) {
+    // get active user data
+    const { ions, actvUser } = this.actvUserCtrl();
+    // remove such user from ion store
+    actvUser !== null && actvUser !== undefined
+      ? (() => {
+          this._localStorage.setItem(
+            this.ionstrttl,
+            ions.filter((cur) => cur.dt.email !== em)
+          );
+        })()
+      : null;
+
+    // get cart Store
+    const cartStore: CartStoreProps[] = JSON.parse(
+      this._localStorage.getItem(this.crtstrttl)
+    );
+    // remove from ion store
+    cartStore !== null && cartStore !== undefined
+      ? (() => {
+          this._localStorage.setItem(
+            this.crtstrttl,
+            cartStore.filter((cur) => cur.em !== em)
+          );
+        })()
+      : null;
   }
 
   get status() {
