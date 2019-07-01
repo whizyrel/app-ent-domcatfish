@@ -26,7 +26,7 @@ import { LinksService } from '../services/links.service';
   styleUrls: ['./add-account-login.component.css'],
 })
 export class AddAccountLoginComponent implements OnInit {
-  private addaccountform: FormGroup;
+  public addaccountform: FormGroup;
 
   private accountDetails: LoginProps;
 

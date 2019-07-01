@@ -57,7 +57,7 @@ export class ForgotComponent implements OnInit {
     // submit button
     this.clicked = false;
 
-    // initialize email uinput field with active user
+    // initialize email input field with active user
     this.actvUserCtrl();
 
     this.recoveryform = this.formBuilder.group({
@@ -131,21 +131,28 @@ export class ForgotComponent implements OnInit {
     }
   }
   protected actvUserCtrl() {
+    let actvUser: SessStoreProps;
+
     // get active user email
     const ions: SessStoreProps[] = JSON.parse(
       this._localStorage.getItem(this.ionstrttl)
     );
 
-    const actvUser: SessStoreProps = ions.find((cur) => cur.active);
-
-    actvUser !== null && actvUser !== undefined
+    // ions bypass for prod build error
+    ions !== null && ions !== undefined
       ? (() => {
-          const {
-            dt: { email: em },
-          } = actvUser;
-          this.email = em;
+          actvUser = ions.find((cur) => cur.active);
+          actvUser !== null && actvUser !== undefined
+            ? (() => {
+                const {
+                  dt: { email: em },
+                } = actvUser;
+                this.email = em;
+              })()
+            : (this.email = '');
         })()
-      : (this.email = '');
+      : null;
+
     return {
       ions: ions,
       actvUser: actvUser,
@@ -157,10 +164,15 @@ export class ForgotComponent implements OnInit {
     // remove such user from ion store
     actvUser !== null && actvUser !== undefined
       ? (() => {
-          this._localStorage.setItem(
-            this.ionstrttl,
-            ions.filter((cur) => cur.dt.email !== em)
-          );
+          // only clear data if ions is not null or undefined
+          ions !== null && actvUser !== undefined
+            ? (() => {
+                this._localStorage.setItem(
+                  this.ionstrttl,
+                  ions.filter((cur) => cur.dt.email !== em)
+                );
+              })()
+            : null;
         })()
       : null;
 
