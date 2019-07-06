@@ -34,7 +34,7 @@ export class ShopComponent implements OnInit {
   public username: string;
 
   public active: SessStoreProps;
-  public inactive: SessStoreProps[] | SessStoreProps;
+  public inactive: SessStoreProps[];
 
   public showActvUser: boolean;
   public showInactvUser: boolean;
@@ -59,10 +59,14 @@ export class ShopComponent implements OnInit {
   }
 
   initActive() {
-    this.active = this._users.getUsersActive;
+    // type mismatch
+    !Array.isArray(this._users.getUsersActive)
+      ? (this.active = this._users.getUsersActive)
+      : null;
+
     this.active !== undefined &&
     this.active !== null &&
-    !Array.isArray(this.active)
+    Array.isArray(this.active) === false
       ? (() => {
           const {
             dt: { firstname, lastname, email },
@@ -95,9 +99,14 @@ export class ShopComponent implements OnInit {
   }
 
   initInactive() {
-    this.inactive = this._users.getUsersInactive;
+    // type mismatch
+    this._users.getUsersInactive.length < 1
+      ? (this.inactive = this._users.getUsersInactive)
+      : null;
 
-    this.inactive['length'] >= 1
+    this.inactive['length'] >= 1 &&
+    this.inactive !== null &&
+    this.inactive !== undefined
       ? (() => {
           this.showInactvUser = true;
           this.inactive['forEach']((cur) => {

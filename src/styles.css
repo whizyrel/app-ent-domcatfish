@@ -87,6 +87,32 @@ app-snackbarmsg {
 
 
 /* My library */
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991px) {
+  .pd-b-ctrl {
+    padding-bottom: 0!important;
+  }
+  .pd-t-ctrl {
+    padding-top: 0!important;
+  }
+}
+
+// Large devices (desktops, less than 1200px)
+@media (max-width: 1199px) {
+  .pd-b-ctrl {
+    padding-bottom: 0!important;
+  }
+  .pd-t-ctrl {
+    padding-top: 0!important;
+  }
+}
+
+/* Navbar */
+.nav-container {
+  width: 100% !important;
+  justify-content: center !important;
+}
+
 /* page wide */
 .page-wide {
   width: 100%!important;

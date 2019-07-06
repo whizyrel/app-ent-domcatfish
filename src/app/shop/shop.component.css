@@ -28,6 +28,27 @@ header,
   }
 }
 
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991px) {
+  .pd-b-ctrl {
+    padding-bottom: 0!important;
+  }
+  .pd-t-ctrl {
+    padding-top: 0!important;
+  }
+}
+
+// Large devices (desktops, less than 1200px)
+@media (max-width: 1199px) {
+  .pd-b-ctrl {
+    padding-bottom: 0!important;
+  }
+  .pd-t-ctrl {
+    padding-top: 0!important;
+  }
+}
+
+
 /* My Styles */
 .nav-fix {
   right: 0 !important;
@@ -36,10 +57,6 @@ header,
 }
 .navbar-brand {
   width: fit-content !important;
-}
-.nav-container {
-  width: 100% !important;
-  justify-content: center !important;
 }
 .user-btn {
   display: flex;
@@ -89,6 +106,7 @@ header,
   box-sizing: border-box!important;
   position: static !important;
   border-color: #fff !important;
+  margin-top: 25px!important;
 }
 .dropdown-item {
   padding: 0.5rem!important;

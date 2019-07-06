@@ -58,3 +58,10 @@ mat-form-field {
   width: 100%;
   height: 100%;
 }
+.icon-justify {
+  margin: auto;
+}
+.info-container {
+  justify-content: center;
+  align-items: center;
+}

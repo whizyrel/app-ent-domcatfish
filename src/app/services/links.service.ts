@@ -28,11 +28,11 @@ export class LinksService {
       },
       {
         link: '#about-our-products',
-        title: 'About Our Products',
+        title: 'Products',
       },
       {
         link: '#contact-us',
-        title: 'Contact Us',
+        title: 'Contact',
       },
     ];
   }

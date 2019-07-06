@@ -32,7 +32,7 @@ export class SignupComponent implements OnInit {
 
   public hide = true;
   public queryBar = false;
-  public submitted = true;
+  public submitted = false;
 
   public ctycodelist: CountryCodeProp[];
 
@@ -169,7 +169,7 @@ export class SignupComponent implements OnInit {
                   );
                 }
               })();
-          console.log(error.error);
+          console.log(error);
         }
       );
     }

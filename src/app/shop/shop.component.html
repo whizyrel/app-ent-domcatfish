@@ -27,11 +27,11 @@
               <a class="nav-link" [routerLink]="['/user', 'signup']">Signup</a>
             </li>
           </div>
-          <li class="nav-item">
+          <li class="nav-item dropleft">
             <!-- Cart -->
-            <div
+            <a
               class="nav-link waves-effect dropdown-toggled"
-              id="dropdownMenuButton"
+              id="dropdownMenuLink"
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
@@ -39,19 +39,19 @@
               <span class="badge red z-depth-1 mr-1"> {{ cart.length }} </span>
               <i class="fas fa-shopping-cart"></i>
               <span class="clearfix d-none d-sm-inline-block"> </span>
-            </div>
+            </a>
             <div
               class="dropdown-menu static-dp"
               aria-labelledby="dropdownMenuButton"
             >
               <!-- Cart content -->
-              <div class="dropdown-item js-content" *ngIf="cart.length < 1">
+              <a class="dropdown-item js-content" *ngIf="cart.length < 1">
                 <p>
                   <i class="fa fa-shopping-cart mg-l-p5 mg-r-1"></i> Your cart
                   is empty
                 </p>
-              </div>
-              <div class="dropdown-item" *ngIf="cart.length >= 1">
+              </a>
+              <a class="dropdown-item" *ngIf="cart.length >= 1">
                 <div class="other-user-panel">
                   <div class="form-inline">
                     <div class="mg-l-1">
@@ -65,11 +65,11 @@
                     <i class="fa fa-times-circle mg-l-1"></i>
                   </div>
                 </div>
-              </div>
+              </a>
               <div *ngIf="cart.length >= 1" class="dropdown-divider"></div>
 
               <!-- checkout -->
-              <div class="dropdown-item" *ngIf="cart.length >= 1">
+              <a class="dropdown-item" *ngIf="cart.length >= 1">
                 <div class="other-user-panel">
                   <div class="form-inline">
                     <div class="mg-l-1 js-center">
@@ -77,27 +77,27 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
             </div>
           </li>
 
           <!-- users -->
-          <li class="nav-item user-btn mg-l-1 mg-r-3">
-            <div
+          <li class="nav-item user-btn mg-l-1 mg-r-1 dropleft">
+            <a
               class="dropdown-toggled"
-              id="dropdownMenuButton"
+              id="dropdownMenuLink"
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
             >
               <img src="{{userimg}}" class="user-img" alt="User Image" />
-            </div>
+            </a>
             <div
               class="dropdown-menu static-dp"
               aria-labelledby="dropdownMenuButton"
             >
               <!-- Add User -->
-              <div
+              <a
                 class="dropdown-item add-user pd-t-p5"
                 *ngIf="showActvUser === true"
               >
@@ -108,9 +108,9 @@
                     <p class="mg-l-1">add account</p></i
                   ></a
                 >
-              </div>
+              </a>
               <!-- active user -->
-              <div class="dropdown-item js-center">
+              <a class="dropdown-item js-center">
                 <!-- User image -->
                 <div class="actv-usr-pn">
                   <div class="form-inline">
@@ -142,13 +142,13 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
               <div
                 *ngIf="showInactvUser === true"
                 class="dropdown-divider"
               ></div>
               <!-- other users -->
-              <div *ngIf="showInactvUser === true" class="dropdown-item pd-p5">
+              <a *ngIf="showInactvUser === true" class="dropdown-item pd-p5">
                 <div class="other-user-panel">
                   <div class="form-inline">
                     <div class="mg-l-1">
@@ -161,7 +161,7 @@
                     <div class="mg-l-2">Name</div>
                   </div>
                 </div>
-              </div>
+              </a>
             </div>
           </li>
         </ul>
@@ -346,49 +346,50 @@
     <nav
       class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 mt-3 mb-5"
     >
-      <!-- Navbar brand -->
-      <span class="navbar-brand">Categories:</span>
-
-      <!-- Collapse button -->
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#basicExampleNav"
-        aria-controls="basicExampleNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <!-- Collapsible content -->
-      <div class="collapse navbar-collapse" id="basicExampleNav">
-        <!-- Links -->
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#"
-              >All <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item"><a class="nav-link" href="#">Shirts</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Sport wears</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Outwears</a></li>
-        </ul>
-        <!-- Links -->
-
-        <form class="form-inline fl-r">
-          <div class="md-form my-0">
-            <input
-              class="form-control mr-sm-2"
-              type="text"
-              placeholder="Search"
-              aria-label="Search"
-            />
+      <div class="nav-container">
+        <div class="row js-center form-inline">
+          <!-- Products tab -->
+          <div class="col-sm-7">
+            <!-- Links -->
+            <ul class="nav justify-content-center">
+              <li class="nav-item active">
+                <a class="nav-link pd-r-1" href="#"
+                  >All <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link pd-r-1" href="#">Shirts</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link pd-r-1" href="#">Sport wears</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link pd-r-1" href="#">Outwears</a>
+              </li>
+            </ul>
+            <!-- Links -->
           </div>
-        </form>
+          <!-- /Products tab -->
+
+          <!-- Search -->
+          <div class="col-sm-5">
+            <form
+              class="form-inline nav-fill justify-content-center"
+              style="width: 100%;"
+            >
+              <div class="md-form my-0" style="width: 100%;">
+                <input
+                  class="form-control mr-sm-2"
+                  type="text"
+                  placeholder="Search"
+                  aria-label="Search"
+                  style="width: 100%;"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-      <!-- Collapsible content -->
     </nav>
     <!-- /.Navbar -->
 

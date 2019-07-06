@@ -1,66 +1,69 @@
 <!-- Navbar -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <!-- Brand -->
-    <a class="navbar-brand" [routerLink]="['/']" target="_self">
-      <strong>{{ title }}</strong>
-    </a>
+  <div class="nav-container">
+    <div class="row js-center">
+      <!-- Brand -->
+      <div class="col-sm-3">
+        <a class="navbar-brand js-center" [routerLink]="['/']" target="_self">
+          <strong>{{ title }}</strong>
+        </a>
+      </div>
 
-    <!-- Collapse -->
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+      <!-- Links -->
+      <div class="col-md-9 form-inline">
+        <!-- Left -->
+        <ul class="nav justify-content-center col-sm-6">
+          <li *ngFor="let link of links" class="nav-item">
+            <a class="nav-link" href="{{link.link}}"> {{ link.title }} </a>
+          </li>
+        </ul>
 
-    <!-- Links -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <!-- Left -->
-      <ul class="navbar-nav mr-auto">
-        <li *ngFor="let link of links" class="nav-item">
-          <a class="nav-link" href="{{link.link}}"> {{ link.title }} </a>
-        </li>
-      </ul>
-
-      <!-- Right -->
-      <ul class="navbar-nav nav-flex-icons">
-        <mat-chip-list>
-          <mat-chip>
-            <li class="nav-item">
-              <a href="{{soc_link.facebook}}" class="nav-link" target="_blank">
-                <i class="fab fa-facebook-f ico-bld soc-icon-col-fb"></i>
-              </a>
-            </li>
-          </mat-chip>
-          <mat-chip>
-            <li class="nav-item">
-              <a href="{{soc_link.twitter}}" class="nav-link" target="_blank">
-                <i class="fab fa-twitter ico-bld soc-icon-col-tw"></i>
-              </a>
-            </li>
-          </mat-chip>
-          <mat-chip>
-            <li class="nav-item">
-              <a href="{{soc_link.whatsapp}}" class="nav-link" target="_blank">
-                <i class="fab fa-whatsapp ico-bld soc-icon-col-wh"></i>
-              </a>
-            </li>
-          </mat-chip>
-          <mat-chip>
-            <li class="nav-item">
-              <a href="{{soc_link.instagram}}" class="nav-link" target="_blank">
-                <i class="fab fa-instagram ico-bold soc-icon-col-in"></i>
-              </a>
-            </li>
-          </mat-chip>
-        </mat-chip-list>
-      </ul>
+        <!-- Right -->
+        <ul class="nav nav-fill justify-content-center col-sm-6">
+          <mat-chip-list>
+            <mat-chip>
+              <li class="nav-item">
+                <a
+                  href="{{soc_link.facebook}}"
+                  class="nav-link"
+                  target="_blank"
+                >
+                  <i class="fab fa-facebook-f ico-bld soc-icon-col-fb"></i>
+                </a>
+              </li>
+            </mat-chip>
+            <mat-chip>
+              <li class="nav-item">
+                <a href="{{soc_link.twitter}}" class="nav-link" target="_blank">
+                  <i class="fab fa-twitter ico-bld soc-icon-col-tw"></i>
+                </a>
+              </li>
+            </mat-chip>
+            <mat-chip>
+              <li class="nav-item">
+                <a
+                  href="{{soc_link.whatsapp}}"
+                  class="nav-link"
+                  target="_blank"
+                >
+                  <i class="fab fa-whatsapp ico-bld soc-icon-col-wh"></i>
+                </a>
+              </li>
+            </mat-chip>
+            <mat-chip>
+              <li class="nav-item">
+                <a
+                  href="{{soc_link.instagram}}"
+                  class="nav-link"
+                  target="_blank"
+                >
+                  <i class="fab fa-instagram ico-bold soc-icon-col-in"></i>
+                </a>
+              </li>
+            </mat-chip>
+          </mat-chip-list>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>
@@ -332,15 +335,15 @@
       <!-- Grid row -->
       <div class="row wow fadeIn">
         <!-- Grid column -->
-        <div class="col-lg-4 col-md-12">
+        <div class="col-lg-4 col-md-4 info-container">
           <!-- First row -->
-          <div class="col-12">
-            <div class="col-2 mr-3">
-              <i class="fas fa-phone-square fa-2x indigo-text"></i>
+          <div class="col-12 info-container">
+            <div class="col-lg-12 col-md-12 mr-3 js-center pd-t-1 pd-b-1">
+              <i class="fas fa-phone-square fa-2x indigo-text icon-justify"></i>
             </div>
-            <div class="col-10">
+            <div class="col-md-12 text-center">
               <h5 class="feature-title">Phone</h5>
-              <p class="grey-text text-justify text-left font-weight-bold">
+              <p class="grey-text text-justify text-center font-weight-bold">
                 +(234) 8038079328, 8172297308, 8036840053
               </p>
             </div>
@@ -350,15 +353,17 @@
         <!-- /Grid column -->
 
         <!-- Grid column -->
-        <div class="col-lg-4 col-md-12">
+        <div class="col-lg-4 col-md-4">
           <!-- First row -->
-          <div class="col-12">
-            <div class="col-2 mr-3">
-              <i class="fas fa-map fa-2x indigo-text"></i>
+          <div class="col-12 info-container">
+            <div class="col-lg-12 col-md-12 mr-3 js-center pd-t-1 pd-b-1">
+              <i class="fas fa-map fa-2x indigo-text icon-justify"></i>
             </div>
-            <div class="col-10">
+            <div class="col-md-12 text-center">
               <h5 class="feature-title">Address</h5>
-              <p class="grey-text text-justify font-weight-boldtext-left">
+              <p
+                class="grey-text text-justify text-center font-weight-boldtext-left"
+              >
                 Peace Avenue, Otun Abese Estate , Elebu Ibadan
               </p>
             </div>
@@ -368,15 +373,15 @@
         <!-- /Grid column -->
 
         <!-- Grid column -->
-        <div class="col-lg-4 col-md-12">
+        <div class="col-lg-4 col-md-4 info-container">
           <!-- First row -->
           <div class="col-12">
-            <div class="col-2 mr-3">
-              <i class="fas fa-envelope fa-2x indigo-text"></i>
+            <div class="col-lg-12 col-md-12 mr-3 js-center pd-t-1 pd-b-1">
+              <i class="fas fa-envelope fa-2x indigo-text icon-justify"></i>
             </div>
-            <div class="col-10">
+            <div class="col-md-12 text-center">
               <h5 class="feature-title">Email</h5>
-              <p class="grey-text text-justify text-left">
+              <p class="grey-text text-justify text-center">
                 debimpeters@gmail.com, debim09@gmail.com
               </p>
             </div>
