@@ -7,6 +7,8 @@ import {
   FormBuilder,
 } from '@angular/forms';
 
+import { AES, enc } from 'crypto-js';
+
 import { SnackbarmsgComponent } from '../snackbarmsg/snackbarmsg.component';
 
 import { LoginProps } from '../interfaces/login-props';
@@ -32,6 +34,9 @@ export class AddAccountLoginComponent implements OnInit {
   private accountDetails: LoginProps;
 
   private who: string;
+
+  private returnURL: string;
+  protected seckey: string = 'app-ent-domcatfish';
 
   public hide = true;
   public submitted = false;
@@ -59,6 +64,20 @@ export class AddAccountLoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // grab query
+    this.activatedRoute.queryParams.subscribe((param) => {
+      console.log(param);
+      const { rt } = param;
+
+      // decrypt rt
+      const bytes = AES.decrypt(rt.toString(), this.seckey);
+      // console.log(`bytes: ${bytes}`);
+
+      this.returnURL = bytes.toString(enc.Utf8);
+      console.log(this.returnURL);
+    });
+
+    // grab URLSegment
     this.activatedRoute.parent.url.subscribe((URLSegment) => {
       let who = '';
       console.log(Array.from(URLSegment));
@@ -179,19 +198,20 @@ export class AddAccountLoginComponent implements OnInit {
                     this._localStorage.setItem(crtstrttl, cartStore);
                   })();
 
-              // route back to original URL whence user came
-              // hence use param return URL
-              this.who === 'user' && userDetails.accountType === 'client'
-                ? this.router.navigate(['shop'], { replaceUrl: true })
-                : this.router.navigate([this.who, 'dashboard'], {
-                    replaceUrl: true,
-                  });
-
               this._snackbarService.showSnackBarFromComponent(
                 SnackbarmsgComponent,
                 message,
                 duration
               );
+
+              // route back to original URL whence user came
+              // hence use param return URL
+              this.router.navigateByUrl(this.returnURL);
+              // this.who === 'user' && userDetails.accountType === 'client'
+              //   ? this.router.navigate(['shop'], { replaceUrl: true })
+              //   : this.router.navigate([this.who, 'dashboard'], {
+              //       replaceUrl: true,
+              //     });
             }
           },
           (error: HttpResponse) => {

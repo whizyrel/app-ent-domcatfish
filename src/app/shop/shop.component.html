@@ -107,8 +107,9 @@
               >
                 <a
                   [routerLink]="['/user', 'account', 'add']"
+                  [queryParams]="{ rt: encURL }"
                   class="add-link form-inline"
-                  ><i class="fa fa-user-plus mg-l-1 add-link fl-l">
+                  ><i class="fa fa-user-plus add-link fl-l">
                     <!-- <p class="mg-l-1">add account</p> --> </i
                 ></a>
               </a>

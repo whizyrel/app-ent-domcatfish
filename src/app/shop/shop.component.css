@@ -109,6 +109,9 @@ header,
   box-sizing: border-box;
   height: fit-content;
 }
+.add-link:hover {
+  background-color: inherit!important;
+}
 .static-dp {
   box-sizing: border-box!important;
   position: static !important;

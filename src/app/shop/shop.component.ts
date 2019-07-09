@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { AES, enc } from 'crypto-js';
+
 import { LinksService } from '../services/links.service';
 import { UsersActiveInactiveService } from '../services/users-active-inactive.service';
 import { GoogleImgService } from '../services/google-img.service';
@@ -29,6 +31,9 @@ export class ShopComponent implements OnInit {
   public links: LinkProps[];
 
   public what: string = `Logout`;
+
+  public encURL: string;
+  protected seckey: string = 'app-ent-domcatfish';
 
   public userimg: string;
   public otherusrimg: string;
@@ -60,7 +65,8 @@ export class ShopComponent implements OnInit {
     this.initActive();
     this.initInactive();
 
-    console.log(this.activatedRoute.pathFromRoot.toString());
+    // console.log(this.activatedRoute.pathFromRoot.toString());
+    this.encURL = AES.encrypt('/shop', this.seckey);
   }
 
   initActive() {
@@ -99,7 +105,7 @@ export class ShopComponent implements OnInit {
           this.what = `Sign in`;
           this.showActvUser = false;
           this.userimg = `./assets/images/user2-160x160.jpg`;
-          this.username = `Your name`;
+          this.username = ``;
         })();
   }
 
