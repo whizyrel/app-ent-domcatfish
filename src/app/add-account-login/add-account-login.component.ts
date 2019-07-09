@@ -19,6 +19,7 @@ import { LoginService } from '../services/login.service';
 import { InitSnackbarService } from '../services/init-snackbar.service';
 import { LocalStorageService } from '../services/local-storage.service';
 import { LinksService } from '../services/links.service';
+import { UsersActiveInactiveService } from '../services/users-active-inactive.service';
 
 @Component({
   selector: 'app-add-account-login',
@@ -53,7 +54,8 @@ export class AddAccountLoginComponent implements OnInit {
     private _linksService: LinksService,
     private _loginService: LoginService,
     private _snackbarService: InitSnackbarService,
-    private _localStorage: LocalStorageService
+    private _localStorage: LocalStorageService,
+    private _usersActiveInactive: UsersActiveInactiveService
   ) {}
 
   ngOnInit() {
@@ -128,18 +130,25 @@ export class AddAccountLoginComponent implements OnInit {
 
               const ps = JSON.parse(this._localStorage.getItem(ionstrttl));
 
+              // this is add-account, ps can never be null
               if (ps === null) {
                 ionarray.push(ions);
                 this._localStorage.setItem(ionstrttl, ionarray);
               } else {
+                // ps can never be 0, new user is being addded from another user account
                 ps.length === 0
                   ? (() => {
                       ionarray.push(ions);
                       this._localStorage.setItem(ionstrttl, ionarray);
                     })()
                   : (() => {
+                      // set current active to false and push all to local localStorage
+                      ps.forEach((cur) => {
+                        cur.active = false;
+                      });
                       ps.push(ions);
                       this._localStorage.setItem(ionstrttl, ps);
+                      console.log(`[Add account] user added successfully`);
                     })();
               }
 
@@ -170,6 +179,8 @@ export class AddAccountLoginComponent implements OnInit {
                     this._localStorage.setItem(crtstrttl, cartStore);
                   })();
 
+              // route back to original URL whence user came
+              // hence use param return URL
               this.who === 'user' && userDetails.accountType === 'client'
                 ? this.router.navigate(['shop'], { replaceUrl: true })
                 : this.router.navigate([this.who, 'dashboard'], {
@@ -211,7 +222,11 @@ export class AddAccountLoginComponent implements OnInit {
         );
     }
   }
-
+  // for use is selection of users in user panel
+  // protected get activeInactiveUsers() {
+  //   // get last active user
+  //   // get inactive users
+  // }
   get status() {
     return this.addaccountform.controls;
   }

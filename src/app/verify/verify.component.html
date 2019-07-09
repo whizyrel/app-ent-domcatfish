@@ -1,4 +1,12 @@
-<div class="page-wide">
+<div
+  *ngIf="
+    status !== undefined &&
+    status !== null &&
+    typeof(status) === 'boolean' &&
+    showElem === true
+  "
+  class="page-wide"
+>
   <div class="page-container pd-2">
     <div class="header-container pd-b-1">
       <div class="text-center">
@@ -30,9 +38,17 @@
           <p
             *ngIf="status === false"
             class="
-          pd-1 dark-grey-text"
+          pd-t-1 dark-grey-text"
           >
             {{ message }}
+          </p>
+          <p
+            *ngIf="status === false"
+            class="
+        pd-t-1 dark-grey-text error-msg"
+          >
+            If this is an error, please write to us, we'd be happy to help.
+            Thanks
           </p>
         </div>
       </mat-card-content>

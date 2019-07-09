@@ -2,9 +2,9 @@
   height: 100%;
 }
 
-@media (max-width: 740px) {
+@media (min-width: 740px) and (max-width: 759px) {
   .view {
-    height: 1000px;
+    height: 1000px!important;
   }
   .deck-ex {
     padding: 10px;
@@ -15,26 +15,35 @@
   .view {
     height: 650px !important;
   }
-}
-@media (min-width: 800px) and (max-width: 850px) {
   .navbar:not(.top-nav-collapse) {
       background: #1C2331!important;
   }
 }
 
 /* my styles */
+.navbar-brand {
+  background-color: inherit!important;
+  color: #f8f9fa!important;
+}
+
+.a-links {
+  color: #f8f9fa!important;
+}
+.a-links:hover {
+  color: #1C2331!important;
+  background-color: #efeff6!important;
+  border-radius: 5px;
+}
+
 .soc-icon-col-fb {
   color: #3c5a9a;
 }
-
 .soc-icon-col-tw {
   color: #34cbff;
 }
-
 .soc-icon-col-in {
   color: #e64583;
 }
-
 .soc-icon-col-wh {
   color: #2dd049;
 }

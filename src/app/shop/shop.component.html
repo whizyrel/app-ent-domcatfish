@@ -6,7 +6,11 @@
     <div class="row js-center">
       <!-- Brand -->
       <div class="col-sm-3 js-center">
-        <a class="navbar-brand navbar-text" [routerLink]="['/']" target="_self">
+        <a
+          class="navbar-brand navbar-text app-title"
+          [routerLink]="['/']"
+          target="_self"
+        >
           <strong data-toggle="tooltip" title="Home" data-placement="top">{{
             title
           }}</strong>
@@ -104,41 +108,38 @@
                 <a
                   [routerLink]="['/user', 'account', 'add']"
                   class="add-link form-inline"
-                  ><i class="fa fa-user-plus mg-l-1 add-link">
-                    <p class="mg-l-1">add account</p></i
-                  ></a
-                >
+                  ><i class="fa fa-user-plus mg-l-1 add-link fl-l">
+                    <!-- <p class="mg-l-1">add account</p> --> </i
+                ></a>
               </a>
               <!-- active user -->
               <a class="dropdown-item js-center">
                 <!-- User image -->
                 <div class="actv-usr-pn">
                   <div class="form-inline">
-                    <div class="mg-l-1">
+                    <div class="user-data pd-t-p5">
                       <img
                         src="{{userimg}}"
                         class="img-circle"
                         alt="User Image"
                       />
+                      <p class="js-center pd-l-1">{{ username }}</p>
                     </div>
-                    <div class="mg-l-1">
-                      <p class="js-center pd-t-1">{{ username }}</p>
-                      <div class="user-ctrl mg-t-p5">
-                        <button
-                          class="btn btn-primary btn-sm fl-l"
-                          (click)="inOutCtrl()"
-                        >
-                          <i
-                            *ngIf="showActvUser === false"
-                            class="fa fa-sign-in-alt mg-r-p5"
-                          ></i>
-                          <i
-                            *ngIf="showActvUser === true"
-                            class="fa fa-sign-out-alt mg-r-p5"
-                          ></i>
-                          {{ what }}
-                        </button>
-                      </div>
+                    <div class="user-ctrl mg-t-p5">
+                      <button
+                        class="btn btn-primary btn-sm fl-l"
+                        (click)="inOutCtrl()"
+                      >
+                        <i
+                          *ngIf="showActvUser === false"
+                          class="fa fa-sign-in-alt mg-r-p5"
+                        ></i>
+                        <i
+                          *ngIf="showActvUser === true"
+                          class="fa fa-sign-out-alt mg-r-p5"
+                        ></i>
+                        {{ what }}
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -148,20 +149,23 @@
                 class="dropdown-divider"
               ></div>
               <!-- other users -->
-              <a *ngIf="showInactvUser === true" class="dropdown-item pd-p5">
-                <div class="other-user-panel">
-                  <div class="form-inline">
-                    <div class="mg-l-1">
+              <div *ngFor="let inactv of inactive" class="">
+                <a
+                  *ngIf="showInactvUser === true"
+                  class="dropdown-item pd-l-p5 pd-r-p5"
+                >
+                  <div class="other-user-panel">
+                    <div class="form-inline">
                       <img
-                        class="sub-img-circle"
+                        class="sub-img-circle mg-1"
                         src="{{otherusrimg}}"
                         alt="image"
                       />
+                      {{ inactv.dt.firstname + ' ' + inactv.dt.lastname }}
                     </div>
-                    <div class="mg-l-2">Name</div>
                   </div>
-                </div>
-              </a>
+                </a>
+              </div>
             </div>
           </li>
         </ul>

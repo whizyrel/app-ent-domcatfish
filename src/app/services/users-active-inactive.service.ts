@@ -39,4 +39,7 @@ export class UsersActiveInactiveService {
           return cur.active === false;
         });
   }
+  get allUsers(): SessStoreProps[] {
+    return this.getIonStore;
+  }
 }

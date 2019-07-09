@@ -15,6 +15,7 @@ import { HttpResponse } from '../interfaces/http-response';
 })
 export class VerifyComponent implements OnInit {
   public status: boolean;
+  public showElem: boolean = false;
 
   private who: string;
   private enc: string;
@@ -39,7 +40,6 @@ export class VerifyComponent implements OnInit {
 
     // for router get parent parent
     this.activatedRoute.parent.parent.url.subscribe((URLSegment) => {
-      console.log(Array.from(URLSegment));
       URLSegment.some((cur) => {
         return cur.path === 'user';
       })
@@ -59,10 +59,12 @@ export class VerifyComponent implements OnInit {
       this._verifyAccount.submitDetails(this.enc).subscribe(
         (data: HttpResponse) => {
           this.status = true;
+          this.showElem = true;
           this.message = data.message;
         },
         (error: HttpResponse) => {
           this.status = false;
+          this.showElem = true;
           this._response = error.error;
 
           // show message in DOM
@@ -76,7 +78,7 @@ export class VerifyComponent implements OnInit {
                 `${error.statusText}. Please check your network connection.`,
                 duration
               )
-            : (this.message = `An error has occured please write to us, we'd be happy to help. Thanks`);
+            : this.message;
         }
       );
     }

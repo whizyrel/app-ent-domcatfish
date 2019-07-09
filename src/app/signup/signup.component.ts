@@ -122,7 +122,9 @@ export class SignupComponent implements OnInit {
 
     this.signupDet = this.signupform.getRawValue();
     this.signupDet.phone = `+${this.status.countrycode.value}${
-      this.signupDet.phone
+      this.signupDet.phone.charAt(0) === '0'
+        ? this.signupDet.phone.substring(1)
+        : this.signupDet.phone
     }`;
 
     console.log(this.signupDet.phone);

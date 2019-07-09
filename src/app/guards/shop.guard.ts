@@ -11,6 +11,7 @@ import { LocalStorageService } from '../services/local-storage.service';
 import { CartService } from '../services/cart.service';
 
 import { ValSessRespProps } from '../interfaces/val-sess-resp-props';
+import { SessStoreProps } from '../interfaces/sess-store-props';
 
 @Injectable({
   providedIn: 'root',
@@ -30,49 +31,60 @@ export class ShopGuard implements CanActivate {
       const ionstrttl = 'ionstr';
       // get ssid
       const ions = JSON.parse(this._localStorage.getItem(ionstrttl));
-      console.log(ions);
 
       if (ions !== null && ions !== undefined && ions.length !== 0) {
         // v2 - ions is now an array
         // filter active
         // pick sessid
-        const {
-          id: sessid,
-          dt: { accountType, email },
-        } = ions.filter((cur) => cur.active === true)[0];
 
-        // validate using sess validator
-        // use sess validator
-        // resolve true: the idea is to clear localStorage on error or expiry
-        this._sessVal.valSession(sessid).subscribe(
-          (data: ValSessRespProps) => {
-            console.log(data);
-            data.message === true ? resolve(true) : resolve(true);
-          },
-          (error: ValSessRespProps) => {
-            // if error.error.message == false
-            // clear such from localStorage;
-            // also clear user's cart
-            error.error.message === false
-              ? (() => {
-                  // clear session
-                  this._localStorage.setItem(
-                    ionstrttl,
-                    ions.filter((cur) => {
-                      return cur.active === false;
-                    })
-                  );
-
-                  // clear person's cart
-                  this._cartService.clearCart(email);
-                })()
-              : (() => null)();
-            resolve(true);
-          }
+        // implemented active user and undefined check below
+        const actvUser: SessStoreProps = ions.find(
+          (cur) => cur.active === true
         );
-      } else {
-        resolve(true);
+        console.log(actvUser);
+
+        actvUser !== null && actvUser !== undefined
+          ? (() => {
+              // validate using sess validator
+              // use sess validator
+              // resolve true: the idea is to clear localStorage on error or expiry
+
+              const {
+                id: sessid,
+                dt: { accountType, email },
+              } = actvUser;
+
+              this._sessVal.valSession(sessid).subscribe(
+                (data: ValSessRespProps) => {
+                  console.log(data);
+                  data.message === true ? resolve(true) : resolve(true);
+                },
+                (error: ValSessRespProps) => {
+                  // if error.error.message == false
+                  // clear such from localStorage;
+                  // also clear user's cart
+                  error.error.message === false
+                    ? (() => {
+                        // clear session
+                        this._localStorage.setItem(
+                          ionstrttl,
+                          ions.filter((cur) => {
+                            return cur.active === false;
+                          })
+                        );
+
+                        // clear person's cart
+                        this._cartService.clearCart(email);
+                      })()
+                    : (() => null)();
+                  resolve(true);
+                }
+              );
+            })()
+          : null;
       }
+      // either way resolve true
+      resolve(true);
     });
   }
 }

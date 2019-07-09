@@ -20,7 +20,7 @@ export class LocalStorageService {
     let decrypted;
     const encryption: string = this.getRaw(ttl);
 
-    console.log(`the encryption: ${encryption}, typeof ${typeof encryption}`);
+    // console.log(`the encryption: ${encryption}, typeof ${typeof encryption}`);
 
     // case []
     encryption === '[]'
@@ -30,19 +30,19 @@ export class LocalStorageService {
             decrypted = 'null';
           } else {
             const bytes = AES.decrypt(encryption.toString(), this.seckey);
-            console.log(`bytes: ${bytes}`);
+            // console.log(`bytes: ${bytes}`);
             decrypted = bytes.toString(enc.Utf8);
           }
         })();
 
     // cannot use JSON.parse as everything cannot be JSON
-    console.log(`decrypted: ${decrypted}`);
+    // console.log(`decrypted: ${decrypted}`);
     return decrypted;
   }
 
   setItem(ttl: string, obj: object) {
     const encrypted: string = AES.encrypt(JSON.stringify(obj), this.seckey);
-    console.log(`setItem: ${encrypted}`);
+    // console.log(`setItem: ${encrypted}`);
     localStorage.setItem(ttl, encrypted);
   }
 

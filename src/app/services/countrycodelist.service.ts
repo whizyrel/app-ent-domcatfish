@@ -12,7 +12,6 @@ export class CountrycodelistService {
         ctycode: '93',
         iso2: 'AF',
         iso3: 'AFG',
-        rest: ['29', '121', '286', '647', '500', '20', '65', 'Billion'],
       },
       {
         cty: 'Albania',
@@ -85,35 +84,30 @@ export class CountrycodelistService {
         ctycode: '61',
         iso2: 'AU',
         iso3: 'AUS',
-        rest: ['21', '515', '754', '7', '686', '850', '1', '488', 'Trillion'],
       },
       {
         cty: 'Austria',
         ctycode: '43',
         iso2: 'AT',
         iso3: 'AUT',
-        rest: ['8', '205', '000', '83', '858', '417', '9', 'Billion'],
       },
       {
         cty: 'Azerbaijan',
         ctycode: '994',
         iso2: 'AZ',
         iso3: 'AZE',
-        rest: ['8', '303', '512', '86', '600', '76', '01', 'Billion'],
       },
       {
         cty: 'Bahamas',
         ctycode: '1',
         iso2: '242',
         iso3: 'BS',
-        rest: ['BHS', '301', '790', '13', '940', '8', '373', 'Billion'],
       },
       {
         cty: 'Bahrain',
         ctycode: '973',
         iso2: 'BH',
         iso3: 'BHR',
-        rest: ['738', '004', '665', '28', '36', 'Billion'],
       },
       {
         cty: 'Bangladesh',

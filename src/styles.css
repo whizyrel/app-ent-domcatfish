@@ -85,7 +85,6 @@ app-snackbarmsg {
   }
 }
 
-
 /* My library */
 // Medium devices (tablets, less than 992px)
 @media (max-width: 991px) {
@@ -259,39 +258,54 @@ app-snackbarmsg {
 
 /* padding */
 /* full */
+.pd-p5 {
+  padding: .5rem!important;
+}
 .pd-1 {
-  padding:  1rem;
+  padding: 1rem!important;
 }
 .pd-2 {
-  padding: 2rem;
+  padding: 2rem!important;
 }
 .pd-5 {
-  padding: 5rem;
+  padding: 5rem!important;
 }
 .pd-10 {
-  padding: 10rem;
+  padding: 10rem!important;
 }
 
 /* padding left */
+.pd-l-p5 {
+  padding-left: .5rem!important;
+}
+.pd-l-1 {
+  padding-left: 1rem!important;
+}
 .pd-l-2 {
-  padding-left: 2rem;
+  padding-left: 2rem!important;
 }
 .pd-l-5 {
-  padding-left: 5rem;
+  padding-left: 5rem!important;
 }
 .pd-l-10 {
-  padding-left: 10rem;
+  padding-left: 10rem!important;
 }
 
 /* padding right */
+.pd-r-p5 {
+  padding-right: .5rem!important;
+}
+.pd-r-1 {
+  padding-right: 1rem!important;
+}
 .pd-r-2 {
-  padding-right: 2rem;
+  padding-right: 2rem!important;
 }
 .pd-r-5 {
-  padding-right: 5rem;
+  padding-right: 5rem!important;
 }
 .pd-r-10 {
-  padding-right:rem;
+  padding-right: 10rem!important;
 }
 
 /* padding top */

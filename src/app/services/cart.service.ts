@@ -23,9 +23,11 @@ export class CartService {
 
     cartStore !== null && cartStore !== undefined && cartStore.length >= 1
       ? ((email: string) => {
+          console.log(email);
           const cart: CartStoreProps = cartStore.find((cur) => {
             return cur.em === email;
           });
+          console.log(cart);
 
           const { em, crt: cartItems } = cart;
 

@@ -72,7 +72,7 @@
                     *ngFor="let ctycode of ctycodelist"
                     [value]="ctycode.ctycode"
                   >
-                    {{ '+(' + ctycode.ctycode + ')' + ' ' + ctycode.cty }}
+                    {{ ctycode.cty + ' ' + '+' + ctycode.ctycode }}
                   </mat-option>
                 </mat-select>
                 <mat-error *ngIf="status.countrycode.invalid">{{
@@ -88,7 +88,7 @@
                   formControlName="phone"
                   class="form-control-sm"
                   type="tel"
-                  placeholder="8123456789"
+                  placeholder="phone number"
                   required
                 />
                 <mat-icon matSuffix>contact_phone</mat-icon>

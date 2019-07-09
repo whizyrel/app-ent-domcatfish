@@ -1,3 +1,6 @@
+p {
+  margin: 0!important;
+}
 .page-wide {
   width: 100%!important;
   height: 100%!important;
@@ -43,4 +46,8 @@ mat-card-content {
   display: flex;
   align-items: center;
   height: fit-content;
+}
+.error-msg {
+  color: red;
+  font-weight: bold;
 }
