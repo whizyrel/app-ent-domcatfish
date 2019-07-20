@@ -157,6 +157,12 @@ app-snackbarmsg {
 .mg-2 {
   margin: 2rem!important;
 }
+.mg-3 {
+  margin: 3rem!important;
+}
+.mg-4 {
+  margin: 4rem!important;
+}
 .mg-5 {
   margin: 5rem!important;
 }
@@ -186,7 +192,7 @@ app-snackbarmsg {
 
 /* margin left */
 .mg-l-p5 {
-  margin-right: .5rem !important;
+  margin-left: .5rem !important;
 }
 .mg-l-1 {
   margin-left: 1rem !important;
@@ -267,6 +273,12 @@ app-snackbarmsg {
 .pd-2 {
   padding: 2rem!important;
 }
+.pd-3 {
+  padding: 3rem!important;
+}
+.pd-4 {
+  padding: 4rem!important;
+}
 .pd-5 {
   padding: 5rem!important;
 }
@@ -284,6 +296,12 @@ app-snackbarmsg {
 .pd-l-2 {
   padding-left: 2rem!important;
 }
+.pd-l-3 {
+  padding-left: 3rem!important;
+}
+.pd-l-4 {
+  padding-left: 4rem!important;
+}
 .pd-l-5 {
   padding-left: 5rem!important;
 }
@@ -300,6 +318,12 @@ app-snackbarmsg {
 }
 .pd-r-2 {
   padding-right: 2rem!important;
+}
+.pd-r-3 {
+  padding-right: 3rem!important;
+}
+.pd-r-4 {
+  padding-right: 4rem!important;
 }
 .pd-r-5 {
   padding-right: 5rem!important;

@@ -6,6 +6,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
+import { UsersActiveInactiveService } from '../services/users-active-inactive.service';
 import { SessValService } from '../services/sess-val.service';
 import { LocalStorageService } from '../services/local-storage.service';
 import { CartService } from '../services/cart.service';
@@ -19,6 +20,7 @@ import { SessStoreProps } from '../interfaces/sess-store-props';
 export class ShopGuard implements CanActivate {
   constructor(
     private _sessVal: SessValService,
+    private _users: UsersActiveInactiveService,
     private _localStorage: LocalStorageService,
     private _cartService: CartService
   ) {}
@@ -75,6 +77,8 @@ export class ShopGuard implements CanActivate {
 
                         // clear person's cart
                         this._cartService.clearCart(email);
+                        // set next Active before logout
+                        this._users.setNextActive();
                       })()
                     : (() => null)();
                   resolve(true);

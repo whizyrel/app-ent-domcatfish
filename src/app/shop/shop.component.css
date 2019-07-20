@@ -50,6 +50,20 @@ header,
 
 
 /* My Styles */
+.dropdown-menu {
+  width: fit-content!important;
+  border-radius: 0!important;
+  padding: 0!important;
+  clear: both!important;
+
+  /*gmail*/
+  background: #fff;
+  border: 1px solid #ccc;
+  border-color: rgba(0,0,0,.2);
+  color: #000;
+  -webkit-box-shadow: 0 2px 10px rgba(0,0,0,.2);
+  box-shadow: 0 2px 10px rgba(0,0,0,.2);
+}
 .nav-fix {
   right: 0 !important;
   left: 0 !important;
@@ -57,6 +71,22 @@ header,
 }
 .navbar-brand {
   width: fit-content !important;
+}
+.dropdown-item {
+  width: fit-content!important;
+  padding: 0;
+  clear: both!important;
+  overflow: auto!important;
+}
+.dropdown-item:hover {
+  background-color: inherit!important;
+}
+.dropdown-item a:hover {
+  background-color: #fff!important;
+  color: #1C2331!important;
+}
+.bd-t {
+  border-top: 1px solid #ccc;
 }
 .app-title {
   font-size: 5vh;
@@ -93,28 +123,65 @@ header,
   width: 100%; display: flex;
 }
 .user-ctrl {
-  width: 100%;
+  display: table;
   box-sizing: border-box!important;
-  height: 100%;
-  width: 100%; display: flex; align-items: center; justify-content: center;
+  height: fit-content;
+  width: auto!important;
+  background-color: rgb(218, 220, 224);
+  /* overflow: auto!important;
+  clear: both!important; */
+  float: left;
+}
+.user-ctrl a:hover {
+  /* background-color: inherit!important; */
+  color: #1C2331!important;
+}
+.user-ctrl > div {
+  display: table-cell;
 }
 .add-user {
   width: 100%;
   display: flex;
+  padding-left: 0!important;
+  padding-right: 0!important;
+}
+.add-user a:hover {
+  /* background-color: inherit!important; */
+  color: #1C2331!important;
 }
 .add-link {
-  width: 100%;
-  display: flex;
-  word-wrap: normal;
+  display: inline-block;
   box-sizing: border-box;
   height: fit-content;
 }
 .add-link:hover {
+  /* background-color: inherit!important; */
+  color: #1C2331!important;
+}
+.add-link i:hover {
   background-color: inherit!important;
+  color: #1C2331!important;
 }
 .static-dp {
   box-sizing: border-box!important;
   position: static !important;
   border-color: #fff !important;
   margin-top: 25px!important;
+  right: 0!important;
+  top: 20%!important;
+}
+.static-dp a:hover {
+  background-color: inherit!important;
+}
+.bkg {
+  background: #f5f5f5;
+}
+.ctrl-btn {
+  display: inline-block;
+  border: 1px solid #1C2331!important;
+  border-radius: 3px!important;
+  background-color: inherit!important;
+}
+.clearfix {
+  clear: both!important;
 }

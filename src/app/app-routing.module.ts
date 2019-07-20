@@ -11,6 +11,11 @@ import { ShopComponent } from './shop/shop.component';
 import { AddAccountLoginComponent } from './add-account-login/add-account-login.component';
 import { AdminHomePageComponent } from './admin-home-page/admin-home-page.component';
 import { RetrieveComponent } from './retrieve/retrieve.component';
+import { AddProductsComponent } from './add-products/add-products.component';
+import { ListProductsComponent } from './list-products/list-products.component';
+import { ListUsersComponent } from './list-users/list-users.component';
+import { ListOrdersComponent } from './list-orders/list-orders.component';
+import { ListFeedbacksComponent } from './list-feedbacks/list-feedbacks.component';
 
 import { DashboardAuthGuard } from './guards/dashboard-auth.guard';
 import { LoginAuthGuard } from './guards/login-auth.guard';
@@ -74,9 +79,50 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
-        pathMatch: 'full',
         canActivate: [DashboardAuthGuard],
         data: { role: 'admin' },
+        children: [
+          {
+            path: 'add-products',
+            pathMatch: 'full',
+            component: AddProductsComponent,
+            outlet: 'dashboard',
+          },
+          {
+            path: 'list-products',
+            pathMatch: 'full',
+            component: ListProductsComponent,
+            outlet: 'dashboard',
+          },
+          {
+            path: 'list-users',
+            pathMatch: 'full',
+            component: ListUsersComponent,
+            outlet: 'dashboard',
+          },
+          {
+            path: 'list-orders',
+            pathMatch: 'full',
+            component: ListOrdersComponent,
+            outlet: 'dashboard',
+          },
+          {
+            path: 'list-feedbacks',
+            pathMatch: 'full',
+            component: ListFeedbacksComponent,
+            outlet: 'dashboard',
+          },
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'add-products',
+          },
+          {
+            path: '**',
+            pathMatch: 'full',
+            redirectTo: 'add-products',
+          },
+        ],
       },
       {
         path: 'account',

@@ -4,6 +4,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
+import { LoginAuthGuard } from './guards/login-auth.guard';
+import { DashboardAuthGuard } from './guards/dashboard-auth.guard';
+import { ShopGuard } from './guards/shop.guard';
+
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,8 +19,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
-import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -30,6 +34,11 @@ import { VerifyComponent } from './verify/verify.component';
 import { AddAccountLoginComponent } from './add-account-login/add-account-login.component';
 import { AdminHomePageComponent } from './admin-home-page/admin-home-page.component';
 import { RetrieveComponent } from './retrieve/retrieve.component';
+import { AddProductsComponent } from './add-products/add-products.component';
+import { ListProductsComponent } from './list-products/list-products.component';
+import { ListUsersComponent } from './list-users/list-users.component';
+import { ListOrdersComponent } from './list-orders/list-orders.component';
+import { ListFeedbacksComponent } from './list-feedbacks/list-feedbacks.component';
 
 import { APIURLService } from './services/apiurl.service';
 import { LoginService } from './services/login.service';
@@ -47,9 +56,6 @@ import { CartService } from './services/cart.service';
 import { LocalStorageService } from './services/local-storage.service';
 import { RetrievePasswordService } from './services/retrieve-password.service';
 
-import { LoginAuthGuard } from './guards/login-auth.guard';
-import { DashboardAuthGuard } from './guards/dashboard-auth.guard';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,6 +70,11 @@ import { DashboardAuthGuard } from './guards/dashboard-auth.guard';
     AddAccountLoginComponent,
     AdminHomePageComponent,
     RetrieveComponent,
+    AddProductsComponent,
+    ListProductsComponent,
+    ListUsersComponent,
+    ListOrdersComponent,
+    ListFeedbacksComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({
@@ -72,7 +83,6 @@ import { DashboardAuthGuard } from './guards/dashboard-auth.guard';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatChipsModule,
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,
@@ -80,15 +90,18 @@ import { DashboardAuthGuard } from './guards/dashboard-auth.guard';
     ReactiveFormsModule,
     MatCardModule,
     MatProgressBarModule,
-    MatProgressBarModule,
     HttpClientModule,
     MatTabsModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatSelectModule,
     MatTooltipModule,
+    MatPaginatorModule,
   ],
   providers: [
+    LoginAuthGuard,
+    DashboardAuthGuard,
+    ShopGuard,
     APIURLService,
     LinksService,
     LoginService,
@@ -96,8 +109,6 @@ import { DashboardAuthGuard } from './guards/dashboard-auth.guard';
     InitSnackbarService,
     CountrycodelistService,
     SessValService,
-    LoginAuthGuard,
-    DashboardAuthGuard,
     AddAccountLoginService,
     HomepageCardService,
     UsersActiveInactiveService,

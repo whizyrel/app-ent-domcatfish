@@ -47,6 +47,8 @@ export class ShopComponent implements OnInit {
 
   public cart: CartProps[] = [];
 
+  public model;
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -169,7 +171,7 @@ export class ShopComponent implements OnInit {
           this._logUserOut.logout();
 
           // set next Active before logout
-          this.setNextActive();
+          this._users.setNextActive();
 
           // synchronize users and cart tabs
           this.initActive();
@@ -182,31 +184,6 @@ export class ShopComponent implements OnInit {
             replaceUrl: false,
           });
         })();
-  }
-  protected setNextActive() {
-    const allUsers: SessStoreProps[] = this._users.allUsers;
-
-    // if inactive users, set next inactive user to active
-    this._users.getUsersInactive !== null &&
-    this._users.getUsersInactive !== undefined
-      ? (() => {
-          // get all inactives,
-          const inactive: SessStoreProps[] = this._users.getUsersInactive;
-          console.log(`[setNextActive]`);
-          console.log(inactive);
-
-          // change nextActive in all inactive user to active
-          // change first element in inactive users only
-          inactive.forEach((cur, i) => {
-            if (i === 0) {
-              cur.active = true;
-            }
-          });
-
-          // save into local storage
-          this._localStorage.setItem('ionstr', inactive);
-        })()
-      : null; // proceed to log only user out
   }
   addToCart() {
     // must not add to

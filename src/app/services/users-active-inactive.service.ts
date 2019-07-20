@@ -42,4 +42,29 @@ export class UsersActiveInactiveService {
   get allUsers(): SessStoreProps[] {
     return this.getIonStore;
   }
+
+  setNextActive() {
+    const allUsers: SessStoreProps[] = this.allUsers;
+
+    // if inactive users, set next inactive user to active
+    this.getUsersInactive !== null && this.getUsersInactive !== undefined
+      ? (() => {
+          // get all inactives,
+          const inactive: SessStoreProps[] = this.getUsersInactive;
+          console.log(`[setNextActive]`);
+          console.log(inactive);
+
+          // change nextActive in all inactive user to active
+          // change first element in inactive users only
+          inactive.forEach((cur, i) => {
+            if (i === 0) {
+              cur.active = true;
+            }
+          });
+
+          // save into local storage
+          this._localStorage.setItem('ionstr', inactive);
+        })()
+      : null; // proceed to log only user out
+  }
 }

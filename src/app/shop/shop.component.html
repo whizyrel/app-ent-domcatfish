@@ -7,7 +7,7 @@
       <!-- Brand -->
       <div class="col-sm-3 js-center">
         <a
-          class="navbar-brand navbar-text app-title"
+          class="navbar-brand navbar-text app-title pd-r-1 pd-l-1"
           [routerLink]="['/']"
           target="_self"
         >
@@ -49,13 +49,16 @@
               aria-labelledby="dropdownMenuButton"
             >
               <!-- Cart content -->
+              <!-- if nothing in cart -->
               <a class="dropdown-item js-content" *ngIf="cart.length < 1">
-                <p>
-                  <i class="fa fa-shopping-cart mg-l-p5 mg-r-1"></i> Your cart
-                  is empty
+                <p class="pd-r-1">
+                  <i class="fa fa-shopping-cart mg-l-1 mg-r-1"></i> Your Shopping Cart <i class="fa fa-shopping-basket mg-p5"></i>
+                  is empty...!
                 </p>
               </a>
-              <a class="dropdown-item" *ngIf="cart.length >= 1">
+
+              <!-- Cart has content -->
+              <a class="dropdown-item pd-1" *ngIf="cart.length >= 1">
                 <div class="other-user-panel">
                   <div class="form-inline">
                     <div class="mg-l-1">
@@ -65,11 +68,12 @@
                         alt="image"
                       />
                     </div>
-                    <div class="mg-l-1">Product details 1</div>
+                    <div class="mg-l-p5">Product details 1</div>
                     <i class="fa fa-times-circle mg-l-1"></i>
                   </div>
                 </div>
               </a>
+              <!-- dont need no divider -->
               <div *ngIf="cart.length >= 1" class="dropdown-divider"></div>
 
               <!-- checkout -->
@@ -85,7 +89,7 @@
             </div>
           </li>
 
-          <!-- users -->
+          <!-- Users -->
           <li class="nav-item user-btn mg-l-1 mg-r-1 dropleft">
             <a
               class="dropdown-toggled"
@@ -100,65 +104,40 @@
               class="dropdown-menu static-dp"
               aria-labelledby="dropdownMenuButton"
             >
-              <!-- Add User -->
-              <a
-                class="dropdown-item add-user pd-t-p5"
-                *ngIf="showActvUser === true"
-              >
-                <a
-                  [routerLink]="['/user', 'account', 'add']"
-                  [queryParams]="{ rt: encURL }"
-                  class="add-link form-inline"
-                  ><i class="fa fa-user-plus add-link fl-l">
-                    <!-- <p class="mg-l-1">add account</p> --> </i
-                ></a>
-              </a>
               <!-- active user -->
-              <a class="dropdown-item js-center">
+              <a class="dropdown-item js-center ">
                 <!-- User image -->
                 <div class="actv-usr-pn">
-                  <div class="form-inline">
-                    <div class="user-data pd-t-p5">
-                      <img
-                        src="{{userimg}}"
-                        class="img-circle"
-                        alt="User Image"
-                      />
-                      <p class="js-center pd-l-1">{{ username }}</p>
-                    </div>
-                    <div class="user-ctrl mg-t-p5">
-                      <button
-                        class="btn btn-primary btn-sm fl-l"
-                        (click)="inOutCtrl()"
+                  <div
+                    class="user-data pd-t-p5 text-center grey-text form-inline"
+                    style="width: fit-content; justify-content: center;"
+                  >
+                    <img
+                      src="{{userimg}}"
+                      class="img-circle"
+                      alt="User Image"
+                    />
+                      <p
+                        *ngIf="username !== '' && username !== ' '"
+                        class="js-center pd-l-5"
                       >
-                        <i
-                          *ngIf="showActvUser === false"
-                          class="fa fa-sign-in-alt mg-r-p5"
-                        ></i>
-                        <i
-                          *ngIf="showActvUser === true"
-                          class="fa fa-sign-out-alt mg-r-p5"
-                        ></i>
-                        {{ what }}
-                      </button>
-                    </div>
+                        {{ username }}
+                      </p>
                   </div>
                 </div>
               </a>
-              <div
-                *ngIf="showInactvUser === true"
-                class="dropdown-divider"
-              ></div>
+
               <!-- other users -->
-              <div *ngFor="let inactv of inactive" class="">
+              <div *ngFor="let inactv of inactive">
                 <a
                   *ngIf="showInactvUser === true"
                   class="dropdown-item pd-l-p5 pd-r-p5"
+                  #model
                 >
-                  <div class="other-user-panel">
-                    <div class="form-inline">
+                  <div class="other-user-panel bd-t">
+                    <div class="form-inline text-center">
                       <img
-                        class="sub-img-circle mg-1"
+                        class="sub-img-circle mg-p5 mg-r-1"
                         src="{{otherusrimg}}"
                         alt="image"
                       />
@@ -166,6 +145,38 @@
                     </div>
                   </div>
                 </a>
+              </div>
+
+              <!-- account control buttons -->
+              <!-- added border-top -->
+              <div class="dropdown-item bd-t user-ctrl pd-t-p5 pd-b-p5 form-inline" style="width: 100%!important; height: fit-content!important;">
+                  <div class="fl-l pd-l-p5">
+                    <button
+                      class="ctrl-btn form-inline"
+                      style="width: auto;"
+                      (click)="inOutCtrl()"
+                    >
+                      <i
+                        *ngIf="showActvUser === false"
+                        class="fa fa-sign-in-alt mg-r-p5"
+                      ></i>
+                      <i
+                        *ngIf="showActvUser === true"
+                        class="fa fa-sign-out-alt mg-r-p5"
+                      ></i>
+                      {{ what }}
+                    </button>
+                  </div>
+
+                  <!-- Add User -->
+                  <div class="fl-r pd-r-p5" style="width: auto!important;">
+                    <a
+                      [routerLink]="['/user', 'account', 'add']"
+                      [queryParams]="{ rt: encURL }"
+                      class="add-link form-inline"
+                      ><i class="fa fa-user-plus"></i
+                    ></a>
+                  </div>
               </div>
             </div>
           </li>

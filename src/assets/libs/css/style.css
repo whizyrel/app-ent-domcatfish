@@ -1237,7 +1237,7 @@ Top Header
     margin-right: 1rem;
     line-height: inherit;
     white-space: nowrap;
-    padding: 11px 20px;
+    /* padding: 11px 20px; */
     font-size: 30px;
     text-transform: uppercase;
     font-weight: 700;
@@ -1902,7 +1902,7 @@ Sidebar Page Navigations
 .dropdown-item {
     display: block;
     width: 100%;
-    padding: .25rem 1.5rem;
+    /* padding: .25rem 1.5rem; */
     clear: both;
     font-weight: 400;
     color: #3d405c;

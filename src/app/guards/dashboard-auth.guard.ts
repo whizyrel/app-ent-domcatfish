@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { LocalStorageService } from '../services/local-storage.service';
 import { SessValService } from '../services/sess-val.service';
 import { CartService } from '../services/cart.service';
+import { UsersActiveInactiveService } from '../services/users-active-inactive.service';
 
 import { HttpResponse } from '../interfaces/http-response';
 import { ValSessRespProps } from '../interfaces/val-sess-resp-props';
@@ -21,6 +22,7 @@ import { SessStoreProps } from '../interfaces/sess-store-props';
 export class DashboardAuthGuard implements CanActivate {
   constructor(
     private _sessVal: SessValService,
+    private _users: UsersActiveInactiveService,
     private router: Router,
     private _localStorage: LocalStorageService,
     private _cartService: CartService
@@ -94,6 +96,8 @@ export class DashboardAuthGuard implements CanActivate {
 
                         // clear person's cart
                         this._cartService.clearCart(email);
+                        // set next inactive as active
+                        this._users.setNextActive();
                       })()
                     : (() => null)();
                 }
