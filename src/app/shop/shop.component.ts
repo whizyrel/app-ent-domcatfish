@@ -9,6 +9,7 @@ import { GoogleImgService } from '../services/google-img.service';
 import { LogoutService } from '../services/logout.service';
 import { CartService } from '../services/cart.service';
 import { LocalStorageService } from '../services/local-storage.service';
+import { ProductsService } from '../services/products.service';
 
 import { LinkProps } from '../interfaces/link-props';
 import { AllLinksProps } from '../interfaces/all-links-props';
@@ -60,7 +61,8 @@ export class ShopComponent implements OnInit {
     private _googleApi: GoogleImgService,
     private _logUserOut: LogoutService,
     private _cartService: CartService,
-    private _localStorage: LocalStorageService
+    private _localStorage: LocalStorageService,
+    private _productsService: ProductsService
   ) {}
 
   ngOnInit() {
@@ -73,6 +75,18 @@ export class ShopComponent implements OnInit {
 
     // console.log(this.activatedRoute.pathFromRoot.toString());
     this.encURL = AES.encrypt('/shop', this.seckey);
+  }
+
+  addToCart() {
+    // must not add to
+  }
+
+  checkout() {
+    // if cart is empty disable Proceed to checkout button
+  }
+
+  getProducts () {
+
   }
 
   initActive() {
@@ -138,7 +152,7 @@ export class ShopComponent implements OnInit {
                   // put user img in active-false users in ionstore
                   cur.dt.img = `./assets/images/avatar3.png`;
 
-                  // temporarily use
+                  // temporary use
                   this.otherusrimg = `./assets/images/avatar3.png`;
                 },
                 (error) => {
@@ -159,6 +173,7 @@ export class ShopComponent implements OnInit {
       this.showInactvUser = false;
     }
   }
+
   inOutCtrl() {
     console.log(this.showActvUser);
     this.showActvUser === true
@@ -188,11 +203,5 @@ export class ShopComponent implements OnInit {
             replaceUrl: false,
           });
         })();
-  }
-  addToCart() {
-    // must not add to
-  }
-  checkout() {
-    // if cart is empty disable Proceed to checkout button
   }
 }

@@ -19,7 +19,7 @@ export class APIURLService {
       list: `${this.URL}/users/list`, // has query || params
       details: `${this.URL}/users/details`, // has query || params
       delete: `${this.URL}/users/delete`,
-      logout: `${this.URL}/users/logout`, // has query || params
+      logout: `${this.URL}/users/logout`,
       sessVal: `${this.URL}/val/sess`,
     };
   }
@@ -30,6 +30,18 @@ export class APIURLService {
       list: `${this.URL}/feedbacks/list`,
       'list-details': `${this.URL}/feedbacks/list-details`,
       archive: `${this.URL}/feedbacks/archive`,
+    };
+  }
+  get productsUrls() {
+    return {
+      add: `${this.URL}/products/add`,
+      addPhotos: `${this.URL}/products/photos/add/`,
+      replacePhoto: `${this.URL}/products/photos/replace/`,
+      deletePhoto: `${this.URL}/products/photos/delete/`,
+      modify: `${this.URL}/products/modify/`,
+      list: `${this.URL}/products/list`,
+      details: `${this.URL}/products/details/`,
+      delete: `${this.URL}/products/delete/`,
     };
   }
 }

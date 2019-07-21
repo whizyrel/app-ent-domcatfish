@@ -157,7 +157,7 @@ header,
   border-radius: 3px!important;
   background-color: inherit!important;
   cursor: pointer;
-  color: #fff;
+  color: rgb(95, 99, 104)!important;
 }
 .add-link {
   box-sizing: border-box;
@@ -190,4 +190,6 @@ input:focus:not([readonly]) {
 }
 .blend {
   background-color: inherit!important;
+  color: rgb(95, 99, 104)!important;
+  font-size: 3em;
 }

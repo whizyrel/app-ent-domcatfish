@@ -46,7 +46,6 @@ import { SignupService } from './services/signup.service';
 import { InitSnackbarService } from './services/init-snackbar.service';
 import { CountrycodelistService } from './services/countrycodelist.service';
 import { SessValService } from './services/sess-val.service';
-import { AddAccountLoginService } from './services/add-account-login.service';
 import { LinksService } from './services/links.service';
 import { HomepageCardService } from './services/homepage-card.service';
 import { UsersActiveInactiveService } from './services/users-active-inactive.service';
@@ -55,6 +54,7 @@ import { LogoutService } from './services/logout.service';
 import { CartService } from './services/cart.service';
 import { LocalStorageService } from './services/local-storage.service';
 import { RetrievePasswordService } from './services/retrieve-password.service';
+import { ProductsService } from './services/products.service';
 
 @NgModule({
   declarations: [
@@ -109,7 +109,6 @@ import { RetrievePasswordService } from './services/retrieve-password.service';
     InitSnackbarService,
     CountrycodelistService,
     SessValService,
-    AddAccountLoginService,
     HomepageCardService,
     UsersActiveInactiveService,
     GoogleImgService,
@@ -117,6 +116,7 @@ import { RetrievePasswordService } from './services/retrieve-password.service';
     CartService,
     LocalStorageService,
     RetrievePasswordService,
+    ProductsService
   ],
   bootstrap: [AppComponent],
   entryComponents: [SnackbarmsgComponent],

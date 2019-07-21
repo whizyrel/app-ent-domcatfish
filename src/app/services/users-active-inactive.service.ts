@@ -13,9 +13,9 @@ export class UsersActiveInactiveService {
   protected get getIonStore(): SessStoreProps[] | null {
     const ionstrttl = 'ionstr';
 
-    const users = this._localStorage.getItem(ionstrttl);
+    const users = JSON.parse(this._localStorage.getItem(ionstrttl));
     console.log(users);
-    return JSON.parse(users);
+    return users;
   }
 
   get getUsersActive(): SessStoreProps {
