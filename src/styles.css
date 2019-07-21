@@ -138,6 +138,11 @@ app-snackbarmsg {
   justify-self: center;
 }
 
+/* Border dividers */
+.bd-t {
+  border-top: 1px solid #ccc;
+}
+
 /* float */
 .fl-r {
   float: right !important;

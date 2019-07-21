@@ -9,6 +9,10 @@ import { AllLinksProps } from '../interfaces/all-links-props';
 export class LinksService {
   constructor() {}
 
+  getTypes() {
+    return ['Mini', 'Midi', 'Maxi', 'Mega', 'Premium'];
+  }
+
   getLoginBottomLinks(who: string): LinkProps[] {
     return [
       { link: `/${who.toLowerCase()}/signup`, title: 'Create An Account' },

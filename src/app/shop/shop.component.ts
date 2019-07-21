@@ -29,6 +29,7 @@ export class ShopComponent implements OnInit {
   public title = `Debim`.toUpperCase();
   public soc_link: AllLinksProps;
   public links: LinkProps[];
+  public types: string[];
 
   public what: string = `Logout`;
 
@@ -47,7 +48,9 @@ export class ShopComponent implements OnInit {
 
   public cart: CartProps[] = [];
 
-  public model;
+  public length: number = 0;
+  public pageSize: number;
+  public pageSizeOptions;
 
   constructor(
     private router: Router,
@@ -63,6 +66,7 @@ export class ShopComponent implements OnInit {
   ngOnInit() {
     this.soc_link = this._linksService.getSocialLinks();
     this.links = this._linksService.getHomeNavbarLinks();
+    this.types = this._linksService.getTypes();
 
     this.initActive();
     this.initInactive();

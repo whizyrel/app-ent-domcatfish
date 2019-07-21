@@ -50,6 +50,12 @@ header,
 
 
 /* My Styles */
+.type-link, .type-link a, .type-link a:hover {
+  color: #fff!important;
+}
+.product-bar {
+  background-color: #71748d!important;
+}
 .dropdown-menu {
   width: fit-content!important;
   border-radius: 0!important;
@@ -78,21 +84,25 @@ header,
   clear: both!important;
   overflow: auto!important;
 }
-.dropdown-item:hover {
-  background-color: inherit!important;
-}
-.dropdown-item a:hover {
-  background-color: #fff!important;
-  color: #1C2331!important;
-}
-.bd-t {
-  border-top: 1px solid #ccc;
-}
 .app-title {
   font-size: 5vh;
 }
+.static-dp {
+  box-sizing: border-box!important;
+  position: static !important;
+  border-color: #fff !important;
+  margin-top: 25px!important;
+  right: 0!important;
+  top: 20%!important;
+  width: fit-content;
+  min-width: 240px!important;
+  height: fit-content!important;
+}
+.static-dp a:hover {
+  background-color: inherit!important;
+}
 .user-btn {
-  display: flex;
+  display: block;
   width: 25px;
   height: 25px;
   box-sizing: border-box;
@@ -106,7 +116,8 @@ header,
 .actv-usr-pn {
   box-sizing: border-box!important;
   height: fit-content;
-  width: 100%;
+  display: table;
+  width: 100%!important;
   text-align: center;
 }
 .img-circle {
@@ -123,65 +134,60 @@ header,
   width: 100%; display: flex;
 }
 .user-ctrl {
-  display: table;
+  display: block; /* prev: table;*/
   box-sizing: border-box!important;
   height: fit-content;
   width: auto!important;
   background-color: rgb(218, 220, 224);
-  /* overflow: auto!important;
-  clear: both!important; */
-  float: left;
+  right: 0;
+  left: 0;
+  overflow: auto!important;
+  clear: both!important;
+  /* float: left; */
 }
 .user-ctrl a:hover {
-  /* background-color: inherit!important; */
+  background-color: inherit!important;
   color: #1C2331!important;
 }
 .user-ctrl > div {
-  display: table-cell;
+  display: table-cell!important;
 }
-.add-user {
-  width: 100%;
-  display: flex;
-  padding-left: 0!important;
-  padding-right: 0!important;
-}
-.add-user a:hover {
-  /* background-color: inherit!important; */
-  color: #1C2331!important;
+.ctrl-btn {
+  border: 1px solid rgb(95, 99, 104)!important;
+  border-radius: 3px!important;
+  background-color: inherit!important;
+  cursor: pointer;
+  color: #fff;
 }
 .add-link {
-  display: inline-block;
   box-sizing: border-box;
   height: fit-content;
 }
 .add-link:hover {
-  /* background-color: inherit!important; */
   color: #1C2331!important;
 }
 .add-link i:hover {
   background-color: inherit!important;
   color: #1C2331!important;
 }
-.static-dp {
-  box-sizing: border-box!important;
-  position: static !important;
-  border-color: #fff !important;
-  margin-top: 25px!important;
-  right: 0!important;
-  top: 20%!important;
-}
-.static-dp a:hover {
-  background-color: inherit!important;
-}
 .bkg {
   background: #f5f5f5;
 }
-.ctrl-btn {
-  display: inline-block;
-  border: 1px solid #1C2331!important;
-  border-radius: 3px!important;
-  background-color: inherit!important;
-}
 .clearfix {
   clear: both!important;
+}
+.search {
+  color: #fff!important;
+}
+.search input {
+  color: #fff!important;
+}
+input:focus:not([readonly]) {
+  color: #fff!important;
+  border-color: #343a40!important;
+  border-bottom: 1px solid #343a40;
+  box-shadow: 0 1px 0 0 #343a40!important;
+}
+.blend {
+  background-color: inherit!important;
 }

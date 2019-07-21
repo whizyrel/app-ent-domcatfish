@@ -160,7 +160,7 @@ body {
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
-    color: #71748d;
+    /* color: #71748d; */
     background-color: #efeff6;
     -webkit-font-smoothing: antialiased;
 }
@@ -1900,7 +1900,7 @@ Sidebar Page Navigations
 }
 
 .dropdown-item {
-    display: block;
+    display: flex;
     width: 100%;
     /* padding: .25rem 1.5rem; */
     clear: both;
