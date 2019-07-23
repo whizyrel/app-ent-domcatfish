@@ -40,6 +40,42 @@ export class LinksService {
       },
     ];
   }
+
+  get getAdminDashboardSidebarLinks(): LinkProps[] {
+    return [
+      {
+        link: '../../admin',
+        title: 'Home',
+        iconClass: 'fas fa-home mr-3'
+      },
+      {
+        link: '../../shop',
+        title: 'Shop',
+        iconClass: 'fas fa-map-marker-alt mr-3'
+      },
+      {
+        link: 'profile',
+        title: 'Profile',
+        iconClass: 'fas fa-user mr-3'
+      },
+      {
+        link: 'products',
+        title: 'Products',
+        iconClass: 'fas fa-shopping-cart'
+      },
+      {
+        link: 'feedbacks',
+        title: 'Feedbacks',
+        iconClass: 'fas fa-comments mr-3'
+      },
+      {
+        link: 'orders',
+        title: 'Orders',
+        iconClass: 'fas fa-money-bill-alt mr-3'
+      },
+    ];
+  }
+
   getSocialLinks(): AllLinksProps {
     return {
       whatsapp: `https://whatsapp.com/`,

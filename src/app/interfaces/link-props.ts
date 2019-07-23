@@ -4,4 +4,5 @@ export interface LinkProps {
   body?: string;
   addition?: string;
   srclink?: string;
+  iconClass?: string;
 }

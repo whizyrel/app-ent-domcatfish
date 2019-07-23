@@ -9,14 +9,15 @@
       <a
         class="navbar-brand waves-effect"
         [routerLink]="['../../', 'admin']"
-        target="_blank"
+        target="_self"
       >
         <!-- insert logo here -->
         <strong class="blue-text">MDB</strong>
       </a>
 
       <!-- Collapse -->
-      <button
+      <!-- replace navbar collapse button with sidebar collapse button tilted to left -->
+      <!-- <button
         class="navbar-toggler"
         type="button"
         data-toggle="collapse"
@@ -26,73 +27,15 @@
         aria-label="Toggle navigation"
       >
         <span class="navbar-toggler-icon"></span>
-      </button>
+      </button> -->
 
       <!-- Links -->
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- Left -->
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link waves-effect" href="#"
-              >Home <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link waves-effect"
-              href="https://mdbootstrap.com/docs/jquery/"
-              target="_blank"
-              >About MDB</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link waves-effect"
-              href="https://mdbootstrap.com/docs/jquery/getting-started/download/"
-              target="_blank"
-              >Free download</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link waves-effect"
-              href="https://mdbootstrap.com/education/bootstrap/"
-              target="_blank"
-              >Free tutorials</a
-            >
-          </li>
-        </ul>
+        <!-- removed left links -->
 
         <!-- Right -->
-        <ul class="navbar-nav nav-flex-icons">
-          <li class="nav-item">
-            <a
-              href="https://www.facebook.com/mdbootstrap"
-              class="nav-link waves-effect"
-              target="_blank"
-            >
-              <i class="fab fa-facebook-f"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              href="https://twitter.com/MDBootstrap"
-              class="nav-link waves-effect"
-              target="_blank"
-            >
-              <i class="fab fa-twitter"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              href="https://github.com/mdbootstrap/bootstrap-material-design"
-              class="nav-link border border-light rounded waves-effect"
-              target="_blank"
-            >
-              <i class="fab fa-github mr-2"></i>MDB GitHub
-            </a>
-          </li>
-        </ul>
+        <!-- replace right links with profile icons and other stuffs -->
       </div>
     </div>
   </nav>
@@ -102,27 +45,15 @@
   <div class="sidebar-fixed position-fixed">
     <a class="logo-wrapper waves-effect">
       <img
-        src="https://mdbootstrap.com/img/logo/mdb-email.png"
+        src="./assets/images/user8-128x128.jpg"
         class="img-fluid"
-        alt=""
+        alt="Profile Image"
       />
     </a>
 
     <div class="list-group list-group-flush">
-      <a href="#" class="list-group-item active waves-effect">
-        <i class="fas fa-chart-pie mr-3"></i>Dashboard
-      </a>
-      <a href="#" class="list-group-item list-group-item-action waves-effect">
-        <i class="fas fa-user mr-3"></i>Profile</a
-      >
-      <a href="#" class="list-group-item list-group-item-action waves-effect">
-        <i class="fas fa-table mr-3"></i>Tables</a
-      >
-      <a href="#" class="list-group-item list-group-item-action waves-effect">
-        <i class="fas fa-map mr-3"></i>Maps</a
-      >
-      <a href="#" class="list-group-item list-group-item-action waves-effect">
-        <i class="fas fa-money-bill-alt mr-3"></i>Orders</a
+      <a *ngFor="let sidebarLink of sidebarLinks" [routerLink]="[sidebarLink.link]" class="list-group-item list-group-item-action waves-effect">
+        <i class="{{ sidebarLink.iconClass }}"></i>{{sidebarLink.title}}</a
       >
     </div>
   </div>
@@ -160,72 +91,7 @@
 
     <!-- Grid rows wrapped in container reduced to one -->
     <!-- Grid row -->
-    <div class="row wow fadeIn">
-      <!-- Grid column -->
-      <div class="col-md-9 mb-4">
-        <!-- Card -->
-        <div class="card">
-          <!-- Card content -->
-          <div class="card-body"><canvas id="myChart"></canvas></div>
-        </div>
-        <!-- /.Card -->
-      </div>
-      <!-- Grid column -->
 
-      <!-- Grid column -->
-      <div class="col-md-3 mb-4">
-        <!-- Card -->
-        <div class="card mb-4">
-          <!-- Card header -->
-          <div class="card-header text-center">Pie chart</div>
-
-          <!-- Card content -->
-          <div class="card-body"><canvas id="pieChart"></canvas></div>
-        </div>
-        <!-- /.Card -->
-
-        <!-- Card -->
-        <div class="card mb-4">
-          <!-- Card content -->
-          <div class="card-body">
-            <!-- List group links -->
-            <div class="list-group list-group-flush">
-              <a class="list-group-item list-group-item-action waves-effect"
-                >Sales
-                <span class="badge badge-success badge-pill pull-right"
-                  >22% <i class="fas fa-arrow-up ml-1"></i>
-                </span>
-              </a>
-              <a class="list-group-item list-group-item-action waves-effect"
-                >Traffic
-                <span class="badge badge-danger badge-pill pull-right"
-                  >5% <i class="fas fa-arrow-down ml-1"></i>
-                </span>
-              </a>
-              <a class="list-group-item list-group-item-action waves-effect"
-                >Orders
-                <span class="badge badge-primary badge-pill pull-right"
-                  >14</span
-                >
-              </a>
-              <a class="list-group-item list-group-item-action waves-effect"
-                >Issues
-                <span class="badge badge-primary badge-pill pull-right"
-                  >123</span
-                >
-              </a>
-              <a class="list-group-item list-group-item-action waves-effect"
-                >Messages
-                <span class="badge badge-primary badge-pill pull-right">8</span>
-              </a>
-            </div>
-            <!-- List group links -->
-          </div>
-        </div>
-        <!-- /.Card -->
-      </div>
-      <!-- Grid column -->
-    </div>
     <!-- Grid row -->
     <!-- Router outlet with outlet name would be placed here -->
     <router-outlet name="dashboard"></router-outlet>
