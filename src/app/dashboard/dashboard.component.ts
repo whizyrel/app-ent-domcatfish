@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   public links: LinkProps[];
 
   public name: string = `Israel O.`;
-  public userimg: string;
+  public userimg: string = `./assets/images/avatar.png`;
 
   constructor(private _linksService: LinksService) {}
 

@@ -101,18 +101,18 @@ header,
 .static-dp a:hover {
   background-color: inherit!important;
 }
-                                            .user-btn {
-                                              display: block;
-                                              width: 25px;
-                                              height: 25px;
-                                              box-sizing: border-box;
-                                            }
-                                            .user-img {
-                                              width: 100%;
-                                              height: 100%;
-                                              border-radius: 50%;
-                                              box-sizing: border-box;
-                                            }
+.user-btn {
+  display: block;
+  width: 25px;
+  height: 25px;
+  box-sizing: border-box;
+}
+.user-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
 .actv-usr-pn {
   box-sizing: border-box!important;
   height: fit-content;
