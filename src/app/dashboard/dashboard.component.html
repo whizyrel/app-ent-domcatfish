@@ -6,36 +6,125 @@
   >
     <div class="container-fluid">
       <!-- Brand -->
-      <a
-        class="navbar-brand waves-effect"
-        [routerLink]="['../../', 'admin']"
-        target="_self"
-      >
-        <!-- insert logo here -->
-        <strong class="blue-text">MDB</strong>
-      </a>
-
       <!-- Collapse -->
       <!-- replace navbar collapse button with sidebar collapse button tilted to left -->
-      <!-- <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button> -->
 
       <!-- Links -->
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse form-inline" id="navbarSupportedContent">
         <!-- Left -->
         <!-- removed left links -->
+        <form class="d-flex justify-content-center">
+          <!-- Default input -->
+          <input
+            type="search"
+            placeholder="Type your query"
+            aria-label="Search"
+            class="form-control"
+          />
+          <button class="btn btn-primary btn-sm my-0 p" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
 
         <!-- Right -->
         <!-- replace right links with profile icons and other stuffs -->
+        <!-- Users -->
+          <li class="nav-item user-btn mg-l-1 mg-r-1 dropleft">
+            <a
+              class="dropdown-toggled"
+              id="dropdownMenuLink"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <img src="{{userimg}}" class="user-img" alt="User Image" />
+            </a>
+            <div
+              class="dropdown-menu static-dp"
+              aria-labelledby="dropdownMenuButton"
+            >
+              <!-- active user -->
+              <a class="dropdown-item" style="width: 100%!important;">
+                <!-- User image -->
+                <div class="actv-usr-pn user-data pd-t-p5 pd-b-1 text-center grey-text form-inline js-center" style="width: 100%!important; display: table;">
+                  <!-- <div
+                    class="user-data pd-t-p5 text-center grey-text form-inline"
+                    style="width: fit-content; justify-content: center;"
+                  > -->
+                  <div class="pd-t-p5 pd-b-p5" style="display: table-cell;">
+                    <img
+                      src="{{userimg}}"
+                      class="img-circle"
+                      alt="User Image"
+                    />
+                  </div>
+                  <div class="" style="display: table-cell;">
+                    <p
+                      *ngIf="username !== '' && username !== ' '"
+                      style="display: table-cell;"
+                      class="js-center pd-l-1"
+                    >
+                      {{ username }}
+                    </p>
+                  </div>
+                  <!-- </div> -->
+                </div>
+              </a>
+
+              <!-- other users -->
+              <div *ngFor="let inactv of inactive">
+                <a
+                  *ngIf="showInactvUser === true"
+                  class="dropdown-item pd-l-p5 pd-r-p5"
+                  #model
+                >
+                  <div class="other-user-panel bd-t">
+                    <div class="form-inline text-center">
+                      <img
+                        class="sub-img-circle mg-p5 mg-r-1"
+                        src="{{otherusrimg}}"
+                        alt="image"
+                      />
+                      {{ inactv.dt.firstname + ' ' + inactv.dt.lastname }}
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <!-- account control buttons -->
+              <!-- added border-top -->
+              <div class="dropdown-item bd-t user-ctrl pd-t-p5 pd-b-p5 form-inline" style="width: 100%!important; height: fit-content!important; justify-content: center!important;">
+                  <div class="fl-l pd-l-p5">
+                    <button
+                      class="ctrl-btn pd-p5 form-inline"
+                      style="width: auto;"
+                      (click)="inOutCtrl()"
+                    >
+                      <i
+                        *ngIf="showActvUser === false"
+                        class="fa fa-sign-in-alt mg-r-p5"
+                      ></i>
+                      <i
+                        *ngIf="showActvUser === true"
+                        class="fa fa-sign-out-alt mg-r-p5"
+                      ></i>
+                      {{ what }}
+                    </button>
+                  </div>
+
+                  <!-- Add User -->
+                  <div class="fl-r pd-r-p5" style="width: auto!important;">
+                    <a
+                      [routerLink]="['/user', 'account', 'add']"
+                      [queryParams]="{ rt: encURL }"
+                      class="add-link form-inline"
+                      ><i class="fa fa-user-plus"></i
+                    ></a>
+                  </div>
+              </div>
+            </div>
+          </li>
+        <!-- /Users -->
       </div>
     </div>
   </nav>
@@ -65,29 +154,6 @@
 <main class="pt-5 mx-lg-5">
   <div class="container-fluid mt-5">
     <!-- Heading -->
-    <div class="card mb-4 wow fadeIn">
-      <!-- Card content -->
-      <div class="card-body d-sm-flex justify-content-between">
-        <h4 class="mb-2 mb-sm-0 pt-1">
-          <a [routerLink]="['../../', 'admin']" target="_blank">Home Page</a>
-          <span>/</span> <span>Dashboard</span>
-        </h4>
-
-        <form class="d-flex justify-content-center">
-          <!-- Default input -->
-          <input
-            type="search"
-            placeholder="Type your query"
-            aria-label="Search"
-            class="form-control"
-          />
-          <button class="btn btn-primary btn-sm my-0 p" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </form>
-      </div>
-    </div>
-    <!-- Heading -->
 
     <!-- Grid rows wrapped in container reduced to one -->
     <!-- Grid row -->
@@ -107,17 +173,18 @@
   <div class="pt-4">
     <a
       class="btn btn-outline-white"
-      href="https://mdbootstrap.com/docs/jquery/getting-started/download/"
+      href="{{ links[links.length - 1].link }}"
       target="_blank"
       role="button"
-      >Download MDB <i class="fas fa-download ml-2"></i>
+      >Learn about Us<i class="fas fa-book ml-2"></i>
     </a>
     <a
       class="btn btn-outline-white"
-      href="https://mdbootstrap.com/education/bootstrap/"
+      [routerLink]="['']"
       target="_blank"
       role="button"
-      >Start free tutorial <i class="fas fa-graduation-cap ml-2"></i>
+    >
+      Find Us on the Map <i class="fas fa-map ml-2"></i>
     </a>
   </div>
   <!-- /.Call to action -->
@@ -126,42 +193,20 @@
 
   <!-- Social icons -->
   <div class="pb-4">
-    <a href="https://www.facebook.com/mdbootstrap" target="_blank">
+    <a href="{{soc_link.facebook}}" target="_blank">
       <i class="fab fa-facebook-f mr-3"></i>
     </a>
 
-    <a href="https://twitter.com/MDBootstrap" target="_blank">
+    <a href="{{soc_link.twitter}}" target="_blank">
       <i class="fab fa-twitter mr-3"></i>
     </a>
 
-    <a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">
-      <i class="fab fa-youtube mr-3"></i>
+    <a href="{{soc_link.whatsapp}}" target="_blank">
+      <i class="fab fa-whatsapp mr-3"></i>
     </a>
 
-    <a
-      href="https://plus.google.com/u/0/b/107863090883699620484"
-      target="_blank"
-    >
-      <i class="fab fa-google-plus mr-3"></i>
-    </a>
-
-    <a href="https://dribbble.com/mdbootstrap" target="_blank">
-      <i class="fab fa-dribbble mr-3"></i>
-    </a>
-
-    <a href="https://pinterest.com/mdbootstrap" target="_blank">
-      <i class="fab fa-pinterest mr-3"></i>
-    </a>
-
-    <a
-      href="https://github.com/mdbootstrap/bootstrap-material-design"
-      target="_blank"
-    >
-      <i class="fab fa-github mr-3"></i>
-    </a>
-
-    <a href="http://codepen.io/mdbootstrap/" target="_blank">
-      <i class="fab fa-codepen mr-3"></i>
+    <a href="{{soc_link.instagram}}" target="_blank">
+      <i class="fab fa-instagram mr-3"></i>
     </a>
   </div>
   <!-- Social icons -->
@@ -169,9 +214,7 @@
   <!-- Copyright -->
   <div class="footer-copyright py-3">
     © 2019 Copyright:
-    <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank">
-      MDBootstrap.com
-    </a>
+    <a [routerLink]="['']" target="_self"> {{ title }} Integrated Services </a>
   </div>
   <!-- /.Copyright -->
 </footer>
