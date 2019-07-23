@@ -3,12 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { APIURLService } from './apiurl.service';
+import { ApiUrlsProps } from '../interfaces/api-urls-props';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
-  protected productUrls = this.apiUrls.productsUrls;
+  protected productUrls: ApiUrlsProps = this.apiUrls.productsUrls;
 
   constructor(private apiUrls: APIURLService, private _httpClient: HttpClient) { }
 

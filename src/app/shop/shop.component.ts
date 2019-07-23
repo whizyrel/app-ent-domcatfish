@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import {PageEvent} from '@angular/material';
 
 import { AES, enc } from 'crypto-js';
 
@@ -16,6 +17,8 @@ import { AllLinksProps } from '../interfaces/all-links-props';
 import { PubUserDetails } from '../interfaces/pub-user-details';
 import { CartProps } from '../interfaces/cart-props';
 import { SessStoreProps } from '../interfaces/sess-store-props';
+import { ProductsProps } from '../interfaces/products-props';
+import { HttpResponse } from '../interfaces/http-response';
 
 @Component({
   selector: 'app-shop',
@@ -49,9 +52,13 @@ export class ShopComponent implements OnInit {
 
   public cart: CartProps[] = [];
 
-  public length: number = 0;
+  public length: number;
   public pageSize: number;
   public pageSizeOptions;
+  // MatPaginator Output
+  public pageEvent: PageEvent;
+
+  public productsList: ProductsProps[][];
 
   constructor(
     private router: Router,
@@ -70,6 +77,9 @@ export class ShopComponent implements OnInit {
     this.links = this._linksService.getHomeNavbarLinks();
     this.types = this._linksService.getTypes();
 
+    this.pageSize = 4;
+    // this.getProducts();
+
     this.initActive();
     this.initInactive();
 
@@ -85,8 +95,33 @@ export class ShopComponent implements OnInit {
     // if cart is empty disable Proceed to checkout button
   }
 
-  getProducts () {
+  protected getProducts () {
+    this._productsService.getProductList.subscribe((data: HttpResponse) => {
+      console.log(`[Success]`);
+      console.log(data);
+      this.productsList = this.splitProductsList(data.docs);
 
+      this.length = this.productsList.length;
+      }, (error: HttpResponse) => {
+      console.log(`[Error]`);
+      console.log(error);
+    });
+  }
+
+  protected splitProductsList(data) {
+    const arrayList = [];
+
+    data.forEach((cur, i) => {
+      const buff = [];
+      while ((arrayList.length <= Math.trunc(arrayList.length/4) /*|| arrayList[i].length !== undefined*/) && i < data.length) {
+        buff.push(cur);
+        arrayList.push((buff));
+      }
+    });
+
+    console.log(arrayList);
+
+    return arrayList;
   }
 
   initActive() {

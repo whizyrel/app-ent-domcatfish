@@ -191,5 +191,5 @@ input:focus:not([readonly]) {
 .blend {
   background-color: inherit!important;
   color: rgb(95, 99, 104)!important;
-  font-size: 3em;
+  font-size: 1em;
 }
