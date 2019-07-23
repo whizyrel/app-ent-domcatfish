@@ -9,7 +9,9 @@
       <!-- Collapse -->
       <!-- replace navbar collapse button with sidebar collapse button tilted to left -->
       <div class="mg-r-1" style="width: fit-content; height: fit-content;">
-        <i class="fas fa-bars fa-2x"></i>
+        <button type="button" data-toggle="collapse" data-target="#adminSidebar" aria-expanded="true" aria-controls="adminSidebar" style="border: none!important; background-color: inherit!important;">
+          <i class="fas fa-bars fa-1x"></i>
+        </button>
       </div>
 
       <!-- Links -->
@@ -137,7 +139,7 @@
   <!-- Navbar -->
 
   <!-- Sidebar -->
-  <div class="sidebar-fixed position-fixed">
+  <div class="sidebar-fixed position-fixed collapse show" id="adminSidebar">
     <a class="logo-wrapper waves-effect form-inline grey-text" style="display: flex; padding: initial 1rem!important;">
       <img
         src="{{userimg}}"
