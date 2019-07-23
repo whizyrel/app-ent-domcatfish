@@ -16,10 +16,13 @@ import { LinkProps } from '../interfaces/link-props';
 })
 export class DashboardComponent implements OnInit {
   public title = `Debim`.toUpperCase();
+
   public sidebarLinks: LinkProps[];
-  public name: string = `Israel O.`;
   public soc_link: AllLinksProps;
   public links: LinkProps[];
+
+  public name: string = `Israel O.`;
+  public userimg: string;
 
   constructor(private _linksService: LinksService) {}
 

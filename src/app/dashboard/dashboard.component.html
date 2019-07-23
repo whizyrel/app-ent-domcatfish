@@ -10,16 +10,17 @@
       <!-- replace navbar collapse button with sidebar collapse button tilted to left -->
 
       <!-- Links -->
-      <div class="collapse navbar-collapse form-inline" id="navbarSupportedContent">
+      <div class="justify-content" style="width: 100%!important;">
         <!-- Left -->
         <!-- removed left links -->
-        <form class="d-flex justify-content-center">
+        <form class="fl-l d-flex justify-content-center">
           <!-- Default input -->
           <input
             type="search"
             placeholder="Type your query"
             aria-label="Search"
             class="form-control"
+            style="min-width: 150px;"
           />
           <button class="btn btn-primary btn-sm my-0 p" type="submit">
             <i class="fas fa-search"></i>
@@ -29,7 +30,7 @@
         <!-- Right -->
         <!-- replace right links with profile icons and other stuffs -->
         <!-- Users -->
-          <li class="nav-item user-btn mg-l-1 mg-r-1 dropleft">
+          <li class="nav-item user-btn mg-l-1 mg-r-1 fl-r dropleft">
             <a
               class="dropdown-toggled"
               id="dropdownMenuLink"
@@ -37,7 +38,9 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <img src="{{userimg}}" class="user-img" alt="User Image" />
+              <i *ngIf="userimg == '' || userimg === ' ' || userimg === undefined || userimg === null" class="fas fa-user-circle fa-2x" style="width: 100%!important; height: 100%!important;"></i>
+
+              <img *ngIf="userimg !== '' && userimg !== ' ' && userimg !== undefined && userimg !== null" src="{{userimg}}" class="user-img" alt="User Image"/>
             </a>
             <div
               class="dropdown-menu static-dp"
@@ -132,12 +135,14 @@
 
   <!-- Sidebar -->
   <div class="sidebar-fixed position-fixed">
-    <a class="logo-wrapper waves-effect">
+    <a class="logo-wrapper waves-effect form-inline grey-text" style="display: flex; padding: initial 1rem!important;">
       <img
         src="./assets/images/user8-128x128.jpg"
         class="img-fluid"
         alt="Profile Image"
+        style="width: 50px!important; height: 50px!important; border-radius: 50%;"
       />
+      <p class="pd-l-1">{{ name }}</p>
     </a>
 
     <div class="list-group list-group-flush">
