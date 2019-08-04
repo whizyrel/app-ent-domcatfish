@@ -100,6 +100,13 @@ export class DashboardAuthGuard implements CanActivate {
                         this._users.setNextActive();
                       })()
                     : (() => null)();
+
+                    // either way reject false
+                    this.router.navigate(['admin'], {
+                      replaceUrl: true,
+                      skipLocationChange: true,
+                    });
+                    reject(false);
                 }
               );
             })()
