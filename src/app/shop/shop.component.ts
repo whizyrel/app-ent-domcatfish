@@ -11,6 +11,7 @@ import { LogoutService } from '../services/logout.service';
 import { CartService } from '../services/cart.service';
 import { LocalStorageService } from '../services/local-storage.service';
 import { ProductsService } from '../services/products.service';
+import { DecEncService } from '../services/dec-enc.service';
 
 import { LinkProps } from '../interfaces/link-props';
 import { AllLinksProps } from '../interfaces/all-links-props';
@@ -69,7 +70,8 @@ export class ShopComponent implements OnInit {
     private _logUserOut: LogoutService,
     private _cartService: CartService,
     private _localStorage: LocalStorageService,
-    private _productsService: ProductsService
+    private _productsService: ProductsService,
+    private _decEnc: DecEncService
   ) {}
 
   ngOnInit() {
@@ -84,7 +86,8 @@ export class ShopComponent implements OnInit {
     this.initInactive();
 
     // console.log(this.activatedRoute.pathFromRoot.toString());
-    this.encURL = AES.encrypt('/shop', this.seckey);
+    // this.encURL = AES.encrypt('/shop', this.seckey);
+    this.encURL = this._decEnc.aesEncryption('/shop', this.seckey);
   }
 
   addToCart() {

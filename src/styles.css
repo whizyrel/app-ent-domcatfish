@@ -86,7 +86,7 @@ app-snackbarmsg {
 }
 
 /* My library */
-// Medium devices (tablets, less than 992px)
+/* Medium devices (tablets, less than 992px)*/
 @media (max-width: 991px) {
   .pd-b-ctrl {
     padding-bottom: 0!important;
@@ -96,7 +96,7 @@ app-snackbarmsg {
   }
 }
 
-// Large devices (desktops, less than 1200px)
+/* Large devices (desktops, less than 1200px)*/
 @media (max-width: 1199px) {
   .pd-b-ctrl {
     padding-bottom: 0!important;

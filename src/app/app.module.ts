@@ -55,6 +55,7 @@ import { CartService } from './services/cart.service';
 import { LocalStorageService } from './services/local-storage.service';
 import { RetrievePasswordService } from './services/retrieve-password.service';
 import { ProductsService } from './services/products.service';
+import { DecEncService } from './services/dec-enc.service';
 
 @NgModule({
   declarations: [
@@ -116,7 +117,8 @@ import { ProductsService } from './services/products.service';
     CartService,
     LocalStorageService,
     RetrievePasswordService,
-    ProductsService
+    ProductsService,
+    DecEncService
   ],
   bootstrap: [AppComponent],
   entryComponents: [SnackbarmsgComponent],
