@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import {PageEvent} from '@angular/material';
+// import {PageEvent} from '@angular/material';
 
 import { AES, enc } from 'crypto-js';
 
@@ -53,13 +53,13 @@ export class ShopComponent implements OnInit {
 
   public cart: CartProps[] = [];
 
-  public length: number;
-  public pageSize: number;
-  public pageSizeOptions;
   // MatPaginator Output
-  public pageEvent: PageEvent;
+  public pageIndex: number = 0;
+  public pageSize: number = 3;
+  // public pageEvent: PageEvent;
 
   public productsList: ProductsProps[][];
+  public currentProductArray: ProductsProps[];
 
   constructor(
     private router: Router,
@@ -79,8 +79,7 @@ export class ShopComponent implements OnInit {
     this.links = this._linksService.getHomeNavbarLinks();
     this.types = this._linksService.getTypes();
 
-    this.pageSize = 4;
-    // this.getProducts();
+    this.getProducts();
 
     this.initActive();
     this.initInactive();
@@ -98,33 +97,61 @@ export class ShopComponent implements OnInit {
     // if cart is empty disable Proceed to checkout button
   }
 
-  protected getProducts () {
+  protected getProducts() {
     this._productsService.getProductList.subscribe((data: HttpResponse) => {
       console.log(`[Success]`);
       console.log(data);
-      this.productsList = this.splitProductsList(data.docs);
 
-      this.length = this.productsList.length;
-      }, (error: HttpResponse) => {
+      if (data.hasOwnProperty('docs')) {
+        this.productsList = this.splitProductsList(data.docs);
+
+        this.currentProductArray = this.productsList[this.productsList.length -= this.productsList.length];
+
+        return;
+      }
+    }, (error: HttpResponse) => {
       console.log(`[Error]`);
       console.log(error);
     });
   }
 
   protected splitProductsList(data) {
-    const arrayList = [];
+    const arrList = [];
+    let buff = [];
 
-    data.forEach((cur, i) => {
-      const buff = [];
-      while ((arrayList.length <= Math.trunc(arrayList.length/4) /*|| arrayList[i].length !== undefined*/) && i < data.length) {
-        buff.push(cur);
-        arrayList.push((buff));
-      }
+    data.forEach(async (cur, i) => {
+       buff.push(cur);
+
+       // average case
+       if ((++i % this.pageSize) === 0) {
+         console.log('full');
+         arrList.push(buff);
+         buff = [];
+       }
+
+       // worst case: i + 1 % pageSize !== 0, i === data length || i + 1 > data.length
+       if ((++i % this.pageSize) !== 0 && i  === (--data.length)) {
+         console.log('less than pageSize');
+         arrList.push(buff);
+       }
+
+       console.log({buff, pageSize: this.pageSize, i, data});
     });
 
-    console.log(arrayList);
+    console.log({arrList});
+    return arrList;
+  }
 
-    return arrayList;
+  public pageHandler(i: number) {
+    console.log({i});
+
+    if (i >= 0) {
+      this.currentProductArray = this.productsList[++this.pageIndex];
+    }
+
+    if (i < 0) {
+      this.currentProductArray = this.productsList[--this.pageIndex];
+    }
   }
 
   initActive() {
