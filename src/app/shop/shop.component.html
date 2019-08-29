@@ -145,12 +145,15 @@
               </a>
 
               <!-- other users -->
-              <!-- other users -->
-              <div *ngFor="let inactv of inactive" class="bd-t">
+              <div class="bd-t"></div>
+              <div *ngFor="let inactv of inactive">
                 <a
                   *ngIf="showInactvUser === true"
                   class="dropdown-item pd-l-p5 pd-r-p5"
-                  style="width: 100%Important;"
+                  style="width: 100%!important;"
+                  id="ui-{{inactv.index}}"
+                  (click)="oneClickLogin(ui)"
+                  #ui
                 >
                   <div class="other-user-panel">
                     <div *ngIf="inactv.dt.img !== '' && inactv.dt.img === ' ' && inactv.dt.img !== undefined && inactv.dt.img !== null; else otherUserPanelElseBlock" class="pd-t-p5 pd-b-p5" style="display: table-cell;">

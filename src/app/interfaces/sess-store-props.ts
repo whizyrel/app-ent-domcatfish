@@ -4,4 +4,5 @@ export interface SessStoreProps {
   id: string;
   dt: PubUserDetails;
   active: boolean;
+  index?: number;
 }

@@ -72,6 +72,15 @@ export class DashboardComponent implements OnInit {
     console.log({encURL: this.encURL});
   }
 
+  oneClickLogin(el) {
+    // grap selected user index in session store
+    const i = parseInt(el.id.split('-')[1]);
+
+    this._users.switchUser(i);
+    this.initActive();
+    this.initInactive();
+  }
+
   initActive() {
     // type mismatch
     !Array.isArray(this._users.getUsersActive)
@@ -105,7 +114,7 @@ export class DashboardComponent implements OnInit {
       : (() => {
           this.what = `Sign in`;
           this.showActvUser = false;
-          this.userimg = `./assets/images/user2-160x160.jpg`;
+          // this.userimg = `./assets/images/user2-160x160.jpg`;
           this.username = ``;
         })();
   }
@@ -136,7 +145,7 @@ export class DashboardComponent implements OnInit {
                   // this.otherusrimg = `./assets/images/avatar3.png`;
                 },
                 (error) => {
-                  cur.dt.img = `./assets/images/avatar2.png`;
+                  // cur.dt.img = `./assets/images/avatar2.png`;
 
                   // temporarily use
                   // this.otherusrimg = `./assets/images/avatar3.png`;

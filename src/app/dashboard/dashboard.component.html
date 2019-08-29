@@ -89,6 +89,7 @@
             </ng-template>
             <!-- Else block: user image -->
           </a>
+
           <!-- Dropdown -->
           <div
             class="dropdown-menu static-dp"
@@ -124,16 +125,19 @@
                 </div>
               </div>
             </a>
-            <!-- User image -->
 
             <!-- other users -->
+            <div class="bd-t"></div>
             <div *ngFor="let inactv of inactive">
               <a
                 *ngIf="showInactvUser === true"
                 class="dropdown-item pd-l-p5 pd-r-p5"
-                id="{{inactv.dt}}"
+                style="width: 100%!important; padding-bottom: 0;"
+                id="ui-{{inactv.index}}" (click)="oneClickLogin(ui)"
+                #ui
               >
-                <div class="other-user-panel bd-t">
+                <div class="other-user-panel">
+                  <!-- User image -->
                   <div *ngIf="inactv.dt.img !== '' && inactv.dt.img === ' ' && inactv.dt.img !== undefined && inactv.dt.img !== null; else otherUserPanelElseBlock" class="pd-t-p5 pd-b-p5" style="display: table-cell;">
                     <img
                       src="{{ inactv.dt.img }}"
@@ -280,15 +284,4 @@
   // Animations initialization
   new WOW().init();
 
-  const el = document.querySelector('#toggle-btn');
-  el.addEventListener('click', (e) => {
-    const navbar = document.querySelector('.navbar');
-    const browserWidth = window.innerWidth;
-
-    console.log({browserWidth});
-
-    if (browserWidth === 1200) navbar.style.paddingLeft = "0!important";
-  });
-
-  console.log({el});
 </script>

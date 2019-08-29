@@ -10,7 +10,13 @@ import { UsersActiveInactiveService } from './users-active-inactive.service';
   providedIn: 'root',
 })
 export class LogoutService {
-  constructor(private _localStorage: LocalStorageService, private apiUrls: APIURLService, private _httpClient: HttpClient, private _activeInactiveUsers: UsersActiveInactiveService) {}
+  constructor(
+    private _localStorage: LocalStorageService,
+    private apiUrls: APIURLService,
+    private _httpClient: HttpClient,
+    private _activeInactiveUsers: UsersActiveInactiveService
+  ) {}
+  
   logout() {
     const ionstrttl = 'ionstr';
 

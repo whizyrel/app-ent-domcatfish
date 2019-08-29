@@ -14,7 +14,7 @@ export class UsersActiveInactiveService {
     const ionstrttl = 'ionstr';
 
     const users = JSON.parse(this._localStorage.getItem(ionstrttl));
-    console.log(users);
+    // console.log(users);
     return users;
   }
 
@@ -25,7 +25,8 @@ export class UsersActiveInactiveService {
     // returns an object
     return users === undefined || users === null || users.length < 1
       ? null
-      : users.find((cur) => {
+      : users.find((cur, i) => {
+          cur.index = i;
           return cur.active === true;
         });
   }
@@ -35,10 +36,12 @@ export class UsersActiveInactiveService {
     // returns an array
     return users === undefined || users === null || users.length < 1
       ? []
-      : users.filter((cur) => {
+      : users.filter((cur, i) => {
+          cur.index = i;
           return cur.active === false;
         });
   }
+
   get allUsers(): SessStoreProps[] {
     return this.getIonStore;
   }
@@ -66,5 +69,24 @@ export class UsersActiveInactiveService {
           this._localStorage.setItem('ionstr', inactive);
         })()
       : null; // proceed to log only user out
+  }
+
+  switchUser(index: number) {
+    // grab index, all users
+    const users = this.allUsers;
+
+    // set other active to false
+    users !== null && users !== undefined && users.length > 0
+      ? ((usrs) => {
+        // set others differnet from index to false
+        usrs.forEach((cur, i) => {
+          if (i !== index) cur.active = false;
+        });
+
+        // set index to true
+        usrs[index].active === true;
+      })(users) : null;
+    // set this index to true;
+    console.log({index, users});
   }
 }

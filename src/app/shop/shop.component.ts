@@ -156,11 +156,21 @@ export class ShopComponent implements OnInit {
     }
   }
 
+  oneClickLogin(stf) {
+    // grap selected user index in session store
+    const i = parseInt(stf.id.split('-')[1]);
+
+
+    console.log({i});
+  }
+
   initActive() {
     // type mismatch
     !Array.isArray(this._users.getUsersActive)
       ? (this.active = this._users.getUsersActive)
       : null;
+
+      console.log({active: this.active});
 
     this.active !== undefined &&
     this.active !== null &&
@@ -205,7 +215,7 @@ export class ShopComponent implements OnInit {
       this._users.getUsersInactive !== undefined
     ) {
       this.inactive = this._users.getUsersInactive;
-      // console.log(this.inactive);
+      console.log({inactive: this.inactive});
 
       this.inactive.length >= 1 &&
       this.inactive !== null &&
