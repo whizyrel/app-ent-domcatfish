@@ -86,6 +86,7 @@ export class ShopComponent implements OnInit {
     // console.log(this.activatedRoute.pathFromRoot.toString());
     // this.encURL = AES.encrypt('/shop', this.seckey);
     this.encURL = this._decEnc.aesEncryption('/shop', this.seckey);
+    console.log({encURL: this.encURL});
   }
 
   addToCart() {
@@ -99,7 +100,7 @@ export class ShopComponent implements OnInit {
   protected getProducts() {
     this._productsService.getProductList.subscribe((data: HttpResponse) => {
       console.log(`[Success]`);
-      console.log(data);
+      console.log({data});
 
       if (data.hasOwnProperty('docs')) {
         this.productsList = this.splitProductsList(data.docs);
@@ -118,6 +119,8 @@ export class ShopComponent implements OnInit {
     const arrList = [];
     let buff = [];
 
+    console.log(`[data]`, {data});
+
     data.forEach(async (cur, i) => {
        buff.push(cur);
 
@@ -130,11 +133,11 @@ export class ShopComponent implements OnInit {
 
        // worst case: i + 1 % pageSize !== 0, i === data length || i + 1 > data.length
        if ((++i % this.pageSize) !== 0 && i  === (--data.length)) {
-         console.log('less than pageSize');
+         // console.log('less than pageSize');
          arrList.push(buff);
        }
 
-       console.log({buff, pageSize: this.pageSize, i, data});
+       console.log({buff, pageSize: this.pageSize, i});
     });
 
     console.log({arrList});
@@ -194,8 +197,7 @@ export class ShopComponent implements OnInit {
   }
 
   initInactive() {
-    console.log(this._users.getUsersInactive.length);
-
+    // console.log(this._users.getUsersInactive.length);
     // type mismatch
     if (
       this._users.getUsersInactive.length >= 1 &&
@@ -203,7 +205,7 @@ export class ShopComponent implements OnInit {
       this._users.getUsersInactive !== undefined
     ) {
       this.inactive = this._users.getUsersInactive;
-      console.log(this.inactive);
+      // console.log(this.inactive);
 
       this.inactive.length >= 1 &&
       this.inactive !== null &&
@@ -239,7 +241,7 @@ export class ShopComponent implements OnInit {
   }
 
   inOutCtrl() {
-    console.log(this.showActvUser);
+    // console.log(this.showActvUser);
     this.showActvUser === true
       ? (() => {
           // log user out

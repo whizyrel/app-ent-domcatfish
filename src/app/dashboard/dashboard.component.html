@@ -95,9 +95,9 @@
             aria-labelledby="dropdownMenuButton"
           >
             <!-- active user -->
-            <a class="dropdown-item" style="width: 100%!important;">
+            <a class="dropdown-item" style="width: 100%!important; padding: 0!important;">
               <!-- User image and name -->
-              <div class="actv-usr-pn user-data pd-t-p5 pd-b-1 text-center grey-text form-inline js-center" style="width: 100%!important; display: table;">
+              <div class="actv-usr-pn user-data pd-t-p5 text-center grey-text form-inline js-center" style="width: 100%!important; display: table;">
                 <div *ngIf="userimg !== '' && userimg === ' ' && userimg !== undefined && userimg !== null; else userPanelElseBlock" class="pd-t-p5 pd-b-p5" style="display: table-cell;">
                   <img
                     src="{{userimg}}"
@@ -108,7 +108,7 @@
                 <!-- Icon to replace above -->
                 <ng-template #userPanelElseBlock>
                   <div class="pd-t-p5 pd-b-p5" style="display: table-cell;">
-                    <i class="img-fluid fas fa-user-circle fa-4x" style="width: fit-content!important; height: fit-content!important;"></i>
+                    <i class="img-fluid fas fa-user-circle fa-3x" style="width: fit-content!important; height: fit-content!important;"></i>
                   </div>
                 </ng-template>
                 <!-- Icon -->
@@ -131,16 +131,31 @@
               <a
                 *ngIf="showInactvUser === true"
                 class="dropdown-item pd-l-p5 pd-r-p5"
-                #model
+                id="{{inactv.dt}}"
               >
                 <div class="other-user-panel bd-t">
-                  <div class="form-inline text-center">
+                  <div *ngIf="inactv.dt.img !== '' && inactv.dt.img === ' ' && inactv.dt.img !== undefined && inactv.dt.img !== null; else otherUserPanelElseBlock" class="pd-t-p5 pd-b-p5" style="display: table-cell;">
                     <img
-                      class="sub-img-circle mg-p5 mg-r-1"
-                      src="{{otherusrimg}}"
-                      alt="image"
+                      src="{{ inactv.dt.img }}"
+                      class="sub-img-circle"
+                      alt="User Image"
                     />
-                    {{ inactv.dt.firstname + ' ' + inactv.dt.lastname }}
+                  </div>
+                  <!-- Icon to replace above -->
+                  <ng-template #otherUserPanelElseBlock>
+                    <div class="pd-t-p5 pd-b-p5" style="display: table-cell;">
+                      <i class="img-fluid fas fa-user-circle fa-2x" style="width: fit-content!important; height: fit-content!important;"></i>
+                    </div>
+                  </ng-template>
+                  <!-- Icon -->
+                  <div class="" style="display: table-cell; vertical-align: middle;">
+                    <p
+                      *ngIf="inactv.dt.firstname !== '' && inactv.dt.firstname !== ' '"
+                      style="display: table-cell; vertical-align: middle;"
+                      class="js-center pd-l-1"
+                    >
+                      {{ inactv.dt.firstname + ' ' + inactv.dt.lastname }}
+                    </p>
                   </div>
                 </div>
               </a>
@@ -170,7 +185,7 @@
                 <!-- Add User -->
                 <div class="fl-r pd-r-p5" style="width: auto!important;">
                   <a
-                    [routerLink]="['/user', 'account', 'add']"
+                    [routerLink]="['/admin', 'account', 'add']"
                     [queryParams]="{ rt: encURL }"
                     class="add-link form-inline"
                     ><i class="fa fa-user-plus"></i

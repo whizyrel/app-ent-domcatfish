@@ -66,15 +66,15 @@ export class AddAccountLoginComponent implements OnInit {
   ngOnInit() {
     // grab query
     this.activatedRoute.queryParams.subscribe((param) => {
-      console.log(param);
       const { rt } = param;
 
+      console.log({rt});
       // decrypt rt
       const bytes = AES.decrypt(rt.toString(), this.seckey);
       // console.log(`bytes: ${bytes}`);
 
       this.returnURL = bytes.toString(enc.Utf8);
-      console.log(this.returnURL);
+      console.log({param, rt});
     });
 
     // grab URLSegment
@@ -206,7 +206,9 @@ export class AddAccountLoginComponent implements OnInit {
 
               // route back to original URL whence user came
               // hence use param return URL
+
               this.router.navigateByUrl(this.returnURL);
+
               // this.who === 'user' && userDetails.accountType === 'client'
               //   ? this.router.navigate(['shop'], { replaceUrl: true })
               //   : this.router.navigate([this.who, 'dashboard'], {
@@ -242,11 +244,7 @@ export class AddAccountLoginComponent implements OnInit {
         );
     }
   }
-  // for use is selection of users in user panel
-  // protected get activeInactiveUsers() {
-  //   // get last active user
-  //   // get inactive users
-  // }
+
   get status() {
     return this.addaccountform.controls;
   }

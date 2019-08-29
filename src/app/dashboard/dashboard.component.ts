@@ -66,6 +66,10 @@ export class DashboardComponent implements OnInit {
     // get active users
     this.initActive();
     this.initInactive();
+
+    // encrypt return URL from add account LoginProps
+    this.encURL = this._decEnc.aesEncryption('/admin/dashboard', this.seckey);
+    console.log({encURL: this.encURL});
   }
 
   initActive() {
@@ -107,8 +111,7 @@ export class DashboardComponent implements OnInit {
   }
 
   initInactive() {
-    console.log(this._users.getUsersInactive.length);
-
+    // console.log(this._users.getUsersInactive.length);
     // type mismatch
     if (
       this._users.getUsersInactive.length >= 1 &&
@@ -116,7 +119,7 @@ export class DashboardComponent implements OnInit {
       this._users.getUsersInactive !== undefined
     ) {
       this.inactive = this._users.getUsersInactive;
-      console.log(this.inactive);
+      // console.log(this.inactive);
 
       this.inactive.length >= 1 &&
       this.inactive !== null &&
@@ -152,7 +155,7 @@ export class DashboardComponent implements OnInit {
   }
 
   inOutCtrl() {
-    console.log(this.showActvUser);
+    // console.log(this.showActvUser);
     this.showActvUser === true
       ? (() => {
           // log user out
@@ -218,7 +221,7 @@ export class DashboardComponent implements OnInit {
       searchBtn.classList.toggle('d-none');
 
       // user profile/panel
-      // userPanelBtn.classList.toggle('d-none');
+      if (browserWidth <= 576) userPanelBtn.classList.toggle('d-none');
 
       // medium devices display none
       sidebarField.classList.toggle('d-md-block');
