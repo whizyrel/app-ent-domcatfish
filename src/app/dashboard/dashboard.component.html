@@ -5,9 +5,9 @@
     class="navbar fixed-top navbar-light white scrolling-navbar p-l-270p"
   >
     <!-- Sidebar -->
-    <div class="_sidebar d-none d-sm-block">
+    <div class="_sidebar d-none d-md-block ">
       <!-- User image -->
-      <a class="logo-wrapper waves-effect form-inline grey-text" style="display: flex; padding: 1rem!important; margin: auto;">
+      <a class="logo-wrapper waves-effect form-inline grey-text" style="display: flex; padding: 5vw 1rem!important; margin: auto;">
         <img
           src="{{userimg}}"
           class="img-fluid"
@@ -31,7 +31,7 @@
     <div class="nav-container form-inline">
       <!-- Brand -->
       <!-- toggle button -->
-      <div class="fl-l" style="display: flex; width: fit-content; height: fit-content; box-sizing: border-box;">
+      <div class="fl-l" style="display: flex; width: fit-content; min-width: 10px; height: 100%; box-sizing: border-box;">
         <button type="button" style="border: none!important; background-color: inherit!important;" (click)="toggleSidebar()" data-toggle="tooltip" title="Menu" id="toggle-btn">
           <i class="fas fa-bars fa-1x"></i>
         </button>
@@ -48,9 +48,9 @@
             type="search"
             placeholder="Type your query"
             aria-label="Search"
-            class="form-control"
+            class="form-control search-input"
             id="search-bar"
-            style="min-width: 30vw;"
+            style="min-width: 20vw;"
           />
           <button class="btn btn-primary btn-sm my-0 p" id="search-btn" type="submit">
             <i class="fas fa-search"></i>

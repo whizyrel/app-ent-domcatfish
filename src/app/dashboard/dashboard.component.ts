@@ -54,18 +54,21 @@ export class DashboardComponent implements OnInit {
   public toggleSidebar () {
     const sidebarField = document.querySelector('._sidebar');
     const queryProfileDiv = document.querySelector('#query-profile');
+    const userPanel = document.querySelector('.user-btn');
     const searchBar = document.querySelector('#search-bar');
     const searchBtn = document.querySelector('#search-btn');
     const navbar = document.querySelector('.navbar');
     const browserWidth = window.innerWidth;
 
     // sm devices up
-    if (browserWidth >= 576) {
+    if (browserWidth >= 768) {
       // toggle menu
       sidebarField.classList.toggle('invisible');
       // attend to navbar padding-left
       navbar.classList.toggle('p-l-270p');
-    } else if (browserWidth < 576) {
+
+      // toggle main and footer padding-left
+    } else if (browserWidth < 768) {
       // xs devices down
       /*
       - toggle the appearance of search and profile
@@ -73,12 +76,24 @@ export class DashboardComponent implements OnInit {
       - toggle display on small devices
       */
 
+      // navbar
       navbar.classList.toggle('_sm-navbar');
-      queryProfileDiv.classList.toggle('invisible');
+      // search bar and user profile button
+      queryProfileDiv.classList.toggle('d-none');
+      // user profile/panel
+      userPanel.classList.toggle('d-none');
+
+      // specific search bar
       searchBar.classList.toggle('d-none');
+      // specific search button
       searchBtn.classList.toggle('d-none');
+      // medium devices display none
+      sidebarField.classList.toggle('d-md-block');
+      // sidebar display none
       sidebarField.classList.toggle('d-none');
-      sidebarField.classList.toggle('d-sm-block');
+
+      // toggle main and footer padding-left
+      
     }
   }
 }
