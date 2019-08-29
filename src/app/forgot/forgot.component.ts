@@ -92,6 +92,7 @@ export class ForgotComponent implements OnInit {
             const { message, link, enc } = data;
 
             this.clearUserData(email);
+
             this._snackbarService.showSnackBarFromComponent(
               SnackbarmsgComponent,
               message,
@@ -138,6 +139,9 @@ export class ForgotComponent implements OnInit {
       this._localStorage.getItem(this.ionstrttl)
     );
 
+    // grab input field
+    // const inputField = document.querySelector('[emailInput]');
+
     // ions bypass for prod build error
     ions !== null && ions !== undefined
       ? (() => {
@@ -147,7 +151,9 @@ export class ForgotComponent implements OnInit {
                 const {
                   dt: { email: em },
                 } = actvUser;
+
                 this.email = em;
+                // inputField["value"] = em;
               })()
             : (this.email = '');
         })()

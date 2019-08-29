@@ -396,7 +396,7 @@
                   type="text"
                   placeholder="Search"
                   aria-label="Search"
-                  style="width: 100%;"
+                  style="width: 100%; color: #fff;"
                 />
               </div>
             </form>
@@ -410,158 +410,61 @@
     <section class="text-center mb-4" id="products-tray">
       <!-- Grid row -->
       <div class="row wow fadeIn">
-        <!-- Grid column -->
-        <div class="col-lg-3 col-md-6 mb-4">
-          <!-- Card -->
-          <div class="card">
-            <!-- Card image -->
-            <div class="view overlay">
-              <img
-                src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg"
-                class="card-img-top"
-                alt=""
-              />
-              <a> <div class="mask rgba-white-slight"></div> </a>
-            </div>
-            <!-- Card image -->
+        <div class="" *ngIf="currentProductArray !== undefined && currentProductArray !== null">
+          <!-- Grid column -->
+          <!-- repeat this -->
+          <div *ngFor="let item of currentProductArray" class="col-lg-{{pageSize}} col-md-6 mb-4">
+            <!-- Card -->
+            <div class="card">
+              <!-- Card image -->
+              <div class="view overlay">
+                <img
+                  src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg"
+                  class="card-img-top"
+                  alt=""
+                />
+                <a> <div class="mask rgba-white-slight"></div> </a>
+              </div>
+              <!-- Card image -->
 
-            <!-- Card content -->
-            <div class="card-body text-center">
-              <!-- Category & Title -->
-              <a href="" class="grey-text"> <h5>Shirt</h5> </a>
-              <h5>
-                <strong>
-                  <a href="" class="dark-grey-text"
-                    >Denim shirt
-                    <span class="badge badge-pill danger-color">NEW</span>
-                  </a>
-                </strong>
-              </h5>
+              <!-- Card content -->
+              <div class="card-body text-center">
+                <!-- Category & Title -->
+                <a href="" class="grey-text"> <h5>Shirt</h5> </a>
+                <h5>
+                  <strong>
+                    <a href="" class="dark-grey-text"
+                      >Denim shirt
+                      <span class="badge badge-pill danger-color">NEW</span>
+                    </a>
+                  </strong>
+                </h5>
 
-              <h4 class="font-weight-bold blue-text"><strong>120$</strong></h4>
+                <h4 class="font-weight-bold blue-text"><strong>120$</strong></h4>
+              </div>
+              <!-- Card content -->
             </div>
-            <!-- Card content -->
+            <!-- Card -->
           </div>
-          <!-- Card -->
+          <!-- Grid column -->
         </div>
-        <!-- Grid column -->
-
-        <!-- Grid column -->
-        <div class="col-lg-3 col-md-6 mb-4">
-          <!-- Card -->
-          <div class="card">
-            <!-- Card image -->
-            <div class="view overlay">
-              <img
-                src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg"
-                class="card-img-top"
-                alt=""
-              />
-              <a> <div class="mask rgba-white-slight"></div> </a>
-            </div>
-            <!-- Card image -->
-
-            <!-- Card content -->
-            <div class="card-body text-center">
-              <!-- Category & Title -->
-              <a href="" class="grey-text"> <h5>Sport wear</h5> </a>
-              <h5>
-                <strong>
-                  <a href="" class="dark-grey-text">Sweatshirt</a>
-                </strong>
-              </h5>
-
-              <h4 class="font-weight-bold blue-text"><strong>139$</strong></h4>
-            </div>
-            <!-- Card content -->
-          </div>
-          <!-- Card -->
-        </div>
-        <!-- Grid column -->
-
-        <!-- Grid column -->
-        <div class="col-lg-3 col-md-6 mb-4">
-          <!-- Card -->
-          <div class="card">
-            <!-- Card image -->
-            <div class="view overlay">
-              <img
-                src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg"
-                class="card-img-top"
-                alt=""
-              />
-              <a> <div class="mask rgba-white-slight"></div> </a>
-            </div>
-            <!-- Card image -->
-
-            <!-- Card content -->
-            <div class="card-body text-center">
-              <!-- Category & Title -->
-              <a href="" class="grey-text"> <h5>Sport wear</h5> </a>
-              <h5>
-                <strong>
-                  <a href="" class="dark-grey-text"
-                    >Grey blouse
-                    <span class="badge badge-pill primary-color"
-                      >bestseller</span
-                    >
-                  </a>
-                </strong>
-              </h5>
-
-              <h4 class="font-weight-bold blue-text"><strong>99$</strong></h4>
-            </div>
-            <!-- Card content -->
-          </div>
-          <!-- Card -->
-        </div>
-        <!-- Grid column -->
-
-        <!-- Fourth column -->
-        <div class="col-lg-3 col-md-6 mb-4">
-          <!-- Card -->
-          <div class="card">
-            <!-- Card image -->
-            <div class="view overlay">
-              <img
-                src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15.jpg"
-                class="card-img-top"
-                alt=""
-              />
-              <a> <div class="mask rgba-white-slight"></div> </a>
-            </div>
-            <!-- Card image -->
-
-            <!-- Card content -->
-            <div class="card-body text-center">
-              <!-- Category & Title -->
-              <a href="" class="grey-text"> <h5>Outwear</h5> </a>
-              <h5>
-                <strong>
-                  <a href="" class="dark-grey-text">Black jacket</a>
-                </strong>
-              </h5>
-
-              <h4 class="font-weight-bold blue-text"><strong>219$</strong></h4>
-            </div>
-            <!-- Card content -->
-          </div>
-          <!-- Card -->
-        </div>
-        <!-- Fourth column -->
       </div>
       <!-- Grid row -->
     </section>
     <!-- Section: Products v.3 -->
 
     <!-- Pagination -->
-    <!-- Mat Pagination -->
-    <mat-paginator class="blend" [length]="length"
-              [pageSize]="pageSize"
-              [pageSizeOptions]="pageSizeOptions"
-              (page)="pageEvent = $event">
-    </mat-paginator>
-    <!-- Mat Pagination -->
+    <div class="pagination justify-content-center" style="width: 100%!important">
+      <div *ngIf="productsList !== undefined && productsList !== null && productsList.length === 0; else elseBlock" >
+        <a (click)="pageHandler(-1)"><i class="fas fa-angle-left fa-2x dark-grey-text"></i></a>
+        <!-- <a *ngFor="let product of productsList; index as i" href="#" (click)="pageHandler.index(i)">{{ i + 1 }}</a> -->
+        <a (click)="pageHandler(0)"><i class="fas fa-angle-right fa-2x dark-grey-text"></i></a>
+      </div>
+      <ng-template class="" #elseBlock>
+        <p class="dark-grey-text text" style="text-align: center">No Products at the moment, kindly check again soon...</p>
+      </ng-template>
+    </div>
+    <!-- /paginator -->
   </div>
 </main>
 <!-- Main layout -->
