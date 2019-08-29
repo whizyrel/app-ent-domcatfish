@@ -53,7 +53,9 @@ export class DashboardComponent implements OnInit {
 
   public toggleSidebar () {
     const sidebarField = document.querySelector('._sidebar');
-    const queryProfileDiv = document.querySelector('.query-profile');
+    const queryProfileDiv = document.querySelector('#query-profile');
+    const searchBar = document.querySelector('#search-bar');
+    const searchBtn = document.querySelector('#search-btn');
     const navbar = document.querySelector('.navbar');
     const browserWidth = window.innerWidth;
 
@@ -73,6 +75,8 @@ export class DashboardComponent implements OnInit {
 
       navbar.classList.toggle('_sm-navbar');
       queryProfileDiv.classList.toggle('invisible');
+      searchBar.classList.toggle('d-none');
+      searchBtn.classList.toggle('d-none');
       sidebarField.classList.toggle('d-none');
       sidebarField.classList.toggle('d-sm-block');
     }
