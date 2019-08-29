@@ -60,6 +60,9 @@ export class DashboardComponent implements OnInit {
     const navbar = document.querySelector('.navbar');
     const browserWidth = window.innerWidth;
 
+    const footer = document.querySelector('footer');
+    const main = document.querySelector('main');
+
     // sm devices up
     if (browserWidth >= 768) {
       // toggle menu
@@ -68,6 +71,8 @@ export class DashboardComponent implements OnInit {
       navbar.classList.toggle('p-l-270p');
 
       // toggle main and footer padding-left
+      footer.classList.toggle('p-l-270p');
+      main.classList.toggle('p-l-270p');
     } else if (browserWidth < 768) {
       // xs devices down
       /*
@@ -93,7 +98,7 @@ export class DashboardComponent implements OnInit {
       sidebarField.classList.toggle('d-none');
 
       // toggle main and footer padding-left
-      
+
     }
   }
 }
