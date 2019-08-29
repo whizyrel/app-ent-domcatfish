@@ -98,7 +98,15 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <img src="{{userimg}}" class="user-img" alt="User Image" />
+              <!-- Icon to replace btn user Image -->
+              <i *ngIf="userimg === '' || userimg === ' ' || userimg === undefined || userimg === null; else btnElseBlock" class="fas fa-user-circle fa-2x" style="width: 100%!important; height: 100%!important;"></i>
+              <!-- Icon to replace user Image -->
+
+              <!-- Else block: btn -->
+              <ng-template #btnElseBlock>
+                <img *ngIf="userimg !== '' && userimg !== ' ' && userimg !== undefined && userimg !== null" src="{{userimg}}" class="user-img" alt="User Image"/>
+              </ng-template>
+              <!-- Else block: user image -->
             </a>
             <div
               class="dropdown-menu static-dp"
@@ -108,27 +116,31 @@
               <a class="dropdown-item" style="width: 100%!important;">
                 <!-- User image -->
                 <div class="actv-usr-pn user-data pd-t-p5 pd-b-1 text-center grey-text form-inline js-center" style="width: 100%!important; display: table;">
-                  <!-- <div
-                    class="user-data pd-t-p5 text-center grey-text form-inline"
-                    style="width: fit-content; justify-content: center;"
-                  > -->
-                  <div class="pd-t-p5 pd-b-p5" style="display: table-cell;">
+                  <div *ngIf="userimg !== '' && userimg === ' ' && userimg !== undefined && userimg !== null; else userPanelElseBlock" class="pd-t-p5 pd-b-p5" style="display: table-cell;">
                     <img
                       src="{{userimg}}"
                       class="img-circle"
                       alt="User Image"
                     />
                   </div>
-                  <div class="" style="display: table-cell;">
+
+                  <!-- Icon to replace above -->
+                  <ng-template #userPanelElseBlock>
+                    <div class="pd-t-p5 pd-b-p5" style="display: table-cell;">
+                      <i class="img-fluid fas fa-user-circle fa-4x" style="width: fit-content!important; height: fit-content!important;"></i>
+                    </div>
+                  </ng-template>
+                  <!-- Icon -->
+
+                  <div class="" style="display: table-cell; vertical-align: middle;">
                     <p
                       *ngIf="username !== '' && username !== ' '"
-                      style="display: table-cell;"
+                      style="display: table-cell; vertical-align: middle;"
                       class="js-center pd-l-1"
                     >
                       {{ username }}
                     </p>
                   </div>
-                  <!-- </div> -->
                 </div>
               </a>
 

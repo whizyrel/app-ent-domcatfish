@@ -44,7 +44,7 @@ export class DashboardAuthGuard implements CanActivate {
         this._localStorage.getItem(ionstrttl)
       );
 
-      console.log(ions);
+    console.log({ions});
 
       const md: string = window.localStorage.getItem('md');
 
@@ -55,7 +55,7 @@ export class DashboardAuthGuard implements CanActivate {
         const actvUser: SessStoreProps = ions.find((cur) => {
           return cur.active === true;
         });
-        console.log(actvUser);
+        console.log({actvUser});
 
         actvUser !== undefined && actvUser !== null
           ? (() => {
@@ -69,7 +69,8 @@ export class DashboardAuthGuard implements CanActivate {
               // use sess validator
               this._sessVal.valSession(sessid).subscribe(
                 (data: ValSessRespProps) => {
-                  console.log(data);
+                  console.log({data});
+
                   data.message && accountType === role
                     ? resolve(true)
                     : (() => {

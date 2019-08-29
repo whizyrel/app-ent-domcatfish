@@ -25,14 +25,14 @@ export class LoginAuthGuard implements CanActivate {
         this._localStorage.getItem(ionstrttl)
       );
 
-      console.log(ions);
+      console.log({ions});
 
       // if ions, resolve false and reroute
       // else resolve true, continue to route
       if (ions !== null && ions !== undefined && ions.length !== 0) {
         let who;
         const md = window.localStorage.getItem('md');
-        console.log(md);
+        console.log({md});
         md === 'user'
           ? (() => {
               who = 'user';

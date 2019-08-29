@@ -6,17 +6,27 @@
   >
     <!-- Sidebar -->
     <div class="_sidebar d-none d-md-block ">
-      <!-- User image -->
-      <a class="logo-wrapper waves-effect form-inline grey-text" style="display: flex; padding: 5vw 1rem!important; margin: auto;">
+      <!-- image -->
+      <a *ngIf="userimg !== '' && userimg !== ' ' && userimg !== undefined && userimg !== null; else sidebarImgElseBlock" class="logo-wrapper waves-effect form-inline grey-text" style="display: flex; padding: 5vw 1rem!important; margin: auto;">
+        <!-- User image -->
         <img
           src="{{userimg}}"
           class="img-fluid"
           alt="Profile Image"
           style="width: 50px!important; height: 50px!important; border-radius: 50%;"
         />
-        <p class="pd-l-1">{{ name }}</p>
+        <!-- User image -->
+        <!-- username -->
+        <p class="pd-l-1">{{ username }}</p>
+        <!-- username -->
       </a>
-      <!-- User image -->
+      <!-- Icon -->
+      <ng-template #sidebarImgElseBlock>
+        <div class="logo-wrapper waves-effect grey-text justify-content-center" style="display: flex; padding: 5vw 1rem!important; margin: auto;">
+          <i class="img-fluid fas fa-user-circle fa-4x" style="width: fit-content!important; height: fit-content!important;"></i>
+        </div>
+      </ng-template>
+      <!-- Icon -->
 
       <!-- sidebar links -->
       <div class="list-group list-group-flush">
@@ -38,8 +48,8 @@
       </div>
       <!-- toggle button -->
 
-      <!-- Links -->
-      <div class="fl-r justify-content form-inline d-flex" id="query-profile" style="display: flex; box-sizing: border-box;">
+      <!-- Search Bar and User profile button -->
+      <div class="fl-r justify-content form-inline d-flex" id="query-profile" style="box-sizing: border-box;">
         <!-- Left -->
         <!-- removed left links -->
         <form class="fl-l d-flex justify-content-center">
@@ -60,103 +70,115 @@
         <!-- Right -->
         <!-- replace right links with profile icons and other stuffs -->
         <!-- Users -->
-          <li class="nav-item user-btn mg-l-1 fl-r dropleft">
-            <a
-              class="dropdown-toggled"
-              aria-haspopup="true"
-              aria-expanded="false"
-              id="dropdownMenuLink"
-              data-toggle="dropdown"
-            >
-              <i *ngIf="userimg === '' || userimg === ' ' || userimg === undefined || userimg === null" class="fas fa-user-circle fa-2x" style="width: 100%!important; height: 100%!important;"></i>
+        <li class="nav-item user-btn mg-l-1 fl-r dropleft">
+          <!-- btn: anchor tag -->
+          <a
+            class="dropdown-toggled"
+            aria-haspopup="true"
+            aria-expanded="false"
+            id="dropdownMenuLink"
+            data-toggle="dropdown"
+          >
+            <!-- Icon to replace btn user Image -->
+            <i *ngIf="userimg === '' || userimg === ' ' || userimg === undefined || userimg === null; else btnElseBlock" class="fas fa-user-circle fa-2x" style="width: 100%!important; height: 100%!important;"></i>
+            <!-- Icon to replace user Image -->
 
+            <!-- Else block: btn -->
+            <ng-template #btnElseBlock>
               <img *ngIf="userimg !== '' && userimg !== ' ' && userimg !== undefined && userimg !== null" src="{{userimg}}" class="user-img" alt="User Image"/>
-            </a>
-            <div
-              class="dropdown-menu static-dp"
-              aria-labelledby="dropdownMenuButton"
-            >
-              <!-- active user -->
-              <a class="dropdown-item" style="width: 100%!important;">
-                <!-- User image -->
-                <div class="actv-usr-pn user-data pd-t-p5 pd-b-1 text-center grey-text form-inline js-center" style="width: 100%!important; display: table;">
-                  <!-- <div
-                    class="user-data pd-t-p5 text-center grey-text form-inline"
-                    style="width: fit-content; justify-content: center;"
-                  > -->
+            </ng-template>
+            <!-- Else block: user image -->
+          </a>
+          <!-- Dropdown -->
+          <div
+            class="dropdown-menu static-dp"
+            aria-labelledby="dropdownMenuButton"
+          >
+            <!-- active user -->
+            <a class="dropdown-item" style="width: 100%!important;">
+              <!-- User image and name -->
+              <div class="actv-usr-pn user-data pd-t-p5 pd-b-1 text-center grey-text form-inline js-center" style="width: 100%!important; display: table;">
+                <div *ngIf="userimg !== '' && userimg === ' ' && userimg !== undefined && userimg !== null; else userPanelElseBlock" class="pd-t-p5 pd-b-p5" style="display: table-cell;">
+                  <img
+                    src="{{userimg}}"
+                    class="img-circle"
+                    alt="User Image"
+                  />
+                </div>
+                <!-- Icon to replace above -->
+                <ng-template #userPanelElseBlock>
                   <div class="pd-t-p5 pd-b-p5" style="display: table-cell;">
+                    <i class="img-fluid fas fa-user-circle fa-4x" style="width: fit-content!important; height: fit-content!important;"></i>
+                  </div>
+                </ng-template>
+                <!-- Icon -->
+
+                <div class="" style="display: table-cell; vertical-align: middle;">
+                  <p
+                    *ngIf="username !== '' && username !== ' '"
+                    style="display: table-cell; vertical-align: middle;"
+                    class="js-center pd-l-1"
+                  >
+                    {{ username }}
+                  </p>
+                </div>
+              </div>
+            </a>
+            <!-- User image -->
+
+            <!-- other users -->
+            <div *ngFor="let inactv of inactive">
+              <a
+                *ngIf="showInactvUser === true"
+                class="dropdown-item pd-l-p5 pd-r-p5"
+                #model
+              >
+                <div class="other-user-panel bd-t">
+                  <div class="form-inline text-center">
                     <img
-                      src="{{userimg}}"
-                      class="img-circle"
-                      alt="User Image"
+                      class="sub-img-circle mg-p5 mg-r-1"
+                      src="{{otherusrimg}}"
+                      alt="image"
                     />
+                    {{ inactv.dt.firstname + ' ' + inactv.dt.lastname }}
                   </div>
-                  <div class="" style="display: table-cell;">
-                    <p
-                      *ngIf="username !== '' && username !== ' '"
-                      style="display: table-cell;"
-                      class="js-center pd-l-1"
-                    >
-                      {{ username }}
-                    </p>
-                  </div>
-                  <!-- </div> -->
                 </div>
               </a>
-
-              <!-- other users -->
-              <div *ngFor="let inactv of inactive">
-                <a
-                  *ngIf="showInactvUser === true"
-                  class="dropdown-item pd-l-p5 pd-r-p5"
-                  #model
-                >
-                  <div class="other-user-panel bd-t">
-                    <div class="form-inline text-center">
-                      <img
-                        class="sub-img-circle mg-p5 mg-r-1"
-                        src="{{otherusrimg}}"
-                        alt="image"
-                      />
-                      {{ inactv.dt.firstname + ' ' + inactv.dt.lastname }}
-                    </div>
-                  </div>
-                </a>
-              </div>
-
-              <!-- account control buttons -->
-              <!-- added border-top -->
-              <div class="dropdown-item bd-t user-ctrl pd-t-p5 pd-b-p5 form-inline" style="width: 100%!important; height: fit-content!important; justify-content: center!important;">
-                  <div class="fl-l pd-l-p5">
-                    <button
-                      class="ctrl-btn pd-p5 form-inline"
-                      style="width: auto;"
-                      (click)="inOutCtrl()"
-                    >
-                      <i
-                        *ngIf="showActvUser === false"
-                        class="fa fa-sign-in-alt mg-r-p5"
-                      ></i>
-                      <i
-                        *ngIf="showActvUser === true"
-                        class="fa fa-sign-out-alt mg-r-p5"
-                      ></i>
-                      {{ what }}
-                    </button>
-                  </div>
-
-                  <!-- Add User -->
-                  <div class="fl-r pd-r-p5" style="width: auto!important;">
-                    <a
-                      [routerLink]="['/user', 'account', 'add']"
-                      [queryParams]="{ rt: encURL }"
-                      class="add-link form-inline"
-                      ><i class="fa fa-user-plus"></i
-                    ></a>
-                  </div>
-              </div>
             </div>
-          </li>
+
+            <!-- account control buttons -->
+            <!-- added border-top -->
+            <div class="dropdown-item bd-t user-ctrl pd-t-p5 pd-b-p5 form-inline" style="width: 100%!important; height: fit-content!important; justify-content: center!important;">
+                <div class="fl-l pd-l-p5">
+                  <button
+                    class="ctrl-btn pd-p5 form-inline"
+                    style="width: auto;"
+                    (click)="inOutCtrl()"
+                  >
+                    <i
+                      *ngIf="showActvUser === false"
+                      class="fa fa-sign-in-alt mg-r-p5"
+                    ></i>
+                    <i
+                      *ngIf="showActvUser === true"
+                      class="fa fa-sign-out-alt mg-r-p5"
+                    ></i>
+                    {{ what }}
+                  </button>
+                </div>
+
+                <!-- Add User -->
+                <div class="fl-r pd-r-p5" style="width: auto!important;">
+                  <a
+                    [routerLink]="['/user', 'account', 'add']"
+                    [queryParams]="{ rt: encURL }"
+                    class="add-link form-inline"
+                    ><i class="fa fa-user-plus"></i
+                  ></a>
+                </div>
+            </div>
+          </div>
+        </li>
         <!-- /Users -->
       </div>
     </div>

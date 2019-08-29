@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-// import {PageEvent} from '@angular/material';
 
 import { AES, enc } from 'crypto-js';
 
@@ -180,7 +179,7 @@ export class ShopComponent implements OnInit {
               this.userimg = '';
             },
             (error) => {
-              this.userimg = `./assets/images/avatar2.png`;
+              // this.userimg = `./assets/images/avatar2.png`;
             }
           );
 
@@ -189,7 +188,7 @@ export class ShopComponent implements OnInit {
       : (() => {
           this.what = `Sign in`;
           this.showActvUser = false;
-          this.userimg = `./assets/images/user2-160x160.jpg`;
+          // this.userimg = `./assets/images/user2-160x160.jpg`;
           this.username = ``;
         })();
   }
@@ -218,13 +217,13 @@ export class ShopComponent implements OnInit {
                   cur.dt.img = `./assets/images/avatar3.png`;
 
                   // temporary use
-                  this.otherusrimg = `./assets/images/avatar3.png`;
+                  // this.otherusrimg = `./assets/images/avatar3.png`;
                 },
                 (error) => {
                   cur.dt.img = `./assets/images/avatar2.png`;
 
                   // temporarily use
-                  this.otherusrimg = `./assets/images/avatar3.png`;
+                  // this.otherusrimg = `./assets/images/avatar3.png`;
                 }
               );
             });

@@ -1,6 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { AES, enc } from 'crypto-js';
 
 import { LinksService } from '../services/links.service';
+import { UsersActiveInactiveService } from '../services/users-active-inactive.service';
+import { GoogleImgService } from '../services/google-img.service';
+import { LogoutService } from '../services/logout.service';
+import { LocalStorageService } from '../services/local-storage.service';
+import { ProductsService } from '../services/products.service';
+import { DecEncService } from '../services/dec-enc.service';
 
 import { AllLinksProps } from '../interfaces/all-links-props'
 import { LinkProps } from '../interfaces/link-props';
@@ -22,8 +31,7 @@ export class DashboardComponent implements OnInit {
   public soc_link: AllLinksProps;
   public links: LinkProps[];
 
-  public name: string = `Israel O.`;
-  public userimg: string = `./assets/images/avatar.png`;
+  public userimg: string;
 
   public what: string = `Logout`;
 
@@ -39,22 +47,145 @@ export class DashboardComponent implements OnInit {
   public showActvUser: boolean;
   public showInactvUser: boolean;
 
-  constructor(private _linksService: LinksService) {}
+  constructor(
+    private router: Router,
+    private _linksService: LinksService,
+    private _users: UsersActiveInactiveService,
+    private _googleApi: GoogleImgService,
+    private _logUserOut: LogoutService,
+    private _localStorage: LocalStorageService,
+    private _productsService: ProductsService,
+    private _decEnc: DecEncService
+  ) {}
 
   ngOnInit() {
     this.sidebarLinks = this._linksService.getAdminDashboardSidebarLinks;
     this.links = this._linksService.getHomeNavbarLinks();
     this.soc_link = this._linksService.getSocialLinks();
+
+    // get active users
+    this.initActive();
+    this.initInactive();
   }
 
-  public inOutCtrl() {
+  initActive() {
+    // type mismatch
+    !Array.isArray(this._users.getUsersActive)
+      ? (this.active = this._users.getUsersActive)
+      : null;
 
+    this.active !== undefined &&
+    this.active !== null &&
+    Array.isArray(this.active) === false
+      ? (() => {
+          const {
+            dt: { firstname, lastname, email },
+          } = this.active;
+
+          this.what = `Logout`;
+          this.showActvUser = true;
+          this.username = `${firstname} ${lastname
+            .substring(0, 1)
+            .toUpperCase()}.`;
+
+          this._googleApi.getUserImg(email).subscribe(
+            (data) => {
+              // pick image from success response from google api
+              this.userimg = '';
+            },
+            (error) => {
+              // this.userimg = `./assets/images/avatar2.png`;
+            }
+          );
+        })()
+      : (() => {
+          this.what = `Sign in`;
+          this.showActvUser = false;
+          this.userimg = `./assets/images/user2-160x160.jpg`;
+          this.username = ``;
+        })();
+  }
+
+  initInactive() {
+    console.log(this._users.getUsersInactive.length);
+
+    // type mismatch
+    if (
+      this._users.getUsersInactive.length >= 1 &&
+      this._users.getUsersInactive !== null &&
+      this._users.getUsersInactive !== undefined
+    ) {
+      this.inactive = this._users.getUsersInactive;
+      console.log(this.inactive);
+
+      this.inactive.length >= 1 &&
+      this.inactive !== null &&
+      this.inactive !== undefined
+        ? (() => {
+            this.showInactvUser = true;
+            this.inactive['forEach']((cur) => {
+              this._googleApi.getUserImg(cur.dt.email).subscribe(
+                (data) => {
+                  // put user img in active-false users in ionstore
+                  cur.dt.img = `./assets/images/avatar3.png`;
+
+                  // temporary use
+                  // this.otherusrimg = `./assets/images/avatar3.png`;
+                },
+                (error) => {
+                  cur.dt.img = `./assets/images/avatar2.png`;
+
+                  // temporarily use
+                  // this.otherusrimg = `./assets/images/avatar3.png`;
+                }
+              );
+            });
+          })()
+        : (() => {
+            this.showInactvUser = false;
+            // other user image not needed
+            // this.otherusrimg = `./assets/images/avatar3.png`;
+          })();
+    } else {
+      this.showInactvUser = false;
+    }
+  }
+
+  inOutCtrl() {
+    console.log(this.showActvUser);
+    this.showActvUser === true
+      ? (() => {
+          // log user out
+          // log user out procedure
+          // clear cart on logout
+
+          const {
+            dt: { email },
+          } = this.active;
+
+          // this._cartService.clearCart(email);
+          this._logUserOut.logout();
+
+          // set next Active before logout
+          this._users.setNextActive();
+
+          // synchronize users and cart tabs
+          this.initActive();
+          this.initInactive();
+        })()
+      : (() => {
+          // route to login page
+          this.router.navigate(['admin/login'], {
+            skipLocationChange: false,
+            replaceUrl: false,
+          });
+        })();
   }
 
   public toggleSidebar () {
     const sidebarField = document.querySelector('._sidebar');
     const queryProfileDiv = document.querySelector('#query-profile');
-    const userPanel = document.querySelector('.user-btn');
+    const userPanelBtn = document.querySelector('.user-btn');
     const searchBar = document.querySelector('#search-bar');
     const searchBtn = document.querySelector('#search-btn');
     const navbar = document.querySelector('.navbar');
@@ -81,24 +212,23 @@ export class DashboardComponent implements OnInit {
       - toggle display on small devices
       */
 
-      // navbar
-      navbar.classList.toggle('_sm-navbar');
-      // search bar and user profile button
-      queryProfileDiv.classList.toggle('d-none');
-      // user profile/panel
-      userPanel.classList.toggle('d-none');
-
       // specific search bar
       searchBar.classList.toggle('d-none');
       // specific search button
       searchBtn.classList.toggle('d-none');
+
+      // user profile/panel
+      // userPanelBtn.classList.toggle('d-none');
+
       // medium devices display none
       sidebarField.classList.toggle('d-md-block');
       // sidebar display none
       sidebarField.classList.toggle('d-none');
 
-      // toggle main and footer padding-left
-
+      // navbar
+      navbar.classList.toggle('_sm-navbar');
+      // search bar and user profile button
+      queryProfileDiv.classList.toggle('d-none');
     }
   }
 }
