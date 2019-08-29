@@ -50,31 +50,4 @@ export class DashboardComponent implements OnInit {
   public inOutCtrl() {
 
   }
-
-  public toggleSidebar () {
-    const sidebarField = document.querySelector('._sidebar');
-    const queryProfileDiv = document.querySelector('.query-profile');
-    const navbar = document.querySelector('.navbar');
-    const browserWidth = window.innerWidth;
-
-    // sm devices up
-    if (browserWidth >= 576) {
-      // toggle menu
-      sidebarField.classList.toggle('invisible');
-      // attend to navbar padding-left
-      navbar.classList.toggle('_navbar');
-    } else if (browserWidth < 576) {
-      // xs devices down
-      /*
-      - toggle the appearance of search and profile
-      - toggle toggle button
-      - toggle display on small devices
-      */
-
-      navbar.classList.toggle('_sm-navbar');
-      queryProfileDiv.classList.toggle('invisible');
-      sidebarField.classList.toggle('d-none');
-      sidebarField.classList.toggle('d-sm-block');
-    }
-  }
 }

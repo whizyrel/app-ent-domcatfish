@@ -28,7 +28,7 @@ header,
   }
 }
 
-/* Medium devices (tablets, less than 992px) */
+// Medium devices (tablets, less than 992px)
 @media (max-width: 991px) {
   .pd-b-ctrl {
     padding-bottom: 0!important;
@@ -38,7 +38,7 @@ header,
   }
 }
 
-/* Large devices (desktops, less than 1200px) */
+// Large devices (desktops, less than 1200px)
 @media (max-width: 1199px) {
   .pd-b-ctrl {
     padding-bottom: 0!important;
@@ -188,22 +188,8 @@ input:focus:not([readonly]) {
   border-bottom: 1px solid #343a40;
   box-shadow: 0 1px 0 0 #343a40!important;
 }
-/* paginator */
-.pagination {
-  display: flex;
-  box-sizing: border-box;
+.blend {
+  background-color: inherit!important;
+  color: rgb(95, 99, 104)!important;
+  font-size: 1em;
 }
-
-.pagination a {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-}
-
-.pagination a.active {
-  background-color:  rgba(0,0,0,.5) /*#4CAF50*/;
-  color: white;
-}
-
-.pagination a:hover:not(.active) {background-color: #ddd;}

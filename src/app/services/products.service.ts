@@ -20,8 +20,6 @@ export class ProductsService {
     return this._httpClient.get<Object>(_url, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        // 'Cache-Control':
-        // `no-cache, no-store, must revalidate`
       }),
       observe: 'body',
       responseType: 'json',
