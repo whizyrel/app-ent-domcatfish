@@ -62,7 +62,7 @@ export class DashboardComponent implements OnInit {
       // toggle menu
       sidebarField.classList.toggle('invisible');
       // attend to navbar padding-left
-      navbar.classList.toggle('_navbar');
+      navbar.classList.toggle('p-l-270p');
     } else if (browserWidth < 576) {
       // xs devices down
       /*
