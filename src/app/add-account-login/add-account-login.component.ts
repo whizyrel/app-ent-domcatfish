@@ -68,17 +68,14 @@ export class AddAccountLoginComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((param) => {
       const { rt } = param;
 
-      console.log({rt});
       // decrypt rt
       const bytes = AES.decrypt(rt.toString(), this.seckey);
-      // console.log(`bytes: ${bytes}`);
 
       this.returnURL = bytes.toString(enc.Utf8);
-      console.log({param, rt});
     });
 
     // grab URLSegment
-    this.activatedRoute.parent.url.subscribe((URLSegment) => {
+    this.activatedRoute.parent.parent.url.subscribe((URLSegment) => {
       let who = '';
       console.log(Array.from(URLSegment));
       URLSegment.some((cur) => {
@@ -90,6 +87,7 @@ export class AddAccountLoginComponent implements OnInit {
       this.who = who.toLowerCase();
       this.links = this._linksService.getLoginBottomLinks(this.who);
       this.activeLink = this.links[0].link;
+      console.log({who});
     });
 
     this.addaccountform = this.formBuilder.group({
@@ -206,14 +204,7 @@ export class AddAccountLoginComponent implements OnInit {
 
               // route back to original URL whence user came
               // hence use param return URL
-
               this.router.navigateByUrl(this.returnURL);
-
-              // this.who === 'user' && userDetails.accountType === 'client'
-              //   ? this.router.navigate(['shop'], { replaceUrl: true })
-              //   : this.router.navigate([this.who, 'dashboard'], {
-              //       replaceUrl: true,
-              //     });
             }
           },
           (error: HttpResponse) => {

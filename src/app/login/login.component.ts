@@ -58,7 +58,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.parent.url.subscribe((URLSegment) => {
       let who = '';
-      console.log(Array.from(URLSegment));
       URLSegment.some((cur) => {
         return cur.path === 'user';
       })
@@ -69,6 +68,7 @@ export class LoginComponent implements OnInit {
       this.who = who.toLowerCase();
       this.links = this._linksService.getLoginBottomLinks(this.who);
       this.activeLink = this.links[0].link;
+      console.log({URLSegment: Array.from(URLSegment), who});
     });
     this.loginform = this.formBuilder.group({
       email: new FormControl('', [

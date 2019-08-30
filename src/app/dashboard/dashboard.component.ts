@@ -76,9 +76,9 @@ export class DashboardComponent implements OnInit {
     // grap selected user index in session store
     const i = parseInt(el.id.split('-')[1]);
 
-    this._users.switchUser(i);
-    this.initActive();
-    this.initInactive();
+    // this._users.switchUser(i);
+    // this.initActive();
+    // this.initInactive();
   }
 
   initActive() {
