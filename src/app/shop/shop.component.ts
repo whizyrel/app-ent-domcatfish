@@ -83,9 +83,7 @@ export class ShopComponent implements OnInit {
     this.initActive();
     this.initInactive();
 
-    // this.encURL = AES.encrypt('/shop', this.seckey);
     this.encURL = this._decEnc.aesEncryption('/shop', this.seckey);
-    console.log({encURL: this.encURL});
   }
 
   addToCart() {

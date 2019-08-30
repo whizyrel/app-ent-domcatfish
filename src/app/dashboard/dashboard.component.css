@@ -163,10 +163,17 @@
   .p-l-270p {
     padding-left: 270px!important;
   }
+  .logo-wrapper {
+    padding: 3vw 1rem!important;
+  }
 }
 
 @media (max-width: 315px) {
   #query-profile {
     display: none!important;
   }
+}
+
+.logo-wrapper {
+  padding: 5vw 1rem!important;
 }

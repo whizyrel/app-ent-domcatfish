@@ -20,8 +20,6 @@ export class LocalStorageService {
     let decrypted;
     const encryption: string = this.getRaw(ttl);
 
-    // console.log(`the encryption: ${encryption}, typeof ${typeof encryption}`);
-
     // case []
     encryption === '[]'
       ? (decrypted = '[]')
@@ -36,7 +34,6 @@ export class LocalStorageService {
         })();
 
     // cannot use JSON.parse as everything cannot be JSON
-    // console.log(`decrypted: ${decrypted}`);
     return decrypted;
   }
 

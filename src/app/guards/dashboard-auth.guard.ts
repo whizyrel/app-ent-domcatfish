@@ -40,9 +40,9 @@ export class DashboardAuthGuard implements CanActivate {
       // retrieve userdetails saved in localStorage
       // JSON.parse it
       // unencrypt - optional
-      const ions: SessStoreProps[] = /*JSON.parse(
+      const ions: SessStoreProps[] = JSON.parse(
         this._localStorage.getItem(ionstrttl)
-      );*/ this._users.allUsers;
+      );;
 
     console.log({ions});
 
@@ -52,9 +52,9 @@ export class DashboardAuthGuard implements CanActivate {
       if (ions !== null && ions !== undefined && ions.length !== 0) {
         // v2 - ions is now an array
         // find active
-        const actvUser: SessStoreProps = /* ions.find((cur) => {
+        const actvUser: SessStoreProps = ions.find((cur) => {
           return cur.active === true;
-        });*/ this._users.getUsersActive;
+        });;
         console.log({actvUser});
 
         actvUser !== undefined && actvUser !== null

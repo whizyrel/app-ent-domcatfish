@@ -118,121 +118,139 @@ export class AddAccountLoginComponent implements OnInit {
 
       this.accountDetails = this.addaccountform.getRawValue();
 
-      // submit to database
-      this._loginService
-        .submitUserData(this.accountDetails, this.who)
-        .subscribe(
-          (data: HttpResponse) => {
-            this.bufferValue = 100;
-            this.value = 100;
-            this.queryBar = false;
+      // prevent already logged in from being added all over
+      const ps = JSON.parse(this._localStorage.getItem(ionstrttl));
 
-            window.localStorage.setItem('md', this.who);
+      if (
+        ps !== null &&
+        ps !== undefined &&
+        ps.some((cur) => cur.dt.email !== this.accountDetails.email)
+      ) {
+        // submit to database
+        this._loginService
+          .submitUserData(this.accountDetails, this.who)
+          .subscribe(
+            (data: HttpResponse) => {
+              this.bufferValue = 100;
+              this.value = 100;
+              this.queryBar = false;
 
-            if (
-              data &&
-              data.hasOwnProperty('sessid') &&
-              data.hasOwnProperty('userDetails')
-            ) {
-              const { message, sessid, userDetails } = data;
+              window.localStorage.setItem('md', this.who);
 
-              const ionarray: SessStoreProps[] = [];
-              const cartStoreArray: CartStoreProps[] = [];
+              if (
+                data &&
+                data.hasOwnProperty('sessid') &&
+                data.hasOwnProperty('userDetails')
+              ) {
+                const { message, sessid, userDetails } = data;
 
-              const ions: SessStoreProps = {
-                id: sessid,
-                dt: userDetails,
-                active: true,
-              };
+                const ionarray: SessStoreProps[] = [];
+                const cartStoreArray: CartStoreProps[] = [];
 
-              const ps = JSON.parse(this._localStorage.getItem(ionstrttl));
+                const ions: SessStoreProps = {
+                  id: sessid,
+                  dt: userDetails,
+                  active: true,
+                };
 
-              // this is add-account, ps can never be null
-              if (ps === null) {
-                ionarray.push(ions);
-                this._localStorage.setItem(ionstrttl, ionarray);
-              } else {
-                // ps can never be 0, new user is being addded from another user account
-                ps.length === 0
+                // this is add-account, ps can never be null
+                if (ps === null) {
+                  ionarray.push(ions);
+                  this._localStorage.setItem(ionstrttl, ionarray);
+                } else {
+                  // ps can never be 0, new user is being logged in from another user account
+                  ps.length === 0
+                    ? (() => {
+                        ionarray.push(ions);
+                        this._localStorage.setItem(ionstrttl, ionarray);
+                      })()
+                    : (() => {
+                        // set current active to false and push all to local localStorage
+                        ps.forEach((cur) => {
+                          cur.active = false;
+                        });
+                        ps.push(ions);
+                        this._localStorage.setItem(ionstrttl, ps);
+                        console.log(`[Add account] user added successfully`);
+                      })();
+                }
+
+                // considered add-account-login
+                // if crtstr === null do previous else push new into it
+                // get cartStore first
+                console.log(`setting cart store`);
+                const cartStore: CartStoreProps[] | null = JSON.parse(
+                  this._localStorage.getItem(crtstrttl)
+                );
+
+                console.log(cartStore);
+
+                cartStore === null || cartStore === undefined
                   ? (() => {
-                      ionarray.push(ions);
-                      this._localStorage.setItem(ionstrttl, ionarray);
+                      console.log(`fresh pushing`);
+                      cartStoreArray.push({
+                        em: userDetails.email,
+                        crt: [],
+                      });
+                      this._localStorage.setItem(crtstrttl, cartStoreArray);
                     })()
                   : (() => {
-                      // set current active to false and push all to local localStorage
-                      ps.forEach((cur) => {
-                        cur.active = false;
+                      cartStore.push({
+                        em: userDetails.email,
+                        crt: [],
                       });
-                      ps.push(ions);
-                      this._localStorage.setItem(ionstrttl, ps);
-                      console.log(`[Add account] user added successfully`);
+                      this._localStorage.setItem(crtstrttl, cartStore);
                     })();
-              }
 
-              // considered add-account-login
-              // if crtstr === null do previous else push new into it
-              // get cartStore first
-              console.log(`setting cart store`);
-              const cartStore: CartStoreProps[] | null = JSON.parse(
-                this._localStorage.getItem(crtstrttl)
-              );
-
-              console.log(cartStore);
-
-              cartStore === null || cartStore === undefined
-                ? (() => {
-                    console.log(`fresh pushing`);
-                    cartStoreArray.push({
-                      em: userDetails.email,
-                      crt: [],
-                    });
-                    this._localStorage.setItem(crtstrttl, cartStoreArray);
-                  })()
-                : (() => {
-                    cartStore.push({
-                      em: userDetails.email,
-                      crt: [],
-                    });
-                    this._localStorage.setItem(crtstrttl, cartStore);
-                  })();
-
-              this._snackbarService.showSnackBarFromComponent(
-                SnackbarmsgComponent,
-                message,
-                duration
-              );
-
-              // route back to original URL whence user came
-              // hence use param return URL
-              this.router.navigateByUrl(this.returnURL);
-            }
-          },
-          (error: HttpResponse) => {
-            this.bufferValue = 100;
-            this.value = 100;
-            this.queryBar = false;
-            this._response = error.error;
-
-            console.log(error);
-
-            // handled no network error
-            error.status === 0
-              ? this._snackbarService.showSnackBarFromComponent(
+                this._snackbarService.showSnackBarFromComponent(
                   SnackbarmsgComponent,
-                  `${error.statusText}. Please check your network connection.`,
+                  message,
                   duration
-                )
-              : (() => {
-                  if (this._response) {
-                    this._snackbarService.showSnackBarFromComponent(
-                      SnackbarmsgComponent,
-                      this._response.message,
-                      duration
-                    );
-                  }
-                })();
-          }
+                );
+
+                // route back to original URL whence user came
+                // hence use param return URL
+                this.router.navigateByUrl(this.returnURL);
+              }
+            },
+            (error: HttpResponse) => {
+              this.bufferValue = 100;
+              this.value = 100;
+              this.queryBar = false;
+              this._response = error.error;
+
+              console.log(error);
+
+              // handled no network error
+              error.status === 0
+                ? this._snackbarService.showSnackBarFromComponent(
+                    SnackbarmsgComponent,
+                    `${error.statusText}. Please check your network connection.`,
+                    duration
+                  )
+                : (() => {
+                    if (this._response) {
+                      this._snackbarService.showSnackBarFromComponent(
+                        SnackbarmsgComponent,
+                        this._response.message,
+                        duration
+                      );
+                    }
+                  })();
+            }
+          );
+      } else {
+        this.bufferValue = 100;
+        this.value = 100;
+        this.queryBar = false;
+
+        // notify through snackbar
+        this._snackbarService.showSnackBarFromComponent(
+          SnackbarmsgComponent,
+          'You are already signed in',
+          duration
         );
+      }
     }
   }
 

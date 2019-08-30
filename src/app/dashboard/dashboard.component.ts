@@ -69,7 +69,6 @@ export class DashboardComponent implements OnInit {
 
     // encrypt return URL from add account LoginProps
     this.encURL = this._decEnc.aesEncryption('/admin/dashboard', this.seckey);
-    console.log({encURL: this.encURL});
   }
 
   oneClickLogin(el) {
