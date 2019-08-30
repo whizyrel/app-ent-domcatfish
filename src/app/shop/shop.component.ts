@@ -83,7 +83,6 @@ export class ShopComponent implements OnInit {
     this.initActive();
     this.initInactive();
 
-    // console.log(this.activatedRoute.pathFromRoot.toString());
     // this.encURL = AES.encrypt('/shop', this.seckey);
     this.encURL = this._decEnc.aesEncryption('/shop', this.seckey);
     console.log({encURL: this.encURL});
@@ -99,8 +98,7 @@ export class ShopComponent implements OnInit {
 
   protected getProducts() {
     this._productsService.getProductList.subscribe((data: HttpResponse) => {
-      console.log(`[Success]`);
-      console.log({data});
+      console.log(`[Success]`, {data});
 
       if (data.hasOwnProperty('docs')) {
         this.productsList = this.splitProductsList(data.docs);
@@ -110,8 +108,7 @@ export class ShopComponent implements OnInit {
         return;
       }
     }, (error: HttpResponse) => {
-      console.log(`[Error]`);
-      console.log(error);
+      console.log(`[Error]`, {error});
     });
   }
 
@@ -207,7 +204,6 @@ export class ShopComponent implements OnInit {
   }
 
   initInactive() {
-    // console.log(this._users.getUsersInactive.length);
     // type mismatch
     if (
       this._users.getUsersInactive.length >= 1 &&

@@ -78,6 +78,7 @@ export class UsersActiveInactiveService {
     // set other active to false
     users !== null && users !== undefined && users.length > 0
       ? ((usrs) => {
+        console.log({usrs});
         // set others differnet from index to false
         usrs.forEach((cur, i) => {
           if (i !== index) cur.active = false;
@@ -85,6 +86,8 @@ export class UsersActiveInactiveService {
 
         // set index to true
         usrs[index].active === true;
+
+        // save into ions store;
       })(users) : null;
     // set this index to true;
     console.log({index, users});

@@ -40,10 +40,11 @@ export class ShopGuard implements CanActivate {
         // pick sessid
 
         // implemented active user and undefined check below
-        const actvUser: SessStoreProps = ions.find(
+        // use usersActive... service
+        const actvUser: SessStoreProps = /*ions.find(
           (cur) => cur.active === true
-        );
-        console.log(actvUser);
+        );*/ this._users.getUsersActive;
+        console.log({actvUser});
 
         actvUser !== null && actvUser !== undefined
           ? (() => {

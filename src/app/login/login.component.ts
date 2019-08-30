@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
       this.who = who.toLowerCase();
       this.links = this._linksService.getLoginBottomLinks(this.who);
       this.activeLink = this.links[0].link;
-      console.log({URLSegment: Array.from(URLSegment), who});
+      // console.log({URLSegment: Array.from(URLSegment), who});
     });
     this.loginform = this.formBuilder.group({
       email: new FormControl('', [
@@ -143,16 +143,16 @@ export class LoginComponent implements OnInit {
             // considered add-account-login
             // if crtstr === null do previous else push new into it
             // get cartStore first
-            console.log(`setting cart store`);
+            // console.log(`setting cart store`);
             const cartStore: CartStoreProps[] | null = JSON.parse(
               this._localStorage.getItem(crtstrttl)
             );
 
-            console.log(cartStore);
+            // console.log(cartStore);
 
             cartStore === null || cartStore === undefined
               ? (() => {
-                  console.log(`fresh pushing`);
+                  // console.log(`fresh pushing`);
                   cartStoreArray.push({
                     em: userDetails.email,
                     crt: [],
