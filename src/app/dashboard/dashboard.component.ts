@@ -49,6 +49,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private _linksService: LinksService,
     private _users: UsersActiveInactiveService,
     private _googleApi: GoogleImgService,
@@ -183,6 +184,21 @@ export class DashboardComponent implements OnInit {
           // synchronize users and cart tabs
           this.initActive();
           this.initInactive();
+
+          // route to login after logout
+          this.activatedRoute.url.subscribe((URLSegment) => {
+            URLSegment.forEach((cur) => {
+              if (cur.path === 'dashboard') {
+                // route to login - is safer
+                this.router.navigate(['admin/login'], {
+                  skipLocationChange: false,
+                  replaceUrl: false,
+                });
+                return;
+              }
+              return;
+            });
+          });
         })()
       : (() => {
           // route to login page
