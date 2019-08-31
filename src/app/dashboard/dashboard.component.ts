@@ -170,7 +170,13 @@ export class DashboardComponent implements OnInit {
           // log user out
           // log user out procedure
 
-          this._logUserOut.logout((err, done) => {
+          this._logUserOut.logout(async (err, done) => {
+            console.log({err, done});
+
+            if (err) {
+              console.log(`[error] logging out ${err}`);
+              return;
+            }
             // set next Active before logout
             this._users.setNextActive();
 
