@@ -49,7 +49,7 @@ export class DashboardAuthGuard implements CanActivate {
       const md: string = window.localStorage.getItem('md');
 
       // if no userdetails reroute to */login
-      if (ions !== null && ions !== undefined && ions.length !== 0) {
+      if (ions !== null && ions !== undefined && ions.length >= 1) {
         // v2 - ions is now an array
         // find active
         const actvUser: SessStoreProps = ions.find((cur) => {
@@ -69,7 +69,7 @@ export class DashboardAuthGuard implements CanActivate {
               // use sess validator
               this._sessVal.valSession(sessid).subscribe(
                 (data: ValSessRespProps) => {
-                  // console.log({data});
+                  console.log({data});
 
                   data.message && accountType === role
                     ? resolve(true)

@@ -16,7 +16,7 @@ export class LogoutService {
     private _httpClient: HttpClient,
     private _activeInactiveUsers: UsersActiveInactiveService
   ) {}
-  
+
   logout() {
     const ionstrttl = 'ionstr';
 
@@ -29,8 +29,10 @@ export class LogoutService {
       this.logoutUserBackend(id).subscribe(data => {
         console.log(`[Success] logout successful`);
 
+        // inactive users
         const inactive = this._activeInactiveUsers.getUsersInactive;
 
+        // set inactive users
         this._localStorage.setItem(ionstrttl, inactive);
       }, error => {
         console.log(`[error] logging out ${error}`);
