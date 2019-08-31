@@ -115,7 +115,6 @@ export class LoginComponent implements OnInit {
         // subtle case where ps is []
         if (ps.length === 0) {
           isUserLoggedIn = false;
-          // return;
         }
       }
 
