@@ -59,11 +59,20 @@ export class UsersActiveInactiveService {
 
           // change nextActive in all inactive user to active
           // change first element in inactive users only
-          inactive.forEach((cur, i) => {
-            if (i === 0) {
-              cur.active = true;
-            }
-            console.log(`inactives from usersActvInactvs`, {i});
+          inactive.forEach((cur, i, arr) => {
+            // if inactive[0].dt.accountType === 'client'
+            // find admin in inactive and make next active else
+            // inactive[0] || i is next Active
+            // if (arr[arr.length - arr.length].dt.accountType === 'client') {
+            //   const adminUser = arr.find((cur) => cur.dt.accountType === 'admin');
+            //   adminUser !== null && admin !== undefined
+            //   ? adminUser.active === true : null; // route to admin login
+            // } else {
+              if (i === 0) { // chose first user as next Active
+                cur.active = true;
+              }
+            // }
+            // console.log(`inactives from usersActvInactvs`, {i});
           });
 
           // save into local storage

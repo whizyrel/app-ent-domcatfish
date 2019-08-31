@@ -178,6 +178,7 @@ export class DashboardComponent implements OnInit {
               return;
             }
             // set next Active before logout
+            // condition no admin to be set as active saved in variable
             this._users.setNextActive();
 
             // synchronize users and cart tabs
