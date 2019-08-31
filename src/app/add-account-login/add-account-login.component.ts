@@ -165,11 +165,15 @@ export class AddAccountLoginComponent implements OnInit {
                         this._localStorage.setItem(ionstrttl, ionarray);
                       })()
                     : (() => {
-                        // set current active to false and push all to local localStorage
+                        // set current active to false and push all to localStorage
                         ps.forEach((cur) => {
                           cur.active = false;
                         });
+
+                        // add newly logged-in user
                         ps.push(ions);
+
+                        // push to localStorage
                         this._localStorage.setItem(ionstrttl, ps);
                         console.log(`[Add account] user added successfully`);
                       })();

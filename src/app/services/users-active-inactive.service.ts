@@ -47,15 +47,15 @@ export class UsersActiveInactiveService {
   }
 
   setNextActive() {
-    const allUsers: SessStoreProps[] = this.allUsers;
+    // const allUsers: SessStoreProps[] = this.allUsers;
 
     // if inactive users, set next inactive user to active
     this.getUsersInactive !== null && this.getUsersInactive !== undefined
       ? (() => {
-          // get all inactives,
+          // get all inactives
           const inactive: SessStoreProps[] = this.getUsersInactive;
           console.log(`[setNextActive]`);
-          console.log(inactive);
+          console.log(`inactives from usersActvInactvs`, {inactive});
 
           // change nextActive in all inactive user to active
           // change first element in inactive users only
@@ -63,6 +63,7 @@ export class UsersActiveInactiveService {
             if (i === 0) {
               cur.active = true;
             }
+            console.log(`inactives from usersActvInactvs`, {i});
           });
 
           // save into local storage

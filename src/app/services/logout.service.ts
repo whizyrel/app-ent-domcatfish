@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { LocalStorageService } from '../services/local-storage.service';
+import { LocalStorageService } from './local-storage.service';
+import { CartService } from './cart.service';
 import { APIURLService } from './apiurl.service';
 import { UsersActiveInactiveService } from './users-active-inactive.service';
 
@@ -14,28 +15,39 @@ export class LogoutService {
     private _localStorage: LocalStorageService,
     private apiUrls: APIURLService,
     private _httpClient: HttpClient,
-    private _activeInactiveUsers: UsersActiveInactiveService
+    private _users: UsersActiveInactiveService,
+    private _cartService: CartService,
   ) {}
 
-  logout() {
+  // using callbacks to fix asynchronous mismatch
+  // high-end function
+  async logout(cb) {
     const ionstrttl = 'ionstr';
+    let err;
+    let done;
 
-    const active = this._activeInactiveUsers.getUsersActive;
+    const active = this._users.getUsersActive;
 
     if (active !== null && active !== undefined) {
-      const { id } = active;
+      const { id, dt: {email} } = active;
 
       // go to backend
-      this.logoutUserBackend(id).subscribe(data => {
+      await this.logoutUserBackend(id).subscribe(async data => {
         console.log(`[Success] logout successful`);
 
+        // clear cart
+        this._cartService.clearCart(email);
         // inactive users
-        const inactive = this._activeInactiveUsers.getUsersInactive;
+        const inactive = this._users.getUsersInactive;
 
         // set inactive users
         this._localStorage.setItem(ionstrttl, inactive);
+
+        // done = true;
+        await cb(err = null, done = true);
       }, error => {
-        console.log(`[error] logging out ${error}`);
+        // done = null;
+        cb(error, done = null);
       });
     }
   }

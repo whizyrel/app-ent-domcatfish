@@ -96,7 +96,7 @@ export class ShopComponent implements OnInit {
 
   protected getProducts() {
     this._productsService.getProductList.subscribe((data: HttpResponse) => {
-      console.log(`[Success]`, {data});
+      // console.log(`[Success]`, {data});
 
       if (data.hasOwnProperty('docs')) {
         this.productsList = this.splitProductsList(data.docs);
@@ -114,7 +114,7 @@ export class ShopComponent implements OnInit {
     const arrList = [];
     let buff = [];
 
-    console.log(`[data]`, {data});
+    // console.log(`[data]`, {data});
 
     data.forEach(async (cur, i) => {
        buff.push(cur);
@@ -132,10 +132,10 @@ export class ShopComponent implements OnInit {
          arrList.push(buff);
        }
 
-       console.log({buff, pageSize: this.pageSize, i});
+       // console.log({buff, pageSize: this.pageSize, i});
     });
 
-    console.log({arrList});
+    // console.log({arrList});
     return arrList;
   }
 
@@ -244,27 +244,34 @@ export class ShopComponent implements OnInit {
     }
   }
 
-  inOutCtrl() {
+  async inOutCtrl() {
     // console.log(this.showActvUser);
     this.showActvUser === true
-      ? (() => {
+      ? (async () => {
           // log user out
           // log user out procedure
-          // clear cart on logout
+          // log out backend and put replace all with inactive users...
+          // make async beyond present await implementation
+          await this._logUserOut.logout(async (err, done) => {
+            console.log({err, done});
 
-          const {
-            dt: { email },
-          } = this.active;
+            if (err) {
+              console.log(`[error] logging out ${err}`);
+              return;
+            }
+            // set next Active before logout
+            await this._users.setNextActive();
 
-          this._cartService.clearCart(email);
-          this._logUserOut.logout();
+            // synchronize users and cart tabs
+            await this.initActive();
+            await this.initInactive();
 
-          // set next Active before logout
-          this._users.setNextActive();
-
-          // synchronize users and cart tabs
-          this.initActive();
-          this.initInactive();
+            // route to shop - self, tentative
+            this.router.navigate(['shop'], {
+              skipLocationChange: false,
+              replaceUrl: false,
+            });
+          });
         })()
       : (() => {
           // route to login page

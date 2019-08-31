@@ -169,34 +169,28 @@ export class DashboardComponent implements OnInit {
       ? (() => {
           // log user out
           // log user out procedure
-          // clear cart on logout
 
-          const {
-            dt: { email },
-          } = this.active;
+          this._logUserOut.logout((err, done) => {
+            // set next Active before logout
+            this._users.setNextActive();
 
-          // this._cartService.clearCart(email);
-          this._logUserOut.logout();
+            // synchronize users and cart tabs
+            this.initActive();
+            this.initInactive();
 
-          // set next Active before logout
-          this._users.setNextActive();
-
-          // synchronize users and cart tabs
-          this.initActive();
-          this.initInactive();
-
-          // route to login after logout
-          this.activatedRoute.url.subscribe((URLSegment) => {
-            URLSegment.forEach((cur) => {
-              if (cur.path === 'dashboard') {
-                // route to login - is safer
-                this.router.navigate(['admin/login'], {
-                  skipLocationChange: false,
-                  replaceUrl: false,
-                });
+            // route to login after logout
+            this.activatedRoute.url.subscribe((URLSegment) => {
+              URLSegment.forEach((cur) => {
+                if (cur.path === 'dashboard') {
+                  // route to login - is safer
+                  this.router.navigate(['admin/login'], {
+                    skipLocationChange: false,
+                    replaceUrl: false,
+                  });
+                  return;
+                }
                 return;
-              }
-              return;
+              });
             });
           });
         })()

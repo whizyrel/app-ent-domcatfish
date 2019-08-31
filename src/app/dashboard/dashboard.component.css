@@ -43,6 +43,20 @@
   clear: both!important;
   overflow: auto!important;
 }
+.static-dp {
+  box-sizing: border-box!important;
+  position: static !important;
+  border-color: #fff !important;
+  margin-top: 25px!important;
+  right: 0!important;
+  top: 20%!important;
+  width: fit-content;
+  min-width: 240px!important;
+  height: fit-content!important;
+}
+.static-dp a:hover {
+  background-color: inherit!important;
+}
 .user-btn {
   display: block;
   width: 25px;
