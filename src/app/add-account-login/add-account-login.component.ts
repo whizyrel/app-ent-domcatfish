@@ -124,7 +124,7 @@ export class AddAccountLoginComponent implements OnInit {
       if (
         ps !== null &&
         ps !== undefined &&
-        ps.some((cur) => cur.dt.email !== this.accountDetails.email)
+        ps.every((cur) => cur !== null && cur !== undefined && cur.dt.email !== this.accountDetails.email)
       ) {
         // submit to database
         this._loginService

@@ -97,26 +97,32 @@ export class LoginComponent implements OnInit {
     const duration: number = 7000;
 
     if (this.loginform.valid) {
+      let isUserLoggedIn;
       this.queryBar = true;
 
       this.loginDetails = this.loginform.getRawValue();
 
       window.localStorage.setItem('md', this.who);
       const ps = JSON.parse(this._localStorage.getItem(ionstrttl));
-
-      // ps.length < 1 when no user is logged-in
-      const isUserLoggedIn = ps.length > 0
-        ? ps.some((cur) => cur.dt.email !== this.loginDetails.email) // false: user with email is logged in, true: user is not logged-in
-        : true; // session store is empty, left as true so user with email can pass in
-
       console.log({ps});
 
+      // ps.length < 1 when no user is logged-in
+      if (ps === null) {
+        isUserLoggedIn = false;
+      } else {
+        isUserLoggedIn = ps.every((cur) => cur !== null && cur !== undefined && cur.dt.email !== this.loginDetails.email) // false: user with email is logged in, true: user is not logged-in
+
+        // subtle case where ps is []
+        if (ps.length === 0) {
+          isUserLoggedIn = false;
+          // return;
+        }
+      }
+
       // disallow already logged-in user relogin
-      if (
-        ps !== null &&
-        ps !== undefined &&
-        isUserLoggedIn === true
-      ) {
+      // removed undefined from conditions
+      // allow ps ps is null, ps is less than 0
+      if (isUserLoggedIn === false) {
           // submit to database
           this._loginService.submitUserData(this.loginDetails, this.who).subscribe(
             (data: HttpResponse) => {
