@@ -54,7 +54,6 @@ export class DashboardComponent implements OnInit {
     private _users: UsersActiveInactiveService,
     private _googleApi: GoogleImgService,
     private _logUserOut: LogoutService,
-    private _localStorage: LocalStorageService,
     private _productsService: ProductsService,
     private _decEnc: DecEncService
   ) {}
@@ -76,9 +75,9 @@ export class DashboardComponent implements OnInit {
     // grap selected user index in session store
     const i = parseInt(el.id.split('-')[1]);
 
-    // this._users.switchUser(i);
-    // this.initActive();
-    // this.initInactive();
+    this._users.switchUser(i);
+    this.initActive();
+    this.initInactive();
   }
 
   initActive() {

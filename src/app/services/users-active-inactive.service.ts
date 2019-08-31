@@ -85,6 +85,7 @@ export class UsersActiveInactiveService {
     // grab index, all users
     const users = this.allUsers;
 
+    // users can never be null, undefined || length of 0
     // set other active to false
     users !== null && users !== undefined && users.length > 0
       ? ((usrs) => {

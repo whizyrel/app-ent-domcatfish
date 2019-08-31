@@ -20,6 +20,7 @@ import { ListFeedbacksComponent } from './list-feedbacks/list-feedbacks.componen
 import { DashboardAuthGuard } from './guards/dashboard-auth.guard';
 import { LoginAuthGuard } from './guards/login-auth.guard';
 import { ShopGuard } from './guards/shop.guard';
+import { AddAccountGuard } from './guards/add-account.guard';
 
 const routes: Routes = [
   {
@@ -131,6 +132,8 @@ const routes: Routes = [
             path: 'add',
             component: AddAccountLoginComponent,
             pathMatch: 'full',
+            // add route guard here to disallow entry when no user is active
+            canActivate: [AddAccountGuard]
           },
           {
             path: '',
@@ -212,6 +215,8 @@ const routes: Routes = [
             path: 'add',
             component: AddAccountLoginComponent,
             pathMatch: 'full',
+            // add route guard here to disallow entry when no user is active
+            canActivate: [AddAccountGuard]
           },
           {
             path: '',

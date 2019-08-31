@@ -68,7 +68,6 @@ export class ShopComponent implements OnInit {
     private _googleApi: GoogleImgService,
     private _logUserOut: LogoutService,
     private _cartService: CartService,
-    private _localStorage: LocalStorageService,
     private _productsService: ProductsService,
     private _decEnc: DecEncService
   ) {}
