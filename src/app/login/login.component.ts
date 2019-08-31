@@ -34,6 +34,8 @@ export class LoginComponent implements OnInit {
   public hide = true;
   public submitted = false;
 
+  private path: string;
+
   color = 'primary';
   mode = 'query';
   value = 50;
@@ -59,6 +61,7 @@ export class LoginComponent implements OnInit {
     this.activatedRoute.parent.url.subscribe((URLSegment) => {
       let who = '';
       URLSegment.some((cur) => {
+        this.path = cur.path;
         return cur.path === 'user';
       })
         ? (who = 'User')
@@ -87,7 +90,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     const crtstrttl: string = 'crtstr';
     const ionstrttl: string = 'ionstr';
 
@@ -98,114 +101,148 @@ export class LoginComponent implements OnInit {
 
       this.loginDetails = this.loginform.getRawValue();
 
-      // submit to database
-      this._loginService.submitUserData(this.loginDetails, this.who).subscribe(
-        (data: HttpResponse) => {
-          this.bufferValue = 100;
-          this.value = 100;
-          this.queryBar = false;
+      window.localStorage.setItem('md', this.who);
+      const ps = JSON.parse(this._localStorage.getItem(ionstrttl));
 
-          window.localStorage.setItem('md', this.who);
+      // ps.length < 1 when no user is logged-in
+      const isUserLoggedIn = ps.length > 0
+        ? ps.some((cur) => cur.dt.email !== this.loginDetails.email) // false: user with email is logged in, true: user is not logged-in
+        : true; // session store is empty, left as true so user with email can pass in
 
-          if (
-            data &&
-            data.hasOwnProperty('sessid') &&
-            data.hasOwnProperty('userDetails')
-          ) {
-            const { message, sessid, userDetails } = data;
+      console.log({ps});
 
-            const ionarray: SessStoreProps[] = [];
-            const cartStoreArray: CartStoreProps[] = [];
+      // disallow already logged-in user relogin
+      if (
+        ps !== null &&
+        ps !== undefined &&
+        isUserLoggedIn === true
+      ) {
+          // submit to database
+          this._loginService.submitUserData(this.loginDetails, this.who).subscribe(
+            (data: HttpResponse) => {
+              this.bufferValue = 100;
+              this.value = 100;
+              this.queryBar = false;
 
-            const ions: SessStoreProps = {
-              id: sessid,
-              dt: userDetails,
-              active: true,
-            };
+              if (
+                data &&
+                data.hasOwnProperty('sessid') &&
+                data.hasOwnProperty('userDetails')
+              ) {
+                const { message, sessid, userDetails } = data;
 
-            const ps = JSON.parse(this._localStorage.getItem(ionstrttl));
+                const ionarray: SessStoreProps[] = [];
+                const cartStoreArray: CartStoreProps[] = [];
 
-            if (ps === null) {
-              ionarray.push(ions);
-              this._localStorage.setItem(ionstrttl, ionarray);
-            } else {
-              ps.length === 0
-                ? (() => {
-                    ionarray.push(ions);
-                    this._localStorage.setItem(ionstrttl, ionarray);
-                  })()
+                const ions: SessStoreProps = {
+                  id: sessid,
+                  dt: userDetails,
+                  active: true,
+                };
+
+
+                if (ps === null) {
+                  ionarray.push(ions);
+                  this._localStorage.setItem(ionstrttl, ionarray);
+                } else {
+                  ps.length === 0
+                    ? (() => {
+                        ionarray.push(ions);
+                        this._localStorage.setItem(ionstrttl, ionarray);
+                      })()
+                    : (() => {
+                        ps.push(ions);
+                        this._localStorage.setItem(ionstrttl, ps);
+                      })();
+                }
+
+                // considered add-account-login
+                // if crtstr === null do previous else push new into it
+                // get cartStore first
+                // console.log(`setting cart store`);
+                const cartStore: CartStoreProps[] | null = JSON.parse(
+                  this._localStorage.getItem(crtstrttl)
+                );
+
+                // console.log(cartStore);
+
+                cartStore === null || cartStore === undefined
+                  ? (() => {
+                      // console.log(`fresh pushing`);
+                      cartStoreArray.push({
+                        em: userDetails.email,
+                        crt: [],
+                      });
+                      this._localStorage.setItem(crtstrttl, cartStoreArray);
+                    })()
+                  : (() => {
+                      cartStore.push({
+                        em: userDetails.email,
+                        crt: [],
+                      });
+                      this._localStorage.setItem(crtstrttl, cartStore);
+                    })();
+
+                this.who === 'user' && userDetails.accountType === 'client'
+                  ? this.router.navigate(['shop'], { replaceUrl: true })
+                  : this.router.navigate([this.who, 'dashboard'], {
+                      replaceUrl: true,
+                    });
+
+                this._snackbarService.showSnackBarFromComponent(
+                  SnackbarmsgComponent,
+                  message,
+                  duration
+                );
+              }
+            },
+            (error: HttpResponse) => {
+              this.bufferValue = 100;
+              this.value = 100;
+              this.queryBar = false;
+              this._response = error.error;
+
+              console.log(error);
+
+              // handled no network error
+              error.status === 0
+                ? this._snackbarService.showSnackBarFromComponent(
+                    SnackbarmsgComponent,
+                    `${error.statusText}. Please check your network connection.`,
+                    duration
+                  )
                 : (() => {
-                    ps.push(ions);
-                    this._localStorage.setItem(ionstrttl, ps);
+                    if (this._response) {
+                      this._snackbarService.showSnackBarFromComponent(
+                        SnackbarmsgComponent,
+                        this._response.message,
+                        duration
+                      );
+                    }
                   })();
             }
+          );
+      } else {
+        this.bufferValue = 100;
+        this.value = 100;
+        this.queryBar = false;
 
-            // considered add-account-login
-            // if crtstr === null do previous else push new into it
-            // get cartStore first
-            // console.log(`setting cart store`);
-            const cartStore: CartStoreProps[] | null = JSON.parse(
-              this._localStorage.getItem(crtstrttl)
-            );
+        console.log('[here] user exist');
 
-            // console.log(cartStore);
+        // notify through snackbar
+        await this._snackbarService.showSnackBarFromComponent(
+          SnackbarmsgComponent,
+          'You are already signed in',
+          duration
+        );
 
-            cartStore === null || cartStore === undefined
-              ? (() => {
-                  // console.log(`fresh pushing`);
-                  cartStoreArray.push({
-                    em: userDetails.email,
-                    crt: [],
-                  });
-                  this._localStorage.setItem(crtstrttl, cartStoreArray);
-                })()
-              : (() => {
-                  cartStore.push({
-                    em: userDetails.email,
-                    crt: [],
-                  });
-                  this._localStorage.setItem(crtstrttl, cartStore);
-                })();
-
-            this.who === 'user' && userDetails.accountType === 'client'
-              ? this.router.navigate(['shop'], { replaceUrl: true })
-              : this.router.navigate([this.who, 'dashboard'], {
-                  replaceUrl: true,
-                });
-
-            this._snackbarService.showSnackBarFromComponent(
-              SnackbarmsgComponent,
-              message,
-              duration
-            );
-          }
-        },
-        (error: HttpResponse) => {
-          this.bufferValue = 100;
-          this.value = 100;
-          this.queryBar = false;
-          this._response = error.error;
-
-          console.log(error);
-
-          // handled no network error
-          error.status === 0
-            ? this._snackbarService.showSnackBarFromComponent(
-                SnackbarmsgComponent,
-                `${error.statusText}. Please check your network connection.`,
-                duration
-              )
-            : (() => {
-                if (this._response) {
-                  this._snackbarService.showSnackBarFromComponent(
-                    SnackbarmsgComponent,
-                    this._response.message,
-                    duration
-                  );
-                }
-              })();
-        }
-      );
+        // re-route to ideal place
+        this.who === 'user'
+          ? this.router.navigate(['shop'], { replaceUrl: true })
+          : this.router.navigate([this.who, 'dashboard'], {
+              replaceUrl: true,
+            });
+      }
     }
   }
 
@@ -237,39 +274,4 @@ export class LoginComponent implements OnInit {
       },
     };
   }
-
-  // initObjectStores(
-  //   DBName: string,
-  //   strNames: {},
-  //   keyPath,
-  //   data,
-  //   sessid,
-  //   vrs = 2
-  // ) {
-  //   const { ionidstrttl, ionstrttl, cartstrttl } = strNames;
-  //   this._indexedDB.alert();
-  //   // .hasOwnProperty
-  //   this._indexedDB
-  //     .openDB(DBName, [ionidstrttl, cartstrttl, ionstrttl], keyPath, 1)
-  //     .addToIDB(ionidstrttl, { email: this.loginDetails.email, id: sessid });
-  //
-  //   this._indexedDB
-  //     .openDB(DBName, [ionidstrttl, cartstrttl, ionstrttl], keyPath, 1)
-  //     .addToIDB(ionstrttl, data.userDetails);
-  // }
 }
-
-// this._indexedDB
-// .openDB(
-//   DBName,
-//   cartstrttl,
-//   keyPath, 1
-// )
-
-// this.initObjectStores(
-//   DBName, {
-//     ionstrttl: ionstrttl,
-//     ionidstrttl: ionidstrttl,
-//     cartstrttl: cartstrttl
-//   }, keyPath, data, sessid
-// );
