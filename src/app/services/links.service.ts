@@ -62,20 +62,63 @@ export class LinksService {
         link: 'products',
         title: 'Products',
         iconClass: 'fas fa-shopping-cart',
-        children: []
+        children: [
+            {
+            link: 'add-products',
+            title: 'Add',
+            iconClass: 'fas fa-shopping-cart',
+          },
+          {
+            link: 'list-products',
+            title: 'Add',
+            iconClass: 'fas fa-shopping-cart',
+          }
+        ]
       },
       {
         link: 'feedbacks',
         title: 'Feedbacks',
         iconClass: 'fas fa-comments mr-3',
-        children: []
-        
+        children: [
+          {
+            link: 'list-feedbacks',
+            title: 'List',
+            iconClass: 'fas fa-comments',
+          }
+        ]
       },
       {
         link: 'orders',
         title: 'Orders',
         iconClass: 'fas fa-money-bill-alt mr-3',
-        children: []
+        children: [{
+          link: 'list-orders',
+          title: 'List',
+          iconClass: 'fas fa-shopping-cart',
+        }]
+      },
+      {
+        link: 'users',
+        title: 'Users',
+        iconClass: 'fas fa-user mr-3',
+        children: [
+          {
+            link: 'list-users',
+            title: 'List Users',
+            iconClass: 'fas fa-user',
+          },
+          {
+            link: 'edit-users',
+            title: 'Edit User',
+            iconClass: 'fas fa-user-edit',
+          },
+          {
+            link: 'delete-user',
+            title: 'Delete User',
+            iconClass: 'fas fa-trash',
+          }
+        ]
+
       },
     ];
   }

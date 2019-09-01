@@ -1,3 +1,5 @@
+import { LinkProps } from './link-props';
+
 export interface LinkProps {
   link?: string;
   title?: string;
@@ -5,5 +7,5 @@ export interface LinkProps {
   addition?: string;
   srclink?: string;
   iconClass?: string;
-  children?: [];
+  children?: LinkProps[];
 }
