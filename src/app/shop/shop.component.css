@@ -95,7 +95,7 @@ header,
   right: 0!important;
   top: 20%!important;
   width: fit-content;
-  min-width: 240px!important;
+  min-width: 180px;
   height: fit-content!important;
 }
 .static-dp a:hover {
