@@ -30,9 +30,14 @@
 
       <!-- sidebar links -->
       <div class="list-group list-group-flush">
-        <a *ngFor="let sidebarLink of sidebarLinks" [routerLink]="[sidebarLink.link]" class="list-group-item list-group-item-action waves-effect item form-inline sidelinks" style="display: flex!important;">
-          <i class="{{ sidebarLink.iconClass }}"></i><p class="show" >{{sidebarLink.title}}</p></a
-        >
+        <ul *ngFor="let sidebarLink of sidebarLinks" style="padding: 0; margin: 0;">
+          <a *ngIf="sidebarLink.hasOwnProperty('children') === false" [routerLink]="[sidebarLink.link]" class="list-group-item list-group-item-action waves-effect item form-inline sidelinks dark-grey-text" style="display: flex!important;">
+            <i class="{{ sidebarLink.iconClass }}"></i><p class="show" style="margin: 0;" >{{sidebarLink.title}}</p></a
+          >
+          <li *ngIf="sidebarLink.hasOwnProperty('children') === true" [routerLink]="[sidebarLink.link]" class="list-group-item list-group-item-action waves-effect item form-inline sidelinks dark-grey-text" style="display: flex!important;">
+            <i class="{{ sidebarLink.iconClass }}"></i><p class="show" style="margin: 0;" >{{sidebarLink.title}}</p><i *ngIf="sidebarLink.hasOwnProperty('children')" class="fa fa-chevron-circle-down fa-1x fl-r"style="margin-left: auto;" (click)="toggleListDropdown()"></i></li
+          >
+        </ul>
       </div>
       <!-- sidebar links -->
     </div>
@@ -187,7 +192,7 @@
                 </div>
 
                 <!-- Add User -->
-                <div *ngIf="showActvUser === true" class="fl-r pd-r-p5" style="width: auto!important;">
+                <div *ngIf="showActvUser === true" class="fl-r pd-r-p5" style="width: auto!important; margin-left: auto;">
                   <a
                     [routerLink]="['/admin', 'account', 'add']"
                     [queryParams]="{ rt: encURL }"

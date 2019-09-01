@@ -87,7 +87,6 @@ export class AddAccountLoginComponent implements OnInit {
       this.who = who.toLowerCase();
       this.links = this._linksService.getLoginBottomLinks(this.who);
       this.activeLink = this.links[0].link;
-      console.log({who});
     });
 
     this.addaccountform = this.formBuilder.group({

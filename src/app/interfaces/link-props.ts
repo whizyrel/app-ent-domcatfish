@@ -5,4 +5,5 @@ export interface LinkProps {
   addition?: string;
   srclink?: string;
   iconClass?: string;
+  children?: [];
 }

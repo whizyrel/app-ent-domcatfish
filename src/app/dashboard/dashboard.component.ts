@@ -258,4 +258,6 @@ export class DashboardComponent implements OnInit {
       queryProfileDiv.classList.toggle('d-none');
     }
   }
+
+  public toggleListDropdown() {}
 }

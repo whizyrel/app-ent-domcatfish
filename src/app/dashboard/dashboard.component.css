@@ -91,7 +91,7 @@
   width: 100%; display: flex;
 }
 .user-ctrl {
-  display: block; /* prev: table;*/
+  display: flex;
   box-sizing: border-box!important;
   height: fit-content;
   width: auto!important;
@@ -100,7 +100,6 @@
   left: 0;
   overflow: auto!important;
   clear: both!important;
-  /* float: left; */
 }
 .user-ctrl a:hover {
   background-color: inherit!important;

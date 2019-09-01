@@ -8,14 +8,14 @@ import { SessStoreProps } from '../interfaces/sess-store-props';
   providedIn: 'root',
 })
 export class UsersActiveInactiveService {
-  constructor(private _localStorage: LocalStorageService) {}
+  constructor(
+    private _localStorage: LocalStorageService
+  ) {}
 
   protected get getIonStore(): SessStoreProps[] | null {
     const ionstrttl = 'ionstr';
 
-    const users = JSON.parse(this._localStorage.getItem(ionstrttl));
-    // console.log(users);
-    return users;
+    return JSON.parse(this._localStorage.getItem(ionstrttl));
   }
 
   get getUsersActive(): SessStoreProps {
@@ -89,16 +89,21 @@ export class UsersActiveInactiveService {
     // set other active to false
     users !== null && users !== undefined && users.length > 0
       ? ((usrs) => {
-        console.log({usrs});
-        // set others differnet from index to false
+        console.log(`[switch users] users list`, {usrs});
+
+        // set others different from index to false
         usrs.forEach((cur, i) => {
-          if (i !== index) cur.active = false;
+          if (i !== index) {
+            cur.active = false;
+          }
+          console.log({i, cur});
         });
 
         // set index to true
         usrs[index].active === true;
 
         // save into ions store;
+        this._localStorage.setItem('ionstrttl', usrs);
       })(users) : null;
     // set this index to true;
     console.log({index, users});
