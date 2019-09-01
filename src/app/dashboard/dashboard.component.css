@@ -142,7 +142,7 @@
 }
 
 .nav-container {
-  display: inline-block;
+  display: flex;
   padding: .5rem;
   position: sticky;
   box-sizing: border-box;
