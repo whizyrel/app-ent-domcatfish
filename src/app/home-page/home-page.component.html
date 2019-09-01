@@ -3,16 +3,16 @@
   <div class="nav-container">
     <div class="row js-center">
       <!-- Brand -->
-      <div class="col-sm-3">
+      <div class="d-flex" style="margin-left: 3vw;">
         <a class="navbar-brand js-center" [routerLink]="['/']" target="_self">
           <strong>{{ title }}</strong>
         </a>
       </div>
 
       <!-- Links -->
-      <div class="col-md-9 form-inline">
+      <div class="d-flex form-inline js-center" style="margin-left: auto;">
         <!-- Left -->
-        <ul class="nav justify-content-center col-sm-6">
+        <ul class="nav justify-content-center d-flex nav-n-soc-links" style="margin-right: 2vw">
           <li *ngFor="let link of links" class="nav-item">
             <a class="nav-link a-links" href="{{link.link}}">
               {{ link.title }}
@@ -21,7 +21,8 @@
         </ul>
 
         <!-- Right -->
-        <ul class="nav justify-content-center col-sm-6">
+        <ul class="nav justify-content-center d-flex js-center soc-link" style="margin-left: auto;
+        ">
           <li class="nav-item">
             <a
               href="{{soc_link.facebook}}"
