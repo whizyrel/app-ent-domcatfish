@@ -38,7 +38,7 @@
             <i class="{{ sidebarLink.iconClass }}"></i><p class="show" style="margin: 0;" >{{sidebarLink.title}}</p><i *ngIf="sidebarLink.hasOwnProperty('children')" class="fa fa-chevron-circle-down fa-1x" style="margin-left: auto;" (click)="toggleListDropdown(sublist)"></i>
 
             <!-- nested items -->
-            <div class="d-block pd-t-p5 w-100" #sublist>
+            <div class="d-none pd-t-p5 w-100" #sublist>
               <ul *ngFor="let child of sidebarLink.children" class="d-flex pd-l-1 pd-t-p5 pd-b-p5 w-100 form-inline bd-b" style="width: 100%!important;">
                 <a [routerLink]="[{outlets: {dashboard: child.link}}]" class="waves-effect form-inline dark-grey-text d-flex w-100">
                   <i class="{{child.iconClass}} mg-r-1"></i>
