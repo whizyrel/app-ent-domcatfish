@@ -116,12 +116,12 @@ const routes: Routes = [
           {
             path: '',
             pathMatch: 'full',
-            redirectTo: 'add-products',
+            redirectTo: '/admin/dashboard/(dashboard:add-products)',
           },
           {
             path: '**',
             pathMatch: 'full',
-            redirectTo: 'add-products',
+            redirectTo: '/(dashboard:add-products)',
           },
         ],
       },

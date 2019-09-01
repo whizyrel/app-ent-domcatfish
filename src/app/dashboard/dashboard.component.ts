@@ -260,7 +260,6 @@ export class DashboardComponent implements OnInit {
   }
 
   public toggleListDropdown(el) {
-    console.log({el});
     el.classList.toggle('d-block');
     el.classList.toggle('d-none');
   }
