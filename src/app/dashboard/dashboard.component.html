@@ -31,12 +31,22 @@
       <!-- sidebar links -->
       <div class="list-group list-group-flush">
         <ul *ngFor="let sidebarLink of sidebarLinks" style="padding: 0; margin: 0;">
-          <a *ngIf="sidebarLink.hasOwnProperty('children') === false" [routerLink]="[sidebarLink.link]" class="list-group-item list-group-item-action waves-effect item form-inline sidelinks dark-grey-text" style="display: flex!important;">
+          <a *ngIf="sidebarLink.hasOwnProperty('children') === false" [routerLink]="[{outlets: {dashboard: sidebarLink.link }}]" class="list-group-item list-group-item-action waves-effect item form-inline sidelinks dark-grey-text" style="display: flex!important;">
             <i class="{{ sidebarLink.iconClass }}"></i><p class="show" style="margin: 0;" >{{sidebarLink.title}}</p></a
           >
-          <li *ngIf="sidebarLink.hasOwnProperty('children') === true" [routerLink]="[sidebarLink.link]" class="list-group-item list-group-item-action waves-effect item form-inline sidelinks dark-grey-text" style="display: flex!important;">
-            <i class="{{ sidebarLink.iconClass }}"></i><p class="show" style="margin: 0;" >{{sidebarLink.title}}</p><i *ngIf="sidebarLink.hasOwnProperty('children')" class="fa fa-chevron-circle-down fa-1x fl-r"style="margin-left: auto;" (click)="toggleListDropdown()"></i></li
-          >
+          <li *ngIf="sidebarLink.hasOwnProperty('children') === true" class="list-group-item list-group-item-action waves-effect item form-inline sidelinks dark-grey-text d-flex">
+            <i class="{{ sidebarLink.iconClass }}"></i><p class="show" style="margin: 0;" >{{sidebarLink.title}}</p><i *ngIf="sidebarLink.hasOwnProperty('children')" class="fa fa-chevron-circle-down fa-1x" style="margin-left: auto;" (click)="toggleListDropdown(sublist)"></i>
+
+            <!-- nested items -->
+            <div class="d-block pd-t-p5 w-100" #sublist>
+              <ul *ngFor="let child of sidebarLink.children" class="d-flex pd-l-1 pd-t-p5 pd-b-p5 w-100 form-inline bd-b" style="width: 100%!important;">
+                <a [routerLink]="[{outlets: {dashboard: child.link}}]" class="waves-effect form-inline dark-grey-text d-flex w-100">
+                  <i class="{{child.iconClass}} mg-r-1"></i>
+                  <p>{{child.title}}</p>
+                </a>
+              </ul>
+            </div>
+          </li>
         </ul>
       </div>
       <!-- sidebar links -->

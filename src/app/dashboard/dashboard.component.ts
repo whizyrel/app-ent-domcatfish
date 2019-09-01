@@ -259,5 +259,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  public toggleListDropdown() {}
+  public toggleListDropdown(el) {
+    console.log({el});
+  }
 }
