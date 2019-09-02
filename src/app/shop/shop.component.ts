@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 import { AES, enc } from 'crypto-js';
+
+import { DialogComponent } from '../dialog/dialog.component';
 
 import { LinksService } from '../services/links.service';
 import { UsersActiveInactiveService } from '../services/users-active-inactive.service';
@@ -69,7 +72,8 @@ export class ShopComponent implements OnInit {
     private _logUserOut: LogoutService,
     private _cartService: CartService,
     private _productsService: ProductsService,
-    private _decEnc: DecEncService
+    private _decEnc: DecEncService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -257,7 +261,16 @@ export class ShopComponent implements OnInit {
             console.log({err, done});
 
             if (err) {
-              console.log(`[error] logging out ${err}`);
+              console.log(`[error] logging out`, {err});
+              // show dialog
+              const dialogRef = this.dialog.open(DialogComponent, {
+                width: '250px',
+                data: {error: err}
+              });
+
+              dialogRef.afterClosed().subscribe(result => {
+                console.log('The dialog was closed');
+              });
               return;
             }
             // set next Active before logout

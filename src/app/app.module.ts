@@ -38,6 +38,7 @@ import { ListProductsComponent } from './list-products/list-products.component';
 import { ListUsersComponent } from './list-users/list-users.component';
 import { ListOrdersComponent } from './list-orders/list-orders.component';
 import { ListFeedbacksComponent } from './list-feedbacks/list-feedbacks.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 import { APIURLService } from './services/apiurl.service';
 import { LoginService } from './services/login.service';
@@ -77,6 +78,7 @@ import { AddProductsForm } from './add-products/add-products-form'
     ListUsersComponent,
     ListOrdersComponent,
     ListFeedbacksComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({
@@ -122,6 +124,8 @@ import { AddProductsForm } from './add-products/add-products-form'
     AddProductsForm
   ],
   bootstrap: [AppComponent],
-  entryComponents: [SnackbarmsgComponent],
+  entryComponents: [
+    SnackbarmsgComponent, DialogComponent
+  ],
 })
 export class AppModule {}

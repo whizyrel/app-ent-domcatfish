@@ -43,11 +43,12 @@ export class LogoutService {
         // set inactive users
         this._localStorage.setItem(ionstrttl, inactive);
 
-        // done = true;
-        await cb(err = null, done = true);
-      }, error => {
-        // done = null;
-        cb(error, done = null);
+        done = true;
+        err = null;
+        await cb(err, done);
+      }, async error => {
+        done = null;
+        cb(error, done);
       });
     }
   }
