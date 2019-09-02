@@ -103,11 +103,11 @@ export class DashboardAuthGuard implements CanActivate {
                     : (() => null)();
 
                     // either way reject false
+                    reject(false);
                     this.router.navigate(['admin'], {
                       replaceUrl: true,
                       skipLocationChange: true,
                     });
-                    reject(false);
                 }
               );
             })()
