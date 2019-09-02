@@ -7,26 +7,32 @@
     <!-- Sidebar -->
     <div class="_sidebar d-none d-md-block ">
       <!-- image -->
-      <a *ngIf="userimg !== '' && userimg !== ' ' && userimg !== undefined && userimg !== null; else sidebarImgElseBlock" class="logo-wrapper waves-effect form-inline grey-text" style="display: flex; margin: auto;">
+      <a class="logo-wrapper waves-effect form-inline grey-text d-flex m-auto" style="width: fit-content;">
         <!-- User image -->
         <img
+          *ngIf="userimg !== '' && userimg !== ' ' && userimg !== undefined && userimg !== null; else sidebarImgElseBlock"
           src="{{userimg}}"
           class="img-fluid"
           alt="Profile Image"
           style="width: 50px!important; height: 50px!important; border-radius: 50%;"
         />
         <!-- User image -->
-        <!-- username -->
-        <p class="pd-l-1">{{ username }}</p>
-        <!-- username -->
-      </a>
-      <!-- Icon -->
-      <ng-template #sidebarImgElseBlock>
-        <div class="logo-wrapper waves-effect grey-text justify-content-center" style="display: flex; padding: 5vw 1rem!important; margin: auto;">
-          <i class="img-fluid fas fa-user-circle fa-4x" style="width: fit-content!important; height: fit-content!important;"></i>
+
+        <!-- Icon -->
+        <ng-template #sidebarImgElseBlock>
+          <div class="waves-effect grey-text d-flex m-auto pd-p5">
+            <i class="img-fluid fas fa-user-circle fa-5x" style="width: fit-content!important; height: fit-content!important;"></i>
+          </div>
+        </ng-template>
+        <!-- Icon -->
+
+        <!-- username and email-->
+        <div class="d-block m-auto">
+          <p class="dark-grey-text mg-b-p5" style="margin: 0!important;">{{ username }}</p>
+          <p class="grey-text " style="margin: 0!important;">{{active.dt.email}}</p>
         </div>
-      </ng-template>
-      <!-- Icon -->
+        <!-- username and email-->
+      </a>
 
       <!-- sidebar links -->
       <div class="list-group list-group-flush">
@@ -222,8 +228,8 @@
 <!-- Main Navigation -->
 
 <!-- Main layout -->
-<main class="p-l-270p pd-t-5">
-  <div class="container-fluid mg-t-1">
+<main class="p-l-270p pd-t-5" style="height: fit-content; overflow: auto;">
+  <div class="container-fluid mg-t-1" style="height: fit-content;">
     <!-- Heading -->
     <!-- Grid rows wrapped in container reduced to one -->
     <!-- Grid row -->
@@ -236,7 +242,7 @@
 <!-- Main layout -->
 <!-- Footer -->
 <footer
-  class="page-footer p-l-270p text-center font-small primary-color-dark darken-2 mg-t-2 wow fadeIn"
+  class="page-footer p-l-270p text-center font-small primary-color-dark darken-2 mg-t-2 wow fadeIn" style="position: absolute; right: 0; left: 0;"
 >
   <!-- Call to action -->
   <div class="pt-4">
