@@ -189,11 +189,12 @@
 
             <!-- account control buttons -->
             <!-- added border-top -->
-            <div class="dropdown-item bd-t user-ctrl pd-t-p5 pd-b-p5 form-inline" style="width: 100%!important; height: fit-content!important; justify-content: center!important;">
+            <div class="dropdown-item bd-t user-ctrl pd-t-p5 pd-b-p5 form-inline w-100" style="height: fit-content!important; justify-content: center!important;">
                 <div class="fl-l pd-l-p5">
                   <button
-                    class="ctrl-btn pd-p5 form-inline cursor-p w-auto"
+                    class="ctrl-btn pd-t-p5 pd-b-p5 pd-l-2 pd-r-2 cursor-p"
                     (click)="inOutCtrl()"
+                    style="min-width: 80px;"
                   >
                     {{ what }}
                   </button>

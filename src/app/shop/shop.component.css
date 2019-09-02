@@ -79,7 +79,7 @@ header,
   width: fit-content !important;
 }
 .dropdown-item {
-  width: fit-content!important;
+  /* width: fit-content!important; */
   padding: 0;
   clear: both!important;
   overflow: auto!important;

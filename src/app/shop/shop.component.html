@@ -139,15 +139,14 @@
                   </div>
                   <!-- Icon to replace above -->
                   <ng-template #userPanelElseBlock>
-                    <div class="pd-t-p5 pd-b-p5 d-flex h-100">
+                    <div class="pd-t-p5 pd-b-p5 d-flex h-100 m-auto">
                       <i class="img-fluid fas fa-user-circle fa-5x"></i>
                     </div>
                   </ng-template>
                   <!-- Icon -->
 
-                  <div class="d-block">
+                  <div *ngIf="active !== '' && active !== ' ' && active !== null && active !== undefined" class="d-block">
                     <p
-                      *ngIf="username !== '' && username !== ' '"
                       class="pd-l-1 dark-grey-text d-flex" style="margin-bottom: 0!important;"
                     >
                       {{ username }}
@@ -168,7 +167,7 @@
                   #uiname
                 >
                   <!-- User image -->
-                  <div *ngIf="inactv.dt.img !== '' && inactv.dt.img === ' ' && inactv.dt.img !== undefined && inactv.dt.img !== null; else otherUserPanelElseBlock" class="pd-t-p5 pd-b-p5 d-flex">
+                  <div *ngIf="inactv !== '' && inactv === ' ' && inactv !== undefined && inactv !== null; else otherUserPanelElseBlock" class="pd-t-p5 pd-b-p5 d-flex">
                     <img
                       src="{{ inactv.dt.img }}"
                       class="sub-img-circle"
@@ -198,21 +197,13 @@
 
               <!-- account control buttons -->
               <!-- added border-top -->
-              <div class="dropdown-item bd-t user-ctrl pd-t-p5 pd-b-p5 form-inline" style="width: 100%!important; height: fit-content!important; justify-content: center!important;">
+              <div class="dropdown-item bd-t user-ctrl pd-t-p5 pd-b-p5 form-inline w-100" style="min-width: 40px; height: fit-content!important; justify-content: center!important;">
                   <div class="fl-l pd-l-p5">
                     <button
-                      class="ctrl-btn pd-p5 form-inline cursor-p"
-                      style="width: auto;"
+                      class="ctrl-btn pd-t-p5 pd-b-p5 pd-l-2 pd-r-2 form-inline cursor-p"
+                      style="min-width: 80px;"
                       (click)="inOutCtrl()"
                     >
-                      <i
-                        *ngIf="showActvUser === false"
-                        class="fa fa-sign-in-alt mg-r-p5"
-                      ></i>
-                      <i
-                        *ngIf="showActvUser === true"
-                        class="fa fa-sign-out-alt mg-r-p5"
-                      ></i>
                       {{ what }}
                     </button>
                   </div>
