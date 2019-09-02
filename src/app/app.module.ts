@@ -18,10 +18,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -97,10 +95,8 @@ import { AddProductsForm } from './add-products/add-products-form'
     HttpClientModule,
     MatTabsModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule,
     MatSelectModule,
-    MatTooltipModule,
-    MatPaginatorModule,
+    MatDialogModule
   ],
   providers: [
     LoginAuthGuard,
