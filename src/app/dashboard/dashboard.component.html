@@ -117,10 +117,10 @@
             aria-labelledby="dropdownMenuButton"
           >
             <!-- active user -->
-            <a class="dropdown-item" style="width: 100%!important; padding: 0!important;">
+            <a class="dropdown-item w-100" style="padding: 0!important;">
               <!-- User image and name -->
-              <div class="actv-usr-pn user-data pd-t-p5 pd-l-p5 pd-r-p5 text-center grey-text form-inline js-center" style="width: 100%!important; display: table;">
-                <div *ngIf="userimg !== '' && userimg === ' ' && userimg !== undefined && userimg !== null; else userPanelElseBlock" class="pd-t-p5 pd-b-p5" style="display: table-cell;">
+              <div class="actv-usr-pn user-data pd-p5 text-center dark-grey-text form-inline w-100 d-flex" style="flex-flow: row!important;">
+                <div *ngIf="userimg !== '' && userimg === ' ' && userimg !== undefined && userimg !== null; else userPanelElseBlock" class="pd-t-p5 pd-b-p5 d-flex h-100">
                   <img
                     src="{{userimg}}"
                     class="img-circle"
@@ -129,20 +129,20 @@
                 </div>
                 <!-- Icon to replace above -->
                 <ng-template #userPanelElseBlock>
-                  <div class="pd-t-p5 pd-b-p5" style="display: table-cell;">
-                    <i class="img-fluid fas fa-user-circle fa-3x" style="width: fit-content!important; height: fit-content!important;"></i>
+                  <div class="pd-t-p5 pd-b-p5 d-flex h-100">
+                    <i class="img-fluid fas fa-user-circle fa-5x"></i>
                   </div>
                 </ng-template>
                 <!-- Icon -->
 
-                <div class="" style="display: table-cell; vertical-align: middle;">
+                <div class="d-block">
                   <p
                     *ngIf="username !== '' && username !== ' '"
-                    style="display: table-cell; vertical-align: middle;"
-                    class="js-center pd-l-p5"
+                    class="pd-l-1 dark-grey-text d-flex" style="margin-bottom: 0!important;"
                   >
                     {{ username }}
                   </p>
+                  <p class="pd-l-1 grey-text d-flex" style="font-size: .7rem;">{{active.dt.email}}</p>
                 </div>
               </div>
             </a>
@@ -152,8 +152,8 @@
             <div *ngFor="let inactv of inactive">
               <a
                 *ngIf="showInactvUser === true"
-                class="dropdown-item pd-l-p5 pd-r-p5"
-                style="width: 100%!important; padding-bottom: 0;"
+                class="dropdown-item pd-l-p5 pd-r-p5 w-100"
+                style="padding-bottom: 0;"
                 id="ui-{{inactv.index}}" (click)="oneClickLogin(ui)"
                 #uiname
               >
