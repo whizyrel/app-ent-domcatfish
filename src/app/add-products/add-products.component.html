@@ -1,3 +1,210 @@
-<p>
-  add-products works!
-</p>
+<main class="main-container d-flex h-100 w-100 m-auto">
+  <form
+    class="m-auto"
+    [formGroup]="addProductForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div *ngIf="processing === true; else elseBlock" class="w-100 h-100 m-auto">
+      <div class="spinner-grow spinner-grow-sm" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <ng-template #elseBlock>
+      <div class="w-100" style="height: fit-content;">
+        <mat-card>
+          <mat-card-content>
+            <!-- title, pack -->
+            <div class="form-row">
+              <div class="col col-8">
+                <mat-form-field class="w-100 h-100" appearance="outline">
+                  <mat-label>Title</mat-label>
+                  <input
+                    matInput
+                    formControlName="title"
+                    class="form-control-sm"
+                    type="text"
+                    placeholder="Firstname"
+                    required
+                  />
+                  <mat-icon matSuffix>title</mat-icon>
+                  <mat-error *ngIf="status.title.invalid">{{
+                    getErrorMessage().titleError()
+                  }}</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col col-4">
+                <!-- dropdown | mat select -->
+                <mat-form-field  class="w-100" appearance="outline">
+                  <mat-label>Pack</mat-label>
+                  <mat-select class="form-control-sm form-inline" [formControl]="status.pack" required>
+                    <mat-option *ngFor="let packType of packTypes"
+                      class="form-control-sm"
+                      [value]="packType.value"
+                    >
+                      {{packType.name}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-icon matSuffix>work_outline</mat-icon>
+                  <mat-error *ngIf="status.pack.invalid">{{
+                    getErrorMessage().packError()
+                  }}</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- title, pack -->
+            <!-- weight, quantity, price -->
+            <div class="form-row">
+              <div class="col col-4 col-md-4">
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Weight</mat-label>
+                  <input
+                    matInput
+                    formControlName="weight"
+                    class="form-control-sm"
+                    type="number"
+                    placeholder="Choose weight"
+                    required
+                  />
+                  <mat-icon matSuffix>person</mat-icon>
+                  <mat-error *ngIf="status.weight.invalid">{{
+                    getErrorMessage().weightError()
+                  }}</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col col-4 col-md-4">
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Quantity</mat-label>
+                  <input
+                    matInput
+                    formControlName="quantity"
+                    class="form-control-sm"
+                    type="number"
+                    placeholder="Choose quantity"
+                    required
+                  />
+                  <mat-icon matSuffix>person</mat-icon>
+                  <mat-error *ngIf="status.quantity.invalid">{{
+                    getErrorMessage().quantityError()
+                  }}</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col col-4 col-md-4">
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Price</mat-label>
+                  <input
+                    matInput
+                    formControlName="price"
+                    class="form-control-sm"
+                    type="number"
+                    placeholder="Choose price"
+                    required
+                  />
+                  <mat-icon matSuffix>person</mat-icon>
+                  <mat-error *ngIf="status.price.invalid">{{
+                    getErrorMessage().priceError()
+                  }}</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- weight, quantity, price -->
+            <!-- availability, shipping fee, shipping info -->
+            <div class="form-row">
+              <div class="col col-6 col-md-3">
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Availability</mat-label>
+                  <mat-select class="form-control-sm form-inline" [formControl]="status.availability" required>
+                    <mat-option
+                      class="form-control-sm"
+                      [value]="true"
+                    >
+                      yes
+                    </mat-option>
+                    <mat-option
+                      class="form-control-sm"
+                      [value]="false"
+                    >
+                      no
+                    </mat-option>
+                  </mat-select>
+                  <mat-icon matSuffix>person</mat-icon>
+                </mat-form-field>
+              </div>
+              <div class="col col-6 col-md-3">
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Shipping Fee</mat-label>
+                  <input
+                    matInput
+                    formControlName="shippingFee"
+                    class="form-control-sm"
+                    type="number"
+                    placeholder="shipping fee"
+                    required
+                  />
+                  <mat-icon matSuffix>person</mat-icon>
+                  <!-- <mat-error *ngIf="status.shippingFee.invalid">{{
+                    getErrorMessage().shippingFeeError()
+                  }}</mat-error> -->
+                </mat-form-field>
+              </div>
+              <div class="col col-12 col-md-6">
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Shipping Info</mat-label>
+                  <textarea
+                    matInput
+                    formControlName="shippingInfo"
+                    class="form-control-sm"
+                    type="text"
+                    required
+                  ></textarea>
+                  <mat-icon class="d-flex h-100 m-auto" style="width: fit-content;" matSuffix>description</mat-icon>
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- availability, shipping fee, shipping info -->
+            <!-- description -->
+            <div class="form-row">
+              <div class="col col-sm-12">
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Description</mat-label>
+                  <textarea
+                    matInput
+                    formControlName="description"
+                    class="form-control-sm"
+                    type="text"
+                    required
+                  ></textarea>
+                  <mat-icon class="d-flex h-100 m-auto" style="width: fit-content;" matSuffix>description</mat-icon>
+                  <mat-error *ngIf="status.description.invalid">{{
+                    getErrorMessage().descriptionError()
+                  }}</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- description -->
+            <!-- images -->
+            <div class="form-row">
+              <div class="col col-xs-12">
+                <p class="w-100">images</p>
+              </div>
+            </div>
+            <!-- images -->
+
+            <!-- Button -->
+            <div class="form-group pt-2">
+              <mat-card-actions class="form-group pt-2">
+                <button
+                  mat-raised-button
+                  color=""
+                  type="submit"
+                  [disabled]="disableBtn()"
+                >
+                  Sign up
+                </button>
+              </mat-card-actions>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </ng-template>
+  </form>
+</main>

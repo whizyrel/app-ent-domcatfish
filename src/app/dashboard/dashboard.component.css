@@ -186,6 +186,12 @@
   }
 }
 
+/* @media (min-height: 315px) {
+  .page-footer {
+    position: absolute!important;
+  }
+}*/
+
 .logo-wrapper {
   padding: 5vw 1rem;
 }
