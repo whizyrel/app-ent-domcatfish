@@ -94,11 +94,11 @@ export class DashboardComponent implements OnInit {
             dt: { firstname, lastname, email },
           } = this.active;
 
-          this.what = `Logout`;
+          this.what = `Sign out`;
           this.showActvUser = true;
           this.username = `${firstname} ${lastname
             .substring(0, 1)
-            .toUpperCase()}.`;
+            .toUpperCase()}${lastname.substring(1)}`;
 
           this._googleApi.getUserImg(email).subscribe(
             (data) => {

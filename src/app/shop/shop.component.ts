@@ -174,11 +174,11 @@ export class ShopComponent implements OnInit {
             dt: { firstname, lastname, email },
           } = this.active;
 
-          this.what = `Logout`;
+          this.what = `sign out`;
           this.showActvUser = true;
           this.username = `${firstname} ${lastname
             .substring(0, 1)
-            .toUpperCase()}.`;
+            .toUpperCase()}${lastname.substring(1)}`;
 
           this._googleApi.getUserImg(email).subscribe(
             (data) => {
@@ -193,7 +193,7 @@ export class ShopComponent implements OnInit {
           this.cart = this._cartService.getCartItems(email);
         })()
       : (() => {
-          this.what = `Sign in`;
+          this.what = `sign in`;
           this.showActvUser = false;
           // this.userimg = `./assets/images/user2-160x160.jpg`;
           this.username = ``;
