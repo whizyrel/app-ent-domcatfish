@@ -146,6 +146,7 @@
                 </div>
               </div>
             </a>
+            <!-- User image and name -->
 
             <!-- other users -->
             <div class="bd-t"></div>
@@ -199,7 +200,7 @@
                 </div>
 
                 <!-- Add User -->
-                <div *ngIf="showActvUser === true" class="fl-r pd-r-p5" style="width: auto!important; margin-left: auto;">
+                <div *ngIf="showActvUser === true" class="fl-r pd-r-p5 cursor-p" style="width: auto!important; margin-left: auto;">
                   <a
                     [routerLink]="['/admin', 'account', 'add']"
                     [queryParams]="{ rt: encURL }"

@@ -176,9 +176,11 @@ export class ShopComponent implements OnInit {
 
           this.what = `sign out`;
           this.showActvUser = true;
-          this.username = `${firstname} ${lastname
-            .substring(0, 1)
-            .toUpperCase()}${lastname.substring(1)}`;
+          this.username = `${firstname} ${
+            lastname.substring(0, 1)
+            .toUpperCase()}${
+              lastname.substring(1
+              )}`;
 
           this._googleApi.getUserImg(email).subscribe(
             (data) => {

@@ -95,7 +95,8 @@ header,
   right: 0!important;
   top: 20%!important;
   width: fit-content;
-  min-width: 180px;
+  min-width: 180px!important;
+  max-width: 240px!important;
   height: fit-content!important;
 }
 .static-dp a:hover {
@@ -116,7 +117,6 @@ header,
 .actv-usr-pn {
   box-sizing: border-box!important;
   height: fit-content;
-  display: table;
   width: 100%!important;
   text-align: center;
 }
@@ -131,7 +131,8 @@ header,
   width: 35px;
 }
 .user-data {
-  width: 100%; display: flex;
+  width: 100%;
+  display: flex;
 }
 .user-ctrl {
   display: flex;
@@ -148,15 +149,14 @@ header,
   background-color: inherit!important;
   color: #1C2331!important;
 }
-.user-ctrl > div {
-  display: table-cell!important;
-}
 .ctrl-btn {
-  border: 1px solid rgb(95, 99, 104)!important;
-  border-radius: 3px!important;
-  background-color: inherit!important;
-  cursor: pointer;
-  color: rgb(95, 99, 104)!important;
+  background: #f8f8f8;
+  border: 1px solid #c6c6c6;
+  color: #666;
+  display: inline-block;
+  line-height: 28px;
+  padding: 0 12px;
+  border-radius: 2px;
 }
 .add-link {
   box-sizing: border-box;
