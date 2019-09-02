@@ -58,6 +58,8 @@ import { RetrievePasswordService } from './services/retrieve-password.service';
 import { ProductsService } from './services/products.service';
 import { DecEncService } from './services/dec-enc.service';
 
+import { AddProductsForm } from './add-products/add-products-form'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -120,7 +122,8 @@ import { DecEncService } from './services/dec-enc.service';
     LocalStorageService,
     RetrievePasswordService,
     ProductsService,
-    DecEncService
+    DecEncService,
+    AddProductsForm
   ],
   bootstrap: [AppComponent],
   entryComponents: [SnackbarmsgComponent],
