@@ -86,6 +86,15 @@ app-snackbarmsg {
 }
 
 /* My library */
+/* cursor */
+.cursor-h {
+  cursor: hand!important;
+}
+
+.cursor-p {
+  cursor: pointer!important;
+}
+
 /* Medium devices (tablets, less than 992px)*/
 @media (max-width: 991px) {
   .pd-b-ctrl {
@@ -157,6 +166,9 @@ app-snackbarmsg {
 
 /* margin */
 /* full */
+.mg-auto {
+  margin: auto!important;
+}
 .mg-p5 {
   margin: .5rem!important;
 }
@@ -180,6 +192,9 @@ app-snackbarmsg {
 }
 
 /* margin right */
+.mg-r-auto {
+  margin-right: auto!important;
+}
 .mg-r-p5 {
   margin-right: .5rem !important;
 }
@@ -200,6 +215,9 @@ app-snackbarmsg {
 }
 
 /* margin left */
+.mg-l-auto {
+  margin-left: auto!important;
+}
 .mg-l-p5 {
   margin-left: .5rem !important;
 }
@@ -220,6 +238,9 @@ app-snackbarmsg {
 }
 
 /* margin top */
+.mg-t-auto {
+  margin-top: auto!important;
+}
 .mg-t-p5 {
   margin-top: .5rem !important;
 }
@@ -246,6 +267,9 @@ app-snackbarmsg {
 }
 
 /* margin bottom */
+.mg-b-auto {
+  margin-bottom: auto!important;
+}
 .mg-b-p5 {
   margin-bottom: .5rem !important;
 }
@@ -273,6 +297,9 @@ app-snackbarmsg {
 
 /* padding */
 /* full */
+.pd-auto {
+  padding: auto!important;
+}
 .pd-p5 {
   padding: .5rem!important;
 }
@@ -296,6 +323,9 @@ app-snackbarmsg {
 }
 
 /* padding left */
+.pd-l-auto {
+  padding-left: -right: auto!important;
+}
 .pd-l-p5 {
   padding-left: .5rem!important;
 }
@@ -319,6 +349,9 @@ app-snackbarmsg {
 }
 
 /* padding right */
+.pd-r-auto {
+  padding-right: : -right: auto!important;
+}
 .pd-r-p5 {
   padding-right: .5rem!important;
 }
@@ -342,6 +375,9 @@ app-snackbarmsg {
 }
 
 /* padding top */
+.pd-t-auto {
+  padding-top: : -right: auto!important;
+}
 .pd-t-p5 {
   padding-top: .5rem !important;
 }
@@ -368,6 +404,9 @@ app-snackbarmsg {
 }
 
 /* padding bottom */
+.pd-b-auto {
+  padding-bottom: : -right: auto!important;
+}
 .pd-b-p5 {
   padding-bottom: .5rem !important;
 }
