@@ -324,7 +324,7 @@ app-snackbarmsg {
 
 /* padding left */
 .pd-l-auto {
-  padding-left: -right: auto!important;
+  padding-left: auto!important;
 }
 .pd-l-p5 {
   padding-left: .5rem!important;
@@ -350,7 +350,7 @@ app-snackbarmsg {
 
 /* padding right */
 .pd-r-auto {
-  padding-right: : -right: auto!important;
+  padding-right: auto!important;
 }
 .pd-r-p5 {
   padding-right: .5rem!important;
@@ -376,7 +376,7 @@ app-snackbarmsg {
 
 /* padding top */
 .pd-t-auto {
-  padding-top: : -right: auto!important;
+  padding-top: auto!important;
 }
 .pd-t-p5 {
   padding-top: .5rem !important;
@@ -405,7 +405,7 @@ app-snackbarmsg {
 
 /* padding bottom */
 .pd-b-auto {
-  padding-bottom: : -right: auto!important;
+  padding-bottom: auto!important;
 }
 .pd-b-p5 {
   padding-bottom: .5rem !important;
