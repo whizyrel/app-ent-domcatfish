@@ -65,7 +65,7 @@
                     placeholder="Choose weight"
                     required
                   />
-                  <mat-icon matSuffix>person</mat-icon>
+                  <mat-icon matSuffix>play</mat-icon>
                   <mat-error *ngIf="status.weight.invalid">{{
                     getErrorMessage().weightError()
                   }}</mat-error>
@@ -99,7 +99,7 @@
                     placeholder="Choose price"
                     required
                   />
-                  <mat-icon matSuffix>person</mat-icon>
+                  <mat-icon matSuffix>attach_money</mat-icon>
                   <mat-error *ngIf="status.price.invalid">{{
                     getErrorMessage().priceError()
                   }}</mat-error>
@@ -107,9 +107,9 @@
               </div>
             </div>
             <!-- weight, quantity, price -->
-            <!-- availability, shipping fee, shipping info -->
+            <!-- availability, shipping fee-->
             <div class="form-row">
-              <div class="col col-6 col-md-3">
+              <div class="col col-6 col-md-6">
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Availability</mat-label>
                   <mat-select class="form-control-sm form-inline" [formControl]="status.availability" required>
@@ -126,10 +126,10 @@
                       no
                     </mat-option>
                   </mat-select>
-                  <mat-icon matSuffix>person</mat-icon>
+                  <mat-icon matSuffix>check_circle</mat-icon>
                 </mat-form-field>
               </div>
-              <div class="col col-6 col-md-3">
+              <div class="col col-6 col-md-6">
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Shipping Fee</mat-label>
                   <input
@@ -140,13 +140,17 @@
                     placeholder="shipping fee"
                     required
                   />
-                  <mat-icon matSuffix>person</mat-icon>
+                  <mat-icon matSuffix>local_shipping</mat-icon>
                   <!-- <mat-error *ngIf="status.shippingFee.invalid">{{
                     getErrorMessage().shippingFeeError()
                   }}</mat-error> -->
                 </mat-form-field>
               </div>
-              <div class="col col-12 col-md-6">
+            </div>
+            <!-- availability, shipping fee -->
+            <!-- description, shipping info -->
+            <div class="form-row">
+              <div class="col col-12 col-sm-6">
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Shipping Info</mat-label>
                   <textarea
@@ -159,11 +163,7 @@
                   <mat-icon class="d-flex h-100 m-auto" style="width: fit-content;" matSuffix>description</mat-icon>
                 </mat-form-field>
               </div>
-            </div>
-            <!-- availability, shipping fee, shipping info -->
-            <!-- description -->
-            <div class="form-row">
-              <div class="col col-sm-12">
+              <div class="col col-12 col-sm-6">
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Description</mat-label>
                   <textarea
@@ -180,28 +180,28 @@
                 </mat-form-field>
               </div>
             </div>
-            <!-- description -->
-            <!-- images -->
+            <!-- description, shipping info -->
+            <!-- images, submit button -->
             <div class="form-row">
-              <div class="col col-xs-12">
-                <p class="w-100">images</p>
+              <div class="col col-6">
+                <p class="w-100 h-100">images</p>
+              </div>
+              <!-- Button -->
+              <div class="col-6">
+                <mat-card-actions class="form-group pt-2 w-100 h-100 d-flex">
+                  <button
+                    class="d-flex pd-t-p5 pd-b-p5 pd-l-2 pd-r-2" style="margin-left: auto;"
+                    mat-raised-button
+                    color=""
+                    type="submit"
+                    [disabled]="disableBtn()"
+                  >
+                    Sign up
+                  </button>
+                </mat-card-actions>
               </div>
             </div>
-            <!-- images -->
-
-            <!-- Button -->
-            <div class="form-group pt-2">
-              <mat-card-actions class="form-group pt-2">
-                <button
-                  mat-raised-button
-                  color=""
-                  type="submit"
-                  [disabled]="disableBtn()"
-                >
-                  Sign up
-                </button>
-              </mat-card-actions>
-            </div>
+            <!-- upload images, submit button -->
           </mat-card-content>
         </mat-card>
       </div>
