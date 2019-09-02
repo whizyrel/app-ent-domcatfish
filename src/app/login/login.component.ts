@@ -26,7 +26,7 @@ import { LocalStorageService } from '../services/local-storage.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  loginform: FormGroup;
+  public loginform: FormGroup;
   private loginDetails: LoginProps;
 
   private who: string;
