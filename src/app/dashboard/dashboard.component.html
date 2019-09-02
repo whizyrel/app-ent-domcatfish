@@ -149,41 +149,41 @@
 
             <!-- other users -->
             <div class="bd-t"></div>
-            <div *ngFor="let inactv of inactive">
-              <a
+            <div *ngFor="let inactv of inactive" class="w-100 pd-l-1 pd-r-1">
+              <div
                 *ngIf="showInactvUser === true"
                 class="dropdown-item pd-l-p5 pd-r-p5 w-100"
-                style="padding-bottom: 0;"
+                style="margin-bottom: 0;"
                 id="ui-{{inactv.index}}" (click)="oneClickLogin(ui)"
                 #uiname
               >
-                <div class="other-user-panel">
-                  <!-- User image -->
-                  <div *ngIf="inactv.dt.img !== '' && inactv.dt.img === ' ' && inactv.dt.img !== undefined && inactv.dt.img !== null; else otherUserPanelElseBlock" class="pd-t-p5 pd-b-p5" style="display: table-cell;">
-                    <img
-                      src="{{ inactv.dt.img }}"
-                      class="sub-img-circle"
-                      alt="User Image"
-                    />
-                  </div>
-                  <!-- Icon to replace above -->
-                  <ng-template #otherUserPanelElseBlock>
-                    <div class="pd-t-p5 pd-b-p5" style="display: table-cell;">
-                      <i class="img-fluid fas fa-user-circle fa-2x" style="width: fit-content!important; height: fit-content!important;"></i>
-                    </div>
-                  </ng-template>
-                  <!-- Icon -->
-                  <div class="" style="display: table-cell; vertical-align: middle;">
-                    <p
-                      *ngIf="inactv.dt.firstname !== '' && inactv.dt.firstname !== ' '"
-                      style="display: table-cell; vertical-align: middle;"
-                      class="js-center pd-l-1"
-                    >
-                      {{ inactv.dt.firstname + ' ' + inactv.dt.lastname }}
-                    </p>
-                  </div>
+                <!-- User image -->
+                <div *ngIf="inactv.dt.img !== '' && inactv.dt.img === ' ' && inactv.dt.img !== undefined && inactv.dt.img !== null; else otherUserPanelElseBlock" class="pd-t-p5 pd-b-p5 d-flex">
+                  <img
+                    src="{{ inactv.dt.img }}"
+                    class="sub-img-circle"
+                    alt="User Image"
+                  />
                 </div>
-              </a>
+                <!-- Icon to replace above -->
+                <ng-template #otherUserPanelElseBlock>
+                  <div class="pd-t-p5 pd-b-p5 d-flex">
+                    <i class="img-fluid fas fa-user-circle fa-2x" style="width: fit-content!important; height: fit-content!important;"></i>
+                  </div>
+                </ng-template>
+                <!-- Icon -->
+                <div class="d-flex pd-l-1 mr-auto mt-auto mb-auto">
+                  <p
+                    *ngIf="inactv.dt.firstname !== '' && inactv.dt.firstname !== ' '"
+                    class="d-flex grey-text"
+                  >
+                    {{
+                      inactv.dt.firstname + ' ' + inactv.dt.lastname.substring(0, 1).toUpperCase()
+                      + '.'
+                    }}
+                  </p>
+                </div>
+              </div>
             </div>
 
             <!-- account control buttons -->
@@ -191,18 +191,9 @@
             <div class="dropdown-item bd-t user-ctrl pd-t-p5 pd-b-p5 form-inline" style="width: 100%!important; height: fit-content!important; justify-content: center!important;">
                 <div class="fl-l pd-l-p5">
                   <button
-                    class="ctrl-btn pd-p5 form-inline"
-                    style="width: auto;"
+                    class="ctrl-btn pd-p5 form-inline cursor-p w-auto"
                     (click)="inOutCtrl()"
                   >
-                    <i
-                      *ngIf="showActvUser === false"
-                      class="fa fa-sign-in-alt mg-r-p5"
-                    ></i>
-                    <i
-                      *ngIf="showActvUser === true"
-                      class="fa fa-sign-out-alt mg-r-p5"
-                    ></i>
                     {{ what }}
                   </button>
                 </div>
