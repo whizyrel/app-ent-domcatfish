@@ -8,6 +8,7 @@ import {
 
 import { ProductsProps } from '../interfaces/products-props';
 import { HttpResponse } from '../interfaces/http-response';
+import { PackTypesProps } from '../interfaces/pack-types';
 
 import { AddProductsForm } from './add-products-form';
 
@@ -23,7 +24,9 @@ export class AddProductsComponent implements OnInit {
   private productDetails: ProductsProps;
 
   public processing: boolean = false; // default is false
-  public packTypes;
+  public packTypes: PackTypesProps[];
+
+  private submitted: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,27 +35,24 @@ export class AddProductsComponent implements OnInit {
 
   ngOnInit() {
     this.addProductForm = this.formBuilder.group(this.productForm.getForm);
-
-    this.packTypes = [{
-      name: 'mini',
-      value: 'mini',
-    }, {
-      name: 'midi',
-      value: 'midi',
-    }, {
-      name: 'maxi',
-      value: 'maxi',
-    }, {
-      name: 'mega',
-      value: 'mega',
-    }, {
-      name: 'premium',
-      value: 'premium',
-    }]
+    this.packTypes = this.productForm.getPackTypes();
   }
 
   onSubmit() {
     this.processing = true;
+    const productDetails = this.addProductForm.getRawValue();
+    console.log({formDetails: productDetails});
+
+    if (this.submitted === false) {
+      //
+
+      this.submitted = true;
+      return;
+    }
+  }
+
+  public grabFiles(el) {
+    console.log({el});
   }
 
   disableBtn(): Boolean {
@@ -75,7 +75,8 @@ export class AddProductsComponent implements OnInit {
         if (this.status.title.hasError) {
           return this.status.title.hasError('required')
             ? 'You must enter a value'
-            : '';
+            : (this.status.title.hasError('minlength')
+              ? 'should be at least 3 characters long' : '');
         }
       },
       packError: () => {
@@ -90,15 +91,15 @@ export class AddProductsComponent implements OnInit {
           return this.status.weight.hasError('required')
             ? 'You must enter a value'
             : (this.status.weight.hasError('min')
-              ? 'minimum weight value is 1' : '');
+              ? 'minimum weight is 1' : '');
         }
       },
       quantityError: () => {
         if (this.status.title.hasError) {
-          return this.status.title.hasError('required')
+          return this.status.quantity.hasError('required')
             ? 'You must enter a value'
             : (this.status.quantity.hasError('min')
-              ? 'minimum quantity value is 1' : '');
+              ? 'minimum quantity is 1' : '');
         }
       },
       priceError: () => {
@@ -106,7 +107,7 @@ export class AddProductsComponent implements OnInit {
           return this.status.price.hasError('required')
             ? 'You must enter a value'
             : (this.status.price.hasError('min')
-              ? 'minimum price value is 0' : '');
+              ? 'minimum price is 1' : '');
         }
       },
       descriptionError: () => {

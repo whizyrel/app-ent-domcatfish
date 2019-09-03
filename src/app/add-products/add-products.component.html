@@ -65,7 +65,7 @@
                     placeholder="Choose weight"
                     required
                   />
-                  <mat-icon matSuffix>play</mat-icon>
+                  <mat-icon matSuffix>play_for_work</mat-icon>
                   <mat-error *ngIf="status.weight.invalid">{{
                     getErrorMessage().weightError()
                   }}</mat-error>
@@ -82,7 +82,7 @@
                     placeholder="Choose quantity"
                     required
                   />
-                  <mat-icon matSuffix>person</mat-icon>
+                  <mat-icon matSuffix>trending_up</mat-icon>
                   <mat-error *ngIf="status.quantity.invalid">{{
                     getErrorMessage().quantityError()
                   }}</mat-error>
@@ -182,17 +182,17 @@
             </div>
             <!-- description, shipping info -->
             <!-- images, submit button -->
-            <div class="form-row">
+            <div class="form-row form-inline">
               <div class="col col-6">
-                <p class="w-100 h-100">images</p>
+                <input #imageUpload type="file" class="form-control-sm" (change)="grabFiles(imageUpload)" accept="image/jpeg, image/x-png, image/png" required multiple>
               </div>
               <!-- Button -->
               <div class="col-6">
-                <mat-card-actions class="form-group pt-2 w-100 h-100 d-flex">
+                <mat-card-actions class="form-group pt-2 w-100 d-flex">
                   <button
-                    class="d-flex pd-t-p5 pd-b-p5 pd-l-2 pd-r-2" style="margin-left: auto;"
+                    class="d-flex pd-t-p5 pd-b-p5 pd-l-2 pd-r-2 ml-auto"
                     mat-raised-button
-                    color=""
+                    color="primary"
                     type="submit"
                     [disabled]="disableBtn()"
                   >

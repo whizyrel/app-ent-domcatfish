@@ -5,6 +5,8 @@ import {
   FormBuilder,
 } from '@angular/forms';
 
+import { PackTypesProps } from '../interfaces/pack-types';
+
 export class AddProductsForm {
   public get getForm() {
     return {
@@ -17,15 +19,15 @@ export class AddProductsForm {
       ]),
       weight: new FormControl('', [
         Validators.required,
-        Validators.min(0),
+        Validators.min(1),
       ]),
       quantity: new FormControl('', [
         Validators.required,
-        Validators.min(0),
+        Validators.min(1),
       ]),
       price: new FormControl('', [
         Validators.required,
-        Validators.min(-1)
+        Validators.min(1)
       ]),
       description: new FormControl('', [
         Validators.required,
@@ -43,5 +45,24 @@ export class AddProductsForm {
         // Validators.required,
       ])
     }
+  }
+
+  public getPackTypes(): PackTypesProps[] {
+    return [{
+      name: 'mini',
+      value: 'mini',
+    }, {
+      name: 'midi',
+      value: 'midi',
+    }, {
+      name: 'maxi',
+      value: 'maxi',
+    }, {
+      name: 'mega',
+      value: 'mega',
+    }, {
+      name: 'premium',
+      value: 'premium',
+    }];
   }
 }

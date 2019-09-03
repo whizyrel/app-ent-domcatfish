@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class APIURLService {
-  // private URL = `https://api-ent-domcatfish.herokuapp.com`;
+  private URL = `https://api-ent-domcatfish.herokuapp.com`;
   // private URL = `https://debim.gciapp.com.ng`;
-  private URL = `http://localhost:8006`;
+  // private URL = `http://localhost:8006`;
   constructor() {}
 
   get userUrls() {
