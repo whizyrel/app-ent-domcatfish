@@ -103,7 +103,7 @@ export class UsersActiveInactiveService {
         usrs[index].active === true;
 
         // save into ions store;
-        this._localStorage.setItem('ionstrttl', usrs);
+        this._localStorage.setItem('ionstr', usrs);
       })(users) : null;
     // set this index to true;
     console.log({index, users});
