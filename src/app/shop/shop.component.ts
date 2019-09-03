@@ -99,7 +99,7 @@ export class ShopComponent implements OnInit {
 
   protected getProducts() {
     this._productsService.getProductList.subscribe((data: HttpResponse) => {
-      // console.log(`[Success]`, {data});
+      console.log(`[Success]`, {data});
 
       if (data.hasOwnProperty('docs')) {
         this.productsList = this.splitProductsList(data.docs);
@@ -135,10 +135,10 @@ export class ShopComponent implements OnInit {
          arrList.push(buff);
        }
 
-       // console.log({buff, pageSize: this.pageSize, i});
+       console.log({buff, pageSize: this.pageSize, i});
     });
 
-    // console.log({arrList});
+    console.log({arrList});
     return arrList;
   }
 
@@ -154,12 +154,16 @@ export class ShopComponent implements OnInit {
     }
   }
 
-  oneClickLogin(stf) {
+  oneClickLogin(el, e) {
+    e.stopPropagation();
+    e.stopImmediatePropagation();
     // grap selected user index in session store
-    const i = parseInt(stf.id.split('-')[1]);
-
-
-    console.log({i});
+    const i = parseInt(el.id.split('-')[1]);
+    console.log(this._users.getUsersActive);
+    this._users.switchUser(i);
+    this.initActive();
+    this.initInactive();
+    // console.log({el, e, i});
   }
 
   initActive() {

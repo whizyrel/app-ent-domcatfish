@@ -47,8 +47,6 @@ export class UsersActiveInactiveService {
   }
 
   setNextActive() {
-    // const allUsers: SessStoreProps[] = this.allUsers;
-
     // if inactive users, set next inactive user to active
     this.getUsersInactive !== null && this.getUsersInactive !== undefined
       ? (() => {
@@ -84,28 +82,20 @@ export class UsersActiveInactiveService {
   switchUser(index: number) {
     // grab index, all users
     const users = this.allUsers;
+    const {index: i} = this.getUsersActive;
+    console.log({users, i});
 
     // users can never be null, undefined || length of 0
     // set other active to false
-    users !== null && users !== undefined && users.length > 0
-      ? ((usrs) => {
-        console.log(`[switch users] users list`, {usrs});
+    if (users !== null && users !== undefined && users.length > 0) {
+      // console.log(`[switch users] users list`, {users});
 
-        // set others different from index to false
-        usrs.forEach((cur, i) => {
-          if (i !== index) {
-            cur.active = false;
-          }
-          console.log({i, cur});
-        });
-
-        // set index to true
-        usrs[index].active === true;
-
-        // save into ions store;
-        this._localStorage.setItem('ionstr', usrs);
-      })(users) : null;
+      users[i].active = false;
+      users[index].active = true;
+      // save into ions store;
+      this._localStorage.setItem('ionstr', users);
+    }
+    console.log({users});
     // set this index to true;
-    console.log({index, users});
   }
 }
