@@ -98,4 +98,9 @@ export class UsersActiveInactiveService {
     console.log({users});
     // set this index to true;
   }
+
+  public isAdmin(i: number) {
+    const users = this.allUsers;
+    return users[i].active === true ? true : false;
+  }
 }

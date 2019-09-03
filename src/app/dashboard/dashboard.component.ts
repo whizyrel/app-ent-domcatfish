@@ -75,13 +75,32 @@ export class DashboardComponent implements OnInit {
     this.encURL = this._decEnc.aesEncryption('/admin/dashboard', this.seckey);
   }
 
-  oneClickLogin(el) {
+  oneClickLogin(el, e) {
     // grap selected user index in session store
     const i = parseInt(el.id.split('-')[1]);
 
-    this._users.switchUser(i);
-    this.initActive();
-    this.initInactive();
+    // check if index is admin, else show dialog
+    const isAdmin = this._users.isAdmin(i);
+
+    if (isAdmin) {
+      this._users.switchUser(i);
+      this.initActive();
+      this.initInactive();
+      console.log({el, e, i});
+      return;
+    }
+
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '250px',
+      data: {msg: 'Sorry, the account selected is not an admin account'}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+
+    // show snackbar for non admin
+    console.log({el, e, i});
   }
 
   initActive() {
@@ -98,7 +117,7 @@ export class DashboardComponent implements OnInit {
             dt: { firstname, lastname, email },
           } = this.active;
 
-          this.what = `Sign out`;
+          this.what = `sign out`;
           this.showActvUser = true;
           this.username = `${firstname} ${lastname
             .substring(0, 1)
@@ -115,7 +134,7 @@ export class DashboardComponent implements OnInit {
           );
         })()
       : (() => {
-          this.what = `Sign in`;
+          this.what = `sign in`;
           this.showActvUser = false;
           // this.userimg = `./assets/images/user2-160x160.jpg`;
           this.username = ``;
