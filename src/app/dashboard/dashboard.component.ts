@@ -92,7 +92,7 @@ export class DashboardComponent implements OnInit {
 
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '250px',
-      data: {msg: 'Sorry, the account selected is not an admin account'}
+      data: {message: 'Sorry, the account selected is not an admin account'}
     });
 
     dialogRef.afterClosed().subscribe(result => {
