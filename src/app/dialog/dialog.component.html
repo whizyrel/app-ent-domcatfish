@@ -11,12 +11,12 @@
   </div>
 </div>
 
-<div #elseBlock class="pd-p5 d-flex w-100" style="min-height: 25px; flex-flow: row wrap">
+<ng-template #elseBlock class="pd-p5 d-flex w-100" style="min-height: 25px; flex-flow: row wrap">
   <p class="d-block grey-text w-100" style="font-size: 20px;">
-    {{data.msg}}
+    {{data.message}}
   </p>
 
   <div mat-dialog-actions class="pd-p5">
     <button mat-button cdkFocusInitial (click)="onClose()">Ok</button>
   </div>
-</div>
+</ng-template>

@@ -10,12 +10,11 @@ export class DialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data,
-    @Inject(MAT_DIALOG_DATA) public msg
+    @Inject(MAT_DIALOG_DATA) public data
   ) {}
 
   ngOnInit() {
-    console.log({data: this.data});
+    console.log({data: this.data.message});
   }
 
   onClose() {
