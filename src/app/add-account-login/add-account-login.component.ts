@@ -112,7 +112,7 @@ export class AddAccountLoginComponent implements OnInit {
 
     const duration: number = 7000;
 
-    if (this.addaccountform.valid) {
+    if (this.addaccountform.valid && this.submitted === false) {
       this.queryBar = true;
 
       this.accountDetails = this.addaccountform.getRawValue();
@@ -133,6 +133,7 @@ export class AddAccountLoginComponent implements OnInit {
               this.bufferValue = 100;
               this.value = 100;
               this.queryBar = false;
+              this.submitted = true;
 
               window.localStorage.setItem('md', this.who);
 
