@@ -291,8 +291,12 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  public toggleListDropdown(el) {
+  public toggleListDropdown(el, iconEl) {
     el.classList.toggle('d-block');
     el.classList.toggle('d-none');
+
+    // change icon
+    iconEl.classList.toggle('fa-chevron-circle-down');
+    iconEl.classList.toggle('fa-chevron-circle-up');
   }
 }

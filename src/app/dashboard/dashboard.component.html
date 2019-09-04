@@ -41,7 +41,7 @@
             <i class="{{ sidebarLink.iconClass }}"></i><p class="show" style="margin: 0;" >{{sidebarLink.title}}</p></a
           >
           <li *ngIf="sidebarLink.hasOwnProperty('children') === true" class="list-group-item list-group-item-action waves-effect item form-inline sidelinks dark-grey-text d-flex">
-            <i class="{{ sidebarLink.iconClass }}"></i><p class="show" style="margin: 0;" >{{sidebarLink.title}}</p><i *ngIf="sidebarLink.hasOwnProperty('children')" class="fa fa-chevron-circle-down fa-1x" style="margin-left: auto;" (click)="toggleListDropdown(sublist)"></i>
+            <i class="{{ sidebarLink.iconClass }}"></i><p class="show" style="margin: 0;" >{{sidebarLink.title}}</p><i *ngIf="sidebarLink.hasOwnProperty('children')" class="fa fa-chevron-circle-down fa-1x" style="margin-left: auto;" #ic (click)="toggleListDropdown(sublist, ic)"></i>
 
             <!-- nested items -->
             <div class="d-none pd-t-p5 w-100" #sublist>
