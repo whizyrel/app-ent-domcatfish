@@ -96,7 +96,7 @@ export class LoginComponent implements OnInit {
 
     const duration: number = 7000;
 
-    if (this.loginform.valid) {
+    if (this.loginform.valid && this.submitted === false) {
       let isUserLoggedIn;
       this.queryBar = true;
 
@@ -128,6 +128,7 @@ export class LoginComponent implements OnInit {
               this.bufferValue = 100;
               this.value = 100;
               this.queryBar = false;
+              this.submitted = true;
 
               if (
                 data &&
@@ -206,6 +207,7 @@ export class LoginComponent implements OnInit {
               this.value = 100;
               this.queryBar = false;
               this._response = error.error;
+              this.submitted = false;
 
               console.log(error);
 
