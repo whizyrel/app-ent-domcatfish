@@ -56,6 +56,7 @@ import { LocalStorageService } from './services/local-storage.service';
 import { RetrievePasswordService } from './services/retrieve-password.service';
 import { ProductsService } from './services/products.service';
 import { DecEncService } from './services/dec-enc.service';
+import { DialogService } from './services/dialog.service';
 
 import { AddProductsForm } from './add-products/add-products-form'
 
@@ -121,7 +122,7 @@ import { AddProductsForm } from './add-products/add-products-form'
     RetrievePasswordService,
     ProductsService,
     DecEncService,
-    AddProductsForm
+    AddProductsForm, DialogService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

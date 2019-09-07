@@ -36,10 +36,10 @@ export class LoginComponent implements OnInit {
 
   private path: string;
 
-  color = 'primary';
-  mode = 'query';
-  value = 50;
-  bufferValue = 75;
+  public color = 'primary';
+  public mode = 'query';
+  public value = 50;
+  public bufferValue = 75;
   public queryBar = false;
 
   links: LinkProps[];
