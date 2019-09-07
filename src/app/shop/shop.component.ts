@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 import { AES, enc } from 'crypto-js';
+import * as Event from 'events';
 
 import { DialogComponent } from '../dialog/dialog.component';
 
@@ -81,12 +82,11 @@ export class ShopComponent implements OnInit {
     this.links = this._linksService.getHomeNavbarLinks();
     this.types = this._linksService.getTypes();
 
-    this.getProducts();
-
     this.initActive();
     this.initInactive();
 
     this.encURL = this._decEnc.aesEncryption('/shop', this.seckey);
+    this.getProducts();
   }
 
   addToCart() {
@@ -95,51 +95,6 @@ export class ShopComponent implements OnInit {
 
   checkout() {
     // if cart is empty disable Proceed to checkout button
-  }
-
-  protected getProducts() {
-    this._productsService.getProductList.subscribe((data: HttpResponse) => {
-      console.log(`[Success]`, {data});
-
-      if (data.hasOwnProperty('docs')) {
-        this.productsList = this.splitProductsList(data.docs);
-
-        this.currentProductArray = this.productsList[this.productsList.length -= this.productsList.length];
-
-        return;
-      }
-    }, (error: HttpResponse) => {
-      console.log(`[Error]`, {error});
-    });
-  }
-
-  protected splitProductsList(data) {
-    const arrList = [];
-    let buff = [];
-
-    // console.log(`[data]`, {data});
-
-    data.forEach(async (cur, i) => {
-       buff.push(cur);
-
-       // average case
-       if ((++i % this.pageSize) === 0) {
-         console.log('full');
-         arrList.push(buff);
-         buff = [];
-       }
-
-       // worst case: i + 1 % pageSize !== 0, i === data length || i + 1 > data.length
-       if ((++i % this.pageSize) !== 0 && i  === (--data.length)) {
-         // console.log('less than pageSize');
-         arrList.push(buff);
-       }
-
-       console.log({buff, pageSize: this.pageSize, i});
-    });
-
-    console.log({arrList});
-    return arrList;
   }
 
   public pageHandler(i: number) {
@@ -285,7 +240,7 @@ export class ShopComponent implements OnInit {
             await this.initInactive();
 
             // route to shop - self, tentative
-            this.router.navigate(['shop'], {
+            this.router.navigate(['/shop'], {
               skipLocationChange: false,
               replaceUrl: false,
             });
