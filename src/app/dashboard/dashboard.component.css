@@ -8,6 +8,14 @@
     animation: spin 2s linear infinite;
 }
 
+/* progress bar */
+[progress-bar] {
+  position: absolute;
+  z-index: 1500;
+  top: 0;
+  height: fit-content;
+}
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
