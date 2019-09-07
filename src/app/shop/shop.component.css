@@ -14,7 +14,13 @@ header,
   .carousel {
     height: 100vh!important;
   }
-  margin-top: none 1important;
+/*   margin-top: none !important; */
+}
+
+@media (max-width: 576px) {
+  .carousel {
+    height: 575px!important;
+  }
 }
 
 @media (min-width: 800px) and (max-width: 850px) {
