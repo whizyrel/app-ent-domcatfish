@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 import { AES, enc } from 'crypto-js';
-
-import { DialogComponent } from '../dialog/dialog.component';
 
 import { LinksService } from '../services/links.service';
 import { UsersActiveInactiveService } from '../services/users-active-inactive.service';
@@ -13,6 +10,7 @@ import { LogoutService } from '../services/logout.service';
 import { LocalStorageService } from '../services/local-storage.service';
 import { ProductsService } from '../services/products.service';
 import { DecEncService } from '../services/dec-enc.service';
+import { DialogService } from '../services/dialog.service';
 
 import { AllLinksProps } from '../interfaces/all-links-props'
 import { LinkProps } from '../interfaces/link-props';
@@ -50,6 +48,12 @@ export class DashboardComponent implements OnInit {
   public showActvUser: boolean;
   public showInactvUser: boolean;
 
+  public color = 'primary';
+  public mode = 'query';
+  public value = 50;
+  public bufferValue = 75;
+  public queryBar: boolean = true;
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -59,10 +63,13 @@ export class DashboardComponent implements OnInit {
     private _logUserOut: LogoutService,
     private _productsService: ProductsService,
     private _decEnc: DecEncService,
-    public dialog: MatDialog
+    private _dialog: DialogService
   ) {}
 
   ngOnInit() {
+    this.value = 75;
+    this.bufferValue = 90;
+    this.queryBar = true;
     this.sidebarLinks = this._linksService.getAdminDashboardSidebarLinks;
     this.links = this._linksService.getHomeNavbarLinks();
     this.soc_link = this._linksService.getSocialLinks();
@@ -90,13 +97,8 @@ export class DashboardComponent implements OnInit {
       return;
     }
 
-    const dialogRef = this.dialog.open(DialogComponent, {
-      width: '250px',
-      data: {message: 'Sorry, the account selected is not an admin account'}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    this._dialog.showDialog({
+      message: 'Sorry, the account selected is not an admin account'
     });
 
     // show snackbar for non admin
@@ -104,6 +106,7 @@ export class DashboardComponent implements OnInit {
   }
 
   initActive() {
+    this.queryBar = false;
     // type mismatch
     !Array.isArray(this._users.getUsersActive)
       ? (this.active = this._users.getUsersActive)
@@ -198,14 +201,7 @@ export class DashboardComponent implements OnInit {
             if (err) {
               console.log(`[error] logging out`, {err});
               // show dialog
-              const dialogRef = this.dialog.open(DialogComponent, {
-                width: '250px',
-                data: {error: err}
-              });
-
-              dialogRef.afterClosed().subscribe(result => {
-                console.log('The dialog was closed');
-              });
+              this._dialog.showDialog({error: err});
               return;
             }
             // set next Active before logout
@@ -239,6 +235,10 @@ export class DashboardComponent implements OnInit {
             replaceUrl: false,
           });
         })();
+  }
+
+  public showQuerybar(status: boolean) {
+    this.queryBar = status;
   }
 
   public toggleSidebar () {
