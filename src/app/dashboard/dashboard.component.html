@@ -1,3 +1,12 @@
+<div class="w-100 d-flex" *ngIf="queryBar" (queryProgressBar)="showQuerybar($event)" progress-bar>
+  <mat-progress-bar
+    [color]="color"
+    [mode]="mode"
+    [value]="value"
+    [bufferValue]="bufferValue"
+  >
+  </mat-progress-bar>
+</div>
   <!-- Main Navigation -->
   <header>
   <!-- Navbar -->
