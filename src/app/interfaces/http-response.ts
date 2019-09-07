@@ -9,7 +9,7 @@ export interface HttpResponse {
   sessid?: string;
   userDetails?: PubUserDetails;
   doc?: object | ProductsProps;
-  docs?: object | object[] | ProductsProps[];
+  docs?: ProductsProps[];
   status?: number;
   ok?: boolean;
   statusText?: string;
