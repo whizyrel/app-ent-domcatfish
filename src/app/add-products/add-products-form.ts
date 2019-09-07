@@ -5,14 +5,14 @@ import {
   FormBuilder,
 } from '@angular/forms';
 
-import { PackTypesProps } from '../interfaces/pack-types';
+import { PackTypesProps } from '../interfaces/pack-types-props';
 
 export class AddProductsForm {
   public get getForm() {
     return {
       title: new FormControl('', [
         Validators.required,
-        Validators.minLength(3)
+        Validators.minLength(5)
       ]),
       pack: new FormControl('', [
         Validators.required,
@@ -31,10 +31,11 @@ export class AddProductsForm {
       ]),
       description: new FormControl('', [
         Validators.required,
+        Validators.minLength(15)
       ]),
-      imgs: new FormControl('', [
-        Validators.required,
-      ]),
+      // imgs: new FormControl('', [
+      //   Validators.required,
+      // ]),
       availability: new FormControl('', [
         // Validators.required,
       ]),
