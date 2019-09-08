@@ -31,7 +31,7 @@ export class ProductsService {
     const _url = this.productUrls.add;
     return this._httpClient.post<Object>(_url, body, {
       headers: new HttpHeaders({
-        // 'Content-Type': 'application/json',
+        // 'Content-Type': 'multipart/form-data',
         'authorization': `Bearer ${id}`
       }),
       observe: 'body',

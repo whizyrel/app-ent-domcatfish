@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnChanges, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
@@ -33,7 +33,7 @@ import { HttpResponse } from '../interfaces/http-response';
     './shop.component.css',
   ],
 })
-export class ShopComponent implements OnInit {
+export class ShopComponent implements OnInit, OnChanges {
   public title = `Debim`.toUpperCase();
   public soc_link: AllLinksProps;
   public links: LinkProps[];
@@ -87,6 +87,10 @@ export class ShopComponent implements OnInit {
 
     this.encURL = this._decEnc.aesEncryption('/shop', this.seckey);
     // this.getProducts();
+  }
+
+  ngOnChanges() {
+    console.log('so i was called');
   }
 
   addToCart() {
