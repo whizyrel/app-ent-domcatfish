@@ -1,3 +1,27 @@
 .main-container {
   overflow: auto;
 }
+
+[upload-btn][type=file] {
+  border: none;
+  background-color: #fff;
+  min-width: 70px;
+  /* max-width: 90px; */
+  box-shadow: none;
+}
+
+[upload-btn]::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+[upload-btn]::before {
+  content: 'select images';
+  display: inline-block;
+  padding: 3px 5px;
+  outline: none;
+  cursor: pointer;
+  font-size: 1rem;
+  border: 1px solid #f6f6f6;
+  -webkit-user-select: none;
+  background-color: #fff;
+}
