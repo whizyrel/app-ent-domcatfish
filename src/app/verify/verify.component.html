@@ -1,9 +1,7 @@
 <div
-  *ngIf="
-    status !== undefined &&
-    status !== null &&
-    showElem === true
-  "
+  [hidden]="status !== undefined &&
+  status !== null &&
+  showElem === true"
   class="page-wide"
 >
   <div class="page-container pd-2">
