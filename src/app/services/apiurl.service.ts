@@ -4,9 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class APIURLService {
-  // private URL = `https://api-ent-domcatfish.herokuapp.com`;
-  // private URL = `https://debim.gciapp.com.ng`;
-  private URL = `http://localhost:8006`;
   constructor() {}
 
   get userUrls() {
@@ -20,35 +17,39 @@ export class APIURLService {
   }
 }
 
+// const URL = `https://api-ent-domcatfish.herokuapp.com`;
+// const URL = `https://debim.gciapp.com.ng`;
+const URL = `http://localhost:8006`;
+
 const userUrls = {
-  signup: `${this.URL}/users/signup`,
-  verify: `${this.URL}/users/verify`,
-  forgot: `${this.URL}/users/forgot`,
-  retrieve: `${this.URL}/users/retrieve`,
-  signin: `${this.URL}/users/signin`,
-  modify: `${this.URL}/users/edit`,
-  list: `${this.URL}/users/list`, // has query || params
-  details: `${this.URL}/users/details`, // has query || params
-  delete: `${this.URL}/users/delete`,
-  logout: `${this.URL}/users/logout`,
-  sessVal: `${this.URL}/val/sess`,
+  signup: `${URL}/users/signup`,
+  verify: `${URL}/users/verify`,
+  forgot: `${URL}/users/forgot`,
+  retrieve: `${URL}/users/retrieve`,
+  signin: `${URL}/users/signin`,
+  modify: `${URL}/users/edit`,
+  list: `${URL}/users/list`, // has query || params
+  details: `${URL}/users/details`, // has query || params
+  delete: `${URL}/users/delete`,
+  logout: `${URL}/users/logout`,
+  sessVal: `${URL}/val/sess`,
 };
 
 const feedbackUrls = {
-  submit: `${this.URL}/feedbacks/submit`,
-  delete: `${this.URL}/feedbacks/delete`,
-  list: `${this.URL}/feedbacks/list`,
-  'list-details': `${this.URL}/feedbacks/list-details`,
-  archive: `${this.URL}/feedbacks/archive`,
+  submit: `${URL}/feedbacks/submit`,
+  delete: `${URL}/feedbacks/delete`,
+  list: `${URL}/feedbacks/list`,
+  'list-details': `${URL}/feedbacks/list-details`,
+  archive: `${URL}/feedbacks/archive`,
 };
 
 const productsUrls = {
-  add: `${this.URL}/products/add`,
-  addPhotos: `${this.URL}/products/photos/add/`,
-  replacePhoto: `${this.URL}/products/photos/replace/`,
-  deletePhoto: `${this.URL}/products/photos/delete/`,
-  modify: `${this.URL}/products/modify/`,
-  list: `${this.URL}/products/list`,
-  details: `${this.URL}/products/details/`,
-  delete: `${this.URL}/products/delete/`,
+  add: `${URL}/products/add`,
+  addPhotos: `${URL}/products/photos/add/`,
+  replacePhoto: `${URL}/products/photos/replace/`,
+  deletePhoto: `${URL}/products/photos/delete/`,
+  modify: `${URL}/products/modify/`,
+  list: `${URL}/products/list`,
+  details: `${URL}/products/details/`,
+  delete: `${URL}/products/delete/`,
 };
