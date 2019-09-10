@@ -60,7 +60,7 @@ import { DecEncService } from './services/dec-enc.service';
 import { DialogService } from './services/dialog.service';
 
 import { AddProductsForm } from './add-products/add-products-form';
-import { ProductsHandler } from './shop/products-handler';
+import { ProductsHandler } from './common/products-handler';
 
 @NgModule({
   declarations: [
