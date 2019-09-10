@@ -105,6 +105,7 @@ export class ShopComponent implements OnInit {
               return;
             }
             this.prodList = resp;
+            this.currProdList = resp[resp.length - resp.length];
           }
         );
       },
