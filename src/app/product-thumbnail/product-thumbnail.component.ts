@@ -13,7 +13,6 @@ export class ProductThumbnailComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log({prod: this.prodList});
   }
 
 }
