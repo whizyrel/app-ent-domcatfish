@@ -39,6 +39,7 @@ import { ListUsersComponent } from './list-users/list-users.component';
 import { ListOrdersComponent } from './list-orders/list-orders.component';
 import { ListFeedbacksComponent } from './list-feedbacks/list-feedbacks.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { ProductThumbnailComponent } from './product-thumbnail/product-thumbnail.component';
 
 import { APIURLService } from './services/apiurl.service';
 import { LoginService } from './services/login.service';
@@ -80,7 +81,8 @@ import { ProductsHandler } from './shop/products-handler';
     ListUsersComponent,
     ListOrdersComponent,
     ListFeedbacksComponent,
-    DialogComponent
+    DialogComponent,
+    ProductThumbnailComponent
   ],
   imports: [
     BrowserModule.withServerTransition({
