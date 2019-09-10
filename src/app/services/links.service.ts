@@ -10,7 +10,7 @@ export class LinksService {
   constructor() {}
 
   getTypes() {
-    return ['Mini', 'Midi', 'Maxi', 'Mega', 'Premium'];
+    return ['Mini', 'Midi', 'Maxi', 'Mega', 'Premium', 'All'];
   }
 
   getLoginBottomLinks(who: string): LinkProps[] {
