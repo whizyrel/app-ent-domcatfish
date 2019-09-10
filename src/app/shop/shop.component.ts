@@ -3,7 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 import { AES, enc } from 'crypto-js';
-import * as Event from 'events';
+
+import { ProductsHandler } from './products-handler';
 
 import { DialogComponent } from '../dialog/dialog.component';
 
@@ -33,7 +34,7 @@ import { HttpResponse } from '../interfaces/http-response';
     './shop.component.css',
   ],
 })
-export class ShopComponent implements OnInit, OnChanges {
+export class ShopComponent implements OnInit {
   public title = `Debim`.toUpperCase();
   public soc_link: AllLinksProps;
   public links: LinkProps[];
@@ -61,8 +62,8 @@ export class ShopComponent implements OnInit, OnChanges {
   public pageSize: number = 3;
   // public pageEvent: PageEvent;
 
-  public productsList: ProductsProps[][];
-  public currentProductArray: ProductsProps[];
+  public prodList: ProductsProps[][];
+  public currProdList: ProductsProps[];
 
   constructor(
     private router: Router,
@@ -73,6 +74,7 @@ export class ShopComponent implements OnInit, OnChanges {
     private _logUserOut: LogoutService,
     private _cartService: CartService,
     private _productsService: ProductsService,
+    private productsHandler: ProductsHandler,
     private _decEnc: DecEncService,
     public dialog: MatDialog
   ) {}
@@ -89,15 +91,38 @@ export class ShopComponent implements OnInit, OnChanges {
     // this.getProducts();
   }
 
+  getProducts() {
+    this._productsService
+    .getProductList
+    .subscribe(
+      (data: HttpResponse) => {
+        this.productsHandler.splitProducts(
+          data.docs,
+          this.pageSize,
+          (err, resp) => {
+            if (err) {
+              console.error({err});
+              return;
+            }
+            this.prodList = resp;
+          }
+        );
+      },
+      error => {
+        console.error({error});
+      }
+    );
+  }
+
   public pageHandler(i: number) {
     console.log({i});
 
     if (i >= 0) {
-      this.currentProductArray = this.productsList[++this.pageIndex];
+      this.currProdList = this.prodList[++this.pageIndex];
     }
 
     if (i < 0) {
-      this.currentProductArray = this.productsList[--this.pageIndex];
+      this.currProdList = this.prodList[--this.pageIndex];
     }
   }
 
@@ -155,6 +180,9 @@ export class ShopComponent implements OnInit, OnChanges {
           // this.userimg = `./assets/images/user2-160x160.jpg`;
           this.username = ``;
         })();
+
+    // let getProducts hide here
+    this.getProducts();
   }
 
   initInactive() {
