@@ -100,13 +100,12 @@ export class ShopComponent implements OnInit {
     .getProductList
     .subscribe(
       (data: HttpResponse) => {
-        let data: ProductsProps[];
-        status === null || status === 'All'
-          ? data = data.docs
-          : data = data.docs.map(cur => cur.pack === status);
-
         this.productsHandler.splitProducts(
-          data,
+          status === null || status === 'All'
+            ? data.docs
+            : (data.docs).map(cur => {
+              if (cur.pack === status) {return cur;}
+            }),
           this.pageSize,
           (err, resp) => {
             if (err) {
