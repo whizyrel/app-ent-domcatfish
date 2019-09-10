@@ -58,7 +58,8 @@ import { ProductsService } from './services/products.service';
 import { DecEncService } from './services/dec-enc.service';
 import { DialogService } from './services/dialog.service';
 
-import { AddProductsForm } from './add-products/add-products-form'
+import { AddProductsForm } from './add-products/add-products-form';
+import { ProductsHandler } from './shop/products-handler';
 
 @NgModule({
   declarations: [
@@ -122,7 +123,7 @@ import { AddProductsForm } from './add-products/add-products-form'
     RetrievePasswordService,
     ProductsService,
     DecEncService,
-    AddProductsForm, DialogService
+    AddProductsForm, DialogService, ProductsHandler
   ],
   bootstrap: [AppComponent],
   entryComponents: [
