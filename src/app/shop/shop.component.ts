@@ -90,6 +90,13 @@ export class ShopComponent implements OnInit {
     this.encURL = this._decEnc.aesEncryption('/shop', this.seckey);
   }
 
+  setPageSize(e) {
+    const val = parseInt(e.target.value);
+    console.log({val});
+    this.pageSize = val;
+    setTimeout(() => this.getProducts(null), 1000);
+  }
+
   switchCategory(type) {
     console.log({type});
     this.getProducts(type);

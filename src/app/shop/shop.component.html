@@ -458,10 +458,11 @@
     <!-- Section: Products v.3 -->
 
     <!-- Pagination -->
-    <div class="pagination justify-content-center" style="width: 100%!important">
-      <div *ngIf="prodList !== undefined && prodList !== null && prodList.length > 0; else elseBlock" >
+    <div class="pagination justify-content-center w-100 form-inline">
+      <div *ngIf="prodList !== undefined && prodList !== null && prodList.length > 0; else elseBlock"class="d-flex form-inline">
         <a (click)="pageHandler(-1)"><i class="fas fa-angle-left fa-2x dark-grey-text"></i></a>
         <!-- <a *ngFor="let product of productsList; index as i" href="#" (click)="pageHandler.index(i)">{{ i + 1 }}</a> -->
+        <input class="mg-l-p5 mg-r-p5 pd-l-p5 pd-r-p5 pd-t-p5 pd-b-p5" min="1" max="5" size="1" type="number" value="{{pageSize}}" (keyup)="setPageSize($event)" style="width: 60px; height: fit-content; border-radius: 5px; border: none; background-color: #6c757d; color: #fff;">
         <a (click)="pageHandler(0)"><i class="fas fa-angle-right fa-2x dark-grey-text"></i></a>
       </div>
       <ng-template class="d-flex w-100" #elseBlock>
