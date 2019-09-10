@@ -2,8 +2,6 @@ import { Component, OnInit, OnChanges, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
-import { AES, enc } from 'crypto-js';
-
 import { ProductsHandler } from '../common/products-handler';
 
 import { DialogComponent } from '../dialog/dialog.component';
