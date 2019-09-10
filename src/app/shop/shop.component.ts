@@ -88,16 +88,25 @@ export class ShopComponent implements OnInit {
     this.initInactive();
 
     this.encURL = this._decEnc.aesEncryption('/shop', this.seckey);
-    // this.getProducts();
   }
 
-  getProducts() {
+  switchCategory(type) {
+    console.log({type});
+    this.getProducts(type);
+  }
+
+  getProducts(status) {
     this._productsService
     .getProductList
     .subscribe(
       (data: HttpResponse) => {
+        let data: ProductsProps[];
+        status === null || status === 'All'
+          ? data = data.docs
+          : data = data.docs.map(cur => cur.pack === status);
+
         this.productsHandler.splitProducts(
-          data.docs,
+          data,
           this.pageSize,
           (err, resp) => {
             if (err) {
@@ -183,7 +192,7 @@ export class ShopComponent implements OnInit {
         })();
 
     // let getProducts hide here
-    this.getProducts();
+    this.getProducts(null);
   }
 
   initInactive() {
