@@ -91,10 +91,8 @@ export class ShopComponent implements OnInit {
   }
 
   setPageSize(e) {
-    const val = parseInt(e.target.value);
-    console.log({val});
-    this.pageSize = val;
-    setTimeout(() => this.getProducts(null), 1000);
+    this.pageSize = parseInt(e.target.value) || this.pageSize;
+    setTimeout(() => this.getProducts(null), 1500);
   }
 
   switchCategory(type) {
@@ -102,7 +100,7 @@ export class ShopComponent implements OnInit {
     this.getProducts(type);
   }
 
-  getProducts(status) {
+  private getProducts(status) {
     this._productsService
     .getProductList
     .subscribe(
@@ -128,17 +126,45 @@ export class ShopComponent implements OnInit {
         console.error({error});
       }
     );
+
+    window.onpageshow = () => this.togglePaginators('left');
+  }
+
+  private get pageButtons() {
+    return {
+      left: document.querySelector('#l-pg'),
+      right: document.querySelector('#r-pg')
+    }
   }
 
   public pageHandler(i: number) {
+    const right = this.pageButtons.right;
+    const left = this.pageButtons.left;
     console.log({i});
+    // use length instead
 
-    if (i >= 0) {
+    if (i >= 0 && this.pageIndex < this.prodList.length) {
       this.currProdList = this.prodList[++this.pageIndex];
+      if (left.classList.contains('d-none')) this.togglePaginators('left');
     }
 
-    if (i < 0) {
+    if (i < 0 && this.pageIndex > 0) {
       this.currProdList = this.prodList[--this.pageIndex];
+      if (right.classList.contains('d-none')) this.togglePaginators('right');
+    }
+    // toggle
+    if (this.pageIndex === this.prodList.length - 1) this.togglePaginators('right');
+    if (this.pageIndex === 0) this.togglePaginators('left');
+  }
+
+  private togglePaginators(side: string) {
+    const right = this.pageButtons.right;
+    const left = this.pageButtons.left;
+    if (side === 'left') {
+      left.classList.toggle('d-none');
+    }
+    if (side === 'right') {
+      right.classList.toggle('d-none');
     }
   }
 
