@@ -40,6 +40,7 @@ import { ListOrdersComponent } from './list-orders/list-orders.component';
 import { ListFeedbacksComponent } from './list-feedbacks/list-feedbacks.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { ProductThumbnailComponent } from './product-thumbnail/product-thumbnail.component';
+import { ProductFullviewComponent } from './product-fullview/product-fullview.component';
 
 import { APIURLService } from './services/apiurl.service';
 import { LoginService } from './services/login.service';
@@ -82,7 +83,8 @@ import { ProductsHandler } from './common/products-handler';
     ListOrdersComponent,
     ListFeedbacksComponent,
     DialogComponent,
-    ProductThumbnailComponent
+    ProductThumbnailComponent,
+    ProductFullviewComponent
   ],
   imports: [
     BrowserModule.withServerTransition({

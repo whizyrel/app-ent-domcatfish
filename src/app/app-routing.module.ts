@@ -16,6 +16,7 @@ import { ListProductsComponent } from './list-products/list-products.component';
 import { ListUsersComponent } from './list-users/list-users.component';
 import { ListOrdersComponent } from './list-orders/list-orders.component';
 import { ListFeedbacksComponent } from './list-feedbacks/list-feedbacks.component';
+import { ProductFullviewComponent } from './product-fullview/product-fullview.component';
 
 import { DashboardAuthGuard } from './guards/dashboard-auth.guard';
 import { LoginAuthGuard } from './guards/login-auth.guard';
@@ -244,10 +245,24 @@ const routes: Routes = [
   },
   {
     path: 'shop',
-    component: ShopComponent,
-    pathMatch: 'full',
     canActivate: [ShopGuard],
-    children: [],
+    children: [
+      {
+        path: '',
+        component: ShopComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'view',
+        component: ProductFullviewComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: '**',
+        redirectTo: '/shop',
+        pathMatch: 'full',
+      },
+    ],
   },
   {
     path: '**',
