@@ -108,9 +108,11 @@ export class ShopComponent implements OnInit {
         this.productsHandler.splitProducts(
           status === null || status === 'All'
             ? data.docs
-            : (data.docs).map(cur => {
-              if (cur.pack === status) {return cur;}
-            }),
+            : (
+                data.docs.map(cur => {
+                  if (cur.pack === status) {return cur;}
+                })
+              ).filter(cur => cur !== undefined),
           this.pageSize,
           (err, resp) => {
             if (err) {
@@ -124,6 +126,7 @@ export class ShopComponent implements OnInit {
       },
       error => {
         console.error({error});
+        this.prodList = undefined;
       }
     );
 
