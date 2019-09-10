@@ -409,8 +409,8 @@
           <div class="d-flex">
             <!-- Links -->
             <ul class="nav justify-content-center">
-              <li *ngFor="let type of types" class="nav-item type-link">
-                <a class="nav-link pd-r-1" href="#"
+              <li *ngFor="let type of types" class="nav-item">
+                <a class="nav-link pd-r-1 type-link" (click)="switchCategory(type)"
                   >{{type}} <span class="sr-only">(current)</span>
                 </a>
               </li>
@@ -427,11 +427,11 @@
             >
               <div class="md-form my-0 search" style="width: 100%;">
                 <input
-                  class="form-control mr-sm-2 type-link"
+                  class="form-control mr-sm-2"
                   type="text"
                   placeholder="Search"
                   aria-label="Search"
-                  style="width: 100%; color: #fff;"
+                  style="width: 100%;"
                 />
               </div>
             </form>
