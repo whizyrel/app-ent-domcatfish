@@ -13,7 +13,7 @@ export class APIURLService {
     return feedbackUrls;
   }
   get productsUrls() {
-    return productUrls;
+    return productsUrls;
   }
 }
 
