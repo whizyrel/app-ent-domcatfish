@@ -1,0 +1,23 @@
+p {
+  margin: 0;
+}
+
+mat-card {
+  padding: 0;
+}
+
+.l-grey {
+  color: #6c757d;
+}
+
+.d-grey {
+  color: #343a40;
+}
+
+.nail-btn {
+  border: none;
+  background-color: #343a40;
+  font-weight: bold;
+  font-size: 14px;
+  color: #fff;
+}

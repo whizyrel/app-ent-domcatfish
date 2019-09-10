@@ -1,5 +1,30 @@
-<mat-card class="w-100">
-
+<mat-card class="w-100" id="{{prodList.PID}}" style="max-height: 390px; height: 390px;">
+  <mat-card-content>
+    <div class="w-100 d-block" style="height: 200px;">
+      <img *ngIf="prodList.img.split('/')[3] !== ''; else iconBlock" class="w-100 h-100 d-flex" src="{{prodList.img}}" alt="Image">
+      <ng-template #iconBlock> <i class="fa fa-user w-100 h-100 pd-t-p5" style="font-size: 13em;"></i> </ng-template>
+      <div class="w-100 d-flex" style="position: absolute; height: 200px; top: 0; bottom: 0;">
+        <button class="nail-btn pd-t-p5 pd-b-p5 pd-l-1 pd-r-1 mg-auto cursor-p" type="button" name="button">View Details</button>
+      </div>
+    </div>
+    <div class="pd-1">
+      <div class="w-100 d-flex">
+        <div class="d-block mg-b-1" style="width: 80%!important;">
+          <p class="w-100 d-grey text-left" style="font-size: 16px; font-weight: bold;">{{ prodList.title }}</p>
+          <p class="w-100 l-grey text-left" style="font-size: 10px;">{{ prodList.description }}</p>
+        </div>
+        <div class="d-flex text-right mg-l-auto d-grey">
+          {{ prodList.price | currency:'NGN':'symbol-narrow' }}
+        </div>
+      </div>
+      <div class="d-block">
+        <p class="w-100 text-left d-grey" style="font-weight: bold;">PACK</p>
+        <p class="w-100 text-left l-grey">{{ prodList.pack }}</p>
+      </div>
+      <p class="d-block w-100 text-left mg-t-1 d-grey" *ngIf="prodList.availability === true; else elseBlock"> Available </p>
+      <ng-template class="d-block w-100 text-left mg-t-1" #elseBlock> <p class="d-block w-100 text-left d-grey">Not Available</p></ng-template>
+    </div>
+  </mat-card-content>
 </mat-card>
 <!-- Card -->
 <!-- <div class="card"> -->
