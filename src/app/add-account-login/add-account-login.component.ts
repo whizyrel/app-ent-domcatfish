@@ -17,6 +17,7 @@ import { HttpResponse } from '../interfaces/http-response';
 import { SessStoreProps } from '../interfaces/sess-store-props';
 import { CartStoreProps } from '../interfaces/cart-store-props';
 
+import { DecEncService } from '../services/dec-enc.service';
 import { LoginService } from '../services/login.service';
 import { InitSnackbarService } from '../services/init-snackbar.service';
 import { LocalStorageService } from '../services/local-storage.service';
@@ -60,7 +61,8 @@ export class AddAccountLoginComponent implements OnInit {
     private _loginService: LoginService,
     private _snackbarService: InitSnackbarService,
     private _localStorage: LocalStorageService,
-    private _usersActiveInactive: UsersActiveInactiveService
+    private _usersActiveInactive: UsersActiveInactiveService,
+    private _decEnc: DecEncService
   ) {}
 
   ngOnInit() {
