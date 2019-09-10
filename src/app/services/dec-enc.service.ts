@@ -12,4 +12,10 @@ export class DecEncService {
   aesEncryption(stf, sk) {
     return AES.encrypt(stf, sk);
   }
+
+  aesDecryption(stf, sk) {
+    const bytes = AES.decrypt(stf, sk);
+
+    return bytes.toString(enc.Utf8);
+  }
 }
