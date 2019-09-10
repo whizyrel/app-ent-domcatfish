@@ -445,7 +445,7 @@
     <section class="text-center mb-4" id="products-tray">
       <!-- Grid row -->
       <div class="wow fadeIn">
-        <div class="row" *ngIf="currProdList !== undefined && currProdList !== null">
+        <div class="row m-auto justify-content-center" *ngIf="currProdList !== undefined && currProdList !== null">
           <!-- Grid column -->
           <!-- repeat this -->
           <app-product-thumbnail *ngFor="let item of currProdList" [list]="item" class="col-sm-6 col-md-4 mb-4">
