@@ -89,18 +89,6 @@ export class ShopComponent implements OnInit, OnChanges {
     // this.getProducts();
   }
 
-  ngOnChanges() {
-    console.log('so i was called');
-  }
-
-  addToCart() {
-    // must not add to
-  }
-
-  checkout() {
-    // if cart is empty disable Proceed to checkout button
-  }
-
   public pageHandler(i: number) {
     console.log({i});
 
