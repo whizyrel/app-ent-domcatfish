@@ -56,8 +56,13 @@ header,
 
 
 /* My Styles */
-.type-link, .type-link a, .type-link a:hover {
+.type-link {
   color: #fff!important;
+}
+.type-link:hover {
+  background-color: #fff!important;
+  border-radius: 5px;
+  color: #6c757d!important;
 }
 .product-bar {
   background-color: #71748d!important;
