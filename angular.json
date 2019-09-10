@@ -33,8 +33,7 @@
             "scripts": [
               "src/assets/vendor/jquery/jquery-3.4.1.min.js",
               "src/assets/vendor/bootstrap/js/popper.min.js",
-              "src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js",
-              "src/assets/scripts/products.js"
+              "src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"
             ]
           },
           "configurations": {
