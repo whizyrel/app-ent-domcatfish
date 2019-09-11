@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, ViewEncapsulation } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 import { ProductsHandler } from '../common/products-handler';
@@ -65,7 +65,6 @@ export class ShopComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     private _linksService: LinksService,
     private _users: UsersActiveInactiveService,
     private _googleApi: GoogleImgService,
