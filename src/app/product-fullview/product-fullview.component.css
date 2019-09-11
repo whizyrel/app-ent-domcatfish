@@ -1,0 +1,15 @@
+* {
+  overflow: hidden;
+}
+main, .prod-card {
+  position: absolute;
+  top: 30vh;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.top-ribbon {
+  background-color: #6610f2;
+  height: 5px;
+}
