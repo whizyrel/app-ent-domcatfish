@@ -71,7 +71,7 @@ export class AddAccountLoginComponent implements OnInit {
       const { rt } = param;
 
       // decrypt rt
-      const bytes = AES.decrypt(rt.toString(), this.seckey);
+      // const bytes = AES.decrypt(rt.toString(), this.seckey);
 
       // this.returnURL = bytes.toString(enc.Utf8);
       this.returnURL = this._decEnc.aesDecryption(rt.toString(), this.seckey);
