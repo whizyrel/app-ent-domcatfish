@@ -126,7 +126,14 @@ export class ShopComponent implements OnInit {
       }
     );
 
-    window.onpageshow = () => this.togglePaginators('left');
+    window.onpageshow = () => {
+      if (
+        this.currProdList !== undefined && this.prodList !== undefined
+        && this.currProdList !== null && this.prodList !== null
+      ) {
+        this.togglePaginators('left');
+      }
+    };
   }
 
   private get pageButtons() {
@@ -135,6 +142,7 @@ export class ShopComponent implements OnInit {
       right: document.querySelector('#r-pg')
     }
   }
+
 
   public pageHandler(i: number) {
     const right = this.pageButtons.right;
