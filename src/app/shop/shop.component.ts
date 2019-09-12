@@ -58,7 +58,6 @@ export class ShopComponent implements OnInit {
   // MatPaginator Output
   public pageIndex: number = 0;
   public pageSize: number = 3;
-  // public pageEvent: PageEvent;
 
   public prodList: ProductsProps[][];
   public currProdList: ProductsProps[];
