@@ -1,15 +1,56 @@
-* {
-  overflow: hidden;
-}
-main, .prod-card {
-  position: absolute;
-  top: 30vh;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
 .top-ribbon {
   background-color: #6610f2;
   height: 5px;
+}
+p {
+  margin: 0;
+}
+/* xlg */
+/* @media (min-width: 992px) {
+  .prod-card {
+    width: 500px;
+    height: 500px;
+  }
+} */
+/* lg  - xs*/
+@media (min-width: 992px) {
+  .prod-card {
+    width: 700px;
+    height: 600px;
+  }
+}
+/* md - lg */
+@media (min-width: 768px) and (max-width: 991px) {
+  .prod-card {
+    width: 500px;
+    height: 500px;
+  }
+}
+/* sm */
+@media (min-width: 576px) and (max-width: 767px) {
+  .prod-card {
+    width: 500px;
+    height: 500px;
+  }
+}
+/* Iphone */
+@media (max-width: 568px) and (min-height: 300px) {
+  .prod-card {
+    width: 500px;
+    height: 300px;
+  }
+}
+/* landscape sm */
+@media (max-width: 576px) and (min-height: 300px) {
+  .prod-card {
+    width: 500px;
+    height: 300px;
+  }
+}
+/* xs */
+@media (max-width: 576px) {
+  .prod-card {
+    width: 300px;
+    height: 400px;
+  }
 }
