@@ -1,10 +1,10 @@
 <main class="d-flex w-100 h-100">
-  <section class="mg-auto prod-card">
+  <section class="mg-auto prod-card pd-t-p5 pd-l-p5 pd-r-p5">
     <div class="top-ribbon"></div>
     <mat-card class="w-100 h-100 pd-t-3 pd-l-1 pd-r-1 pd-b-p5">
       <mat-card-content class="d-flex w-100 h-100">
         <div class="prod-body w-100 h-100">
-          <div class="form-row" style="height: 80%; box-sizing: border-box;">
+          <div class="form-row pd-b-1" style="height: 80%; box-sizing: border-box;">
             <div class="col-sm-6 d-block">
               <div class="title-details w-100">
                 <p class="w-100" style="font-size: 5em;">title</p>
@@ -15,10 +15,12 @@
                 <img class="w-100 h-100" src="" alt="">
               </div>
             </div>
-            <div class="col-sm-6 d-block" style="height: 60%;">
-              <div class="w-100 h-100 d-block">
-                <p class="w-100">Some more details</p>
-                <p class="w-100">In stock</p>
+            <div class="col-sm-6 d-block" style="height: 85%;">
+              <div class="w-100 h-100 d-block pd-b-1">
+                <p class="w-100 lightgrey-text bold-text" style="font-size: 1em; min-height: 70%;">Some more details</p>
+                <div class="d-flex w-100">
+                  <p>In stock </p><p class="purple-text">avaiable</p>
+                </div>
                 <p class="w-100">Rating</p>
               </div>
               <div class="qty-tab w-100 h-100 d-block">
@@ -26,13 +28,13 @@
               </div>
             </div>
           </div>
-          <div class="w-100 form-row d-flex" style="box-sizing: border-box;">
-            <div class="d-block" style="width: 50%;">
-              <p class="w-100" style="font-size: 1em;">TOTAL PRICE</p>
-              <p style="font-size: 2em;">NGN 50,000</p>
+          <div class="w-100 form-row d-flex form-inline" style="box-sizing: border-box;">
+            <div class="col-sm-6">
+              <p class="w-100 lightgrey-text bold-text" style="font-size: 1em;">TOTAL PRICE</p>
+              <p class="purple-text bold-text" style="font-size: 2em;">NGN 50,000</p>
             </div>
-            <div class="d-flex pd-t-p5 pd-b-p5 pd-l-1 pd-r-1" style="width: 50%;">
-              <button class="btn d-flex mg-auto pd-t-p5 pd-b-p5 pd-l-2 pd-r-2" style="font-size: 1.5em; border: none; background-color: #fff;">
+            <div class="col-sm-6 d-flex pd-t-p5 pd-b-p5 pd-l-1 pd-r-1 justify-content-center">
+              <button class="btn d-flex mg-auto pd-t-p5 pd-b-p5 pd-l-2 pd-r-2 purple-text bold-text" style="font-size: 1.5em; border: none; background-color: #fff;">
                 Add to Cart
               </button>
             </div>

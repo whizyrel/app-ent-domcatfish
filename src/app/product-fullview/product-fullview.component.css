@@ -5,6 +5,16 @@
 p {
   margin: 0;
 }
+
+.purple-text {
+  color: #6610f2;
+}
+.lightgrey-text {
+  color: #cccccc;
+}
+.bold-text {
+  font-weight: bold;
+}
 /* xlg */
 /* @media (min-width: 992px) {
   .prod-card {
@@ -34,23 +44,23 @@ p {
   }
 }
 /* Iphone */
-@media (max-width: 568px) and (min-height: 300px) {
+/* @media (width: 568px) and (height: 300px) {
   .prod-card {
     width: 500px;
-    height: 300px;
+    height: fit-content;
   }
-}
+} */
 /* landscape sm */
 @media (max-width: 576px) and (min-height: 300px) {
   .prod-card {
     width: 500px;
-    height: 300px;
+    height: fit-content;
   }
 }
 /* xs */
 @media (max-width: 576px) {
   .prod-card {
     width: 300px;
-    height: 400px;
+    height: fit-content;
   }
 }
