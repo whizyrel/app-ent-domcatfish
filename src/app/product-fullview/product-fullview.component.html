@@ -1,14 +1,44 @@
-<div class="d-block w-100 h-100">
-    <section class="d-block w-100" style="height: 40vh;">
-      <img class="w-100 h-100" src="./assets/images/products/full-view.png" alt="Image">
-    </section>
-    <main class="m-auto w-100 d-block" style="height: fit-content;">
-      <div class="prod-card d-block mg-auto" style="height: fit-content; width: 80vw;">
-        <div class="top-ribbon w-100"></div>
-        <mat-card>
-          <mat-card-content style="height: 80vh">
-          </mat-card-content>
-        </mat-card>
-      </div>
-    </main>
-</div>
+<main class="d-flex w-100 h-100">
+  <section class="mg-auto prod-card">
+    <div class="top-ribbon"></div>
+    <mat-card class="w-100 h-100 pd-t-3 pd-l-1 pd-r-1 pd-b-p5">
+      <mat-card-content class="d-flex w-100 h-100">
+        <div class="prod-body w-100 h-100">
+          <div class="form-row" style="height: 80%; box-sizing: border-box;">
+            <div class="col-sm-6 d-block">
+              <div class="title-details w-100">
+                <p class="w-100" style="font-size: 5em;">title</p>
+                <p class="w-100" style="font-size: 2em;">smaller title</p>
+                <p class="w-100" style="font-size: 1em;">Amount each</p>
+              </div>
+              <div class="img-details w-100 h-100">
+                <img class="w-100 h-100" src="" alt="">
+              </div>
+            </div>
+            <div class="col-sm-6 d-block" style="height: 60%;">
+              <div class="w-100 h-100 d-block">
+                <p class="w-100">Some more details</p>
+                <p class="w-100">In stock</p>
+                <p class="w-100">Rating</p>
+              </div>
+              <div class="qty-tab w-100 h-100 d-block">
+                <p class="pd-t-p5">Quantity</p>
+              </div>
+            </div>
+          </div>
+          <div class="w-100 form-row d-flex" style="box-sizing: border-box;">
+            <div class="d-block" style="width: 50%;">
+              <p class="w-100" style="font-size: 1em;">TOTAL PRICE</p>
+              <p style="font-size: 2em;">NGN 50,000</p>
+            </div>
+            <div class="d-flex pd-t-p5 pd-b-p5 pd-l-1 pd-r-1" style="width: 50%;">
+              <button class="btn d-flex mg-auto pd-t-p5 pd-b-p5 pd-l-2 pd-r-2" style="font-size: 1.5em; border: none; background-color: #fff;">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </section>
+</main>
