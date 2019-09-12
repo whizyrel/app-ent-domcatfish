@@ -27,6 +27,17 @@ export class ProductsService {
     });
   }
 
+  getProductDetails(id: string): Observable<Object> {
+    const _url = `${this.productUrls.details}/?PID=${id}`;
+    return this._httpClient.put<Object>(_url, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      observe: 'body',
+      responseType: 'json',
+    });
+  }
+
   addProduct(body, id): Observable<Object> {
     const _url = this.productUrls.add;
     return this._httpClient.post<Object>(_url, body, {
