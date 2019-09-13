@@ -11,7 +11,7 @@ export class ProductsHandler {
 
     // wrapper around docs
 
-    if (docs !== null || docs!== undefined) {
+    if (docs !== null && docs !== undefined) {
       docs.forEach((cur, i) => {
          buffer.push(cur);
 
@@ -42,7 +42,7 @@ export class ProductsHandler {
       return;
     }
 
-    err = docs.length !== 0 && splittedProd.length !== 0
+    err = splittedProd.length !== 0
       ? null
       : new Error('Something is wrong. list is either empty or typescript/angular is gone mad again');
       console.log({splittedProd, err});
