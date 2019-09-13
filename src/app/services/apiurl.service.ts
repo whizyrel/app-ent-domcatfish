@@ -17,9 +17,9 @@ export class APIURLService {
   }
 }
 
-// const URL = `https://api-ent-domcatfish.herokuapp.com`;
+const URL = `https://api-ent-domcatfish.herokuapp.com`;
 // const URL = `https://debim.gciapp.com.ng`;
-const URL = `http://localhost:8006`;
+// const URL = `http://localhost:8006`;
 
 const userUrls = {
   signup: `${URL}/users/signup`,
