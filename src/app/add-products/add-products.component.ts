@@ -111,7 +111,7 @@ export class AddProductsComponent implements OnInit {
     if (e !== null) {
       let isFile = false;
       if (e.target.files.length > 0) {
-        this.files = Array.from(e.target.files);
+        this.files = e.target.files.map((cur, i) => cur.item(i));
         console.log({e, files: this.files});
         return;
       }
