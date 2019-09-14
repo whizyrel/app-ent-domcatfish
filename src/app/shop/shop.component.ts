@@ -1,6 +1,6 @@
-import { Component, OnInit, OnChanges, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { ProductsHandler } from '../common/products-handler';
 
@@ -34,7 +34,6 @@ import { HttpResponse } from '../interfaces/http-response';
 })
 export class ShopComponent implements OnInit {
   public title = `Debim`.toUpperCase();
-  public soc_link: AllLinksProps;
   public links: LinkProps[];
   public types: string[];
 
@@ -76,7 +75,6 @@ export class ShopComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.soc_link = this._linksService.getSocialLinks();
     this.links = this._linksService.getHomeNavbarLinks();
     this.types = this._linksService.getTypes();
 
