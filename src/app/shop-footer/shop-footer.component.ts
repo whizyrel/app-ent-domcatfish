@@ -9,9 +9,9 @@ import { LinksService } from '../services/links.service';
   selector: 'app-shop-footer',
   templateUrl: './shop-footer.component.html',
   styleUrls: [
-    './shop-footer.component.css',
     './css/style.min.css',
     './css/mdb.min.css',
+    './shop-footer.component.css',
   ],
 })
 export class ShopFooterComponent implements OnInit {
