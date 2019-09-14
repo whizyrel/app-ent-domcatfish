@@ -24,8 +24,9 @@ import { HttpResponse } from '../interfaces/http-response';
   ]
 })
 export class ShopHeaderComponent implements OnInit {
-  @Input('title') public title: string;
   @Input('url') public encURL: string;
+
+  public title = `Debim`.toUpperCase();
 
   public what: string = `Logout`;
 
