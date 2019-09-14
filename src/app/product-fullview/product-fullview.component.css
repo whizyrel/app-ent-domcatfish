@@ -15,6 +15,19 @@ p {
 .bold-text {
   font-weight: bold;
 }
+.img {
+  height: 100px;
+}
+.cart-btn {
+  font-size: 1.5em;
+  border: none;
+  background-color: #fff;
+}
+.cart-btn:hover {
+  background-color: #6610f2;
+  color: #fff;
+  border-radius: 5px;
+}
 /* lg  - xs*/
 @media (min-width: 992px) {
   .prod-card {
