@@ -41,6 +41,8 @@ import { ListFeedbacksComponent } from './list-feedbacks/list-feedbacks.componen
 import { DialogComponent } from './dialog/dialog.component';
 import { ProductThumbnailComponent } from './product-thumbnail/product-thumbnail.component';
 import { ProductFullviewComponent } from './product-fullview/product-fullview.component';
+import { ShopHeaderComponent } from './shop-header/shop-header.component';
+import { ShopFooterComponent } from './shop-footer/shop-footer.component';
 
 import { APIURLService } from './services/apiurl.service';
 import { LoginService } from './services/login.service';
@@ -84,7 +86,9 @@ import { ProductsHandler } from './common/products-handler';
     ListFeedbacksComponent,
     DialogComponent,
     ProductThumbnailComponent,
-    ProductFullviewComponent
+    ProductFullviewComponent,
+    ShopHeaderComponent,
+    ShopFooterComponent
   ],
   imports: [
     BrowserModule.withServerTransition({
