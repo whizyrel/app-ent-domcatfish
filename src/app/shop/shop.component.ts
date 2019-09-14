@@ -120,7 +120,7 @@ export class ShopComponent implements OnInit {
           }
         );
       },
-      error => {
+      (error: HttpResponse) => {
         console.error({error});
         this.prodList = undefined;
       }
@@ -212,11 +212,11 @@ export class ShopComponent implements OnInit {
               )}`;
 
           this._googleApi.getUserImg(email).subscribe(
-            (data) => {
+            (data: HttpResponse) => {
               // pick image from success response from google api
               this.userimg = '';
             },
-            (error) => {
+            (error: HttpResponse) => {
               // this.userimg = `./assets/images/avatar2.png`;
             }
           );
@@ -251,14 +251,14 @@ export class ShopComponent implements OnInit {
             this.showInactvUser = true;
             this.inactive['forEach']((cur) => {
               this._googleApi.getUserImg(cur.dt.email).subscribe(
-                (data) => {
+                (data: HttpResponse) => {
                   // put user img in active-false users in ionstore
                   cur.dt.img = `./assets/images/avatar3.png`;
 
                   // temporary use
                   // this.otherusrimg = `./assets/images/avatar3.png`;
                 },
-                (error) => {
+                (error: HttpResponse) => {
                   cur.dt.img = `./assets/images/avatar2.png`;
 
                   // temporarily use
