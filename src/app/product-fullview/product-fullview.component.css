@@ -1,6 +1,12 @@
 main {
   background: #fff;
 }
+.shop-btn {
+  position: sticky;
+  border-radius: 0;
+  bottom: 15px;
+  left: 15px;
+}
 .top-ribbon {
   background-color: #6610f2;
   height: 5px;

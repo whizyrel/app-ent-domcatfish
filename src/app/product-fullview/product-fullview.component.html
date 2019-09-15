@@ -1,5 +1,4 @@
-<app-shop-header url="{{ encURL }}">
-</app-shop-header>
+<app-shop-header url="{{ encURL }}"></app-shop-header>
 <!--Main layout-->
 <main class="mt-5 pt-4">
   <div class="container dark-grey-text mt-5">
@@ -115,7 +114,9 @@
     <!--Grid row-->
 
   </div>
+
+  <!-- floating button -->
+  <button class="btn btn-outline-primary shop-btn pd-t-p5 pd-b-p5 pd-l-1 pd-r-1"><a class="w-100 h-100" [routerLink]="['../']"><i class="fas fa-hand-point-left fa-1x mg-r-1"></i>shop</a></button>
 </main>
 <!--Main layout-->
-<app-shop-footer>
-</app-shop-footer>
+<app-shop-footer></app-shop-footer>
