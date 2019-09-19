@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DecEncService } from '../services/dec-enc.service';
 import { ProductsService } from '../services/products.service';
 import { LocalStorageService } from '../services/local-storage.service';
+import { CartService } from '../services/cart.service';
 
 import { ProductsProps } from '../interfaces/products-props';
 import { CartProps } from '../interfaces/cart-props';
@@ -33,7 +34,8 @@ export class ProductFullviewComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private _decEnc: DecEncService,
     private _productsService: ProductsService,
-    private _localStorage: LocalStorageService
+    private _localStorage: LocalStorageService,
+    private _cartService: CartService
   ) { }
 
   async ngOnInit() {
@@ -66,8 +68,6 @@ export class ProductFullviewComponent implements OnInit {
     )
   }
   addToCart(qty: string) {
-    const tmpCrtTitle: string = 'crt-tmp';
-    let cartArr: CartProps[] = [];
     const cartInfo: CartProps = {
       quantity: parseInt(qty),
       price: this.info.price,
@@ -75,22 +75,6 @@ export class ProductFullviewComponent implements OnInit {
       imgs: this.info.imgs,
     };
 
-    const tmpCart: CartProps[] = JSON.parse(
-      this._localStorage.getItem(tmpCrtTitle)
-    );
-
-    console.log({tmpCart});
-
-    tmpCart !== null && tmpCart !== undefined ?
-      (() => {
-        // push into tmpCart and set
-        tmpCart.push(cartInfo);
-        this._localStorage.setItem(tmpCrtTitle, tmpCart);
-      })() :
-      (() => {
-        cartArr.push(cartInfo);
-        this._localStorage.setItem(tmpCrtTitle, cartArr);
-      })()
-      console.log({tmpCart, cartArr, cartInfo});
+    this._cartService.addToTempCart(cartInfo);
   }
 }
