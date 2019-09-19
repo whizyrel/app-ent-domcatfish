@@ -240,7 +240,7 @@ export class SignupComponent implements OnInit {
       addressError: () => {
         if (this.status.address.hasError) {
           return this.status.address.hasError('required')
-            ? 'You must enter a address'
+            ? 'You must enter an address'
             : '';
         }
       },
