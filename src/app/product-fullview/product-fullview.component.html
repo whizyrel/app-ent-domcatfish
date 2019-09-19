@@ -34,12 +34,12 @@
         <div class="p-4">
           <div class="mb-3">
             <a [hidden]="info === undefined" *ngIf="info !== undefined">
-              <span class="badge purple mr-1">{{info.pack}}</span>
+              <span class="badge purple mr-1 pd-t-p5 pd-b-p5 pd-l-1 pd-r-1">{{info.pack}}</span>
             </a>
           </div>
 
-          <p class="lead">
-            <span>$100</span>
+          <p class="lead mg-b-p5 mg-t-p5" [hidden]="info === undefined" *ngIf="info !== undefined">
+            <span [hidden]="info === undefined" *ngIf="info !== undefined">{{ info.price - 0.01 | currency:'NGN':'symbol-narrow' }}</span>
           </p>
 
           <p class="lead font-weight-bold">Description</p>
