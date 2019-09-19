@@ -5,8 +5,8 @@ export interface ProductsProps {
   quantity?: number;
   price?: number;
   description?: string;
-  imgs?: string[];
   img?: string;
+  imgs?: string[];
   availability?: boolean;
   shippingFee?: number;
   shippingInfo?: string;

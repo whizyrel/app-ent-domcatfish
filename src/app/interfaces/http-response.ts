@@ -8,7 +8,7 @@ export interface HttpResponse {
   error?: ErrorProps;
   sessid?: string;
   userDetails?: PubUserDetails;
-  doc?: object | ProductsProps;
+  doc?: ProductsProps;
   docs?: ProductsProps[];
   status?: number;
   ok?: boolean;
