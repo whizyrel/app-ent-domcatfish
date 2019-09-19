@@ -36,6 +36,9 @@ p {
   color: #fff;
   border-radius: 5px;
 }
+.carousel-control-prev {
+  display: flex!important;
+}
 /* lg  - xs*/
 @media (min-width: 992px) {
   .prod-card {
@@ -70,6 +73,6 @@ p {
 /* xs */
 @media (max-width: 576px) {
   .container {
-    margin-top: 5rem;
+    margin-top: 7rem!important;
   }
 }

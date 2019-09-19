@@ -17,8 +17,10 @@ import { HttpResponse } from '../interfaces/http-response';
   ]
 })
 export class ProductFullviewComponent implements OnInit {
-  private pid: string;
   private seckey: string = 'app-ent-domcatfish';
+
+  private pid: string;
+  public imgs: string[];
   public info: ProductsProps;
   private total: number = 0;
   public availability: string;
@@ -31,25 +33,26 @@ export class ProductFullviewComponent implements OnInit {
     private _productsService: ProductsService
   ) { }
 
-  ngOnInit() {
-    this.activatedRoute.queryParams.subscribe((param) => {
+  async ngOnInit() {
+    await this.activatedRoute.queryParams.subscribe(async (param) => {
       const { st } = param;
       console.log({st});
 
       this.pid = this._decEnc.aesDecryption(st.toString(), this.seckey);
       console.log({pid: this.pid});
-      this.getProductDetails(this.pid);
+      await this.getProductDetails(this.pid);
       this.encURL = this._decEnc.aesEncryption(`/shop/view?st=${this.pid}`, this.seckey);
     });
   }
 
-  getProductDetails(id: string) {
-    this._productsService
-    .getProductDetails(this.pid)
+  async getProductDetails(id: string) {
+    await this._productsService
+    .getProductDetails(id)
     .subscribe(
-      (data: HttpResponse) => {
-        console.log({doc: data.doc});
-        this.info = data.doc;
+      async (data: HttpResponse) => {
+        this.info = await data.doc;
+        this.imgs = data.doc.imgs;
+        console.log({doc: this.info});
         this.availability =
         this.info.availability ? ' Available' : ' Not available'
       },
