@@ -15,7 +15,7 @@ export class CartService {
   constructor(private _localStorage: LocalStorageService) {}
 
   get getTempCartItems(): CartProps[] {
-    return;
+    return JSON.parse(this._localStorage.getItem(this.tmpcrtttl));
   }
 
   addToTempCart(info: CartProps) {
