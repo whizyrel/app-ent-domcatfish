@@ -7,6 +7,8 @@ import {
   FormBuilder,
 } from '@angular/forms';
 
+import { SignupForm } from './signup-form';
+
 import { SignupProps } from '../interfaces/signup-props';
 import { HttpResponse } from '../interfaces/http-response';
 import { CountryCodeProp } from '../interfaces/country-code-prop';
@@ -44,9 +46,9 @@ export class SignupComponent implements OnInit {
   bufferValue = 75;
 
   constructor(
-    private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private _signupService: SignupService,
+    private signupForm: SignupForm,
     private _snackbarService: InitSnackbarService,
     private _codelist: CountrycodelistService
   ) {}
@@ -74,46 +76,8 @@ export class SignupComponent implements OnInit {
           })();
       this.welcomeMsg = `Hello ${who}`;
     });
-    this.signupform = this.formBuilder.group(
-      {
-        firstname: new FormControl('', [
-          Validators.required,
-          Validators.minLength(2),
-        ]),
-        lastname: new FormControl('', [
-          Validators.required,
-          Validators.minLength(2),
-        ]),
-        email: new FormControl('', [
-          Validators.required,
-          Validators.pattern(
-            // tslint:disable-next-line:max-line-length
-            /[a-zA-Z0-9!#$%&' * +/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?/
-          ),
-        ]),
-        countrycode: new FormControl('', Validators.required),
-        accountType: new FormControl(this.who),
-        phone: new FormControl('', [
-          Validators.required,
-          Validators.minLength(8),
-        ]),
-        password: new FormControl('', [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.pattern(
-            '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,})$'
-          ),
-        ]),
-        confirm: new FormControl('', [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.pattern(
-            '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,})$'
-          ),
-        ]),
-      },
-      { validator: this.passwordMatchValidator }
-    );
+
+    this.signupform = this.signupForm.getFormBuilder(this.who);
   }
 
   onSubmit() {
@@ -175,12 +139,6 @@ export class SignupComponent implements OnInit {
         }
       );
     }
-  }
-
-  passwordMatchValidator(form: FormGroup) {
-    return form.get('password').value === form.get('confirm').value
-      ? null
-      : { mismatch: true };
   }
 
   getErrorMessage(): Object {
