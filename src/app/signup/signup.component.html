@@ -106,6 +106,7 @@
               class="form-control-sm"
               type="email"
               placeholder="name@example.com"
+              autocomplete="name"
               required
             />
             <mat-icon matSuffix>alternate_email</mat-icon>
@@ -127,6 +128,7 @@
                     'is-invalid': status.password.errors
                   }"
                   class="form-control-sm"
+                  autocomplete="new-password"
                   required
                 />
                 <mat-icon matSuffix (click)="hide = !hide">{{
@@ -150,6 +152,7 @@
                   }"
                   formControlName="confirm"
                   class="form-control-sm"
+                  autocomplete="new-password"
                   required
                 />
                 <mat-icon matSuffix (click)="hide = !hide">{{
@@ -193,7 +196,7 @@
           </div>
           <div class="card-footer bg-white">
             <p>
-              Already member?
+              Already a user?
               <a [routerLink]="['/', where, 'login']" class="text-secondary"
                 >Login Here.</a
               >

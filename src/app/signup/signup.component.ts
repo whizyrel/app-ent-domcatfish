@@ -64,7 +64,7 @@ export class SignupComponent implements OnInit {
       })
         ? (() => {
             who = 'Prospective Client';
-            this.where = 'users';
+            this.where = 'user';
             this.who = 'client';
           })()
         : (() => {
