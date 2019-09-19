@@ -32,9 +32,13 @@
       <div class="col-md-6 mb-4">
         <!--Content-->
         <div class="p-4">
-          <div class="mb-3">
+          <div class="mb-3 form-inline d-flex">
+            <p class="dark-grey-text bold-text mg-r-2 h-100" [hidden]="info === undefined" *ngIf="info !== undefined" style="font-size: 25px;">{{info.title}}</p>
             <a [hidden]="info === undefined" *ngIf="info !== undefined">
               <span class="badge purple mr-1 pd-t-p5 pd-b-p5 pd-l-1 pd-r-1">{{info.pack}}</span>
+            </a>
+            <a [hidden]="info === undefined" *ngIf="info !== undefined">
+              <span class="badge mr-1 pd-t-p5 pd-b-p5 pd-l-1 pd-r-1" [ngClass]="{red: info.availability === false, blue: info.availability === true}">{{info.availability ? 'Available' : 'sold'}}</span>
             </a>
           </div>
 
@@ -42,11 +46,11 @@
             <span [hidden]="info === undefined" *ngIf="info !== undefined">{{ info.price - 0.01 | currency:'NGN':'symbol-narrow' }}</span>
           </p>
 
-          <p class="lead font-weight-bold">Description</p>
+          <p class="lead font-weight-bold mg-b-p5">Description</p>
 
-          <p class="text-truncate" [hidden]="info === undefined" *ngIf="info !== undefined">{{info.description}}.</p>
+          <p class="text-truncate mg-b-1" [hidden]="info === undefined" *ngIf="info !== undefined">{{info.description}}.</p>
 
-          <form class="d-flex justify-content-left form-inline">
+          <form class="d-flex justify-content-left form-inline mg-b-1">
             <p class="dark-grey-text bold-text mg-r-p5">Quantity:</p>
             <!-- Default input -->
             <input type="number" value="1" min="1" #qty aria-label="Search" class="form-control mg-r-p5" style="width: 100px">

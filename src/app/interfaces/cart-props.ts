@@ -3,4 +3,5 @@ export interface CartProps {
   quantity: number;
   PID: string;
   imgs: string[];
+  title: string;
 }

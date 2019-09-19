@@ -26,7 +26,6 @@ export class ProductFullviewComponent implements OnInit {
   public imgs: string[];
   public info: ProductsProps;
   private total: number = 0;
-  public availability: string;
 
   public encURL: string;
 
@@ -58,8 +57,6 @@ export class ProductFullviewComponent implements OnInit {
         this.info = await data.doc;
         this.imgs = data.doc.imgs;
         console.log({doc: this.info});
-        this.availability =
-        this.info.availability ? ' Available' : ' Not available';
       },
       (error: HttpResponse) => {
         console.error({error});
@@ -67,12 +64,14 @@ export class ProductFullviewComponent implements OnInit {
       }
     )
   }
+
   addToCart(qty: string) {
     const cartInfo: CartProps = {
       quantity: parseInt(qty),
       price: this.info.price,
       PID: this.pid,
       imgs: this.info.imgs,
+      title: this.info.title,
     };
 
     this._cartService.addToTempCart(cartInfo);
