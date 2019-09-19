@@ -25,9 +25,10 @@
     </div>
     <div>
       <mat-card>
-        <mat-card-content class="el">
+        <mat-card-content class="w-100">
+          <!-- firstname, lastname, gender -->
           <div class="form-row row">
-            <div class="col col-sm-6">
+            <div class="col col-sm-4">
               <mat-form-field appearance="outline">
                 <mat-label>Firstname</mat-label>
                 <input
@@ -44,7 +45,7 @@
                 }}</mat-error>
               </mat-form-field>
             </div>
-            <div class="col col-sm-6">
+            <div class="col col-sm-4">
               <mat-form-field appearance="outline">
                 <mat-label>Lastname</mat-label>
                 <input
@@ -61,11 +62,37 @@
                 }}</mat-error>
               </mat-form-field>
             </div>
+            <div class="col col-sm-4">
+              <mat-form-field appearance="outline">
+                <mat-label>Gender</mat-label>
+                <mat-select [formControl]="status.gender" required>
+                  <mat-option
+                    class="form-control-sm"
+                    [value]="'male'"
+                  >
+                    male
+                  </mat-option>
+                  <mat-option
+                    class="form-control-sm"
+                    [value]="'female'"
+                  >
+                    female
+                  </mat-option>
+                </mat-select>
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error *ngIf="status.gender.invalid">{{
+                  getErrorMessage().genderError()
+                }}</mat-error>
+              </mat-form-field>
+            </div>
           </div>
+          <!-- firstname, lastname, gender -->
+
+          <!-- country code, phone -->
           <div class="form-row">
             <div class="col-5">
               <mat-form-field appearance="outline">
-                <mat-label>Code</mat-label>
+                <mat-label>Country Code</mat-label>
                 <mat-select [formControl]="status.countrycode" required>
                   <mat-option
                     class="form-control-sm"
@@ -98,6 +125,9 @@
               </mat-form-field>
             </div>
           </div>
+          <!-- country code, phone -->
+
+          <!-- email -->
           <mat-form-field appearance="outline">
             <mat-label>Email</mat-label>
             <input
@@ -114,6 +144,68 @@
               getErrorMessage().emailError()
             }}</mat-error>
           </mat-form-field>
+          <!-- email -->
+
+          <!-- state, country -->
+          <div class="form-row row">
+            <div class="col col-12 col-sm-6 d-flex">
+              <div class="w-50">
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>State</mat-label>
+                  <input
+                    matInput
+                    placeholder="State/District"
+                    formControlName="state"
+                    class="form-control-sm"
+                    [type]="text"
+                    autocomplete
+                    required
+                  />
+                  <!-- <mat-error *ngIf="status.description.invalid">{{
+                    getErrorMessage().descriptionError()
+                  }}</mat-error> -->
+                </mat-form-field>
+              </div>
+              <div class="w-50">
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Country</mat-label>
+                  <mat-select [formControl]="status.country" required>
+                    <mat-option
+                      class="form-control-sm"
+                      *ngFor="let ctycode of ctycodelist"
+                      [value]="ctycode.cty"
+                    >
+                      {{ ctycode.cty }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="status.country.invalid">{{
+                    getErrorMessage().countryError()
+                  }}</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <!-- Address -->
+            <div class="col col-12 col-sm-6">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Address</mat-label>
+                <textarea
+                  matInput
+                  formControlName="address"
+                  class="form-control-sm"
+                  [type]="text"
+                  autocomplete
+                  required
+                ></textarea>
+                <mat-error *ngIf="status.address.invalid">{{
+                  getErrorMessage().addressError()
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <!-- state, country -->
+
+          <!-- password, confirm password -->
           <div class="form-row">
             <div class="col col-md-6">
               <mat-form-field appearance="outline">
@@ -172,6 +264,8 @@
               >{{ getErrorMessage().mismatchError() }}</mat-error
             >
           </div>
+          <!-- password, confirm password -->
+
           <div class="form-group">
             <div class="form-control-sm">
               <label>
@@ -197,7 +291,7 @@
           <div class="card-footer bg-white">
             <p>
               Already a user?
-              <a [routerLink]="['/', where, 'login']" class="text-secondary"
+              <a [routerLink]="['/', where, 'login']" class="text-secondary pd-p5"
                 >Login Here.</a
               >
             </p>

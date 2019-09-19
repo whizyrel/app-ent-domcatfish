@@ -149,14 +149,14 @@ export class SignupComponent implements OnInit {
           return this.status.email.hasError('pattern')
             ? 'Not a valid email'
             : this.status.email.hasError('required')
-            ? 'You must enter a value'
+            ? 'You must enter an email address'
             : '';
         }
       },
       passwordError: () => {
         if (this.status.password.hasError) {
           return this.status.password.hasError('required')
-            ? 'You must enter a value'
+            ? 'You must enter a password'
             : this.status.password.hasError('minlength')
             ? 'Should be minimum 8 characters long'
             : this.status.password.hasError('pattern')
@@ -167,7 +167,7 @@ export class SignupComponent implements OnInit {
       confirmPasswordError: () => {
         if (this.status.confirm.hasError) {
           return this.status.confirm.hasError('required')
-            ? 'You must enter a value'
+            ? 'You must enter a password'
             : this.status.confirm.hasError('minlength')
             ? 'Should be minimum 8 characters long'
             : this.status.confirm.hasError('pattern')
@@ -185,7 +185,7 @@ export class SignupComponent implements OnInit {
       countrycodeError: () => {
         if (this.status.countrycode.hasError) {
           return this.status.countrycode.hasError('required')
-            ? 'this is required'
+            ? 'country code is required'
             : null;
         }
       },
@@ -194,7 +194,7 @@ export class SignupComponent implements OnInit {
           return this.status.confirm.hasError('minlength')
             ? 'Should be minimum 8 characters long'
             : this.status.phone.hasError('required')
-            ? 'You must enter a value'
+            ? 'You must enter a phone number'
             : '';
         }
       },
@@ -203,7 +203,7 @@ export class SignupComponent implements OnInit {
           return this.status.firstname.hasError('minlength')
             ? 'Should be minimum 2 characters long'
             : this.status.firstname.hasError('required')
-            ? 'You must enter a value'
+            ? 'You must enter a name'
             : '';
         }
       },
@@ -212,7 +212,35 @@ export class SignupComponent implements OnInit {
           return this.status.lastname.hasError('minlength')
             ? 'Should be minimum 2 characters long'
             : this.status.lastname.hasError('required')
-            ? 'You must enter a value'
+            ? 'You must enter a name'
+            : '';
+        }
+      },
+      genderError: () => {
+        if (this.status.gender.hasError) {
+          return this.status.gender.hasError('required')
+            ? 'You must select an option'
+            : '';
+        }
+      },
+      countryError: () => {
+        if (this.status.country.hasError) {
+          return this.status.country.hasError('required')
+            ? 'You must select an option'
+            : '';
+        }
+      },
+      stateError: () => {
+        if (this.status.state.hasError) {
+          return this.status.state.hasError('required')
+            ? 'You must select an option'
+            : '';
+        }
+      },
+      addressError: () => {
+        if (this.status.address.hasError) {
+          return this.status.address.hasError('required')
+            ? 'You must enter a address'
             : '';
         }
       },
