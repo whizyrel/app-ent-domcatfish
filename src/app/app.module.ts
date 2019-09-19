@@ -63,6 +63,7 @@ import { DecEncService } from './services/dec-enc.service';
 import { DialogService } from './services/dialog.service';
 
 import { AddProductsForm } from './add-products/add-products-form';
+import { SignupForm } from './signup/signup-form';
 import { ProductsHandler } from './common/products-handler';
 
 @NgModule({
@@ -131,7 +132,7 @@ import { ProductsHandler } from './common/products-handler';
     RetrievePasswordService,
     ProductsService,
     DecEncService,
-    AddProductsForm, DialogService, ProductsHandler
+    AddProductsForm, DialogService, ProductsHandler, SignupForm
   ],
   bootstrap: [AppComponent],
   entryComponents: [
