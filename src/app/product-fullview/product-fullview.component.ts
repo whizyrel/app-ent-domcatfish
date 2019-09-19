@@ -3,8 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 
 import { DecEncService } from '../services/dec-enc.service';
 import { ProductsService } from '../services/products.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 import { ProductsProps } from '../interfaces/products-props';
+import { CartProps } from '../interfaces/cart-props';
 import { HttpResponse } from '../interfaces/http-response';
 
 @Component({
@@ -30,7 +32,8 @@ export class ProductFullviewComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private _decEnc: DecEncService,
-    private _productsService: ProductsService
+    private _productsService: ProductsService,
+    private _localStorage: LocalStorageService
   ) { }
 
   async ngOnInit() {
@@ -54,12 +57,40 @@ export class ProductFullviewComponent implements OnInit {
         this.imgs = data.doc.imgs;
         console.log({doc: this.info});
         this.availability =
-        this.info.availability ? ' Available' : ' Not available'
+        this.info.availability ? ' Available' : ' Not available';
       },
       (error: HttpResponse) => {
         console.error({error});
         // show modal
       }
     )
+  }
+  addToCart(qty: string) {
+    const tmpCrtTitle: string = 'crt-tmp';
+    let cartArr: CartProps[] = [];
+    const cartInfo: CartProps = {
+      quantity: parseInt(qty),
+      price: this.info.price,
+      PID: this.pid,
+      imgs: this.info.imgs,
+    };
+
+    const tmpCart: CartProps[] = JSON.parse(
+      this._localStorage.getItem(tmpCrtTitle)
+    );
+
+    console.log({tmpCart});
+
+    tmpCart !== null && tmpCart !== undefined ?
+      (() => {
+        // push into tmpCart and set
+        tmpCart.push(cartInfo);
+        this._localStorage.setItem(tmpCrtTitle, tmpCart);
+      })() :
+      (() => {
+        cartArr.push(cartInfo);
+        this._localStorage.setItem(tmpCrtTitle, cartArr);
+      })()
+      console.log({tmpCart, cartArr, cartInfo});
   }
 }
