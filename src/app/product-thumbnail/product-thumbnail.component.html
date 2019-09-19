@@ -2,7 +2,7 @@
   <mat-card-content>
     <div class="w-100 d-block" style="height: 200px;">
       <img *ngIf="prodList.img.split('/')[3] !== ''; else iconBlock" class="w-100 h-100 d-flex" src="{{prodList.img}}" alt="Image">
-      <ng-template #iconBlock> <i class="fa fa-user w-100 h-100 pd-t-p5" style="font-size: 13em;"></i> </ng-template>
+      <ng-template #iconBlock> <i class="fa fa-fish w-100 h-100 pd-t-p5" style="font-size: 13em;"></i> </ng-template>
       <div class="w-100 d-flex" style="position: absolute; height: 200px; top: 0; bottom: 0;">
         <button class="nail-btn pd-t-p5 pd-b-p5 pd-l-1 pd-r-1 mg-auto cursor-p" type="button" name="button"><a [routerLink]="['view']" [queryParams]="{st: encURL}">View Details</a></button>
       </div>

@@ -6,9 +6,8 @@
     <!--Grid row-->
     <div class="row wow fadeIn">
       <!--Grid column-->
-      <div class="col-md-6 mb-4" style="height: 250px;">
-        <!-- <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/14.jpg" class="img-fluid" alt=""> -->
-        <div id="carouselExampleControls" class="carousel slide h-100" data-ride="carousel">
+      <div class="col-md-6 mb-4" style="height: 300px;">
+        <div *ngIf="imgs; else elseBlock" id="carouselExampleControls" class="carousel slide h-100" data-ride="carousel">
           <div class="carousel-inner">
             <div *ngFor="let img of imgs; index as i; first as iFirst" class="carousel-item" [ngClass]="{active: i === 0}">
               <img class="d-block w-100" [src]="img" alt="Image">
@@ -23,6 +22,9 @@
             <span class="sr-only">Next</span>
           </a>
         </div>
+        <ng-template #elseBlock class="d-flex w-100 h-100">
+          <i class="img-fluid fa fa-fish fa-5x w-100 h-100 justify-content-center"></i>
+        </ng-template>
       </div>
       <!--Grid column-->
 
