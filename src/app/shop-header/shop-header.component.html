@@ -63,15 +63,17 @@
             >
               <!-- Cart content -->
               <!-- if nothing in cart -->
-              <a class="dropdown-item form-inline" *ngIf="cart.length < 1">
-                <p class="pd-p5 text-center justify-content-center form-inline" style="height: fit-content!important; width: fit-content!important; word-break: break-word!important; display: flex!important; flex-wrap: wrap; text-align: center">
-                  <i class="fa fa-shopping-basket mg-p5"></i> Your Cart is empty...!
-                </p>
-              </a>
+              <ng-template #cartElseBlock>
+                <a class="dropdown-item form-inline" *ngIf="cart.length < 1">
+                  <p class="pd-p5 text-center justify-content-center form-inline" style="height: fit-content!important; width: fit-content!important; word-break: break-word!important; display: flex!important; flex-wrap: wrap; text-align: center">
+                    <i class="fa fa-shopping-basket mg-p5"></i> Your Cart is empty...!
+                  </p>
+                </a>
+              </ng-template>
 
               <!-- Cart has content -->
               <!-- >= -->
-              <a class="dropdown-item pd-1" *ngIf="cart.length >= 1">
+              <a class="dropdown-item pd-1" *ngIf="cart.length >= 1; else cartElseBlock">
                 <div class="other-user-panel form-inline mg-l-1">
                   <!-- <div class="form-inline"> -->
                     <!-- <div class="mg-l-1"> -->
