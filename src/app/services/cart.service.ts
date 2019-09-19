@@ -10,8 +10,43 @@ import { CartProps } from '../interfaces/cart-props';
 })
 export class CartService {
   private crtstrttl: string = 'crtstr';
+  private tmpcrtttl: string = 'crt-tmp';
 
   constructor(private _localStorage: LocalStorageService) {}
+
+  get getTempCartItems(): CartProps[] {
+    return;
+  }
+
+  addToTempCart(info: CartProps) {
+    let cartArr: CartProps[] = [];
+
+    const tmpCart: CartProps[] = JSON.parse(
+      this._localStorage.getItem(this.tmpcrtttl)
+    );
+
+    console.log({tmpCart});
+
+    tmpCart !== null && tmpCart !== undefined ?
+      (() => {
+        // push into tmpCart and set
+        tmpCart.push(info);
+        this._localStorage.setItem(this.tmpcrtttl, tmpCart);
+      })() :
+      (() => {
+        cartArr.push(info);
+        this._localStorage.setItem(this.tmpcrtttl, cartArr);
+      })();
+    console.log({tmpCart, cartArr, info});
+  }
+
+  deleteFromTempCart() {
+
+  }
+
+  clearTempCart() {
+    window.localStorage.removeItem(this.tmpcrtttl);
+  }
 
   getCartItems(em: string): CartProps[] {
     let cartArray: CartProps[] = [];
