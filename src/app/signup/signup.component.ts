@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   FormControl,
   Validators,
@@ -47,6 +47,7 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private _signupService: SignupService,
     private signupForm: SignupForm,
     private _snackbarService: InitSnackbarService,
@@ -108,6 +109,8 @@ export class SignupComponent implements OnInit {
               data.message,
               duration
             );
+            // route to shop
+            this.router.navigate(['/shop']);
           }
           console.log(data);
         },
