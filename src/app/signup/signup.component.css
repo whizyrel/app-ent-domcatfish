@@ -62,3 +62,9 @@ mat-select {
   align-items: center;
   height: fit-content;
 }
+
+@media (min-width: 577px) {
+  .splash-container {
+    max-width: 700px;
+  }
+}
