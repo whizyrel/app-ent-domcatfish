@@ -215,3 +215,7 @@ input:focus:not([readonly]) {
 }
 
 .pagination a:hover:not(.active) {background-color: #ddd;}
+
+.carousel-control-prev {
+  display: flex!important;
+}
