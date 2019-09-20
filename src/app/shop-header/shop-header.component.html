@@ -74,7 +74,8 @@
               <!-- Cart has content -->
               <!-- >= -->
               <div *ngIf="cart.length >= 1; else cartElseBlock" class="d-block w-100">
-                <a *ngFor="let crt of cart;" class="dropdown-item pd-p5" style="height: 50px;">
+                <a *ngFor="let crt of cart; index as i;" class="dropdown-item pd-p5" style="height: 50px;" id="{{i}}"
+                (click)="showFullDetails(crt.PID)">
                   <div class="d-flex form-inline w-100">
                         <img
                           class="sub-img-circle"

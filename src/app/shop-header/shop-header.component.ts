@@ -9,6 +9,7 @@ import { UsersActiveInactiveService } from '../services/users-active-inactive.se
 import { GoogleImgService } from '../services/google-img.service';
 import { LogoutService } from '../services/logout.service';
 import { CartService } from '../services/cart.service';
+import { DecEncService } from '../services/dec-enc.service';
 
 import { CartProps } from '../interfaces/cart-props';
 import { SessStoreProps } from '../interfaces/sess-store-props';
@@ -18,9 +19,9 @@ import { HttpResponse } from '../interfaces/http-response';
   selector: 'app-shop-header',
   templateUrl: './shop-header.component.html',
   styleUrls: [
-    './shop-header.component.css',
     './css/style.min.css',
-    './css/mdb.min.css'
+    './css/mdb.min.css',
+    './shop-header.component.css',
   ]
 })
 export class ShopHeaderComponent implements OnInit {
@@ -41,6 +42,8 @@ export class ShopHeaderComponent implements OnInit {
   public showInactvUser: boolean;
 
   public cart: CartProps[] = [];
+  private seckey: string = 'app-ent-domcatfish';
+  public encID: string;
 
   constructor(
     private router: Router,
@@ -49,13 +52,15 @@ export class ShopHeaderComponent implements OnInit {
     private _googleApi: GoogleImgService,
     private _logUserOut: LogoutService,
     private _cartService: CartService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _decEnc: DecEncService
   ) { }
 
   ngOnInit() {
     this.initActive();
     this.initInactive();
     this.initCart();
+    // this.encID = this._decEnc.aesEncryption(id, this.seckey);
   }
 
   oneClickLogin(el, e) {
@@ -117,6 +122,12 @@ export class ShopHeaderComponent implements OnInit {
     console.log('i was called');
     this.cart = this._cartService.getTempCartItems;
     console.log({cart: this.cart});
+  }
+
+  public showFullDetails(id) {
+    console.log({id});
+    const encID = this._decEnc.aesEncryption(id, this.seckey);
+    this.router.navigate(['/shop/view/'], {queryParams: {st: encID}});
   }
 
   private initInactive() {
