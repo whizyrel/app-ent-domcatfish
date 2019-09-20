@@ -55,6 +55,7 @@ export class ShopHeaderComponent implements OnInit {
   ngOnInit() {
     this.initActive();
     this.initInactive();
+    this.initCart();
   }
 
   oneClickLogin(el, e) {
@@ -102,7 +103,7 @@ export class ShopHeaderComponent implements OnInit {
             }
           );
 
-          this.cart = this._cartService.getCartItems(email);
+          this.initCart();
         })()
       : (() => {
           this.what = `sign in`;
@@ -110,6 +111,12 @@ export class ShopHeaderComponent implements OnInit {
           // this.userimg = `./assets/images/user2-160x160.jpg`;
           this.username = ``;
         })();
+  }
+
+  private initCart () {
+    console.log('i was called');
+    this.cart = this._cartService.getTempCartItems;
+    console.log({cart: this.cart});
   }
 
   private initInactive() {

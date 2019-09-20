@@ -73,32 +73,25 @@
 
               <!-- Cart has content -->
               <!-- >= -->
-              <a class="dropdown-item pd-1" *ngIf="cart.length >= 1; else cartElseBlock">
-                <div class="other-user-panel form-inline mg-l-1">
-                  <!-- <div class="form-inline"> -->
-                    <!-- <div class="mg-l-1"> -->
-                      <img
-                        class="sub-img-circle"
-                        src="{{otherusrimg}}"
-                        alt="image"
-                      />
-                    <!-- </div> -->
-                    <div class="mg-l-p5">Product details 1</div>
-                    <i class="fa fa-times-circle mg-l-1"></i>
-                  <!-- </div> -->
-                </div>
-              </a>
-              <!-- dont need no divider -->
-              <div *ngIf="cart.length >= 1" class="dropdown-divider"></div>
+              <div *ngIf="cart.length >= 1; else cartElseBlock" class="d-block w-100">
+                <a *ngFor="let crt of cart;" class="dropdown-item pd-p5" style="height: 50px;">
+                  <div class="d-flex form-inline w-100">
+                        <img
+                          class="sub-img-circle"
+                          [src]="crt.imgs[0]"
+                          alt="image"
+                        />
+                      <!-- </div> -->
+                      <div class="mg-l-1 dark-grey-text font-weight-bold" style="font-size: 18px;">{{crt.title}}</div>
+                      <i class="fa fa-times-circle mg-l-auto mg-r-p5"></i>
+                  </div>
+                </a>
+              </div>
 
               <!-- checkout -->
               <a class="dropdown-item" *ngIf="cart.length >= 1">
-                <div class="other-user-panel">
-                  <div class="form-inline">
-                    <div class="mg-l-1 js-center">
-                      <i class="fa fa-cart-arrow-down mg-r-p5"></i> checkout
-                    </div>
-                  </div>
+                <div class="d-flex form-inline pd-p5 w-100 justify-content-center">
+                  <i class="fa fa-cart-arrow-down mg-r-1 bold-text"></i> CHECKOUT
                 </div>
               </a>
             </div>
