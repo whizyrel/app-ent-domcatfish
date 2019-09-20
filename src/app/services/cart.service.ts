@@ -14,8 +14,12 @@ export class CartService {
 
   constructor(private _localStorage: LocalStorageService) {}
 
+  private getParsedCart(ttl: string) {
+    return JSON.parse(this._localStorage.getItem(ttl));
+  }
+
   get getTempCartItems(): CartProps[] {
-    return JSON.parse(this._localStorage.getItem(this.tmpcrtttl));
+    return this.getParsedCart(this.tmpcrtttl);
   }
 
   addToTempCart(info: CartProps) {
@@ -40,8 +44,16 @@ export class CartService {
     console.log({tmpCart, cartArr, info});
   }
 
-  deleteFromTempCart() {
+  deleteFromTempCart(i: number) {
+    const tmpCart = this.getParsedCart(this.tmpcrtttl);
 
+    if (tmpCart !== null && tmpCart !== undefined) {
+      // remove one from ith position - array is left with rest of elements
+      // and the removed is returned
+      tmpCart.splice(i, 1);
+    }
+    // set others into localStorage
+    this._localStorage.setItem(this.tmpcrtttl, tmpCart);
   }
 
   clearTempCart() {
@@ -123,6 +135,7 @@ export class CartService {
   }
 
   deleteFromCart(em: string, obj: object) {
+    // gabbage code - reimplement
     // get all
     // get user's cart index
     // get user's cart

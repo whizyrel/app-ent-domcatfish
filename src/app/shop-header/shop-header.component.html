@@ -74,7 +74,7 @@
               <!-- Cart has content -->
               <!-- >= -->
               <div *ngIf="cart.length >= 1; else cartElseBlock" class="d-block w-100">
-                <a *ngFor="let crt of cart; index as i;" class="dropdown-item pd-p5" style="height: 50px;" id="{{i}}"
+                <a *ngFor="let crt of cart; index as i;" class="dropdown-item pd-p5" style="height: 50px;" id="{{i}}" #_cart
                 (click)="showFullDetails(crt.PID)">
                   <div class="d-flex form-inline w-100">
                         <img
@@ -84,7 +84,7 @@
                         />
                       <!-- </div> -->
                       <div class="mg-l-1 dark-grey-text font-weight-bold" style="font-size: 18px;">{{crt.title}}</div>
-                      <i class="fa fa-times-circle mg-l-auto mg-r-p5"></i>
+                      <i class="fa fa-times-circle mg-l-auto mg-r-p5 fa-2x" (click)="deleteFromCart($event, _cart.id)"></i>
                   </div>
                 </a>
               </div>

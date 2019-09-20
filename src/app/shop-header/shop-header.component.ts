@@ -63,6 +63,24 @@ export class ShopHeaderComponent implements OnInit {
     // this.encID = this._decEnc.aesEncryption(id, this.seckey);
   }
 
+  public deleteFromCart(e, id: string) {
+    console.log({e, id});
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    this._cartService.deleteFromTempCart(JSON.parse(id));
+    this.initCart();
+  }
+
+  private initCart () {
+    this.cart = this._cartService.getTempCartItems;
+    console.log({cart: this.cart});
+  }
+
+  public showFullDetails(id) {
+    const encID = this._decEnc.aesEncryption(id, this.seckey);
+    this.router.navigate(['/shop/view/'], {queryParams: {st: encID}});
+  }
+
   oneClickLogin(el, e) {
     e.stopPropagation();
     e.stopImmediatePropagation();
@@ -116,18 +134,6 @@ export class ShopHeaderComponent implements OnInit {
           // this.userimg = `./assets/images/user2-160x160.jpg`;
           this.username = ``;
         })();
-  }
-
-  private initCart () {
-    console.log('i was called');
-    this.cart = this._cartService.getTempCartItems;
-    console.log({cart: this.cart});
-  }
-
-  public showFullDetails(id) {
-    console.log({id});
-    const encID = this._decEnc.aesEncryption(id, this.seckey);
-    this.router.navigate(['/shop/view/'], {queryParams: {st: encID}});
   }
 
   private initInactive() {
