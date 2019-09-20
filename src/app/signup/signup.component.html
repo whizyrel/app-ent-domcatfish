@@ -157,7 +157,7 @@
                     placeholder="State/District"
                     formControlName="state"
                     class="form-control-sm"
-                    [type]="text"
+                    type="text"
                     autocomplete
                     required
                   />
@@ -193,7 +193,7 @@
                   matInput
                   formControlName="address"
                   class="form-control-sm"
-                  [type]="text"
+                  type="text"
                   autocomplete
                   required
                 ></textarea>
@@ -238,7 +238,7 @@
                 <input
                   matInput
                   placeholder="Confirm Password"
-                  [type]="hide ? 'password' : 'text'"
+                  A="hide ? 'password' : 'text'"
                   [ngClass]="{
                     'is-invalid': status.confirm.errors
                   }"

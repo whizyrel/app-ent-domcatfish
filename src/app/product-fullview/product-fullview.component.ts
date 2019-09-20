@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { DecEncService } from '../services/dec-enc.service';
@@ -28,6 +28,7 @@ export class ProductFullviewComponent implements OnInit {
   private total: number = 0;
 
   public encURL: string;
+  public stateChanged: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -75,5 +76,7 @@ export class ProductFullviewComponent implements OnInit {
     };
 
     this._cartService.addToTempCart(cartInfo);
+
+    this.stateChanged = true;
   }
 }

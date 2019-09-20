@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, DoCheck, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -24,8 +24,9 @@ import { HttpResponse } from '../interfaces/http-response';
     './shop-header.component.css',
   ]
 })
-export class ShopHeaderComponent implements OnInit {
+export class ShopHeaderComponent implements OnInit, DoCheck {
   @Input('url') public encURL: string;
+  @Input('add') public addedToCart: boolean;
 
   public title = `Debim`.toUpperCase();
 
@@ -44,6 +45,7 @@ export class ShopHeaderComponent implements OnInit {
   public cart: CartProps[] = [];
   private seckey: string = 'app-ent-domcatfish';
   public encID: string;
+  public bool: boolean = false;
 
   constructor(
     private router: Router,
@@ -60,7 +62,10 @@ export class ShopHeaderComponent implements OnInit {
     this.initActive();
     this.initInactive();
     this.initCart();
-    // this.encID = this._decEnc.aesEncryption(id, this.seckey);
+  }
+
+  ngDoCheck() {
+    this.initCart();
   }
 
   public deleteFromCart(e, id: string) {
@@ -79,6 +84,13 @@ export class ShopHeaderComponent implements OnInit {
   public showFullDetails(id) {
     const encID = this._decEnc.aesEncryption(id, this.seckey);
     this.router.navigate(['/shop/view/'], {queryParams: {st: encID}});
+  }
+
+  public onStateChange(bool: boolean) {
+    console.log({bool});
+    if (bool) {
+      this.initCart();
+    }
   }
 
   oneClickLogin(el, e) {
