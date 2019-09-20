@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck, Input } from '@angular/core';
+import { Component, OnInit, AfterContentChecked, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -64,14 +64,12 @@ export class ShopHeaderComponent implements OnInit, DoCheck {
     this.initCart();
   }
 
-  ngDoCheck() {
-    if (
-      this.cart !== undefined &&
-      this.cart !== null &&
-      this.cart.length > 0
-    ) {
+  ngAfterContentChecked() {
+    // if (
+    //   this.cart.length >= 1
+    // ) {
       this.initCart();
-    }
+    // }
   }
 
   public deleteFromCart(e, id: string) {
