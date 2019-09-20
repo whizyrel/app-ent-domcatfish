@@ -6,7 +6,7 @@
     <!--Grid row-->
     <div class="row wow fadeIn">
       <!--Grid column-->
-      <div class="col-md-6 mb-4" style="height: 300px;">
+      <div class="col-md-6 mb-4 h-100" style="max-height: 300px;">
         <div *ngIf="imgs; else elseBlock" id="carouselExampleControls" class="carousel slide h-100" data-ride="carousel">
           <div class="carousel-inner">
             <div *ngFor="let img of imgs; index as i; first as iFirst" class="carousel-item" [ngClass]="{active: i === 0}">
@@ -31,20 +31,53 @@
       <!--Grid column-->
       <div class="col-md-6 mb-4">
         <!--Content-->
-        <div class="p-4">
+        <div class="p-2">
           <div class="mb-3 form-inline d-flex">
             <p class="dark-grey-text bold-text mg-r-2 h-100" [hidden]="info === undefined" *ngIf="info !== undefined" style="font-size: 25px;">{{info.title}}</p>
             <a [hidden]="info === undefined" *ngIf="info !== undefined">
               <span class="badge purple mr-1 pd-t-p5 pd-b-p5 pd-l-1 pd-r-1">{{info.pack}}</span>
             </a>
             <a [hidden]="info === undefined" *ngIf="info !== undefined">
-              <span class="badge mr-1 pd-t-p5 pd-b-p5 pd-l-1 pd-r-1" [ngClass]="{red: info.availability === false, blue: info.availability === true}">{{info.availability ? 'Available' : 'sold'}}</span>
+              <span class="badge mr-1 pd-t-p5 pd-b-p5 pd-l-1 pd-r-1" [ngClass]="{red: info.availability === false, blue: info.availability === true}">{{info.availability ? 'Available' : 'Sold'}}</span>
             </a>
           </div>
 
-          <p class="lead mg-b-p5 mg-t-p5" [hidden]="info === undefined" *ngIf="info !== undefined">
-            <span [hidden]="info === undefined" *ngIf="info !== undefined">{{ info.price - 0.01 | currency:'NGN':'symbol-narrow' }}</span>
-          </p>
+          <div class="d-flex form-inline">
+            <p class="lead mg-b-p5 mg-t-p5" [hidden]="info === undefined" *ngIf="info !== undefined">
+              <span [hidden]="info === undefined" *ngIf="info !== undefined">{{ info.price - 0.01 | currency:'NGN':'symbol-narrow' }}</span>
+            </p>
+            <div class="d-flex mg-l-auto">
+              <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>share</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <a [routerLink]="['']"><button mat-menu-item class="form-inline">
+                  <mat-icon><i class="fab fa-facebook-square fa-1x"></i></mat-icon>
+                  <span class="mg-t-auto mg-b-auto">Facebook</span>
+                </button></a>
+
+                <a [routerLink]="['']"><button mat-menu-item class="form-inline">
+                  <mat-icon><i class="fab fa-twitter-square fa-1x"></i></mat-icon>
+                  <span class="mg-t-auto mg-b-auto">Twitter</span>
+                </button></a>
+
+                <a [routerLink]="['']"><button mat-menu-item class="form-inline">
+                  <mat-icon><i class="fab fa-whatsapp-square fa-1x"></i></mat-icon>
+                  <span class="mg-t-auto mg-b-auto">Whatsapp</span>
+                </button></a>
+
+                <a [routerLink]="['']"><button mat-menu-item class="form-inline">
+                  <mat-icon><i class="fab fa-instagram fa-1x"></i></mat-icon>
+                  <span class="mg-t-auto mg-b-auto">Instagram</span>
+                </button></a>
+
+                <a [routerLink]="['']"><button mat-menu-item class="form-inline">
+                  <mat-icon>email</mat-icon>
+                  <span>Email</span>
+                </button></a>
+              </mat-menu>
+            </div>
+          </div>
 
           <p class="lead font-weight-bold mg-b-p5">Description</p>
 
@@ -53,8 +86,8 @@
           <form class="d-flex justify-content-left form-inline mg-b-1">
             <p class="dark-grey-text bold-text mg-r-p5">Quantity:</p>
             <!-- Default input -->
-            <input type="number" value="1" min="1" #qty aria-label="Search" class="form-control mg-r-p5" style="width: 100px">
-            <button class="btn btn-primary btn-md my-0 p" type="submit" (click)="addToCart(qty.value)">Add to cart
+            <input type="number" value="1" min="1" #qty aria-label="Search" class="form-control mg-r-p5" style="width: 50px">
+            <button class="btn btn-primary btn-md mt-t-p5 mg-l-1 cart-btn" type="submit" (click)="addToCart(qty.value)">Add to cart
               <i class="fas fa-shopping-cart ml-1"></i>
             </button>
           </form>
@@ -78,15 +111,16 @@
     <!--Grid row-->
 
     <!--Grid row-->
-    <div class="row wow fadeIn">
+    <!-- Related products -->
+    <!-- <div class="row wow fadeIn"> -->
       <!--Grid column-->
-      <div class="col-lg-4 col-md-12 mb-4">
+      <!-- <div class="col-lg-4 col-md-12 mb-4">
         <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg" class="img-fluid" alt="">
-      </div>
+      </div> -->
       <!--Grid column-->
-    </div>
+    <!-- </div> -->
     <!--Grid row-->
-  </div>
+  <!-- </div> -->
 
   <!-- floating button -->
   <button class="btn btn-outline-primary shop-btn pd-t-p5 pd-b-p5 pd-l-1 pd-r-1"><a class="w-100 h-100" [routerLink]="['../']"><i class="fas fa-hand-point-left fa-1x mg-r-1"></i>shop</a></button>

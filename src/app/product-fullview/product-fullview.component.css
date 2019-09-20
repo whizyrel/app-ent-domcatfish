@@ -23,56 +23,15 @@ p {
 .bold-text {
   font-weight: bold;
 }
-.img {
-  height: 100px;
-}
 .cart-btn {
-  font-size: 1.5em;
-  border: none;
-  background-color: #fff;
-}
-.cart-btn:hover {
-  background-color: #6610f2;
-  color: #fff;
-  border-radius: 5px;
-}
-.carousel-control-prev {
-  display: flex!important;
-}
-/* lg  - xs*/
-@media (min-width: 992px) {
-  .prod-card {
-    width: 700px;
-    height: 600px;
-    overflow: hidden;
-  }
-}
-/* md - lg */
-@media (min-width: 768px) and (max-width: 991px) {
-  .prod-card {
-    width: 500px;
-    height: 500px;
-    overflow: hidden;
-  }
-}
-/* sm */
-@media (min-width: 576px) and (max-width: 767px) {
-  .prod-card {
-    width: 500px;
-    height: 600px;
-    overflow: hidden;
-  }
-}
-/* landscape sm */
-@media (max-width: 576px) and (min-height: 300px) {
-  .prod-card {
-    width: 500px;
-    height: fit-content;
-  }
+  margin:0!important;
 }
 /* xs */
 @media (max-width: 576px) {
   .container {
     margin-top: 7rem!important;
+  }
+  .cart-btn {
+    margin-top: 1em!important;
   }
 }
