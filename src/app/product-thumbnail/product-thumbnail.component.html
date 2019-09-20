@@ -2,7 +2,7 @@
   <mat-card-content>
     <div class="w-100 d-block" style="height: 200px;">
       <img *ngIf="prodList.img.split('/')[3] !== ''; else iconBlock" class="w-100 h-100 d-flex" src="{{prodList.img}}" alt="Image">
-      <ng-template #iconBlock> <i class="fa fa-fish w-100 h-100 pd-t-p5" style="font-size: 13em;"></i> </ng-template>
+      <ng-template #iconBlock> <i class="fas fa-fish w-100 h-100 pd-t-p5" style="font-size: 13em;"></i> </ng-template>
       <div class="w-100 d-flex" style="position: absolute; height: 200px; top: 0; bottom: 0;">
         <button class="nail-btn pd-t-p5 pd-b-p5 pd-l-1 pd-r-1 mg-auto cursor-p" type="button" name="button"><a [routerLink]="['view']" [queryParams]="{st: encURL}">View Details</a></button>
       </div>
@@ -26,34 +26,3 @@
     </div>
   </mat-card-content>
 </mat-card>
-<!-- Card -->
-<!-- <div class="card"> -->
-  <!-- Card image -->
-  <!-- <div class="view overlay">
-    <img
-      src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg"
-      class="card-img-top"
-      alt=""
-    />
-    <a> <div class="mask rgba-white-slight"></div> </a>
-  </div> -->
-  <!-- Card image -->
-
-  <!-- Card content -->
-  <!-- <div class="card-body text-center"> -->
-    <!-- Category & Title -->
-    <!-- <a href="" class="grey-text"> <h5>Shirt</h5> </a>
-    <h5>
-      <strong>
-        <a href="" class="dark-grey-text"
-          >Denim shirt
-          <span class="badge badge-pill danger-color">NEW</span>
-        </a>
-      </strong>
-    </h5> -->
-
-    <!-- <h4 class="font-weight-bold blue-text"><strong>120$</strong></h4> -->
-  <!-- </div> -->
-  <!-- Card content -->
-<!-- </div> -->
-<!-- Card -->
