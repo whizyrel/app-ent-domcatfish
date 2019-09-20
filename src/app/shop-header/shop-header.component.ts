@@ -65,7 +65,13 @@ export class ShopHeaderComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck() {
-    this.initCart();
+    if (
+      this.cart !== undefined &&
+      this.cart !== null &&
+      this.cart.length > 0
+    ) {
+      this.initCart();
+    }
   }
 
   public deleteFromCart(e, id: string) {
@@ -84,13 +90,6 @@ export class ShopHeaderComponent implements OnInit, DoCheck {
   public showFullDetails(id) {
     const encID = this._decEnc.aesEncryption(id, this.seckey);
     this.router.navigate(['/shop/view/'], {queryParams: {st: encID}});
-  }
-
-  public onStateChange(bool: boolean) {
-    console.log({bool});
-    if (bool) {
-      this.initCart();
-    }
   }
 
   oneClickLogin(el, e) {

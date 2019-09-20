@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { ProductsHandler } from '../common/products-handler';
 
@@ -50,16 +50,15 @@ export class ShopComponent implements OnInit {
     this.types = this._linksService.getTypes();
 
     this.encURL = this._decEnc.aesEncryption('/shop', this.seckey);
-    this.getProducts(null);
+    this.getProducts(null); // do sth bou
   }
 
   setPageSize(e) {
     this.pageSize = parseInt(e.target.value) || this.pageSize;
-    setTimeout(() => this.getProducts(null), 1500);
+    setTimeout(() => this.getProducts(null), 1000);
   }
 
   switchCategory(type) {
-    console.log({type});
     this.getProducts(type);
   }
 
@@ -80,10 +79,11 @@ export class ShopComponent implements OnInit {
           (err, resp) => {
             if (err) {
               console.error({err});
+              this.prodList = undefined;
               return;
             }
             this.prodList = resp;
-            this.currProdList = resp[resp.length - resp.length];
+            this.currProdList = this.prodList[0];
           }
         );
       },
@@ -92,7 +92,6 @@ export class ShopComponent implements OnInit {
         this.prodList = undefined;
       }
     );
-
     window.onpageshow = () => {
       if (
         this.currProdList !== undefined && this.prodList !== undefined
@@ -116,18 +115,35 @@ export class ShopComponent implements OnInit {
     console.log({i});
     // use length instead
 
+    // i > 0 means go right, as long as page Index
+    // is less than product list length
     if (i >= 0 && this.pageIndex < this.prodList.length) {
       this.currProdList = this.prodList[++this.pageIndex];
-      if (left.classList.contains('d-none')) this.togglePaginators('left');
+      // while going right, make visible left as long as it
+      // is hidden
+      if (left.classList.contains('d-none')) {
+        this.togglePaginators('left')
+      };
     }
 
+    // i < 0 means go left, as long as page index is > 0,
+    // 0 means end of page
     if (i < 0 && this.pageIndex > 0) {
       this.currProdList = this.prodList[--this.pageIndex];
-      if (right.classList.contains('d-none')) this.togglePaginators('right');
+      // while going right as long as right is hidden,, unhide
+      if (right.classList.contains('d-none')) {
+        this.togglePaginators('right');
+      };
     }
+
     // toggle
-    if (this.pageIndex === this.prodList.length - 1) this.togglePaginators('right');
-    if (this.pageIndex === 0) this.togglePaginators('left');
+    if (this.pageIndex === this.prodList.length - 1) {
+      this.togglePaginators('right');
+    };
+
+    if (this.pageIndex === 0) {
+      this.togglePaginators('left');
+    };
   }
 
   private togglePaginators(side: string) {
