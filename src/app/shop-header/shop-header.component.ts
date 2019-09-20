@@ -10,6 +10,7 @@ import { GoogleImgService } from '../services/google-img.service';
 import { LogoutService } from '../services/logout.service';
 import { CartService } from '../services/cart.service';
 import { DecEncService } from '../services/dec-enc.service';
+import { DialogService } from '../services/dialog.service';
 
 import { CartProps } from '../interfaces/cart-props';
 import { SessStoreProps } from '../interfaces/sess-store-props';
@@ -26,7 +27,6 @@ import { HttpResponse } from '../interfaces/http-response';
 })
 export class ShopHeaderComponent implements OnInit, AfterContentChecked {
   @Input('url') public encURL: string;
-  @Input('add') public addedToCart: boolean;
 
   public title = `Debim`.toUpperCase();
 
@@ -55,6 +55,7 @@ export class ShopHeaderComponent implements OnInit, AfterContentChecked {
     private _logUserOut: LogoutService,
     private _cartService: CartService,
     public dialog: MatDialog,
+    public _dialog: DialogService,
     private _decEnc: DecEncService
   ) { }
 
@@ -70,6 +71,26 @@ export class ShopHeaderComponent implements OnInit, AfterContentChecked {
     // ) {
       this.initCart();
     // }
+  }
+
+  public checkout() {
+    const activeUsers = this._users.getUsersActive;
+    console.log({activeUsers});
+
+    if (activeUsers === null) {
+      this._dialog.showDialog({
+        message: 'Please log in to continue'
+      }, '300px', () => {
+        // route to login
+        // consider return url
+        this.router.navigate(['/user', 'login'], {
+          queryParams: {
+            rt: this.encURL,
+          },
+          replaceUrl: true,
+        });
+      });
+    }
   }
 
   public deleteFromCart(e, id: string) {
@@ -231,6 +252,9 @@ export class ShopHeaderComponent implements OnInit, AfterContentChecked {
           this.router.navigate(['user/login'], {
             skipLocationChange: false,
             replaceUrl: false,
+            queryParams: {
+              rt: this.encURL,
+            },
           });
         })();
   }
