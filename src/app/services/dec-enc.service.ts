@@ -9,11 +9,11 @@ export class DecEncService {
 
   constructor() { }
 
-  aesEncryption(stf, sk) {
+  aesEncryption(stf: string, sk: string) {
     return AES.encrypt(stf, sk);
   }
 
-  aesDecryption(stf, sk) {
+  aesDecryption(stf: string, sk: string) {
     const bytes = AES.decrypt(stf, sk);
 
     return bytes.toString(enc.Utf8);
