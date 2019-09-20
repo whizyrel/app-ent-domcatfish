@@ -7,19 +7,27 @@ import { DialogComponent } from '../dialog/dialog.component';
   providedIn: 'root'
 })
 export class DialogService {
-
+  private dialogRef;
   constructor(
     public dialog: MatDialog
   ) { }
 
-  public showDialog(info) {
-    const dialogRef = this.dialog.open(DialogComponent, {
-      width: '250px',
+  public showDialog(
+    info,
+    w: string = "250px",
+    close = this.closeDialog,
+    dgComp = DialogComponent
+  ) {
+    this.dialogRef = this.dialog.open(dgComp, {
+      width: w,
       data: info
     });
+    close();
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+  public closeDialog(action = () => console.log('The dialog was closed')) {
+    this.dialogRef.afterClosed().subscribe(result => {
+      action();
     });
   }
 }
