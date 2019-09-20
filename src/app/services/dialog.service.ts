@@ -15,18 +15,15 @@ export class DialogService {
   public showDialog(
     info,
     w: string = "250px",
-    close = this.closeDialog,
+    action = () => console.log('The dialog was closed'),
     dgComp = DialogComponent
   ) {
-    this.dialogRef = this.dialog.open(dgComp, {
+    const dialogRef = this.dialog.open(dgComp, {
       width: w,
       data: info
     });
-    close();
-  }
 
-  public closeDialog(action = () => console.log('The dialog was closed')) {
-    this.dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(result => {
       action();
     });
   }
