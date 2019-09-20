@@ -24,7 +24,7 @@ import { HttpResponse } from '../interfaces/http-response';
     './shop-header.component.css',
   ]
 })
-export class ShopHeaderComponent implements OnInit, DoCheck {
+export class ShopHeaderComponent implements OnInit, AfterContentChecked {
   @Input('url') public encURL: string;
   @Input('add') public addedToCart: boolean;
 
