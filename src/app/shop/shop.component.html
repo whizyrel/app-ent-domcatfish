@@ -247,7 +247,12 @@
       </div>
     </div>
     <ng-template class="d-flex w-100" #elseBlock>
-      <p class="dark-grey-text text" id="r-pg" style="text-align: center">No Products at the moment, kindly check again soon...</p>
+      <div *ngIf="prodList === null || prodList === undefined; else empty" class="d-flex mg-auto form-inline w-100" role="status">
+        <i class="fa fa-spinner fa-spin fa-2x mg-r-p5"></i> Loading...
+      </div>
+      <ng-template #empty>
+        <p class="dark-grey-text text" style="text-align: center">No Products at the moment, kindly check again soon...</p>
+      </ng-template>
     </ng-template>
     <!-- /paginator -->
   </div>
