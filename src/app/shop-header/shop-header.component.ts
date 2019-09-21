@@ -62,7 +62,7 @@ export class ShopHeaderComponent implements OnInit, AfterContentChecked {
   ngOnInit() {
     this.initActive();
     this.initInactive();
-    this.initCart();
+    // this.initCart();
   }
 
   ngAfterContentChecked() {
@@ -70,6 +70,7 @@ export class ShopHeaderComponent implements OnInit, AfterContentChecked {
     //   this.cart.length >= 1
     // ) {
       this.initCart();
+      // this.initActive();
     // }
   }
 
@@ -90,6 +91,9 @@ export class ShopHeaderComponent implements OnInit, AfterContentChecked {
           replaceUrl: true,
         });
       });
+    } else {
+      // move to active users' carts
+      // clear temp cart
     }
   }
 
