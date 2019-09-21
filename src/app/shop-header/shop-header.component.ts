@@ -96,7 +96,7 @@ export class ShopHeaderComponent implements OnInit, AfterContentChecked {
       // clear temp cart
       // route to checkout page
       this._cartService.addToCart(
-        activeUser, this._cartService.getTempCartItems
+        activeUser.dt.email, this._cartService.getTempCartItems
       );
       this._cartService.clearTempCart();
     }
