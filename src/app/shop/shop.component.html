@@ -247,7 +247,7 @@
       </div>
     </div>
     <ng-template class="d-flex w-100" #elseBlock>
-      <div *ngIf="prodList === null || prodList === undefined; else empty" class="d-flex mg-auto form-inline w-100" role="status">
+      <div *ngIf="prodList === null || prodList === undefined; else empty" class="d-flex justify-content-center form-inline w-100" role="status">
         <i class="fa fa-spinner fa-spin fa-2x mg-r-p5"></i> Loading...
       </div>
       <ng-template #empty>

@@ -89,7 +89,7 @@ export class ShopComponent implements OnInit {
       },
       (error: HttpResponse) => {
         console.error({error});
-        this.prodList = undefined;
+        this.prodList = [];
       }
     );
     window.onpageshow = () => {
