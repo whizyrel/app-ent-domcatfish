@@ -53,7 +53,7 @@ export class CartService {
   }
 
   clearTempCart() {
-    window.localStorage.removeItem(this.tmpcrtttl);
+    this._localStorage.removeItem(this.tmpcrtttl);
   }
 
   getCartItems(em: string): CartProps[] {
