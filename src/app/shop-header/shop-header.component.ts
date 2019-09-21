@@ -75,10 +75,10 @@ export class ShopHeaderComponent implements OnInit, AfterContentChecked {
   }
 
   public checkout() {
-    const activeUsers = this._users.getUsersActive;
-    console.log({activeUsers});
+    const activeUser = this._users.getUsersActive;
+    console.log({activeUser});
 
-    if (activeUsers === null) {
+    if (activeUser === null) {
       this._dialog.showDialog({
         message: 'Please log in to continue'
       }, '300px', () => {
@@ -94,8 +94,10 @@ export class ShopHeaderComponent implements OnInit, AfterContentChecked {
     } else {
       // move to active users' carts
       // clear temp cart
-      // show dialog
-      // construct order - last
+      // route to checkout page
+      this._cartService.addToCart(
+        activeUser, this._cartService.getTempCartItems
+      );
       this._cartService.clearTempCart();
     }
   }
