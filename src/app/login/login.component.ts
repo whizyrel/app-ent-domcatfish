@@ -19,6 +19,7 @@ import { LoginService } from '../services/login.service';
 import { InitSnackbarService } from '../services/init-snackbar.service';
 import { LinksService } from '../services/links.service';
 import { LocalStorageService } from '../services/local-storage.service';
+import { DecEncService } from '../services/dec-enc.service';
 
 @Component({
   selector: 'app-login',
@@ -26,6 +27,7 @@ import { LocalStorageService } from '../services/local-storage.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  private seckey: string = 'app-ent-domcatfish';
   public loginform: FormGroup;
   private loginDetails: LoginProps;
 
@@ -35,6 +37,7 @@ export class LoginComponent implements OnInit {
   public submitted = false;
 
   private path: string;
+  private rtUrl: any;
 
   public color = 'primary';
   public mode = 'query';
@@ -54,10 +57,12 @@ export class LoginComponent implements OnInit {
     private _linksService: LinksService,
     private _loginService: LoginService,
     private _snackbarService: InitSnackbarService,
-    private _localStorage: LocalStorageService
+    private _localStorage: LocalStorageService,
+    private _decEnc: DecEncService
   ) {}
 
   ngOnInit() {
+    this.initRt();
     this.activatedRoute.parent.url.subscribe((URLSegment) => {
       let who = '';
       URLSegment.some((cur) => {
@@ -189,11 +194,28 @@ export class LoginComponent implements OnInit {
                       this._localStorage.setItem(crtstrttl, cartStore);
                     })();
 
-                this.who === 'user' && userDetails.accountType === 'client'
-                  ? this.router.navigate(['shop'], { replaceUrl: true })
-                  : this.router.navigate([this.who, 'dashboard'], {
-                      replaceUrl: true,
-                    });
+                // this.who === 'user' && userDetails.accountType === 'client'
+                //   ? this.router.navigate(['shop'], { replaceUrl: true })
+                //   : this.router.navigate([this.who, 'dashboard'], {
+                //       replaceUrl: true,
+                //     });
+
+                console.log('before route', {rtUrl: this.rtUrl, w: this.who});
+                this.who === 'user' ?
+                  (
+                    this.rtUrl === null ? this.router.navigate(['shop']) :
+                      this.router.navigate(
+                        this.rtUrl.path, {
+                          replaceUrl : true,
+                          queryParams: this.rtUrl.query
+                        })
+                  ) :
+                      this.rtUrl === null ?
+                        this.router.navigate([this.who, 'dashboard']) :
+                          this.router.navigate(this.rtUrl.path, {
+                            replaceUrl: true,
+                            queryParams: this.rtUrl.query
+                          });
 
                 this._snackbarService.showSnackBarFromComponent(
                   SnackbarmsgComponent,
@@ -244,11 +266,9 @@ export class LoginComponent implements OnInit {
         );
 
         // re-route to ideal place
-        this.who === 'user'
-          ? this.router.navigate(['shop'], { replaceUrl: true })
-          : this.router.navigate([this.who, 'dashboard'], {
-              replaceUrl: true,
-            });
+        this.who === 'user' ?
+          this.router.navigate(['shop'], {replaceUrl : true}) :
+            this.router.navigate([this.who, 'dashboard']);
       }
     }
   }
@@ -280,5 +300,38 @@ export class LoginComponent implements OnInit {
         }
       },
     };
+  }
+
+  private initRt() {
+    this.activatedRoute.queryParams.subscribe((params) => {
+      console.log({rt: params.rt, params});
+      const j: any = {};
+      this.rtUrl = this._decEnc.aesDecryption(params.rt, this.seckey) || null;
+
+      if (this.rtUrl.split('=')[0].includes('st')) {
+        j.path = (this.rtUrl
+          .split('?')[0]
+          .split('/'))
+          .map((cur, i) => {
+            if (cur !== '' && i === 0) {
+              return `/${cur}`;
+            } else {
+              return cur;
+            }
+          })
+          .filter((cur) => cur !== undefined);
+
+        const v = this.rtUrl.split('=')[1];
+        const r = this._decEnc.aesEncryption(v, this.seckey).toString();
+        console.log({r, v});
+        j.query = {st: r};
+      } else {
+        j.path = [this.rtUrl];
+      }
+
+      this.rtUrl = j;
+      console.log({rt: this.rtUrl, j});
+      // this.router.navigate(this.rtUrl.path, {queryParams: this.rtUrl.query});
+    });
   }
 }
