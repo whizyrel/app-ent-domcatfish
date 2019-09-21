@@ -12,6 +12,7 @@ header,
   header,
   .carousel {
     height: 100vh!important;
+    margin-top: 3.2rem;
   }
 /*   margin-top: none !important; */
 }
