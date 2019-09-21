@@ -94,6 +94,9 @@ export class ShopHeaderComponent implements OnInit, AfterContentChecked {
     } else {
       // move to active users' carts
       // clear temp cart
+      // show dialog
+      // construct order - last
+      this._cartService.clearTempCart();
     }
   }
 
