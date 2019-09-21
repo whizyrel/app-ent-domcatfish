@@ -32,3 +32,6 @@ p {
     margin-top: 7rem!important;
   }
 }
+.carousel-control-prev {
+    display: flex;
+}

@@ -14,8 +14,8 @@ import { HttpResponse } from '../interfaces/http-response';
   selector: 'app-product-fullview',
   templateUrl: './product-fullview.component.html',
   styleUrls: [
-    './css/style.min.css',
     './css/mdb.min.css',
+    './css/style.min.css',
     './product-fullview.component.css',
   ]
 })
