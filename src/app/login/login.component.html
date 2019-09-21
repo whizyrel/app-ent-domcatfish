@@ -52,7 +52,7 @@
               [type]="hide ? 'password' : 'text'"
               [ngClass]="{ 'is-invalid': submitted && status.password.errors }"
               required
-              autocomplete="current-password"
+              autocomplete
             />
             <mat-icon matSuffix (click)="hide = !hide">{{
               hide ? 'visibility_off' : 'visibility'
