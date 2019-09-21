@@ -17,6 +17,7 @@ import { ListUsersComponent } from './list-users/list-users.component';
 import { ListOrdersComponent } from './list-orders/list-orders.component';
 import { ListFeedbacksComponent } from './list-feedbacks/list-feedbacks.component';
 import { ProductFullviewComponent } from './product-fullview/product-fullview.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 import { DashboardAuthGuard } from './guards/dashboard-auth.guard';
 import { LoginAuthGuard } from './guards/login-auth.guard';
@@ -255,6 +256,11 @@ const routes: Routes = [
       {
         path: 'view',
         component: ProductFullviewComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'checkout',
+        component: CheckoutComponent,
         pathMatch: 'full',
       },
       {

@@ -44,6 +44,7 @@ import { ProductThumbnailComponent } from './product-thumbnail/product-thumbnail
 import { ProductFullviewComponent } from './product-fullview/product-fullview.component';
 import { ShopHeaderComponent } from './shop-header/shop-header.component';
 import { ShopFooterComponent } from './shop-footer/shop-footer.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 import { APIURLService } from './services/apiurl.service';
 import { LoginService } from './services/login.service';
@@ -90,7 +91,7 @@ import { ProductsHandler } from './common/products-handler';
     ProductThumbnailComponent,
     ProductFullviewComponent,
     ShopHeaderComponent,
-    ShopFooterComponent
+    ShopFooterComponent, CheckoutComponent
   ],
   imports: [
     BrowserModule.withServerTransition({
