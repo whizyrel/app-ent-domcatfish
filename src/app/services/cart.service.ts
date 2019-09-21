@@ -25,11 +25,7 @@ export class CartService {
   addToTempCart(info: CartProps) {
     let cartArr: CartProps[] = [];
 
-    const tmpCart: CartProps[] = JSON.parse(
-      this._localStorage.getItem(this.tmpcrtttl)
-    );
-
-    console.log({tmpCart});
+    const tmpCart: CartProps[] = this.getParsedCart(this.tmpcrtttl);
 
     tmpCart !== null && tmpCart !== undefined ?
       (() => {
