@@ -99,6 +99,7 @@ export class ShopHeaderComponent implements OnInit, AfterContentChecked {
         activeUser.dt.email, this._cartService.getTempCartItems
       );
       this._cartService.clearTempCart();
+      this.router.navigate(['/shop', 'checkout']);
     }
   }
 
