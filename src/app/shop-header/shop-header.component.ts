@@ -20,8 +20,8 @@ import { HttpResponse } from '../interfaces/http-response';
   selector: 'app-shop-header',
   templateUrl: './shop-header.component.html',
   styleUrls: [
-    './css/style.min.css',
     './css/mdb.min.css',
+    './css/style.min.css',
     './shop-header.component.css',
   ]
 })
