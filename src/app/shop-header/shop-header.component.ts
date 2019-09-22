@@ -107,7 +107,6 @@ OnInit, AfterContentChecked, AfterContentInit {
   }
 
   public deleteFromCart(e, id: string) {
-    console.log({e, id});
     e.stopPropagation();
     e.stopImmediatePropagation();
     this._cartService.deleteFromTempCart(JSON.parse(id));

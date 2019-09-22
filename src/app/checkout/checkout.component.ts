@@ -48,6 +48,5 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
 
   private calcTotal() {
     this.total = this.cart.reduce((acc, cur) => acc + cur.price, 0);
-    console.log({t: this.total});
   }
 }
