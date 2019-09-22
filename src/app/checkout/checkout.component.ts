@@ -19,6 +19,7 @@ import { SessStoreProps } from '../interfaces/sess-store-props';
 export class CheckoutComponent implements OnInit, AfterContentInit, AfterContentChecked {
   public cart: CartProps[];
   private activeUser: SessStoreProps;
+  public total: number = 0;
 
   constructor(
     private _cartService: CartService,
@@ -34,7 +35,7 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
   }
 
   ngAfterContentInit() {
-    setInterval(() => {}, 30000);
+    setInterval(() => {}, 15000);
   }
 
   private initCart() {
@@ -42,5 +43,11 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
       this.cart = this._cartService.getCartItems(this.activeUser.dt.email);
     }
     console.log({crt: this.cart});
+    this.calcTotal();
+  }
+
+  private calcTotal() {
+    this.total = this.cart.reduce((acc, cur) => acc + cur.price, 0);
+    console.log({t: this.total});
   }
 }
