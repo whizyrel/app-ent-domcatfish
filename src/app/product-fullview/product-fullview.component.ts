@@ -28,7 +28,6 @@ export class ProductFullviewComponent implements OnInit {
   private total: number = 0;
 
   public encURL: string;
-  public stateChanged: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -76,7 +75,5 @@ export class ProductFullviewComponent implements OnInit {
     };
 
     this._cartService.addToTempCart(cartInfo);
-
-    this.stateChanged = true;
   }
 }
