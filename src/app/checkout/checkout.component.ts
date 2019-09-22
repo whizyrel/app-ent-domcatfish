@@ -35,14 +35,13 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
   }
 
   ngAfterContentInit() {
-    setInterval(() => {}, 15000);
+    setInterval(() => {}, 5000);
   }
 
   private initCart() {
     if (this.activeUser !== null && this.activeUser !== null) {
       this.cart = this._cartService.getCartItems(this.activeUser.dt.email);
     }
-    console.log({crt: this.cart});
     this.calcTotal();
   }
 
