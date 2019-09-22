@@ -32,13 +32,14 @@
 
         <!-- Cart -->
         <ul class="list-group mb-3 z-depth-1">
-          <div *ngFor="let crt of cart;" class="">
-            <li class="list-group-item d-flex justify-content-between lh-condensed cursor-p">
-              <div>
+          <div *ngFor="let crt of cart;">
+            <li class="list-group-item d-flex justify-content-between lh-condensed cursor-p align-items-center" (click)="showFullDetails(crt.PID)">
+              <div class="w-100">
                 <h6 class="my-0">{{crt.title}}</h6>
-                <p class="dark-grey-text mg-r-p5">Quantity:</p><small class="text-muted text-truncate">{{crt.quantity}}</small>
+                <small class="text-muted w-100 d-flex mg-t-p5"><p class="d-flex dark-grey-text mg-r-p5 my-0">Quantity:</p>{{crt.quantity}}</small>
               </div>
               <span class="text-muted">{{ crt.price | currency:'NGN':'symbol-narrow' }}</span>
+              <i class="far fa-times-circle fa-2x mg-l-1" (click)="deleteFromCart(crt.PID)"></i>
             </li>
           </div>
 
