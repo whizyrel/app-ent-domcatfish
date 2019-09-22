@@ -13,6 +13,7 @@ import { DecEncService } from '../services/dec-enc.service';
 import { DialogService } from '../services/dialog.service';
 
 import { CartProps } from '../interfaces/cart-props';
+import { CartStoreProps } from '../interfaces/cart-store-props';
 import { SessStoreProps } from '../interfaces/sess-store-props';
 import { HttpResponse } from '../interfaces/http-response';
 
@@ -74,7 +75,6 @@ OnInit, AfterContentChecked, AfterContentInit {
 
   public checkout() {
     const activeUser = this._users.getUsersActive;
-    console.log({activeUser});
 
     if (activeUser === null) {
       this._dialog.showDialog({
@@ -93,10 +93,15 @@ OnInit, AfterContentChecked, AfterContentInit {
       // move to active users' carts
       // clear temp cart
       // route to checkout page
+      console.log({items: this._cartService.getTempCartItems});
+      const item: CartStoreProps = {
+        em: activeUser.dt.email, crt: this._cartService.getTempCartItems
+      };
+
       this._cartService.addToCart(
-        activeUser.dt.email, this._cartService.getTempCartItems
+        activeUser.dt.email, item
       );
-      this._cartService.clearTempCart();
+      // this._cartService.clearTempCart();
       this.router.navigate(['/shop', 'checkout']);
     }
   }
@@ -123,7 +128,6 @@ OnInit, AfterContentChecked, AfterContentInit {
     e.stopImmediatePropagation();
     // grap selected user index in session store
     const i = parseInt(el.id.split('-')[1]);
-    console.log(this._users.getUsersActive);
     this._users.switchUser(i);
     this.initActive();
     this.initInactive();
@@ -134,8 +138,6 @@ OnInit, AfterContentChecked, AfterContentInit {
     !Array.isArray(this._users.getUsersActive)
       ? (this.active = this._users.getUsersActive)
       : null;
-
-      console.log({active: this.active});
 
     this.active !== undefined &&
     this.active !== null &&
@@ -181,7 +183,6 @@ OnInit, AfterContentChecked, AfterContentInit {
       this._users.getUsersInactive !== undefined
     ) {
       this.inactive = this._users.getUsersInactive;
-      console.log({inactive: this.inactive});
 
       this.inactive.length >= 1 &&
       this.inactive !== null &&
@@ -217,7 +218,6 @@ OnInit, AfterContentChecked, AfterContentInit {
   }
 
   async inOutCtrl() {
-    // console.log(this.showActvUser);
     this.showActvUser === true
       ? (async () => {
           // log user out
@@ -228,7 +228,6 @@ OnInit, AfterContentChecked, AfterContentInit {
             console.log({err, done});
 
             if (err) {
-              console.log(`[error] logging out`, {err});
               // show dialog
               const dialogRef = this.dialog.open(DialogComponent, {
                 width: '250px',
