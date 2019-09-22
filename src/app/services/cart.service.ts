@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 
 import { LocalStorageService } from '../services/local-storage.service';
+import { UsersActiveInactiveService } from '../services/users-active-inactive.service';
 
 import { CartStoreProps } from '../interfaces/cart-store-props';
 import { CartProps } from '../interfaces/cart-props';
+import { SessStoreProps } from '../interfaces/sess-store-props';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +13,12 @@ import { CartProps } from '../interfaces/cart-props';
 export class CartService {
   private crtstrttl: string = 'crtstr';
   private tmpcrtttl: string = 'crt-tmp';
+  private activeUser: SessStoreProps;
 
-  constructor(private _localStorage: LocalStorageService) {}
+  constructor(
+    private _localStorage: LocalStorageService,
+    private _users: UsersActiveInactiveService
+  ) {}
 
   private getParsedCart(ttl: string) {
     return JSON.parse(this._localStorage.getItem(ttl));
@@ -37,6 +43,17 @@ export class CartService {
         cartArr.push(info);
         this._localStorage.setItem(this.tmpcrtttl, cartArr);
       })();
+
+      // if user is logged in add to perm cart
+      this.activeUser = this._users.getUsersActive;
+      if (
+        this.activeUser !== undefined &&
+        this.activeUser !== null
+      ) {
+        // add to perm cart
+        const {dt: {email}} = this.activeUser;
+        this.addToCart(email, {em: email, crt: tmpCart});
+      }
     console.log({tmpCart, cartArr, info});
   }
 
@@ -47,6 +64,17 @@ export class CartService {
       // remove one from ith position - array is left with rest of elements
       // and the removed is returned
       tmpCart.splice(i, 1);
+    }
+
+    // if user is logged in add to perm cart
+    this.activeUser = this._users.getUsersActive;
+    if (
+      this.activeUser !== undefined &&
+      this.activeUser !== null
+    ) {
+      // add to perm cart
+      const {dt: {email}} = this.activeUser;
+      this.addToCart(email, {em: email, crt: tmpCart});
     }
     // set others into localStorage
     this._localStorage.setItem(this.tmpcrtttl, tmpCart);

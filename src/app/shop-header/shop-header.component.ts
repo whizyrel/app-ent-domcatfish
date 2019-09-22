@@ -93,14 +93,14 @@ OnInit, AfterContentChecked, AfterContentInit {
       // move to active users' carts
       // clear temp cart
       // route to checkout page
-      console.log({items: this._cartService.getTempCartItems});
+      /*console.log({items: this._cartService.getTempCartItems});
       const item: CartStoreProps = {
         em: activeUser.dt.email, crt: this._cartService.getTempCartItems
-      };
+      };*/
 
-      this._cartService.addToCart(
+      /* this._cartService.addToCart(
         activeUser.dt.email, item
-      );
+      ); */
       // this._cartService.clearTempCart();
       this.router.navigate(['/shop', 'checkout']);
     }
@@ -115,7 +115,14 @@ OnInit, AfterContentChecked, AfterContentInit {
   }
 
   private async initCart () {
-    this.cart = this._cartService.getTempCartItems;
+    let permCart;
+    /* if (this.active !== undefined && this.active !== undefined) {
+      permCart = this._cartService.getCartItems(this.active.dt.email);
+      permCart.length < 1 ? permCart = null : permCart;
+    } else {
+      permCart = null;
+    } */
+    this.cart = /* permCart || */ this._cartService.getTempCartItems;
   }
 
   public showFullDetails(id) {
