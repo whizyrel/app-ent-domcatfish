@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit, AfterContentChecked } from '@angular/core';
 
 @Component({
   selector: 'app-checkout',
@@ -9,11 +9,20 @@ import { Component, OnInit } from '@angular/core';
     './checkout.component.css'
   ]
 })
-export class CheckoutComponent implements OnInit {
+export class CheckoutComponent implements OnInit, AfterContentInit, AfterContentChecked {
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  ngAfterContentChecked() {
+    this.initCart();
+  }
+
+  ngAfterContentInit() {
+    setInterval(() => {}, 30000);
+  }
+
+  private initCart() { }
 }
