@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterContentChecked, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterContentChecked, DoCheck, AfterViewChecked, AfterContentInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -25,7 +25,8 @@ import { HttpResponse } from '../interfaces/http-response';
     './shop-header.component.css',
   ]
 })
-export class ShopHeaderComponent implements OnInit, AfterContentChecked {
+export class ShopHeaderComponent implements
+OnInit, AfterContentChecked, AfterContentInit {
   @Input('url') public encURL: string;
 
   public title = `Debim`.toUpperCase();
@@ -59,19 +60,16 @@ export class ShopHeaderComponent implements OnInit, AfterContentChecked {
     private _decEnc: DecEncService
   ) { }
 
-  ngOnInit() {
-    this.initActive();
-    this.initInactive();
-    // this.initCart();
-  }
+  ngOnInit() { }
 
   ngAfterContentChecked() {
-    // if (
-    //   this.cart.length >= 1
-    // ) {
-      this.initCart();
-      // this.initActive();
-    // }
+    this.initCart();
+  }
+
+  ngAfterContentInit() {
+    setInterval(() => {}, 30000);
+    this.initActive();
+    this.initInactive();
   }
 
   public checkout() {
@@ -111,9 +109,8 @@ export class ShopHeaderComponent implements OnInit, AfterContentChecked {
     this.initCart();
   }
 
-  private initCart () {
+  private async initCart () {
     this.cart = this._cartService.getTempCartItems;
-    console.log({cart: this.cart});
   }
 
   public showFullDetails(id) {
