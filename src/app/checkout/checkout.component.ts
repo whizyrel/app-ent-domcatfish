@@ -1,5 +1,9 @@
 import { Component, OnInit, AfterContentInit, AfterContentChecked } from '@angular/core';
 
+import { CartService } from '../services/cart.service';
+import { CartStoreProps } from '../interfaces/cart-store-props';
+import { CartProps } from '../interfaces/cart-props';
+
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -11,7 +15,9 @@ import { Component, OnInit, AfterContentInit, AfterContentChecked } from '@angul
 })
 export class CheckoutComponent implements OnInit, AfterContentInit, AfterContentChecked {
 
-  constructor() { }
+  constructor(
+    private _cartService: CartService
+  ) { }
 
   ngOnInit() {
   }
