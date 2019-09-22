@@ -122,7 +122,7 @@ OnInit, AfterContentChecked, AfterContentInit {
     } else {
       permCart = null;
     } */
-    this.cart = /* permCart || */ this._cartService.getTempCartItems;
+    this.cart = this._cartService.getTempCartItems;
   }
 
   public showFullDetails(id) {
