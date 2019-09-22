@@ -45,6 +45,10 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
     this.calcTotal();
   }
 
+  public deleteFromCart(pid: string) {
+    console.log({pid});
+  }
+
   private calcTotal() {
     this.total = this.cart.reduce((acc, cur) => acc + cur.price, 0);
   }
