@@ -78,6 +78,7 @@ export class ShopGuard implements CanActivate {
 
                         // clear person's cart
                         this._cartService.clearCart(email);
+                        this._cartService.clearTempCart();
                         // set next Active before logout
                         this._users.setNextActive();
                       })()
