@@ -23,6 +23,7 @@ import { DashboardAuthGuard } from './guards/dashboard-auth.guard';
 import { LoginAuthGuard } from './guards/login-auth.guard';
 import { ShopGuard } from './guards/shop.guard';
 import { AddAccountGuard } from './guards/add-account.guard';
+import { CheckoutGuard } from './guards/checkout.guard';
 
 const routes: Routes = [
   {
@@ -262,6 +263,7 @@ const routes: Routes = [
         path: 'checkout',
         component: CheckoutComponent,
         pathMatch: 'full',
+        canActivate: [CheckoutGuard]
       },
       {
         path: '**',
