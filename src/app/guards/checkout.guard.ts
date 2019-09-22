@@ -3,7 +3,7 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from
 import { Observable } from 'rxjs';
 
 import { UsersActiveInactiveService } from '../services/users-active-inactive.service';
-import { CartService } from '../service/cart-service';
+import { CartService } from '../services/cart.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,18 +17,20 @@ export class CheckoutGuard implements CanActivate {
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    state: RouterStateSnapshot
+  ): Observable<boolean> | Promise<boolean> | boolean {
       // there is an active user handler
       // and filled permanent cart
       return new Promise((resolve, reject) => {
-        const activeUser = _users.getUsersActive;
+        const activeUser = this._users.getUsersActive;
         if (
           activeUser !== null &&
           activeUser !== undefined
         ) {
           const {dt: {email}} = activeUser;
 
-          const cart = this._cartService.getCartItems(email);
+          const cart = this._cartService.getCartItems(email); 
+          console.log('[checkout guard]', {cart});
 
           if (cart) {
             resolve(true);
@@ -43,6 +45,5 @@ export class CheckoutGuard implements CanActivate {
           this.router.navigate(['shop']);
         }
       });
-    return true;
   }
 }
