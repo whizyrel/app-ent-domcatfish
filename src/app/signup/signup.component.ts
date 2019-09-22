@@ -92,8 +92,6 @@ export class SignupComponent implements OnInit {
         : this.signupDet.phone
     }`;
 
-    console.log(this.signupDet.phone);
-
     if (!this.disableBtn() && this.submitted === false) {
       this._signupService.submitDetails(this.signupDet).subscribe(
         (data: HttpResponse) => {
@@ -112,7 +110,6 @@ export class SignupComponent implements OnInit {
             // route to shop
             this.router.navigate(['/shop']);
           }
-          console.log(data);
         },
         (error: HttpResponse) => {
           this.bufferValue = 100;
