@@ -68,7 +68,7 @@ OnInit, AfterContentChecked, AfterContentInit {
   }
 
   ngAfterContentInit() {
-    setInterval(() => {}, 5000);
+    setInterval(() => {}, 3000);
     this.initActive();
     this.initInactive();
   }

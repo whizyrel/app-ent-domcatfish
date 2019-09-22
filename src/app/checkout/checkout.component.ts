@@ -35,7 +35,7 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
   }
 
   ngAfterContentInit() {
-    setInterval(() => {}, 5000);
+    setInterval(() => {}, 3000);
   }
 
   private initCart() {
