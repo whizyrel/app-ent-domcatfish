@@ -15,16 +15,11 @@ export class DialogService {
   public showDialog(
     info,
     w: string = "250px",
-    action = () => console.log('The dialog was closed'),
     dgComp = DialogComponent
   ) {
     const dialogRef = this.dialog.open(dgComp, {
       width: w,
       data: info
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      action();
     });
   }
 }

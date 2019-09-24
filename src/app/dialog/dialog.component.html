@@ -8,7 +8,7 @@
   </div>
 
   <div mat-dialog-actions class="pd-p5">
-    <button mat-button cdkFocusInitial (click)="onClose()">Ok</button>
+    <button mat-button cdkFocusInitial [mat-dialog-close]="onAction()">ok</button>
   </div>
 </div>
 
@@ -17,7 +17,10 @@
     {{data.message}}
   </p>
 
-  <div mat-dialog-actions class="pd-p5">
-    <button mat-button cdkFocusInitial (click)="onClose()">Ok</button>
+  <div mat-dialog-actions class="pd-p5 w-100">
+    <div *ngIf="data.hasOwnProperty('close')" class="d-flex">
+      <button *ngIf="data.close" mat-button (click)="onExit()">close</button>
+    </div>
+    <button class="mg-l-auto" mat-button cdkFocusInitial [mat-dialog-close]="onAction()">ok</button>
   </div>
 </ng-template>

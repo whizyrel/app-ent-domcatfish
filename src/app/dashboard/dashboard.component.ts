@@ -96,7 +96,8 @@ export class DashboardComponent implements OnInit {
     }
 
     this._dialog.showDialog({
-      message: 'Sorry, the account selected is not an admin account'
+      message: 'Sorry, the account selected is not an admin account',
+      action: () => console.log('[diaog] closed')
     });
 
     // show snackbar for non admin
@@ -199,7 +200,10 @@ export class DashboardComponent implements OnInit {
             if (err) {
               console.log(`[error] logging out`, {err});
               // show dialog
-              this._dialog.showDialog({error: err});
+              this._dialog.showDialog({
+                error: err,
+                action: () => console.log('[dialog] closed successfully')
+              });
               return;
             }
             // set next Active before logout

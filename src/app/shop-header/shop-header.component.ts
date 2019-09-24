@@ -78,29 +78,22 @@ OnInit, AfterContentChecked, AfterContentInit {
 
     if (activeUser === null) {
       this._dialog.showDialog({
-        message: 'Please log in to continue'
-      }, '300px', () => {
-        // route to login
-        // consider return url
-        this.router.navigate(['/user', 'login'], {
-          queryParams: {
-            rt: this.encURL,
-          },
-          replaceUrl: true,
-        });
-      });
+        message: 'Please log in/signup to continue',
+        action: () => {
+          // route to login
+          // consider return url
+          this.router.navigate(['/user', 'login'], {
+            queryParams: {
+              rt: this.encURL,
+            },
+            replaceUrl: true,
+          });
+        },
+      }, '300px');
     } else {
       // move to active users' carts
       // clear temp cart
-      // route to checkout page
-      /*console.log({items: this._cartService.getTempCartItems});
-      const item: CartStoreProps = {
-        em: activeUser.dt.email, crt: this._cartService.getTempCartItems
-      };*/
-
-      /* this._cartService.addToCart(
-        activeUser.dt.email, item
-      ); */
+      // route to checkout
       // this._cartService.clearTempCart();
       this.router.navigate(['/shop', 'checkout']);
     }

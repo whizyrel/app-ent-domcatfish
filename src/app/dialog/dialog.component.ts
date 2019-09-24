@@ -13,12 +13,14 @@ export class DialogComponent {
     @Inject(MAT_DIALOG_DATA) public data
   ) {}
 
-  ngOnInit() {
-    console.log({data: this.data.message});
+  ngOnInit() { }
+
+  onAction() {
+    this.dialogRef.close();
+    this.data.action();
   }
 
-  onClose() {
+  onExit() {
     this.dialogRef.close();
   }
-
 }
