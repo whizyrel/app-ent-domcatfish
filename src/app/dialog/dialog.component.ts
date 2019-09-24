@@ -16,8 +16,8 @@ export class DialogComponent {
   ngOnInit() { }
 
   onAction() {
-    this.dialogRef.close();
     this.data.action();
+    this.dialogRef.close();
   }
 
   onExit() {

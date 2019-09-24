@@ -19,8 +19,8 @@
 
   <div mat-dialog-actions class="pd-p5 w-100">
     <div *ngIf="data.hasOwnProperty('close')" class="d-flex">
-      <button *ngIf="data.close" mat-button (click)="onExit()">close</button>
+      <button *ngIf="data.close" mat-button mat-dialog-close>close</button>
     </div>
-    <button class="mg-l-auto" mat-button cdkFocusInitial [mat-dialog-close]="onAction()">ok</button>
+    <button class="mg-l-auto" mat-button cdkFocusInitial (click)="onAction()">ok</button>
   </div>
 </ng-template>
