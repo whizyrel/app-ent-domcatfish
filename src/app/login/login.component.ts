@@ -14,12 +14,14 @@ import { HttpResponse } from '../interfaces/http-response';
 import { LinkProps } from '../interfaces/link-props';
 import { SessStoreProps } from '../interfaces/sess-store-props';
 import { CartStoreProps } from '../interfaces/cart-store-props';
+import { CartProps } from '../interfaces/cart-props';
 
 import { LoginService } from '../services/login.service';
 import { InitSnackbarService } from '../services/init-snackbar.service';
 import { LinksService } from '../services/links.service';
 import { LocalStorageService } from '../services/local-storage.service';
 import { DecEncService } from '../services/dec-enc.service';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-login',
@@ -58,7 +60,8 @@ export class LoginComponent implements OnInit {
     private _loginService: LoginService,
     private _snackbarService: InitSnackbarService,
     private _localStorage: LocalStorageService,
-    private _decEnc: DecEncService
+    private _decEnc: DecEncService,
+    private _cartService: CartService
   ) {}
 
   ngOnInit() {
@@ -187,9 +190,11 @@ export class LoginComponent implements OnInit {
                       this._localStorage.setItem(crtstrttl, cartStoreArray);
                     })()
                   : (() => {
+                      // get possible previous cart and add
+                      const crt: CartProps[] = this._cartService.getCartItems(userDetails.email);
                       cartStore.push({
                         em: userDetails.email,
-                        crt: [],
+                        crt,
                       });
                       this._localStorage.setItem(crtstrttl, cartStore);
                     })();
