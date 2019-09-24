@@ -37,6 +37,7 @@ export class LogoutService {
 
         // clear cart
         this._cartService.clearCart(email);
+        this._cartService.clearTempCart();
         // inactive users
         const inactive = this._users.getUsersInactive;
 
