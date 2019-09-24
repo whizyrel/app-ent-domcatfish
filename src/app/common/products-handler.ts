@@ -7,8 +7,6 @@ export class ProductsHandler {
     let buffer = [];
     let err;
 
-    // console.log(`[bufferer] at begining`, {buffer, docs});
-
     // wrapper around docs
     if (docs !== null && docs !== undefined) {
       docs.forEach((cur, i) => {
@@ -20,22 +18,14 @@ export class ProductsHandler {
            buffer = [];
          }
 
-         // worst case: i + 1 % size !== 0,
-         // i === docs length || i + 1 > docs.length
-        // console.log({1: (i % size) !== 0 , 2: i  === (docs.length)});
          if (
               (i % size) !== 0
               && i  === (docs.length)
             ) {
-           // console.log('less than size');
-           // console.log({1: (i % size) !== 0 , 2: i  === (docs.length)});
            splittedProd.push(buffer);
          }
-
-         // console.log({buffer, size: size, i});
       });
       err = null;
-      console.log({splittedProd, err});
       cb(err, splittedProd);
       return;
     }
