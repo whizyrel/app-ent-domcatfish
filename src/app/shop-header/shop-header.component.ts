@@ -102,7 +102,7 @@ OnInit, AfterContentChecked, AfterContentInit {
   public deleteFromCart(e, id: string) {
     e.stopPropagation();
     e.stopImmediatePropagation();
-    this._cartService.deleteFromTempCart(JSON.parse(id));
+    this._cartService.deleteFromTempCart(parseInt(id));
     this.initCart();
   }
 
