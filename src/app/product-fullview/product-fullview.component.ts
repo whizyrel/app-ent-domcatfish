@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { DecEncService } from '../services/dec-enc.service';
 import { ProductsService } from '../services/products.service';
 import { LocalStorageService } from '../services/local-storage.service';
 import { CartService } from '../services/cart.service';
+import { DialogService } from '../services/dialog.service';
+import { UsersActiveInactiveService } from '../services/users-active-inactive.service';
 
 import { ProductsProps } from '../interfaces/products-props';
 import { CartProps } from '../interfaces/cart-props';
@@ -30,11 +32,14 @@ export class ProductFullviewComponent implements OnInit {
   public encURL: string;
 
   constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private _decEnc: DecEncService,
     private _productsService: ProductsService,
     private _localStorage: LocalStorageService,
-    private _cartService: CartService
+    private _cartService: CartService,
+    private _dialog: DialogService,
+    private _users: UsersActiveInactiveService
   ) { }
 
   async ngOnInit() {
@@ -75,5 +80,37 @@ export class ProductFullviewComponent implements OnInit {
     };
 
     this._cartService.addToTempCart(cartInfo);
+    this._dialog.showDialog({
+      message: 'Would you like to proceed to checkout?',
+      close: true,
+      action: () => {
+        // route to login
+        // consider return url
+        this.checkout();
+      },
+    }, '300px');
+  }
+
+  private checkout() {
+    const activeUser = this._users.getUsersActive;
+
+    if (activeUser === null) {
+      this._dialog.showDialog({
+        message: 'Please log in/signup to continue',
+        action: () => {
+          this.router.navigate(['/user', 'login'], {
+            queryParams: {
+              rt: this.encURL,
+            },
+            replaceUrl: true,
+          });
+        }
+      }, '300px');
+    } else {
+      // move to active users' carts
+      // clear temp cart
+      // route to checkout page
+      this.router.navigate(['/shop', 'checkout']);
+    }
   }
 }
