@@ -61,7 +61,10 @@ OnInit, AfterContentChecked, AfterContentInit {
     private _decEnc: DecEncService
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.initActive();
+    this.initInactive();
+  }
 
   ngAfterContentChecked() {
     this.initCart();
@@ -107,13 +110,6 @@ OnInit, AfterContentChecked, AfterContentInit {
   }
 
   private async initCart () {
-    let permCart;
-    /* if (this.active !== undefined && this.active !== undefined) {
-      permCart = this._cartService.getCartItems(this.active.dt.email);
-      permCart.length < 1 ? permCart = null : permCart;
-    } else {
-      permCart = null;
-    } */
     this.cart = this._cartService.getTempCartItems;
   }
 
@@ -228,13 +224,9 @@ OnInit, AfterContentChecked, AfterContentInit {
 
             if (err) {
               // show dialog
-              const dialogRef = this.dialog.open(DialogComponent, {
-                width: '250px',
-                data: {error: err}
-              });
-
-              dialogRef.afterClosed().subscribe(result => {
-                console.log('The dialog was closed');
+              const dialogRef = this._dialog.showDialog({
+                data: {error: err},
+                action: () => console.log('[dialog] closed successfully'),
               });
               return;
             }
@@ -254,7 +246,7 @@ OnInit, AfterContentChecked, AfterContentInit {
         })()
       : (() => {
           // route to login page
-          this.router.navigate(['user/login'], {
+          this.router.navigate(['/user', 'login'], {
             skipLocationChange: false,
             replaceUrl: false,
             queryParams: {
