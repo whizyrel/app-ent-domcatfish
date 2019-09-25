@@ -45,10 +45,7 @@ export class ProductFullviewComponent implements OnInit {
   async ngOnInit() {
     await this.activatedRoute.queryParams.subscribe(async (param) => {
       const { st } = param;
-      console.log({st});
-
       this.pid = this._decEnc.aesDecryption(st.toString(), this.seckey);
-      console.log({pid: this.pid});
       await this.getProductDetails(this.pid);
       this.encURL = this._decEnc.aesEncryption(`/shop/view?st=${this.pid}`, this.seckey);
     });
@@ -61,7 +58,6 @@ export class ProductFullviewComponent implements OnInit {
       async (data: HttpResponse) => {
         this.info = await data.doc;
         this.imgs = data.doc.imgs;
-        console.log({doc: this.info});
       },
       (error: HttpResponse) => {
         console.error({error});
@@ -93,6 +89,7 @@ export class ProductFullviewComponent implements OnInit {
 
   private checkout() {
     const activeUser = this._users.getUsersActive;
+    this.encURL = this._decEnc.aesEncryption(`/shop/checkout`, this.seckey);
 
     if (activeUser === null) {
       this._dialog.showDialog({
