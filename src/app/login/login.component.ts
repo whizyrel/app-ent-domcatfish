@@ -177,21 +177,20 @@ export class LoginComponent implements OnInit {
                 const cartStore: CartStoreProps[] | null = JSON.parse(
                   this._localStorage.getItem(crtstrttl)
                 );
+                const crt: CartProps[] = this._cartService.getTempCartItems;
 
-                // console.log(cartStore);
+                console.log({crt});
 
                 cartStore === null || cartStore === undefined
                   ? (() => {
-                      // console.log(`fresh pushing`);
                       cartStoreArray.push({
                         em: userDetails.email,
-                        crt: [],
+                        crt: crt,
                       });
                       this._localStorage.setItem(crtstrttl, cartStoreArray);
                     })()
                   : (() => {
                       // get possible previous cart and add
-                      const crt: CartProps[] = this._cartService.getCartItems(userDetails.email);
                       cartStore.push({
                         em: userDetails.email,
                         crt,
