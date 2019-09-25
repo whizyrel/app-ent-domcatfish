@@ -25,7 +25,14 @@ export class CartService {
   }
 
   get getTempCartItems(): CartProps[] {
-    return this.getParsedCart(this.tmpcrtttl);
+    const crt: CartProps[] = this.getParsedCart(this.tmpcrtttl);
+
+    return (
+      crt === null ||
+      crt === undefined ?
+        [] :
+          crt
+    );
   }
 
   addToTempCart(info: CartProps) {
@@ -53,6 +60,8 @@ export class CartService {
         // add to perm cart
         const {dt: {email}} = this.activeUser;
         this.addToCart(email, {em: email, crt: tmpCart});
+        const permCart: CartProps[] = this.getCartItems(email);
+        console.log({email, permCart});
       }
     console.log({tmpCart, cartArr, info});
   }
