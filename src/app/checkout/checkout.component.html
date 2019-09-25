@@ -1,29 +1,15 @@
-<app-shop-header url="{{ encURL }}">
+<app-shop-header>
 </app-shop-header>
 
 <!--Main layout-->
 <main class="mt-5 pt-4">
   <div class="container wow fadeIn">
     <!-- Heading -->
-    <h2 class="my-5 h2 text-center">Checkout form</h2>
+    <h2 class="my-5 h4 text-center title">Checkout/Pay</h2>
     <!--Grid row-->
     <div class="row">
       <!--Grid column-->
-      <div class="col-md-8 mb-4">
-        <!--Card-->
-        <form class="">
-          <mat-card>
-            <mat-card-content>
-              <p>hello</p>
-            </mat-card-content>
-          </mat-card>
-        </form>
-        <!--Card-->
-      </div>
-      <!--Grid column-->
-
-      <!--Grid column-->
-      <div class="col-md-4 mb-4">
+      <div class="col-md-5 mb-4">
         <!-- Heading -->
         <h4 class="d-flex justify-content-between align-items-center mb-3">
           <span class="text-muted">Your cart</span>
@@ -52,12 +38,110 @@
         <!-- Cart -->
       </div>
       <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-7 mb-4">
+        <!--Card-->
+        <form class="w-100" [formGroup]="checkoutform" (ngSubmit)="onSubmit()">
+          <mat-card>
+            <mat-card-content>
+              <div class="row d-block">
+                <p>Name</p>
+                <p>Billing address</p>
+              </div>
+              <!-- Card number -->
+              <div class="form-row row">
+                <div class="col-sm-12 w-100">
+                  <mat-form-field  class="w-100" appearance="outline">
+                    <mat-label>Card Number</mat-label>
+                    <input
+                      matInput
+                      formControlName="cardnumber"
+                      placeholder="name@example.com"
+                      class="form-control-sm"
+                      type="number"
+                      required
+                      autocomplete
+                    />
+                    <mat-icon matSuffix>alternate_email</mat-icon>
+                    <mat-error *ngIf="status.cardnumber.invalid">{{
+                      getErrorMessage().cardnumberError()
+                    }}</mat-error>
+                    <!-- <mat-hint>Hint</mat-hint> -->
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="form-row row">
+                <!-- expiry -->
+                <div class="col-6">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Expiry</mat-label>
+                    <input
+                      matInput
+                      formControlName="expiry"
+                      placeholder="name@example.com"
+                      class="form-control-sm"
+                      type="number"
+                      required
+                      autocomplete
+                    />
+                    <mat-icon matSuffix>alternate_email</mat-icon>
+                    <mat-error *ngIf="status.expiry.invalid">{{
+                      getErrorMessage().expiryError()
+                    }}</mat-error>
+                    <!-- <mat-hint>Hint</mat-hint> -->
+                  </mat-form-field>
+                </div>
+
+                <!-- cvv -->
+                <div class="col-6">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>CVV</mat-label>
+                    <input
+                      matInput
+                      formControlName="cvv"
+                      placeholder="name@example.com"
+                      class="form-control-sm"
+                      type="number"
+                      required
+                      autocomplete
+                    />
+                    <mat-icon matSuffix>alternate_email</mat-icon>
+                    <mat-error *ngIf="status.cvv.invalid">{{
+                      getErrorMessage().cvvError()
+                    }}</mat-error>
+                    <!-- <mat-hint>Hint</mat-hint> -->
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <!-- button -->
+              <div class="row w-100">
+                <mat-card-actions class="w-100 d-flex m-l-auto">
+                  <button
+                    mat-raised-button
+                    color=""
+                    type="submit"
+                    [disabled]="disableBtn()"
+                    class="mg-l-auto"
+                  >
+                    Sign up
+                  </button>
+                </mat-card-actions>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </form>
+        <!--Card-->
+      </div>
+      <!--Grid column-->
     </div>
     <!--Grid row-->
   </div>
 </main>
 
 <!-- floating button -->
-<button class="btn btn-outline-primary shop-btn pd-t-p5 pd-b-p5 pd-l-1 pd-r-1"><a class="w-100 h-100" [routerLink]="['../']"><i class="fas fa-hand-point-left fa-1x mg-r-1"></i>shop</a></button>
+<button class="btn btn-outline-primary shop-btn pd-t-p5 pd-b-p5 pd-l-1 pd-r-1"><a class="w-100 h-100" [routerLink]="['../']"><i class="fas fa-hand-point-left fa-1x mg-r-1"></i>continue shopping</a></button>
 <app-shop-footer>
 </app-shop-footer>
