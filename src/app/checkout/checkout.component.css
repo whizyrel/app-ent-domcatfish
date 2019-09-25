@@ -4,3 +4,9 @@
   bottom: 15px;
   left: 15px;
 }
+
+@media (max-width: 576px) {
+  .title {
+    margin-top: 5em!important;
+  }
+}
