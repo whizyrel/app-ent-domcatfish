@@ -77,13 +77,14 @@ export class ProductFullviewComponent implements OnInit {
 
     this._cartService.addToTempCart(cartInfo);
     this._dialog.showDialog({
-      message: 'Would you like to proceed to checkout?',
+      message: 'Would you like to checkout/pay?',
       close: true,
       action: () => {
         // route to login
         // consider return url
         this.checkout();
       },
+      exitInfo: 'click the cart icon to view contents of the cart and checkout/pay',
     }, '300px');
   }
 
