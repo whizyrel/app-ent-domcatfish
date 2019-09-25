@@ -29,7 +29,6 @@ export class ProductsService {
 
   getProductDetails(id: string): Observable<Object> {
     const _url = `${this.productUrls.details}${id}`;
-    console.log({_url});
     return this._httpClient.put<Object>(_url, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

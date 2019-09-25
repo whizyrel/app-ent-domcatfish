@@ -44,7 +44,6 @@ export class ShopGuard implements CanActivate {
         const actvUser: SessStoreProps = /*ions.find(
           (cur) => cur.active === true
         );*/ this._users.getUsersActive;
-        console.log({actvUser});
 
         actvUser !== null && actvUser !== undefined
           ? (() => {
@@ -59,7 +58,6 @@ export class ShopGuard implements CanActivate {
 
               this._sessVal.valSession(sessid).subscribe(
                 (data: ValSessRespProps) => {
-                  console.log(data);
                   data.message === true ? resolve(true) : resolve(true);
                 },
                 (error: ValSessRespProps) => {

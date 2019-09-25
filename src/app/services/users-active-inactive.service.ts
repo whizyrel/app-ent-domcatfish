@@ -20,7 +20,6 @@ export class UsersActiveInactiveService {
 
   get getUsersActive(): SessStoreProps {
     const users: SessStoreProps[] | null = this.getIonStore;
-    console.log(users);
 
     // returns an object
     return users === undefined || users === null || users.length < 1
@@ -53,7 +52,6 @@ export class UsersActiveInactiveService {
           // get all inactives
           const inactive: SessStoreProps[] = this.getUsersInactive;
           console.log(`[setNextActive]`);
-          console.log(`inactives from usersActvInactvs`, {inactive});
 
           // change nextActive in all inactive user to active
           // change first element in inactive users only
@@ -70,7 +68,6 @@ export class UsersActiveInactiveService {
                 cur.active = true;
               }
             // }
-            // console.log(`inactives from usersActvInactvs`, {i});
           });
 
           // save into local storage
@@ -83,19 +80,15 @@ export class UsersActiveInactiveService {
     // grab index, all users
     const users = this.allUsers;
     const {index: i} = this.getUsersActive;
-    console.log({users, i});
 
     // users can never be null, undefined || length of 0
     // set other active to false
     if (users !== null && users !== undefined && users.length > 0) {
-      // console.log(`[switch users] users list`, {users});
-
       users[i].active = false;
       users[index].active = true;
       // save into ions store;
       this._localStorage.setItem('ionstr', users);
     }
-    console.log({users});
     // set this index to true;
   }
 
