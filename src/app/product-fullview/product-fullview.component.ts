@@ -7,6 +7,9 @@ import { LocalStorageService } from '../services/local-storage.service';
 import { CartService } from '../services/cart.service';
 import { DialogService } from '../services/dialog.service';
 import { UsersActiveInactiveService } from '../services/users-active-inactive.service';
+import { InitSnackbarService } from '../services/init-snackbar.service';
+
+import { SnackbarmsgComponent } from '../snackbarmsg/snackbarmsg.component';
 
 import { ProductsProps } from '../interfaces/products-props';
 import { CartProps } from '../interfaces/cart-props';
@@ -39,7 +42,8 @@ export class ProductFullviewComponent implements OnInit {
     private _localStorage: LocalStorageService,
     private _cartService: CartService,
     private _dialog: DialogService,
-    private _users: UsersActiveInactiveService
+    private _users: UsersActiveInactiveService,
+    private _snackbar: InitSnackbarService
   ) { }
 
   async ngOnInit() {
@@ -63,7 +67,7 @@ export class ProductFullviewComponent implements OnInit {
         console.error({error});
         // show modal
       }
-    )
+    );
   }
 
   addToCart(qty: string) {
@@ -84,8 +88,14 @@ export class ProductFullviewComponent implements OnInit {
         // consider return url
         this.checkout();
       },
-      exitInfo: 'click the cart icon to view contents of the cart and checkout/pay',
     }, '300px');
+    this
+      ._snackbar
+      .showSnackBarFromComponent(
+        SnackbarmsgComponent,
+        'click the cart icon to view cart and checkout/pay',
+        15000
+      );
   }
 
   private checkout() {
