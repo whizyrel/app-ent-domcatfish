@@ -92,6 +92,7 @@ export class UsersActiveInactiveService {
     // set this index to true;
   }
 
+  // wrong imp, cur.dt.accountType === 'admin'
   public isAdmin(i: number) {
     const users = this.allUsers;
     return users[i].active === true ? true : false;
