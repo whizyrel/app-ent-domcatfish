@@ -29,6 +29,7 @@ import { HttpResponse } from '../interfaces/http-response';
 export class ShopHeaderComponent implements
 OnInit, AfterContentChecked, AfterContentInit {
   @Input('url') public encURL: string;
+  @Input('c-btn') public checkBtn: boolean;
 
   public title = `Debim`.toUpperCase();
 
