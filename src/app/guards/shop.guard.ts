@@ -41,9 +41,7 @@ export class ShopGuard implements CanActivate {
 
         // implemented active user and undefined check below
         // use usersActive... service
-        const actvUser: SessStoreProps = /*ions.find(
-          (cur) => cur.active === true
-        );*/ this._users.getUsersActive;
+        const actvUser: SessStoreProps = this._users.getUsersActive;
 
         actvUser !== null && actvUser !== undefined
           ? (() => {
@@ -69,9 +67,7 @@ export class ShopGuard implements CanActivate {
                         // clear session
                         this._localStorage.setItem(
                           ionstrttl,
-                          ions.filter((cur) => {
-                            return cur.active === false;
-                          })
+                          this._users.getUsersInactive
                         );
 
                         // clear person's cart
