@@ -32,7 +32,6 @@ export class DashboardAuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     const role: string = route.data.role;
-    const DBName: string = 'str';
     const ionstrttl: string = 'ionstr';
 
     return new Promise((resolve, reject) => {
@@ -97,6 +96,7 @@ export class DashboardAuthGuard implements CanActivate {
 
                         // clear person's cart
                         this._cartService.clearCart(email);
+                        this._cartService.clearTempCart();
                         // set next inactive as active
                         this._users.setNextActive();
                       })()
