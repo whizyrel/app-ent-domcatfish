@@ -20,7 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -67,6 +67,7 @@ import { DialogService } from './services/dialog.service';
 import { AddProductsForm } from './add-products/add-products-form';
 import { SignupForm } from './signup/signup-form';
 import { ProductsHandler } from './common/products-handler';
+import { AdminRoutes, ClientRoutes, ShopRoutes } from './common/route-list';
 
 @NgModule({
   declarations: [
@@ -135,7 +136,10 @@ import { ProductsHandler } from './common/products-handler';
     RetrievePasswordService,
     ProductsService,
     DecEncService,
-    AddProductsForm, DialogService, ProductsHandler, SignupForm
+    DialogService,
+    AddProductsForm,
+    ProductsHandler, SignupForm,
+    AdminRoutes, ClientRoutes, ShopRoutes
   ],
   bootstrap: [AppComponent],
   entryComponents: [
