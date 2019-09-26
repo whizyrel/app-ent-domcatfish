@@ -24,9 +24,10 @@ export class DialogComponent {
   }
 
   onExit() {
+    console.log({i: this.data.exitInfo});
     if (this.data.exitInfo) {
       this._snackBar.showSnackBarFromMsg(this.data.exitInfo, 1000);
     }
-    this.dialogRef.close();
+    // this.dialogRef.close();
   }
 }

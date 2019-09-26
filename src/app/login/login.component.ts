@@ -79,7 +79,6 @@ export class LoginComponent implements OnInit {
       this.who = who.toLowerCase();
       this.links = this._linksService.getLoginBottomLinks(this.who);
       this.activeLink = this.links[0].link;
-      // console.log({URLSegment: Array.from(URLSegment), who});
     });
     this.loginform = this.formBuilder.group({
       email: new FormControl('', [
@@ -112,7 +111,6 @@ export class LoginComponent implements OnInit {
 
       window.localStorage.setItem('md', this.who);
       const ps = JSON.parse(this._localStorage.getItem(ionstrttl));
-      console.log({ps});
 
       // ps.length < 1 when no user is logged-in
       if (ps === null) {
@@ -173,19 +171,17 @@ export class LoginComponent implements OnInit {
                 // considered add-account-login
                 // if crtstr === null do previous else push new into it
                 // get cartStore first
-                // console.log(`setting cart store`);
                 const cartStore: CartStoreProps[] | null = JSON.parse(
                   this._localStorage.getItem(crtstrttl)
                 );
                 const crt: CartProps[] = this._cartService.getTempCartItems;
-
-                console.log({crt});
+                console.log('login', {crt});
 
                 cartStore === null || cartStore === undefined
                   ? (() => {
                       cartStoreArray.push({
                         em: userDetails.email,
-                        crt: crt,
+                        crt,
                       });
                       this._localStorage.setItem(crtstrttl, cartStoreArray);
                     })()
@@ -198,13 +194,8 @@ export class LoginComponent implements OnInit {
                       this._localStorage.setItem(crtstrttl, cartStore);
                     })();
 
-                // this.who === 'user' && userDetails.accountType === 'client'
-                //   ? this.router.navigate(['shop'], { replaceUrl: true })
-                //   : this.router.navigate([this.who, 'dashboard'], {
-                //       replaceUrl: true,
-                //     });
+                console.log({l: this._cartService.getCartItems(userDetails.email)});
 
-                console.log('before route', {rtUrl: this.rtUrl, w: this.who});
                 this.who === 'user' ?
                   (
                     this.rtUrl === null ? this.router.navigate(['shop']) :
@@ -235,7 +226,7 @@ export class LoginComponent implements OnInit {
               this._response = error.error;
               this.submitted = false;
 
-              console.log(error);
+              console.log({error});
 
               // handled no network error
               error.status === 0
@@ -259,8 +250,6 @@ export class LoginComponent implements OnInit {
         this.bufferValue = 100;
         this.value = 100;
         this.queryBar = false;
-
-        console.log('[here] user exist');
 
         // notify through snackbar
         await this._snackbarService.showSnackBarFromComponent(
@@ -308,7 +297,6 @@ export class LoginComponent implements OnInit {
 
   private initRt() {
     this.activatedRoute.queryParams.subscribe((params) => {
-      console.log({rt: params.rt, params});
       const j: any = {};
       this.rtUrl = this._decEnc.aesDecryption(params.rt, this.seckey) || null;
 
@@ -327,15 +315,12 @@ export class LoginComponent implements OnInit {
 
         const v = this.rtUrl.split('=')[1];
         const r = this._decEnc.aesEncryption(v, this.seckey).toString();
-        console.log({r, v});
         j.query = {st: r};
       } else {
         j.path = [this.rtUrl];
       }
 
       this.rtUrl = j;
-      console.log({rt: this.rtUrl, j});
-      // this.router.navigate(this.rtUrl.path, {queryParams: this.rtUrl.query});
     });
   }
 }

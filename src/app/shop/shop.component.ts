@@ -112,7 +112,6 @@ export class ShopComponent implements OnInit {
   public pageHandler(i: number) {
     const right = this.pageButtons.right;
     const left = this.pageButtons.left;
-    console.log({i});
     // use length instead
 
     // i > 0 means go right, as long as page Index
@@ -122,7 +121,7 @@ export class ShopComponent implements OnInit {
       // while going right, make visible left as long as it
       // is hidden
       if (left.classList.contains('d-none')) {
-        this.togglePaginators('left')
+        this.togglePaginators('left');
       };
     }
 

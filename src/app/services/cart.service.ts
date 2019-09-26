@@ -26,13 +26,12 @@ export class CartService {
 
   get getTempCartItems(): CartProps[] {
     const crt: CartProps[] = this.getParsedCart(this.tmpcrtttl);
+    console.log({crt});
 
-    return (
-      crt === null ||
+    return crt === null ||
       crt === undefined ?
         [] :
-          crt
-    );
+          crt;
   }
 
   addToTempCart(info: CartProps) {
@@ -61,9 +60,9 @@ export class CartService {
         const {dt: {email}} = this.activeUser;
         this.addToCart(email, {em: email, crt: tmpCart});
         const permCart: CartProps[] = this.getCartItems(email);
-        console.log({email, permCart});
+        console.log({permCart});
       }
-    console.log({tmpCart, cartArr, info});
+    console.log({tmpCart, cartArr});
   }
 
   deleteFromTempCart(i: number) {
@@ -74,6 +73,7 @@ export class CartService {
       // and the removed is returned
       tmpCart.splice(i, 1);
     }
+    console.log({tmpCart});
 
     // if user is logged in add to perm cart
     this.activeUser = this._users.getUsersActive;
@@ -84,7 +84,10 @@ export class CartService {
       // add to perm cart
       const {dt: {email}} = this.activeUser;
       this.addToCart(email, {em: email, crt: tmpCart});
+      const permCart: CartProps[] = this.getCartItems(email);
+      console.log({permCart});
     }
+    console.log({tmpCart});
     // set others into localStorage
     this._localStorage.setItem(this.tmpcrtttl, tmpCart);
   }
@@ -138,6 +141,8 @@ export class CartService {
             ? (() => {
                 // access user's item in cart store
                 const { em, crt: cartItems } = cartStore[index];
+
+                console.log({cartStore, cartItems, index, em});
 
                 // push obj into cartItems
                 cartItems.push(obj);
