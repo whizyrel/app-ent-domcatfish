@@ -22,7 +22,6 @@ export class AddAccountGuard implements CanActivate {
       // get user active, pay attention to null and undefined case
       const actvUser: SessStoreProps = this._users.getUsersActive;
 
-      console.log({url: state.url, string: state.toString()});
       if (actvUser !== null && actvUser !== undefined) {
         resolve(true);
       } else {

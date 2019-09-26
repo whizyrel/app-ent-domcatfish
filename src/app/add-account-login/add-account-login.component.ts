@@ -80,7 +80,6 @@ export class AddAccountLoginComponent implements OnInit {
     // grab URLSegment
     this.activatedRoute.parent.parent.url.subscribe((URLSegment) => {
       let who = '';
-      console.log(Array.from(URLSegment));
       URLSegment.some((cur) => {
         return cur.path === 'user';
       })
