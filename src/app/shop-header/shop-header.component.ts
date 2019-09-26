@@ -69,12 +69,12 @@ OnInit, AfterContentChecked, AfterContentInit {
 
   ngAfterContentChecked() {
     this.initCart();
+    this.initActive();
+    this.initInactive();
   }
 
   ngAfterContentInit() {
     setInterval(() => {}, 10000);
-    this.initActive();
-    this.initInactive();
   }
 
   public checkout() {
