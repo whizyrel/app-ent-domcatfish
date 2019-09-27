@@ -35,19 +35,24 @@ export class CartService {
   }
 
   addToTempCart(info: CartProps) {
-    let cartArr: CartProps[] = [];
+    const cartArr: CartProps[] = [];
 
     const tmpCart: CartProps[] = this.getParsedCart(this.tmpcrtttl);
+    console.log('firstof', {tmpCart});
 
     tmpCart !== null && tmpCart !== undefined ?
       (() => {
         // push into tmpCart and set
         tmpCart.push(info);
         this._localStorage.setItem(this.tmpcrtttl, tmpCart);
+        console.log({tmpCart});
+        console.log('defined case [after push]', {tmpCart: this.getParsedCart(this.tmpcrtttl)});
       })() :
       (() => {
         cartArr.push(info);
+        console.log('tmp null case', {cartArr});
         this._localStorage.setItem(this.tmpcrtttl, cartArr);
+        console.log('null case [after push]', {tmpCart: this.getParsedCart(this.tmpcrtttl)});
       })();
 
       // if user is logged in add to perm cart
@@ -58,7 +63,8 @@ export class CartService {
       ) {
         // add to perm cart
         const {dt: {email}} = this.activeUser;
-        this.addToCart(email, {em: email, crt: tmpCart});
+        // iterate through, add el of tmpCart one at a time
+        tmpCart['forEach'](async (cur) => await this.addToCart(email, cur));
         const permCart: CartProps[] = this.getCartItems(email);
         console.log({permCart});
       }
@@ -83,7 +89,8 @@ export class CartService {
     ) {
       // add to perm cart
       const {dt: {email}} = this.activeUser;
-      this.addToCart(email, {em: email, crt: tmpCart});
+      // iterate through, add el of tmpCart one at a time
+      tmpCart['forEach'](async (cur) => await this.addToCart(email, cur));
       const permCart: CartProps[] = this.getCartItems(email);
       console.log({permCart});
     }
@@ -120,7 +127,7 @@ export class CartService {
     return cartArray;
   }
 
-  addToCart(em: string, obj: CartStoreProps) {
+  addToCart(em: string, obj: CartProps) {
     let index: number;
 
     const cartStore: CartStoreProps = JSON.parse(
@@ -151,19 +158,19 @@ export class CartService {
                 cartStore[index]['crt'] = cartItems;
 
                 // stringify and save cartStore
-                this._localStorage.setItem(this.crtstrttl, cartItems);
+                this._localStorage.setItem(this.crtstrttl, cartStore);
               })()
             : (() => {
                 const arr: object[] = [];
-                const cartObj: object = {};
+                const cartObj: object = {em, crt: []};
 
                 arr.push(obj);
-                const cart: object[] = arr;
 
-                cartObj[em] = arr;
+                cartObj['crt'] = arr;
                 const cartItems: object = cartObj;
 
                 this._localStorage.setItem(this.crtstrttl, cartItems);
+                console.log('rare case', cartItems);
               })();
         })()
       : null;
@@ -203,15 +210,18 @@ export class CartService {
 
     // filter carts different from user. cart store can never be undefined || null
     console.log({cartStore});
-    const othercarts: CartStoreProps[] = cartStore.filter((cur) => {
-      return cur.em !== em;
-    });
 
-    console.log({othercarts});
+    if (cartStore !== null && cartStore !== undefined) {
+      const othercarts: CartStoreProps[] = cartStore.filter((cur) => {
+        return cur.em !== em;
+      });
 
-    // worstcase remove all of crtstr
-    othercarts !== null && othercarts !== undefined
-      ? this._localStorage.setItem(this.crtstrttl, othercarts)
-      : this._localStorage.removeItem(this.crtstrttl);
+      console.log({othercarts});
+
+      // worstcase remove all of crtstr
+      othercarts !== null && othercarts !== undefined
+        ? this._localStorage.setItem(this.crtstrttl, othercarts)
+        : this._localStorage.removeItem(this.crtstrttl);
+    }
   }
 }

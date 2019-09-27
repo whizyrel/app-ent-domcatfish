@@ -196,7 +196,10 @@ export class LoginComponent implements OnInit {
                       this._localStorage.setItem(crtstrttl, cartStore);
                     })();
 
-                console.log({l: this._cartService.getCartItems(userDetails.email)});
+                console.log({
+                  CurrentlyLoggedInUserCartItems: this._cartService.getCartItems(userDetails.email),
+                  session: ions
+                });
 
                 this._snackbarService.showSnackBarFromComponent(
                   SnackbarmsgComponent,
