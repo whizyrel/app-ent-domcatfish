@@ -175,7 +175,7 @@ export class LoginComponent implements OnInit {
                   this._localStorage.getItem(crtstrttl)
                 );
                 const crt: CartProps[] = this._cartService.getTempCartItems;
-                console.log('login', {crt});
+                console.log('login', {crt, cartStore});
 
                 cartStore === null || cartStore === undefined
                   ? (() => {
@@ -183,6 +183,7 @@ export class LoginComponent implements OnInit {
                         em: userDetails.email,
                         crt,
                       });
+                      console.log({cartStoreArray});
                       this._localStorage.setItem(crtstrttl, cartStoreArray);
                     })()
                   : (() => {
@@ -191,10 +192,17 @@ export class LoginComponent implements OnInit {
                         em: userDetails.email,
                         crt,
                       });
+                      console.log('inside cartStore descision', {cartStore});
                       this._localStorage.setItem(crtstrttl, cartStore);
                     })();
 
                 console.log({l: this._cartService.getCartItems(userDetails.email)});
+
+                this._snackbarService.showSnackBarFromComponent(
+                  SnackbarmsgComponent,
+                  message,
+                  duration
+                );
 
                 this.who === 'user' ?
                   (
@@ -211,12 +219,6 @@ export class LoginComponent implements OnInit {
                             replaceUrl: true,
                             queryParams: this.rtUrl.query
                           });
-
-                this._snackbarService.showSnackBarFromComponent(
-                  SnackbarmsgComponent,
-                  message,
-                  duration
-                );
               }
             },
             (error: HttpResponse) => {
@@ -279,14 +281,14 @@ export class LoginComponent implements OnInit {
       passwordError: () => {
         if (this.status.password.hasError) {
           return this.status.password.hasError('required')
-            ? 'You must enter a value'
+            ? 'a password is required'
             : '';
         }
       },
       emailError: () => {
         if (this.status.email.hasError) {
           return this.status.email.hasError('required')
-            ? 'You must enter a value'
+            ? 'an email is required'
             : this.status.email.hasError('pattern')
             ? 'Invalid email'
             : '';
