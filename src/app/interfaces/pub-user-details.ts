@@ -5,4 +5,5 @@ export interface PubUserDetails {
   lastname: string;
   phone: string;
   img?: string;
+  address: string;
 }
