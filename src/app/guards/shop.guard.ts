@@ -3,6 +3,7 @@ import {
   CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
+  Router
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -19,6 +20,7 @@ import { SessStoreProps } from '../interfaces/sess-store-props';
 })
 export class ShopGuard implements CanActivate {
   constructor(
+    private router: Router,
     private _sessVal: SessValService,
     private _users: UsersActiveInactiveService,
     private _localStorage: LocalStorageService,
@@ -75,16 +77,53 @@ export class ShopGuard implements CanActivate {
                         this._cartService.clearTempCart();
                         // set next Active before logout
                         this._users.setNextActive();
+
+                        // if checkout route, and checkout guard validation imp is false, back to shop
+                        this.isCheckoutRoute(state, resolve, reject);
                       })()
                     : (() => null)();
                   resolve(true);
                 }
               );
             })()
-          : null;
+          : resolve(true);
+      } else {
+        // either way resolve true
+        resolve(true);
       }
-      // either way resolve true
-      resolve(true);
     });
+  }
+
+  private isCheckoutRoute(s, resolve, reject) {
+    console.log({s: s.url});
+    if (s.url.split('/').includes('checkout')) {
+      const activeUser = this._users.getUsersActive;
+      if (
+        activeUser !== null &&
+        activeUser !== undefined
+      ) {
+        const {dt: {email}} = activeUser;
+
+        const cart = this._cartService.getCartItems(email);
+        console.log('[checkout guard]', {cart});
+
+        if (cart !== null && cart !== undefined) {
+          if (cart.length > 0) {
+            resolve(true);
+          } else {
+            reject(false);
+            this.router.navigate(['shop']);
+          }
+        } else {
+          reject(false);
+          // route
+          this.router.navigate(['shop']);
+        }
+      } else {
+        reject(false);
+        // route
+        this.router.navigate(['shop']);
+      }
+    }
   }
 }
