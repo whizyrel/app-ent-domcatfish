@@ -71,6 +71,13 @@ export class ProductFullviewComponent implements OnInit {
   }
 
   addToCart(qty: string) {
+    this
+      ._snackbar
+      .showSnackBarFromComponent(
+        SnackbarmsgComponent,
+        'click the cart icon to view cart and checkout/pay',
+        15000
+      );
     const cartInfo: CartProps = {
       quantity: parseInt(qty),
       price: this.info.price,
@@ -89,13 +96,6 @@ export class ProductFullviewComponent implements OnInit {
         this.checkout();
       },
     }, '300px');
-    this
-      ._snackbar
-      .showSnackBarFromComponent(
-        SnackbarmsgComponent,
-        'click the cart icon to view cart and checkout/pay',
-        15000
-      );
   }
 
   private checkout() {
