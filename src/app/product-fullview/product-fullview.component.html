@@ -90,7 +90,7 @@
             <p class="dark-grey-text bold-text mg-r-p5">Quantity:</p>
             <!-- Default input -->
             <input type="number" value="1" min="1" #qty aria-label="Search" class="form-control mg-r-p5" style="width: 50px">
-            <button class="btn btn-primary btn-md mg-l-1 cart-btn" type="submit" (click)="addToCart(qty.value)">Add to Cart
+            <button class="btn btn-primary btn-md mg-l-1 cart-btn" type="submit" (click)="addToCart(qty.value)" [disabled]="info === undefined && info === null">Add to Cart
               <i class="fas fa-shopping-cart ml-1"></i>
             </button>
           </form>
