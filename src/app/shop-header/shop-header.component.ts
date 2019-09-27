@@ -71,7 +71,6 @@ OnInit, AfterContentChecked, AfterViewChecked {
     this.initCart();
   }
   ngAfterViewChecked() {
-    console.log('i was called!');
     this.initActive();
     this.initInactive();
   }
