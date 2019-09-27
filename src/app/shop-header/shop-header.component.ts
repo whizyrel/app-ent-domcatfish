@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterContentChecked, DoCheck, AfterViewChecked, AfterContentInit } from '@angular/core';
+import { Component, OnInit, Input, AfterContentChecked, AfterViewChecked, AfterContentInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -27,7 +27,7 @@ import { HttpResponse } from '../interfaces/http-response';
   ]
 })
 export class ShopHeaderComponent implements
-OnInit, AfterContentChecked, AfterContentInit {
+OnInit, AfterContentChecked, AfterViewChecked {
   @Input('url') public encURL: string;
   @Input('c-btn') public checkBtn: boolean;
 
@@ -69,6 +69,9 @@ OnInit, AfterContentChecked, AfterContentInit {
 
   ngAfterContentChecked() {
     this.initCart();
+  }
+  ngAfterViewChecked() {
+    console.log('i was called!');
     this.initActive();
     this.initInactive();
   }
@@ -151,15 +154,16 @@ OnInit, AfterContentChecked, AfterContentInit {
               lastname.substring(1
               )}`;
 
-          this._googleApi.getUserImg(email).subscribe(
-            (data: HttpResponse) => {
-              // pick image from success response from google api
-              this.userimg = '';
-            },
-            (error: HttpResponse) => {
-              // this.userimg = `./assets/images/avatar2.png`;
-            }
-          );
+          // use some more fun way
+          // this._googleApi.getUserImg(email).subscribe(
+          //   (data: HttpResponse) => {
+          //     // pick image from success response from google api
+          //     this.userimg = '';
+          //   },
+          //   (error: HttpResponse) => {
+          //     // this.userimg = `./assets/images/avatar2.png`;
+          //   }
+          // );
 
           this.initCart();
         })()
@@ -186,21 +190,21 @@ OnInit, AfterContentChecked, AfterContentInit {
         ? (() => {
             this.showInactvUser = true;
             this.inactive['forEach']((cur) => {
-              this._googleApi.getUserImg(cur.dt.email).subscribe(
-                (data: HttpResponse) => {
+              // this._googleApi.getUserImg(cur.dt.email).subscribe(
+                // (data: HttpResponse) => {
                   // put user img in active-false users in ionstore
                   cur.dt.img = `./assets/images/avatar3.png`;
 
                   // temporary use
                   // this.otherusrimg = `./assets/images/avatar3.png`;
-                },
-                (error: HttpResponse) => {
-                  cur.dt.img = `./assets/images/avatar2.png`;
+                // },
+                // (error: HttpResponse) => {
+                  // cur.dt.img = `./assets/images/avatar2.png`;
 
                   // temporarily use
                   // this.otherusrimg = `./assets/images/avatar3.png`;
-                }
-              );
+                // }
+              // );
             });
           })()
         : (() => {
