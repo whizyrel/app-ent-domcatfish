@@ -16,6 +16,7 @@ import { LinkProps } from '../interfaces/link-props';
 import { HttpResponse } from '../interfaces/http-response';
 import { SessStoreProps } from '../interfaces/sess-store-props';
 import { CartStoreProps } from '../interfaces/cart-store-props';
+import { CartProps } from '../interfaces/cart-props';
 
 import { DecEncService } from '../services/dec-enc.service';
 import { LoginService } from '../services/login.service';
@@ -23,6 +24,7 @@ import { InitSnackbarService } from '../services/init-snackbar.service';
 import { LocalStorageService } from '../services/local-storage.service';
 import { LinksService } from '../services/links.service';
 import { UsersActiveInactiveService } from '../services/users-active-inactive.service';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-add-account-login',
@@ -62,18 +64,14 @@ export class AddAccountLoginComponent implements OnInit {
     private _snackbarService: InitSnackbarService,
     private _localStorage: LocalStorageService,
     private _usersActiveInactive: UsersActiveInactiveService,
-    private _decEnc: DecEncService
+    private _decEnc: DecEncService,
+    private _cartService: CartService
   ) {}
 
   ngOnInit() {
     // grab query
     this.activatedRoute.queryParams.subscribe((param) => {
       const { rt } = param;
-
-      // decrypt rt
-      // const bytes = AES.decrypt(rt.toString(), this.seckey);
-
-      // this.returnURL = bytes.toString(enc.Utf8);
       this.returnURL = this._decEnc.aesDecryption(rt.toString(), this.seckey);
     });
 
@@ -189,22 +187,25 @@ export class AddAccountLoginComponent implements OnInit {
                   this._localStorage.getItem(crtstrttl)
                 );
 
-                console.log(cartStore);
+                const crt: CartProps[] = this._cartService.getTempCartItems;
+                console.log('login', {crt, cartStore});
 
                 cartStore === null || cartStore === undefined
                   ? (() => {
-                      console.log(`fresh pushing`);
                       cartStoreArray.push({
                         em: userDetails.email,
-                        crt: [],
+                        crt,
                       });
+                      console.log({cartStoreArray});
                       this._localStorage.setItem(crtstrttl, cartStoreArray);
                     })()
                   : (() => {
+                      // get possible previous cart and add
                       cartStore.push({
                         em: userDetails.email,
-                        crt: [],
+                        crt,
                       });
+                      console.log('inside cartStore descision', {cartStore});
                       this._localStorage.setItem(crtstrttl, cartStore);
                     })();
 
