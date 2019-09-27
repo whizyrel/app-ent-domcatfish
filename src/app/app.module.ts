@@ -68,7 +68,7 @@ import { AddProductsForm } from './add-products/add-products-form';
 import { SignupForm } from './signup/signup-form';
 
 import { ProductsHandler } from './common/products-handler';
-import { AdminRouteClass, ClientRouteClass, ShopRouteClass } from './common/route-list';
+import { RouteList } from './common/route-list';
 
 @NgModule({
   declarations: [
@@ -142,9 +142,7 @@ import { AdminRouteClass, ClientRouteClass, ShopRouteClass } from './common/rout
     ProductsHandler,
     AddProductsForm,
     SignupForm,
-    AdminRouteClass,
-    ClientRouteClass,
-    ShopRouteClass
+    RouteList
   ],
   bootstrap: [AppComponent],
   entryComponents: [

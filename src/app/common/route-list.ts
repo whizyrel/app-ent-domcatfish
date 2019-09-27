@@ -22,9 +22,7 @@ import { ShopGuard } from '../guards/shop.guard';
 import { AddAccountGuard } from '../guards/add-account.guard';
 import { CheckoutGuard } from '../guards/checkout.guard';
 
-export class AdminRouteClass {
-  public get getRoutes() {
-    return [
+const AdminRoutes = [
       {
         path: 'login',
         component: LoginComponent,
@@ -152,12 +150,8 @@ export class AdminRouteClass {
         pathMatch: 'full',
       },
     ];
-  }
-}
 
-export class ClientRouteClass {
-  public get getRoutes() {
-    return [
+const ClientRoutes =  [
       {
         path: 'login',
         component: LoginComponent,
@@ -237,12 +231,8 @@ export class ClientRouteClass {
         pathMatch: 'full',
       },
     ];
-  }
-}
 
-export class ShopRouteClass {
-  public get getRoutes() {
-    return [
+const ShopRoutes = [
       {
         path: '',
         component: ShopComponent,
@@ -265,13 +255,9 @@ export class ShopRouteClass {
         pathMatch: 'full',
       },
     ];
-  }
-}
 
-const a = new AdminRouteClass().getRoutes;
-const b = new ClientRouteClass().getRoutes;
-const c = new ShopRouteClass().getRoutes;
+export { AdminRoutes };
+export { ClientRoutes };
+export { ShopRoutes };
 
-export { a as AdminRoutes };
-export { b as ClientRoutes };
-export { c as ShopRoutes };
+export class RouteList {}
