@@ -45,9 +45,56 @@
         <form class="w-100" [formGroup]="checkoutform" (ngSubmit)="onSubmit()">
           <mat-card>
             <mat-card-content>
-              <div class="row d-block">
-                <p>Name</p>
-                <p>Billing address</p>
+              <div class="d-block mg-b-1">
+                <label class="mg-b-p5 dark-grey-text" style="font-size: 15px; font-weight: bold">Card Holder's Name</label>
+                <div class="d-flex w-100 h-100 form-inline" style="font-size: 13px">
+                  <p class="my-0 mg-r-1">{{ fullname }}</p>
+                  <mat-icon (click)="showForm(frm)">create</mat-icon>
+                </div>
+                <div class="form-row row">
+                  <div class="col-sm-12 w-100">
+                    <mat-form-field  class="w-100" appearance="outline">
+                      <input
+                        matInput
+                        formControlName="client"
+                        placeholder="Example: Adebayo Emeka Kabir"
+                        class="form-control-sm"
+                        type="text"
+                        required
+                        #frm
+                      />
+                      <mat-icon matSuffix>person</mat-icon>
+                      <mat-error *ngIf="status.cardnumber.invalid">{{
+                        getErrorMessage().clientError()
+                      }}</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <label class="mg-t-1 mg-b-p5 dark-grey-text" style="font-size: 15px; font-weight: bold">Billing Address</label>
+                <div class="d-flex w-100 h-100 form-inline" style="font-size: 13px">
+                  <p class="my-0 mg-r-1">Billing Address</p>
+                  <mat-icon (click)="showForm(frm)">create</mat-icon>
+                </div>
+                <div class="form-row row">
+                  <div class="col-sm-12 w-100">
+                    <mat-form-field  class="w-100" appearance="outline">
+                      <input
+                        matInput
+                        formControlName="address"
+                        placeholder="Example: 10, white house. Ijebu, Ogun state"
+                        class="form-control-sm"
+                        type="text"
+                        required
+                        #frm
+                      />
+                      <mat-icon matSuffix>person</mat-icon>
+                      <mat-error *ngIf="status.cardnumber.invalid">{{
+                        getErrorMessage().addressError()
+                      }}</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
               </div>
               <!-- Card number -->
               <div class="form-row row">
@@ -57,17 +104,19 @@
                     <input
                       matInput
                       formControlName="cardnumber"
-                      placeholder="name@example.com"
+                      placeholder="1234 5678 9123 4567"
                       class="form-control-sm"
-                      type="number"
+                      type="text"
+                      maxlength="{{cardMaxLength || 16}}"
                       required
-                      autocomplete
+                      #card
+                      (keyup)="handleCardNumber(card, mm)"
                     />
-                    <mat-icon matSuffix>alternate_email</mat-icon>
+                    <mat-icon [inline]="true" matSuffix>credit_card</mat-icon>
                     <mat-error *ngIf="status.cardnumber.invalid">{{
                       getErrorMessage().cardnumberError()
                     }}</mat-error>
-                    <!-- <mat-hint>Hint</mat-hint> -->
+                    <mat-hint align="end">{{ card.value.length }}/{{ cardMaxLength || 16 }}</mat-hint>
                   </mat-form-field>
                 </div>
               </div>
@@ -75,39 +124,64 @@
               <div class="form-row row">
                 <!-- expiry -->
                 <div class="col-6">
-                  <mat-form-field class="w-100" appearance="outline">
-                    <mat-label>Expiry</mat-label>
-                    <input
-                      matInput
-                      formControlName="expiry"
-                      placeholder="name@example.com"
-                      class="form-control-sm"
-                      type="number"
-                      required
-                      autocomplete
-                    />
-                    <mat-icon matSuffix>alternate_email</mat-icon>
-                    <mat-error *ngIf="status.expiry.invalid">{{
-                      getErrorMessage().expiryError()
-                    }}</mat-error>
-                    <!-- <mat-hint>Hint</mat-hint> -->
-                  </mat-form-field>
+                  <div class="d-flex w-100 justify-content-center">
+                    <mat-form-field style="width: 25%;">
+                      <mat-label>mm</mat-label>
+                      <input
+                        matInput
+                        formControlName="expiry"
+                        placeholder="mm"
+                        class="form-control-sm"
+                        maxlength="2"
+                        type="text"
+                        #mm
+                        (keyup)="handleMonth(mm, yy)"
+                        required
+                      />
+                      <mat-icon [inline]="true" matSuffix>date_range</mat-icon>
+                      <mat-error *ngIf="status.month.invalid">{{
+                        getErrorMessage().monthError()
+                      }}</mat-error>
+                      <mat-hint align="end">{{ mm.value?.length || 0 }}/2</mat-hint>
+                    </mat-form-field>
+                    <p class="mb-0 form-inline mx-1" style="font-size: 1.5rem">/</p>
+                    <mat-form-field style="width: 25%;">
+                      <mat-label>yy</mat-label>
+                      <input
+                        matInput
+                        formControlName="expiry"
+                        placeholder="yy"
+                        class="form-control-sm"
+                        maxlength="2"
+                        type="text"
+                        #yy
+                        (keyup)="handleYear(yy, ctrl)"
+                        required
+                      />
+                      <mat-icon [inline]="true" matSuffix>date_range</mat-icon>
+                      <mat-error *ngIf="status.month.invalid">{{
+                        getErrorMessage().yearError()
+                      }}</mat-error>
+                      <mat-hint align="end">{{ yy.value?.length || 0 }}/2</mat-hint>
+                    </mat-form-field>
+                  </div>
                 </div>
 
                 <!-- cvv -->
-                <div class="col-6">
-                  <mat-form-field class="w-100" appearance="outline">
+                <div class="col-6 justify-content-center form-inline">
+                  <mat-form-field appearance="outline" style="width: 50%;">
                     <mat-label>CVV</mat-label>
                     <input
                       matInput
                       formControlName="cvv"
-                      placeholder="name@example.com"
+                      placeholder="123"
                       class="form-control-sm"
-                      type="number"
+                      type="text"
                       required
-                      autocomplete
+                      #ctrl
+                      (keyup)="handleCVV(ctrl, btn)"
                     />
-                    <mat-icon matSuffix>alternate_email</mat-icon>
+                    <mat-icon [inline]="true" matSuffix>payment</mat-icon>
                     <mat-error *ngIf="status.cvv.invalid">{{
                       getErrorMessage().cvvError()
                     }}</mat-error>
@@ -125,8 +199,9 @@
                     type="submit"
                     [disabled]="disableBtn()"
                     class="mg-l-auto"
+                    #btn
                   >
-                    Sign up
+                    submit
                   </button>
                 </mat-card-actions>
               </div>
