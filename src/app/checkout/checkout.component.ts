@@ -33,6 +33,12 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
 
   public encURL: string;
 
+  public submitted: boolean = false;
+  public hideForm: boolean = true;
+
+  public cardMaxLength: number;
+  public fullname: string;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -43,10 +49,18 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
 
   ngOnInit() {
     this.activeUser = this._users.getUsersActive;
+    console.log({n: this.activeUser});
+
+    this.fullname = `${this.activeUser.dt.firstname} ${this.activeUser.dt.lastname}`;
+
     this.checkoutform = this.formBuilder.group({
+      client: new FormControl(this.fullname, [Validators.required]),
+      address: new FormControl(this.activeUser.dt.address, [Validators.required]),
       cardnumber: new FormControl('', [Validators.required]),
       cvv: new FormControl('', [Validators.required, Validators.minLength(3)]),
       expiry: new FormControl('', [Validators.required]),
+      month: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      year: new FormControl('', [Validators.required, Validators.minLength(2)]),
     });
   }
 
@@ -60,7 +74,42 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
   }
 
   onSubmit() {
+    const details = {};
+    if (this.checkoutform.valid && this.submitted === false) {
+      console.log({r: this.checkoutform.getRawValue()});
+    }
+  }
 
+  showForm(f) {
+
+  }
+
+  handleCardNumber(p, n) {
+    console.log({p, n});
+    if (p.value.length === p.maxLength) {
+      n.focus();
+    }
+  }
+
+  handleMonth(p, n) {
+    console.log({p, n});
+    if (p.value.length === p.maxLength) {
+      n.focus();
+    }
+  }
+
+  handleYear(p, n) {
+    console.log({p, n});
+    if (p.value.length === p.maxLength) {
+      n.focus();
+    }
+  }
+
+  handleCVV(p, n) {
+    console.log({p, n});
+    if (p.value.length === p.maxlength) {
+      n.focus();
+    }
   }
 
   get status() {
@@ -73,26 +122,49 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
         if (this.status.cardnumber.hasError) {
           // tslint:disable-next-line:max-line-length
           return this.status.cardnumber.hasError('required')
-            ? 'You must fill this field'
+            ? 'these numbers are required'
             : '';
         }
       },
       cvvError: () => {
         if (this.status.cvv.hasError) {
           return this.status.cvv.hasError('minlength')
-            ? 'Field is incomplete'
+            ? 'these numbers are required'
             : this.status.cvv.hasError('required')
-            ? 'You must fill this field'
-            : '';
+              ? 'this field is required'
+              : '';
         }
       },
-      expiryError: () => {
-        if (this.status.expiry.hasError) {
-          return this.status.expiry.hasError('minlength')
-            ? 'Should be minimum 5 characters long'
-            : this.status.expiry.hasError('required')
-            ? 'You must fill this field'
-            : '';
+      monthError: () => {
+        if (this.status.month.hasError) {
+          return this.status.month.hasError('minlength')
+            ? 'expiry is required'
+            : this.status.month.hasError('required')
+              ? 'this field is required'
+              : '';
+        }
+      },
+      yearError: () => {
+        if (this.status.year.hasError) {
+          return this.status.year.hasError('minlength')
+            ? 'expiry is required'
+            : this.status.year.hasError('required')
+              ? 'this field is required'
+              : '';
+        }
+      },
+      clientError: () => {
+        if (this.status.client.hasError) {
+          return this.status.client.hasError('required')
+              ? 'this field is required'
+              : '';
+        }
+      },
+      addressError: () => {
+        if (this.status.address.hasError) {
+          return this.status.address.hasError('required')
+              ? 'this field is required'
+              : '';
         }
       },
     };
