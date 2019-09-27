@@ -202,11 +202,12 @@ export class CartService {
     );
 
     // filter carts different from user. cart store can never be undefined || null
+    console.log({cartStore});
     const othercarts: CartStoreProps[] = cartStore.filter((cur) => {
       return cur.em !== em;
     });
 
-    console.log(othercarts);
+    console.log({othercarts});
 
     // worstcase remove all of crtstr
     othercarts !== null && othercarts !== undefined
