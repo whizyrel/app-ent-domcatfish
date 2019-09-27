@@ -22,7 +22,7 @@ import { ShopGuard } from '../guards/shop.guard';
 import { AddAccountGuard } from '../guards/add-account.guard';
 import { CheckoutGuard } from '../guards/checkout.guard';
 
-export class AdminRoutes {
+export class AdminRouteClass {
   public get getRoutes() {
     return [
       {
@@ -155,7 +155,7 @@ export class AdminRoutes {
   }
 }
 
-export class ClientRoutes {
+export class ClientRouteClass {
   public get getRoutes() {
     return [
       {
@@ -240,7 +240,7 @@ export class ClientRoutes {
   }
 }
 
-export class ShopRoutes {
+export class ShopRouteClass {
   public get getRoutes() {
     return [
       {
@@ -267,3 +267,11 @@ export class ShopRoutes {
     ];
   }
 }
+
+const a = new AdminRouteClass().getRoutes;
+const b = new ClientRouteClass().getRoutes;
+const c = new ShopRouteClass().getRoutes;
+
+export { a as AdminRoutes };
+export { b as ClientRoutes };
+export { c as ShopRoutes };

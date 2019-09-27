@@ -14,16 +14,16 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    children: new AdminRoutes().getRoutes,
+    children: AdminRoutes,
   },
   {
     path: 'user',
-    children: new ClientRoutes().getRoutes,
+    children: ClientRoutes,
   },
   {
     path: 'shop',
     canActivate: [ShopGuard],
-    children: new ShopRoutes().getRoutes,
+    children: ShopRoutes,
   },
   {
     path: '**',
