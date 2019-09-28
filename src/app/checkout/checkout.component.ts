@@ -6,7 +6,7 @@ import {
   FormBuilder,
 } from '@angular/forms';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { CartService } from '../services/cart.service';
 import { UsersActiveInactiveService } from '../services/users-active-inactive.service';
@@ -40,6 +40,7 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
   public fullname: string;
 
   constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private _cartService: CartService,
@@ -181,8 +182,12 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
   }
 
   private initCart() {
-    if (this.activeUser !== null && this.activeUser !== null) {
+    if (this.activeUser !== null && this.activeUser !== undefined) {
       this.cart = this._cartService.getCartItems(this.activeUser.dt.email);
+      if (this.cart['length'] < 1) {
+        // route out to shop
+        this.router.navigate(['shop']);
+      }
     }
     this.calcTotal();
   }
