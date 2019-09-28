@@ -85,30 +85,9 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
 
   }
 
-  handleCardNumber(p, n) {
-    console.log({p, n});
+  handleField(p, n) {
     if (p.value.length === p.maxLength) {
-      n.focus();
-    }
-  }
-
-  handleMonth(p, n) {
-    console.log({p, n});
-    if (p.value.length === p.maxLength) {
-      n.focus();
-    }
-  }
-
-  handleYear(p, n) {
-    console.log({p, n});
-    if (p.value.length === p.maxLength) {
-      n.focus();
-    }
-  }
-
-  handleCVV(p, n) {
-    console.log({p, n});
-    if (p.value.length === p.maxlength) {
+      console.log({p, n});
       n.focus();
     }
   }
@@ -173,9 +152,9 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
 
   disableBtn(): boolean {
     if (
-      this.status.cardnumber.value === '' ||
-      this.status.cvv.value === '' ||
-      (this.status.expiry.value === '' || this.status.email.invalid)
+      this.status.cardnumber.value === '' || this.status.cardnumber.invalid ||
+      this.status.cvv.value === '' || this.status.cvv.invalid ||
+      (this.status.expiry.value === '' || this.status.expiry.invalid)
     ) {
       return true;
     }
