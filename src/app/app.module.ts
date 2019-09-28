@@ -69,9 +69,10 @@ import { SignupForm } from './signup/signup-form';
 
 import { ProductsHandler } from './common/products-handler';
 import { RouteList } from './common/route-list';
+import { ModulesList, ComponentsList, ServicesList } from './common/app-module-imports';
 
 @NgModule({
-  declarations: [
+  declarations: ComponentsList /*[
     AppComponent,
     HomePageComponent,
     VerifyComponent,
@@ -95,8 +96,8 @@ import { RouteList } from './common/route-list';
     ShopHeaderComponent,
     ShopFooterComponent,
     CheckoutComponent
-  ],
-  imports: [
+  ]*/,
+  imports: ModulesList /*[
     BrowserModule.withServerTransition({
       appId: 'app-ent-domcatfish',
     }),
@@ -116,8 +117,8 @@ import { RouteList } from './common/route-list';
     MatSelectModule,
     MatDialogModule,
     MatMenuModule
-  ],
-  providers: [
+  ]*/,
+  providers: ServicesList /*[
     LoginAuthGuard,
     DashboardAuthGuard,
     ShopGuard,
@@ -143,7 +144,7 @@ import { RouteList } from './common/route-list';
     AddProductsForm,
     SignupForm,
     RouteList
-  ],
+  ]*/,
   bootstrap: [AppComponent],
   entryComponents: [
     SnackbarmsgComponent,

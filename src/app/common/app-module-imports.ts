@@ -65,102 +65,91 @@ import { DialogService } from '../services/dialog.service';
 
 import { AddProductsForm } from '../add-products/add-products-form';
 import { SignupForm } from '../signup/signup-form';
+
 import { ProductsHandler } from './products-handler';
-import { AdminRoutes, ClientRoutes, ShopRoutes } from './route-list';
+import { RouteList } from './route-list';
 
-export class ServicesList {
-  public get getList() {
-    return [
-      LoginAuthGuard,
-      DashboardAuthGuard,
-      ShopGuard,
-      AddAccountGuard,
-      APIURLService,
-      LinksService,
-      LoginService,
-      SignupService,
-      InitSnackbarService,
-      CountrycodelistService,
-      SessValService,
-      HomepageCardService,
-      UsersActiveInactiveService,
-      GoogleImgService,
-      LogoutService,
-      CartService,
-      LocalStorageService,
-      RetrievePasswordService,
-      ProductsService,
-      DecEncService,
-      DialogService,
-      AddProductsForm,
-      ProductsHandler, SignupForm,
-      AdminRoutes, ClientRoutes, ShopRoutes
-    ];
-  }
-}
+const ServicesList = [
+  LoginAuthGuard,
+  DashboardAuthGuard,
+  ShopGuard,
+  AddAccountGuard,
+  APIURLService,
+  LinksService,
+  LoginService,
+  SignupService,
+  InitSnackbarService,
+  CountrycodelistService,
+  SessValService,
+  HomepageCardService,
+  UsersActiveInactiveService,
+  GoogleImgService,
+  LogoutService,
+  CartService,
+  LocalStorageService,
+  RetrievePasswordService,
+  ProductsService,
+  DecEncService,
+  DialogService,
+  ProductsHandler,
+  AddProductsForm,
+  SignupForm,
+  RouteList
+];
 
-export class GuardsList {
-  public get getList() {
-    return [
+const GuardsList = [
       LoginAuthGuard,
       DashboardAuthGuard,
       ShopGuard,
       AddAccountGuard,
     ];
-  }
-}
 
-export class ComponentsList {
-  public get getList() {
-    return [
-      AppComponent,
-      HomePageComponent,
-      VerifyComponent,
-      LoginComponent,
-      ForgotComponent,
-      SignupComponent,
-      SnackbarmsgComponent,
-      DashboardComponent,
-      ShopComponent,
-      AddAccountLoginComponent,
-      AdminHomePageComponent,
-      RetrieveComponent,
-      AddProductsComponent,
-      ListProductsComponent,
-      ListUsersComponent,
-      ListOrdersComponent,
-      ListFeedbacksComponent,
-      DialogComponent,
-      ProductThumbnailComponent,
-      ProductFullviewComponent,
-      ShopHeaderComponent,
-      ShopFooterComponent, CheckoutComponent
-    ];
-  }
-}
+const ComponentsList = [
+  AppComponent,
+  HomePageComponent,
+  VerifyComponent,
+  LoginComponent,
+  ForgotComponent,
+  SignupComponent,
+  SnackbarmsgComponent,
+  DashboardComponent,
+  ShopComponent,
+  AddAccountLoginComponent,
+  AdminHomePageComponent,
+  RetrieveComponent,
+  AddProductsComponent,
+  ListProductsComponent,
+  ListUsersComponent,
+  ListOrdersComponent,
+  ListFeedbacksComponent,
+  DialogComponent,
+  ProductThumbnailComponent,
+  ProductFullviewComponent,
+  ShopHeaderComponent,
+  ShopFooterComponent,
+  CheckoutComponent
+];
 
-export class ModulesList {
-  public get getList() {
-    return [
-      BrowserModule.withServerTransition({
-        appId: 'app-ent-domcatfish',
-      }),
-      AppRoutingModule,
-      BrowserAnimationsModule,
-      MatButtonModule,
-      MatInputModule,
-      MatFormFieldModule,
-      MatIconModule,
-      FormsModule,
-      ReactiveFormsModule,
-      MatCardModule,
-      MatProgressBarModule,
-      HttpClientModule,
-      MatTabsModule,
-      MatSnackBarModule,
-      MatSelectModule,
-      MatDialogModule,
-      MatMenuModule
-    ];
-  }
-}
+const ModulesList = [
+  BrowserModule.withServerTransition({
+    appId: 'app-ent-domcatfish',
+  }),
+  AppRoutingModule,
+  BrowserAnimationsModule,
+  MatButtonModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatIconModule,
+  FormsModule,
+  ReactiveFormsModule,
+  MatCardModule,
+  MatProgressBarModule,
+  HttpClientModule,
+  MatTabsModule,
+  MatSnackBarModule,
+  MatSelectModule,
+  MatDialogModule,
+  MatMenuModule
+];
+
+export { ModulesList, ComponentsList, ServicesList };
