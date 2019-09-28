@@ -32,6 +32,7 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
   public total: number = 0;
 
   public encURL: string;
+  private seckey: string = 'app-ent-domcatfish';
 
   public submitted: boolean = false;
   public hideForm: boolean = true;
@@ -50,8 +51,6 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
 
   ngOnInit() {
     this.activeUser = this._users.getUsersActive;
-    console.log({n: this.activeUser});
-
     this.fullname = `${this.activeUser.dt.firstname} ${this.activeUser.dt.lastname}`;
 
     this.checkoutform = this.formBuilder.group({
@@ -63,11 +62,12 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
       month: new FormControl('', [Validators.required, Validators.minLength(2)]),
       year: new FormControl('', [Validators.required, Validators.minLength(2)]),
     });
+
+    this.encURL = this._decEnc.aesEncryption('/shop/checkout');
   }
 
   ngAfterContentChecked() {
     this.initCart();
-    // this.encURL = this._decEnc.aesEncryption('/shop/checkout');
   }
 
   ngAfterContentInit() {
@@ -192,8 +192,18 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
     this.calcTotal();
   }
 
-  public deleteFromCart(pid: string) {
-    console.log({pid});
+  public deleteFromCart(e, id: string) {
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    this._cartService.deleteFromTempCart(parseInt(id));
+    this.initCart();
+  }
+
+  showFullDetails(id: string) {
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    const encID = this._decEnc.aesEncryption(id, this.seckey);
+    this.router.navigate(['/shop/view/'], {queryParams: {st: encID}});
   }
 
   private calcTotal() {
