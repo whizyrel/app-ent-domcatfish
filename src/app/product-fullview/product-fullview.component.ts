@@ -25,8 +25,6 @@ import { HttpResponse } from '../interfaces/http-response';
   ]
 })
 export class ProductFullviewComponent implements OnInit {
-  private seckey: string = 'app-ent-domcatfish';
-
   private pid: string;
   public imgs: string[];
   public info: ProductsProps;
@@ -49,9 +47,9 @@ export class ProductFullviewComponent implements OnInit {
   async ngOnInit() {
     await this.activatedRoute.queryParams.subscribe(async (param) => {
       const { st } = param;
-      this.pid = this._decEnc.aesDecryption(st.toString(), this.seckey);
+      this.pid = this._decEnc.aesDecryption(st.toString());
       await this.getProductDetails(this.pid);
-      this.encURL = this._decEnc.aesEncryption(`/shop/view?st=${this.pid}`, this.seckey);
+      this.encURL = this._decEnc.aesEncryption(`/shop/view?st=${this.pid}`);
     });
   }
 
@@ -100,7 +98,7 @@ export class ProductFullviewComponent implements OnInit {
 
   private checkout() {
     const activeUser = this._users.getUsersActive;
-    this.encURL = this._decEnc.aesEncryption(`/shop/checkout`, this.seckey);
+    this.encURL = this._decEnc.aesEncryption(`/shop/checkout`);
 
     if (activeUser === null) {
       this._dialog.showDialog({
