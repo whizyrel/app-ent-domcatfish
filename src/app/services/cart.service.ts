@@ -67,8 +67,8 @@ export class CartService {
       ) {
         // add to perm cart
         const {dt: {email}} = this.activeUser;
-        // iterate through, add el of tmpCart one at a time
-        tmpCart['forEach'](async (cur) => await this.addToCart(email, cur));
+        // add just info
+         this.addToCart(email, info);
         const permCart: CartProps[] = this.getCartItems(email);
         console.log({permCart});
       }
