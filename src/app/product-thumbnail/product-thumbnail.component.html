@@ -21,8 +21,7 @@
         <p class="w-100 text-left d-grey" style="font-weight: bold;">PACK</p>
         <p class="w-100 text-left l-grey">{{ prodList.pack }}</p>
       </div>
-      <p class="d-block w-100 text-left mg-t-1 d-grey" *ngIf="prodList.availability === true; else elseBlock"> Available </p>
-      <ng-template class="d-block w-100 text-left mg-t-1" #elseBlock> <p class="d-block w-100 text-left d-grey">Not Available</p></ng-template>
+      <p class="d-block w-100 text-left mg-t-1 d-grey" *ngIf="prodList?.availability"> {{ prodList?.availability === true ? 'Available' : 'Not Available' }} </p>
     </div>
   </mat-card-content>
 </mat-card>
