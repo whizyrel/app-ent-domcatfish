@@ -200,8 +200,6 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
   }
 
   showFullDetails(id: string) {
-    e.stopPropagation();
-    e.stopImmediatePropagation();
     const encID = this._decEnc.aesEncryption(id, this.seckey);
     this.router.navigate(['/shop/view/'], {queryParams: {st: encID}});
   }
