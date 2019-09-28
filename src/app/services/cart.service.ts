@@ -37,7 +37,7 @@ export class CartService {
   addToTempCart(info: CartProps) {
     const cartArr: CartProps[] = [];
 
-    const tmpCart: CartProps[] = this.getParsedCart(this.tmpcrtttl);
+    let tmpCart: CartProps[] = this.getParsedCart(this.tmpcrtttl);
     console.log('firstof', {tmpCart});
 
     tmpCart !== null && tmpCart !== undefined ?
@@ -51,8 +51,12 @@ export class CartService {
       (() => {
         cartArr.push(info);
         console.log('tmp null case', {cartArr});
-        this._localStorage.setItem(this.tmpcrtttl, cartArr);
-        console.log('null case [after push]', {tmpCart: this.getParsedCart(this.tmpcrtttl)});
+        tmpCart = cartArr;
+        this._localStorage.setItem(this.tmpcrtttl, tmpCart);
+        console.log('null case [after push]', {
+          tmpCartLocalStorage: this.getParsedCart(this.tmpcrtttl),
+          tmpCartVar: tmpCart,
+        });
       })();
 
       // if user is logged in add to perm cart
@@ -89,8 +93,13 @@ export class CartService {
     ) {
       // add to perm cart
       const {dt: {email}} = this.activeUser;
+
       // iterate through, add el of tmpCart one at a time
-      tmpCart['forEach'](async (cur) => await this.addToCart(email, cur));
+      if (tmpCart.length >= 1) {
+        tmpCart['forEach'](async (cur) => await this.addToCart(email, cur));
+      } else {
+        this.clearCart(email);
+      }
       const permCart: CartProps[] = this.getCartItems(email);
       console.log({permCart});
     }
