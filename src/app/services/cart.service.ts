@@ -76,14 +76,16 @@ export class CartService {
   }
 
   deleteFromTempCart(i: number) {
+    let obj;
     const tmpCart = this.getParsedCart(this.tmpcrtttl);
 
     if (tmpCart !== null && tmpCart !== undefined) {
       // remove one from ith position - array is left with rest of elements
       // and the removed is returned
       tmpCart.splice(i, 1);
+      obj = tmpCart[i];
     }
-    console.log({tmpCart});
+    console.log({tmpCart, obj});
 
     // if user is logged in add to perm cart
     this.activeUser = this._users.getUsersActive;
@@ -96,7 +98,7 @@ export class CartService {
 
       // iterate through, add el of tmpCart one at a time
       if (tmpCart.length >= 1) {
-        tmpCart['forEach'](async (cur) => await this.addToCart(email, cur));
+        this.deleteFromCart(email, obj);
       } else {
         this.clearCart(email);
       }
@@ -199,7 +201,9 @@ export class CartService {
 
     // get user's cart
     const userCart = cartStore.find((cur, i) => {
-      if (cur.em === em) uci = i;
+      if (cur.em === em) {
+        uci = i;
+      }
       return cur.em === em;
     });
 
@@ -209,6 +213,10 @@ export class CartService {
     cartStore[uci]['crt'] = crt.filter((cur) => {
       return cur === obj;
     });
+
+    // set cartStore
+    this._localStorage.setItem(this.crtstrttl, cartStore);
+    console.log('[delete cart]', {uci, cartStore, userCart});
   }
 
   clearCart(em: string) {
