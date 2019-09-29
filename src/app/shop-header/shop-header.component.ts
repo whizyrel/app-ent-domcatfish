@@ -230,7 +230,7 @@ OnInit, AfterContentChecked, AfterViewChecked {
               // show dialog
               const dialogRef = this._dialog.showDialog({
                 data: {error: err},
-                action: () => console.log('[dialog] closed successfully'),
+                action: () => this.router.navigate(['shop']),
               });
               return;
             }
