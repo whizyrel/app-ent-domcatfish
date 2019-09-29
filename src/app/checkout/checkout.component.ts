@@ -35,10 +35,11 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
   private seckey: string = 'app-ent-domcatfish';
 
   public submitted: boolean = false;
-  public hideForm: boolean = true;
 
   public cardMaxLength: number;
   public fullname: string;
+  public address: string;
+  private btn: string;
 
   constructor(
     private router: Router,
@@ -52,10 +53,12 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
   ngOnInit() {
     this.activeUser = this._users.getUsersActive;
     this.fullname = `${this.activeUser.dt.firstname} ${this.activeUser.dt.lastname}`;
+    this.address = this.activeUser.dt.address;
+    this.btn = 'create';
 
     this.checkoutform = this.formBuilder.group({
       client: new FormControl(this.fullname, [Validators.required]),
-      address: new FormControl(this.activeUser.dt.address, [Validators.required]),
+      address: new FormControl(this.address, [Validators.required]),
       cardnumber: new FormControl('', [Validators.required]),
       cvv: new FormControl('', [Validators.required, Validators.minLength(3)]),
       expiry: new FormControl('', [Validators.required]),
@@ -81,8 +84,12 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
     }
   }
 
-  showForm(f) {
-
+  showField(d, f, fb, sb) {
+    console.log({d, f, fb, sb});
+    d.classList.toggle('d-none');
+    f.classList.toggle('d-none');
+    fb._elementRef.nativeElement.classList.toggle('d-none');
+    sb._elementRef.nativeElement.classList.toggle('d-none');
   }
 
   handleField(p, n) {

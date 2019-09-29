@@ -48,56 +48,55 @@
               <div class="d-block mg-b-1">
                 <label class="mg-b-p5 dark-grey-text" style="font-size: 15px; font-weight: bold">Card Holder's Name</label>
                 <div class="d-flex w-100 h-100 form-inline" style="font-size: 13px">
-                  <p class="my-0 mg-r-1">{{ fullname }}</p>
-                  <mat-icon (click)="showForm(frm)">create</mat-icon>
-                </div>
-
-                <div class="form-row row mg-t-p5">
-                  <div class="col-sm-12 w-100">
-                    <mat-form-field  class="w-100" appearance="outline">
-                      <input
-                        matInput
-                        formControlName="client"
-                        placeholder="Example: Adebayo Emeka Kabir"
-                        class="form-control-sm"
-                        type="text"
-                        required
-                        #frm
-                      />
-                      <mat-icon matSuffix>person</mat-icon>
-                      <mat-error *ngIf="status.cardnumber.invalid">{{
-                        getErrorMessage().clientError()
-                      }}</mat-error>
-                    </mat-form-field>
+                  <p class="my-0 mg-r-1" #name>{{ fullname }}</p>
+                  <div class="form-row row d-none" style="width: 90%;" #nameField>
+                    <div class="col-sm-12 w-100">
+                      <mat-form-field  class="w-100" appearance="outline">
+                        <input
+                          matInput
+                          formControlName="client"
+                          placeholder="Example: Adebayo Emeka Kabir"
+                          class="form-control-sm"
+                          type="text"
+                          required
+                        />
+                        <mat-icon matSuffix>person</mat-icon>
+                        <mat-error *ngIf="status.cardnumber.invalid">{{
+                          getErrorMessage().clientError()
+                        }}</mat-error>
+                      </mat-form-field>
+                    </div>
                   </div>
+                  <mat-icon class="mg-l-1" (click)="showField(name, nameField, nameBtnf, nameBtns)" #nameBtnf>create</mat-icon>
+                  <mat-icon class="d-none mg-l-1" (click)="showField(name, nameField, nameBtnf, nameBtns)" #nameBtns>done</mat-icon>
                 </div>
 
                 <label class="mg-t-1 mg-b-p5 dark-grey-text" style="font-size: 15px; font-weight: bold">Billing Address</label>
                 <div class="d-flex w-100 h-100 form-inline" style="font-size: 13px">
-                  <p class="my-0 mg-r-1">{{ activeUser.dt.address }}</p>
-                  <mat-icon (click)="showForm(frm)">create</mat-icon>
-                </div>
-
-                <div class="form-row row mg-t-p5">
-                  <div class="col-sm-12 w-100">
-                    <mat-form-field  class="w-100" appearance="outline">
-                      <input
-                        matInput
-                        formControlName="address"
-                        placeholder="Example: 10, white house. Ijebu, Ogun state"
-                        class="form-control-sm"
-                        type="text"
-                        required
-                        #frm
-                      />
-                      <mat-icon matSuffix>person</mat-icon>
-                      <mat-error *ngIf="status.cardnumber.invalid">{{
-                        getErrorMessage().addressError()
-                      }}</mat-error>
-                    </mat-form-field>
+                  <p class="my-0 mg-r-1" #addr>{{ address }}</p>
+                  <div class="form-row row d-none" style="width: 90%;" #addressField>
+                    <div class="col-sm-12 w-100">
+                      <mat-form-field  class="w-100" appearance="outline">
+                        <input
+                          matInput
+                          formControlName="address"
+                          placeholder="Example: 10, white house. Ijebu, Ogun state"
+                          class="form-control-sm"
+                          type="text"
+                          required
+                        />
+                        <mat-icon matSuffix>place</mat-icon>
+                        <mat-error *ngIf="status.cardnumber.invalid">{{
+                          getErrorMessage().addressError()
+                        }}</mat-error>
+                      </mat-form-field>
+                    </div>
                   </div>
+                  <mat-icon class="mg-l-1" (click)="showField(addr, addressField, addBtnf, addBtns)" #addBtnf>create</mat-icon>
+                  <mat-icon class="d-none mg-l-1" (click)="showField(addr, addressField, addBtnf, addBtns)" #addBtns>done</mat-icon>
                 </div>
               </div>
+
               <!-- Card number -->
               <div class="form-row row">
                 <div class="col-sm-12 w-100">
@@ -127,7 +126,7 @@
                 <!-- expiry -->
                 <div class="col-6">
                   <div class="d-flex w-100 justify-content-center">
-                    <mat-form-field style="width: 25%;">
+                    <mat-form-field style="width: 30%;">
                       <mat-label>mm</mat-label>
                       <input
                         matInput
@@ -147,7 +146,7 @@
                       <mat-hint align="end">{{ mm.value?.length || 0 }}/2</mat-hint>
                     </mat-form-field>
                     <p class="mb-0 form-inline mx-1" style="font-size: 1.5rem">/</p>
-                    <mat-form-field style="width: 25%;">
+                    <mat-form-field style="width: 30%;">
                       <mat-label>yy</mat-label>
                       <input
                         matInput
@@ -171,7 +170,7 @@
 
                 <!-- cvv -->
                 <div class="col-6 justify-content-center form-inline">
-                  <mat-form-field appearance="outline" style="width: 50%;">
+                  <mat-form-field appearance="outline" style="width: 60%;">
                     <mat-label>CVV</mat-label>
                     <input
                       matInput
