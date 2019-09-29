@@ -120,12 +120,13 @@
                       required
                       #card
                       (keyup)="handleField(card, mm)"
+                      (keydown)="validateInput($event)"
                     />
                     <mat-icon [inline]="true" matSuffix>credit_card</mat-icon>
                     <mat-error *ngIf="status.cardnumber.invalid">{{
                       getErrorMessage().cardnumberError()
                     }}</mat-error>
-                    <mat-hint align="end">{{ card.value.length }}/{{ cardMaxLength || 16 }}</mat-hint>
+                    <mat-hint align="end">{{ card.value?.length }}/{{ cardMaxLength || 16 }}</mat-hint>
                   </mat-form-field>
                 </div>
               </div>
@@ -138,13 +139,14 @@
                       <mat-label>mm</mat-label>
                       <input
                         matInput
-                        formControlName="expiry"
+                        formControlName="month"
                         placeholder="mm"
                         class="form-control-sm"
                         maxlength="2"
                         type="text"
                         #mm
                         (keyup)="handleField(mm, yy)"
+                        (keydown)="validateInput($event)"
                         required
                       />
                       <mat-icon [inline]="true" matSuffix>date_range</mat-icon>
@@ -158,17 +160,18 @@
                       <mat-label>yy</mat-label>
                       <input
                         matInput
-                        formControlName="expiry"
+                        formControlName="year"
                         placeholder="yy"
                         class="form-control-sm"
                         maxlength="2"
                         type="text"
                         #yy
                         (keyup)="handleField(yy, ctrl)"
+                        (keydown)="validateInput($event)"
                         required
                       />
                       <mat-icon [inline]="true" matSuffix>date_range</mat-icon>
-                      <mat-error *ngIf="status.month.invalid">{{
+                      <mat-error *ngIf="status.year.invalid">{{
                         getErrorMessage().yearError()
                       }}</mat-error>
                       <mat-hint align="end">{{ yy.value?.length || 0 }}/2</mat-hint>
@@ -190,12 +193,13 @@
                       maxlength="3"
                       #ctrl
                       (keyup)="handleField(ctrl, btn)"
+                      (keydown)="validateInput($event)"
                     />
                     <mat-icon [inline]="true" matSuffix>payment</mat-icon>
                     <mat-error *ngIf="status.cvv.invalid">{{
                       getErrorMessage().cvvError()
                     }}</mat-error>
-                    <!-- <mat-hint>Hint</mat-hint> -->
+                    <mat-hint>{{ ctrl.value?.length || 0}}/{{ ctrl?.maxLength }}</mat-hint>
                   </mat-form-field>
                 </div>
               </div>
@@ -214,6 +218,11 @@
                     submit
                   </button>
                 </mat-card-actions>
+              </div>
+
+              <!-- spinner -->
+              <div *ngIf="showSpinner" class="spinner-container justify-content-center form-inline w-100" role="status">
+                <i class="fa fa-spinner fa-spin fa-2x mg-r-p5"></i> Loading...
               </div>
             </mat-card-content>
           </mat-card>

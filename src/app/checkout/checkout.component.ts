@@ -39,7 +39,7 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
   public cardMaxLength: number;
   public fullname: string;
   public address: string;
-  private btn: string;
+  private showSpinner: boolean = false;
 
   constructor(
     private router: Router,
@@ -54,14 +54,12 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
     this.activeUser = this._users.getUsersActive;
     this.fullname = `${this.activeUser.dt.firstname} ${this.activeUser.dt.lastname}`;
     this.address = this.activeUser.dt.address;
-    this.btn = 'create';
 
     this.checkoutform = this.formBuilder.group({
       client: new FormControl(this.fullname, [Validators.required]),
       address: new FormControl(this.address, [Validators.required]),
       cardnumber: new FormControl('', [Validators.required]),
       cvv: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      expiry: new FormControl('', [Validators.required]),
       month: new FormControl('', [Validators.required, Validators.minLength(2)]),
       year: new FormControl('', [Validators.required, Validators.minLength(2)]),
     });
@@ -78,9 +76,26 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
   }
 
   onSubmit() {
+    this.showSpinner = true;
     const details = {};
     if (this.checkoutform.valid && this.submitted === false) {
       console.log({r: this.checkoutform.getRawValue()});
+
+      // this.submitted = true;
+      setTimeout(() => this.showSpinner = false, 15000);
+      // this.showSpinner = false, 15000
+    }
+  }
+
+  validateInput(e) {
+    const val = parseInt(e.key);
+    const keyCodeArr = [8, 9, 16, 17, 37, 38, 39, 40, 46, 51];
+    const kc = e.keyCode || e.which;
+    const isValid = Number.isInteger(val);
+    console.log(`key pressed per keydown`, {key: e.currentTarget.value});
+
+    if (isValid === false) {
+        if (keyCodeArr.includes(kc) === false) e.preventDefault();
     }
   }
 
@@ -90,11 +105,13 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
     f.classList.toggle('d-none');
     fb._elementRef.nativeElement.classList.toggle('d-none');
     sb._elementRef.nativeElement.classList.toggle('d-none');
+
+    this.fullname = '';
+    this.address = '';
   }
 
   handleField(p, n) {
     if (p.value.length === p.maxLength) {
-      console.log({p, n});
       n.focus();
     }
   }
@@ -159,9 +176,12 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
 
   disableBtn(): boolean {
     if (
+      this.status.client.value === '' || this.status.client.invalid ||
+      this.status.address.value === '' || this.status.address.invalid ||
       this.status.cardnumber.value === '' || this.status.cardnumber.invalid ||
       this.status.cvv.value === '' || this.status.cvv.invalid ||
-      (this.status.expiry.value === '' || this.status.expiry.invalid)
+      this.status.month.value === '' || this.status.month.invalid ||
+      this.status.year.value === '' || this.status.year.invalid
     ) {
       return true;
     }
