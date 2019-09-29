@@ -82,10 +82,10 @@ export class CartService {
     if (tmpCart !== null && tmpCart !== undefined) {
       // remove one from ith position - array is left with rest of elements
       // and the removed is returned
-      tmpCart.splice(i, 1);
       obj = tmpCart[i];
+      tmpCart.splice(i, 1);
     }
-    console.log({tmpCart, obj});
+    console.log({i, tmpCart, obj});
 
     // if user is logged in add to perm cart
     this.activeUser = this._users.getUsersActive;
@@ -98,7 +98,7 @@ export class CartService {
 
       // iterate through, add el of tmpCart one at a time
       if (tmpCart.length >= 1) {
-        this.deleteFromCart(email, obj);
+        this.deleteFromCart(email, i);
       } else {
         this.clearCart(email);
       }
@@ -141,7 +141,7 @@ export class CartService {
   addToCart(em: string, obj: CartProps) {
     let index: number;
 
-    const cartStore: CartStoreProps = JSON.parse(
+    const cartStore: CartStoreProps[] = JSON.parse(
       this._localStorage.getItem(this.crtstrttl)
     );
 
@@ -172,23 +172,43 @@ export class CartService {
                 this._localStorage.setItem(this.crtstrttl, cartStore);
               })()
             : (() => {
-                const arr: object[] = [];
-                const cartObj: object = {em, crt: []};
+                // index could not be found
+                const arr: CartProps[] = [];
+                const cartObj: CartStoreProps = {em, crt: []};
 
                 arr.push(obj);
 
                 cartObj['crt'] = arr;
-                const cartItems: object = cartObj;
 
-                this._localStorage.setItem(this.crtstrttl, cartItems);
-                console.log('rare case', cartItems);
+                console.log('before push', {cartStore});
+
+                cartStore.push(cartObj);
+
+                console.log('after push', {cartStore});
+
+                this._localStorage.setItem(this.crtstrttl, cartStore);
+                console.log('rare case', {arr, cartObj, cartStore});
               })();
         })()
-      : null;
+      : (() => {
+        // if cartStore length is less than one - weary of other weird cases...
+         if (cartStore['length'] === 0) {
+           const arr: CartProps[] = [];
+           const cartObj: CartStoreProps = {em, crt: []};
+
+           arr['push'](obj);
+           cartObj['crt'] = arr;
+           cartStore.push(cartObj);
+
+           this._localStorage.setItem(this.crtstrttl, cartStore);
+           console.log('length is less than one => new => finally', {arr, cartObj, cartStore});
+         }
+      })();
     // take care of null case
+    console.log('finally', {cartStore});
   }
 
-  deleteFromCart(em: string, obj: object) {
+  deleteFromCart(em: string, i: number) {
     // gabbage code - reimplement
     // get all
     // get user's cart index
@@ -198,6 +218,8 @@ export class CartService {
     const cartStore: CartStoreProps[] = JSON.parse(
       this._localStorage.getItem(this.crtstrttl)
     );
+
+    console.log('firstof', {cartStore, indexOfCart: i});
 
     // get user's cart
     const userCart = cartStore.find((cur, i) => {
@@ -210,13 +232,13 @@ export class CartService {
     const { crt } = userCart;
 
     // replace crt with others different from specified
-    cartStore[uci]['crt'] = crt.filter((cur) => {
-      return cur === obj;
-    });
+    // replaced filter with splicing
+    crt.splice(i, 1);
+    cartStore[uci]['crt'] = crt;
 
     // set cartStore
     this._localStorage.setItem(this.crtstrttl, cartStore);
-    console.log('[delete cart]', {uci, cartStore, userCart});
+    console.log('[delete cart]', {uci, cartStore, crt, userCart});
   }
 
   clearCart(em: string) {
