@@ -100,14 +100,13 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
   }
 
   showField(d, f, fb, sb) {
-    console.log({d, f, fb, sb});
     d.classList.toggle('d-none');
     f.classList.toggle('d-none');
     fb._elementRef.nativeElement.classList.toggle('d-none');
     sb._elementRef.nativeElement.classList.toggle('d-none');
 
-    this.fullname = '';
-    this.address = '';
+    this.fullname = this.status.client.value;
+    this.address = this.status.address.value;
   }
 
   handleField(p, n) {
