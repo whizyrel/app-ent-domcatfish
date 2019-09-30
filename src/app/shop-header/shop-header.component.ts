@@ -105,10 +105,10 @@ OnInit, AfterContentChecked, AfterViewChecked {
     }
   }
 
-  public deleteFromCart(e, id: string) {
+  public deleteFromCart(e, pid: string) {
     e.stopPropagation();
     e.stopImmediatePropagation();
-    this._cartService.deleteFromTempCart(parseInt(id));
+    this._cartService.deleteFromTempCart(pid);
     this.initCart();
   }
 

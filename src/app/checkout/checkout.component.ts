@@ -217,10 +217,10 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
     this.calcTotal();
   }
 
-  public deleteFromCart(e, id: string) {
+  public deleteFromCart(e, pid: string) {
     e.stopPropagation();
     e.stopImmediatePropagation();
-    this._cartService.deleteFromTempCart(parseInt(id));
+    this._cartService.deleteFromTempCart(pid);
     this.initCart();
   }
 

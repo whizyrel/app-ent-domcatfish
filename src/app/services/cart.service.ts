@@ -20,14 +20,12 @@ export class CartService {
     private _users: UsersActiveInactiveService
   ) {}
 
-  private getParsedCart(ttl: string) {
+  private getParsedCart(ttl: string): CartProps[] {
     return JSON.parse(this._localStorage.getItem(ttl));
   }
 
   get getTempCartItems(): CartProps[] {
     const crt: CartProps[] = this.getParsedCart(this.tmpcrtttl);
-    console.log({crt});
-
     return crt === null ||
       crt === undefined ?
         [] :
@@ -75,11 +73,16 @@ export class CartService {
     console.log({tmpCart, cartArr});
   }
 
-  deleteFromTempCart(i: number) {
-    let obj;
-    const tmpCart = this.getParsedCart(this.tmpcrtttl);
+  deleteFromTempCart(pid: string) {
+    let obj: CartProps;
+    let i: number;
+    const tmpCart: CartProps[] = this.getParsedCart(this.tmpcrtttl);
 
     if (tmpCart !== null && tmpCart !== undefined) {
+      // find index of cart, save and splice
+      i = tmpCart['findIndex']((cur) => {
+        return cur.PID === pid;
+      });
       // remove one from ith position - array is left with rest of elements
       // and the removed is returned
       obj = tmpCart[i];
@@ -97,15 +100,10 @@ export class CartService {
       const {dt: {email}} = this.activeUser;
 
       // iterate through, add el of tmpCart one at a time
-      if (tmpCart.length >= 1) {
-        this.deleteFromCart(email, i);
-      } else {
-        this.clearCart(email);
-      }
-      const permCart: CartProps[] = this.getCartItems(email);
-      console.log({permCart});
+      console.log('[delete temp cart] deleting from perm cart for => ', {email});
+      this.deleteFromCart(email, i);
     }
-    console.log({tmpCart});
+
     // set others into localStorage
     this._localStorage.setItem(this.tmpcrtttl, tmpCart);
   }
@@ -129,6 +127,8 @@ export class CartService {
           });
 
           const { em, crt: cartItems } = cart;
+
+          console.log('[get cart items] cart items gotten => ', {c: cartItems, cart});
 
           cartItems !== null && cartItems !== undefined && cartItems.length >= 1
             ? (cartArray = cartItems)
