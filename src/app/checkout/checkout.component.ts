@@ -40,6 +40,8 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
   public fullname: string;
   public address: string;
   private showSpinner: boolean = false;
+  private cardnumber: number[] = [];
+  private str: string = '';
 
   constructor(
     private router: Router,
@@ -87,12 +89,30 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
     }
   }
 
+  formatCardNumber(e, f) {
+    // this.cardnumber.push(parseInt(e.key));
+    // setTimeout(() => {
+    //   if (this.cardnumber['length'] % 4 === 0) {
+    //     this.str += `${this.cardnumber.join('')} `;
+    //     /* if (this.cardnumber['length'] > 4) {
+    //       (str.replace(' ', '').length);
+    //     } */
+    //     f.value = this.str;
+    //   }
+    //
+    //   if (this.cardnumber['length'] === f.maxLength) {
+    //     this.str += `${this.cardnumber['splice'](this.cardnumber['length'] % 4)}`;
+    //     f.value = this.str;
+    //   }
+    //   console.log({c: this.cardnumber, s: this.str, v: f.value});
+    // }, 1000);
+  }
+
   validateInput(e) {
     const val = parseInt(e.key);
     const keyCodeArr = [8, 9, 16, 17, 37, 38, 39, 40, 46, 51];
     const kc = e.keyCode || e.which;
     const isValid = Number.isInteger(val);
-    console.log(`key pressed per keydown`, {key: e.currentTarget.value});
 
     if (isValid === false) {
         if (keyCodeArr.includes(kc) === false) e.preventDefault();

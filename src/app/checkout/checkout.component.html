@@ -121,6 +121,7 @@
                       #card
                       (keyup)="handleField(card, mm)"
                       (keydown)="validateInput($event)"
+                      (keydown)="formatCardNumber($event, card)"
                     />
                     <mat-icon [inline]="true" matSuffix>credit_card</mat-icon>
                     <mat-error *ngIf="status.cardnumber.invalid">{{
