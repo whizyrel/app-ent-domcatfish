@@ -55,6 +55,8 @@ export class AddAccountLoginComponent implements OnInit {
 
   private _response: HttpResponse;
 
+  private rtUrl: any = null;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -72,7 +74,17 @@ export class AddAccountLoginComponent implements OnInit {
     // grab query
     this.activatedRoute.queryParams.subscribe((param) => {
       const { rt } = param;
-      this.returnURL = this._decEnc.aesDecryption(rt.toString(), this.seckey);
+      this.returnURL = this._decEnc.aesDecryption(rt.toString());
+      let u = this.returnURL;
+        if (u.includes('view')) {
+          const splt = u.split('=');
+          const pid = this._decEnc.aesEncryption(splt[1]);
+          const url = `${splt[0]}=${pid}`;
+          const decUrl = this._decEnc.aesDecryption(pid);
+          console.log({url, pid, decUrl});
+          this.returnURL = url;
+        }
+      console.log({rt: this.returnURL});
     });
 
     // grab URLSegment
@@ -284,5 +296,34 @@ export class AddAccountLoginComponent implements OnInit {
         }
       },
     };
+  }
+
+  private initRt() {
+    this.activatedRoute.queryParams.subscribe((params) => {
+      const j: any = {};
+      this.rtUrl = this._decEnc.aesDecryption(params.rt, this.seckey) || null;
+
+      if (this.rtUrl.split('=')[0].includes('st')) {
+        j.path = (this.rtUrl
+          .split('?')[0]
+          .split('/'))
+          .map((cur, i) => {
+            if (cur !== '' && i === 0) {
+              return `/${cur}`;
+            } else {
+              return cur;
+            }
+          })
+          .filter((cur) => cur !== undefined);
+
+        const v = this.rtUrl.split('=')[1];
+        const r = this._decEnc.aesEncryption(v, this.seckey).toString();
+        j.query = {st: r};
+      } else {
+        j.path = [this.rtUrl];
+      }
+
+      this.rtUrl = j;
+    });
   }
 }

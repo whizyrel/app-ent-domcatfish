@@ -39,7 +39,7 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
   public cardMaxLength: number;
   public fullname: string;
   public address: string;
-  private showSpinner: boolean = false;
+  public showSpinner: boolean = false;
   private cardnumber: number[] = [];
   private str: string = '';
 
@@ -53,10 +53,7 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
   ) { }
 
   ngOnInit() {
-    this.activeUser = this._users.getUsersActive;
-    this.fullname = `${this.activeUser.dt.firstname} ${this.activeUser.dt.lastname}`;
-    this.address = this.activeUser.dt.address;
-
+    this.initUserDetails();
     this.checkoutform = this.formBuilder.group({
       client: new FormControl(this.fullname, [Validators.required]),
       address: new FormControl(this.address, [Validators.required]),
@@ -70,7 +67,9 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
   }
 
   ngAfterContentChecked() {
+    this.initUserDetails();
     this.initCart();
+    console.log('okay?!');
   }
 
   ngAfterContentInit() {
@@ -87,6 +86,41 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
       setTimeout(() => this.showSpinner = false, 15000);
       // this.showSpinner = false, 15000
     }
+  }
+
+  private initCart() {
+    if (this.activeUser !== null && this.activeUser !== undefined) {
+      console.log('[checkout - init cart] current user email', {e: this.activeUser.dt.email});
+      this.cart = this._cartService.getCartItems(this.activeUser.dt.email);
+      console.log('[checkout] user\'s cart => ', {c: this.cart});
+      if (this.cart['length'] < 1) {
+        // route out to shop
+        this.router.navigate(['shop']);
+      }
+    }
+    this.calcTotal();
+  }
+
+  public deleteFromCart(e, pid: string) {
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    this._cartService.deleteFromTempCart(pid);
+    this.initCart();
+  }
+
+  showFullDetails(id: string) {
+    const encID = this._decEnc.aesEncryption(id, this.seckey);
+    this.router.navigate(['/shop/view/'], {queryParams: {st: encID}});
+  }
+
+  private calcTotal() {
+    this.total = this.cart.reduce((acc, cur) => acc + cur.price, 0);
+  }
+
+  private initUserDetails() {
+    this.activeUser = this._users.getUsersActive;
+    this.fullname = `${this.activeUser.dt.firstname} ${this.activeUser.dt.lastname}`;
+    this.address = this.activeUser.dt.address;
   }
 
   formatCardNumber(e, f) {
@@ -204,32 +238,5 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
     ) {
       return true;
     }
-  }
-
-  private initCart() {
-    if (this.activeUser !== null && this.activeUser !== undefined) {
-      this.cart = this._cartService.getCartItems(this.activeUser.dt.email);
-      if (this.cart['length'] < 1) {
-        // route out to shop
-        this.router.navigate(['shop']);
-      }
-    }
-    this.calcTotal();
-  }
-
-  public deleteFromCart(e, pid: string) {
-    e.stopPropagation();
-    e.stopImmediatePropagation();
-    this._cartService.deleteFromTempCart(pid);
-    this.initCart();
-  }
-
-  showFullDetails(id: string) {
-    const encID = this._decEnc.aesEncryption(id, this.seckey);
-    this.router.navigate(['/shop/view/'], {queryParams: {st: encID}});
-  }
-
-  private calcTotal() {
-    this.total = this.cart.reduce((acc, cur) => acc + cur.price, 0);
   }
 }
