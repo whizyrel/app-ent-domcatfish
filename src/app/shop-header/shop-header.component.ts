@@ -80,9 +80,7 @@ OnInit, AfterContentChecked, AfterViewChecked {
   }
 
   public checkout() {
-    const activeUser = this._users.getUsersActive;
-
-    if (activeUser === null) {
+    if (this.active === null) {
       this._dialog.showDialog({
         message: 'Please log in/signup to continue',
         action: () => {
