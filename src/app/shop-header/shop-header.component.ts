@@ -112,8 +112,25 @@ OnInit, AfterContentChecked, AfterViewChecked {
     this.initCart();
   }
 
-  private async initCart () {
-    this.cart = this._cartService.getTempCartItems;
+  private initCart () {
+    const tmpCart = this._cartService.getTempCartItems;
+    if (
+      this.active !== null &&
+      this.active !== undefined
+    ) {
+      const usersCart = this._cartService.getCartItems(this.active.dt.email);
+      if (usersCart['length'] >= 1) {
+        // enum users cart and set cart
+        this.cart = tmpCart.filter((tCart, i) => {
+            const found = usersCart.find(cur => tCart.PID === cur.PID);
+            console.log({found});
+            return found !== null && found !== undefined;
+        });
+        console.log({tmpCart, usersCart, c: this.cart});
+        return;
+      }
+    }
+    this.cart = tmpCart;
   }
 
   public showFullDetails(id) {
