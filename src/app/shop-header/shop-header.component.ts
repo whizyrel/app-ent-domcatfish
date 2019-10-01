@@ -121,11 +121,21 @@ OnInit, AfterContentChecked, AfterViewChecked {
         // enum users cart and set cart
         this.cart = tmpCart.filter((tCart, i) => {
             const found = usersCart.find(cur => tCart.PID === cur.PID);
-            console.log({found});
             return found !== null && found !== undefined;
         });
         console.log({tmpCart, usersCart, c: this.cart});
         return;
+      } else {
+        // observe else behaviour
+        const allUsers = this._users.allUsers;
+
+        if (
+          allUsers !== null &&
+          allUsers !== undefined &&
+          allUsers['length'] > 1
+        ) {
+          this.cart = [];
+        }
       }
     }
     this.cart = tmpCart;
