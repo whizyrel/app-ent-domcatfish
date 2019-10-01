@@ -167,7 +167,7 @@ export class DashboardComponent implements OnInit {
 
                   // temporary use
                   // this.otherusrimg = `./assets/images/avatar3.png`;
-                },
+                // },
                 // (error) => {
                   // cur.dt.img = `./assets/images/avatar2.png`;
 
