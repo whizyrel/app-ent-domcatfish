@@ -21,7 +21,7 @@
         <img
           *ngIf="userimg !== '' && userimg !== ' ' && userimg !== undefined && userimg !== null; else sidebarImgElseBlock"
           src="{{userimg}}"
-          class="img-fluid"
+          class="img-fluid d-flex m-auto pd-p5"
           alt="Profile Image"
           style="width: 50px!important; height: 50px!important; border-radius: 50%;"
         />
@@ -243,7 +243,7 @@
     <!-- Grid row -->
     <!-- Router outlet with outlet name would be placed here -->
     <!-- <div class="loader"></div> -->
-    <router-outlet name="dashboard">  </router-outlet>
+    <router-outlet name="dashboard"></router-outlet>
   </div>
 </main>
 <!-- Main layout -->
