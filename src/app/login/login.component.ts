@@ -211,19 +211,22 @@ export class LoginComponent implements OnInit {
 
                 this.who === 'user' ?
                   (
-                    this.rtUrl === null ? this.router.navigate(['shop']) :
-                      this.router.navigate(
-                        this.rtUrl.path, {
-                          replaceUrl : true,
-                          queryParams: this.rtUrl.query
-                        })
-                  ) :
-                      this.rtUrl === null ?
-                        this.router.navigate([this.who, 'dashboard']) :
-                          this.router.navigate(this.rtUrl.path, {
-                            replaceUrl: true,
+                    this.rtUrl === null &&
+                    this.rtUrl !== undefined ?
+                      this.router.navigate(['shop']) :
+                        this.router.navigate(
+                          this.rtUrl.path, {
+                            replaceUrl : true,
                             queryParams: this.rtUrl.query
-                          });
+                          })
+                  ) :
+                    this.rtUrl === null &&
+                    this.rtUrl !== undefined ?
+                      this.router.navigate([this.who, 'dashboard']) :
+                        this.router.navigate(this.rtUrl.path, {
+                          replaceUrl: true,
+                          queryParams: this.rtUrl.query
+                        });
               }
             },
             (error: HttpResponse) => {
@@ -305,28 +308,31 @@ export class LoginComponent implements OnInit {
   private initRt() {
     this.activatedRoute.queryParams.subscribe((params) => {
       const j: any = {};
-      this.rtUrl = this._decEnc.aesDecryption(params.rt, this.seckey) || null;
+      console.log({params});
+      if (Object.keys({}).length > 1) {
+        this.rtUrl = this._decEnc.aesDecryption(params.rt, this.seckey) || null;
 
-      if (this.rtUrl.split('=')[0].includes('st')) {
-        j.path = (this.rtUrl
-          .split('?')[0]
-          .split('/'))
-          .map((cur, i) => {
-            if (cur !== '' && i === 0) {
-              return `/${cur}`;
-            } else {
-              return cur;
-            }
-          })
-          .filter((cur) => cur !== undefined);
+        if (this.rtUrl.split('=')[0].includes('st')) {
+          j.path = (this.rtUrl
+            .split('?')[0]
+            .split('/'))
+            .map((cur, i) => {
+              if (cur !== '' && i === 0) {
+                return `/${cur}`;
+              } else {
+                return cur;
+              }
+            })
+            .filter((cur) => cur !== undefined);
 
-        const v = this.rtUrl.split('=')[1];
-        const r = this._decEnc.aesEncryption(v, this.seckey).toString();
-        j.query = {st: r};
-      } else {
-        j.path = [this.rtUrl];
+          const v = this.rtUrl.split('=')[1];
+          const r = this._decEnc.aesEncryption(v, this.seckey).toString();
+          j.query = {st: r};
+        } else {
+          j.path = [this.rtUrl];
+        }
+        this.rtUrl = j;
       }
-      this.rtUrl = j;
     });
   }
 }
