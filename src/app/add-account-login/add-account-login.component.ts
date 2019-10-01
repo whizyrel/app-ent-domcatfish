@@ -216,8 +216,8 @@ export class AddAccountLoginComponent implements OnInit {
 
                 this.who === 'user' ?
                   (
-                    tthis.rtUrl === null &&
-                      this.rtUrl !== undefined ? this.router.navigate(['shop']) :
+                    this.rtUrl === null &&
+                      this.rtUrl === undefined ? this.router.navigate(['shop']) :
                         this.router.navigate(
                           this.rtUrl.path, {
                             replaceUrl : true,
@@ -225,7 +225,7 @@ export class AddAccountLoginComponent implements OnInit {
                           })
                   ) :
                     this.rtUrl === null &&
-                    this.rtUrl !== undefined  ?
+                    this.rtUrl === undefined  ?
                       this.router.navigate([this.who, 'dashboard']) :
                         this.router.navigate(this.rtUrl.path, {
                           replaceUrl: true,

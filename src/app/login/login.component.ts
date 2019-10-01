@@ -212,7 +212,7 @@ export class LoginComponent implements OnInit {
                 this.who === 'user' ?
                   (
                     this.rtUrl === null &&
-                    this.rtUrl !== undefined ?
+                    this.rtUrl === undefined ?
                       this.router.navigate(['shop']) :
                         this.router.navigate(
                           this.rtUrl.path, {
@@ -221,7 +221,7 @@ export class LoginComponent implements OnInit {
                           })
                   ) :
                     this.rtUrl === null &&
-                    this.rtUrl !== undefined ?
+                    this.rtUrl === undefined ?
                       this.router.navigate([this.who, 'dashboard']) :
                         this.router.navigate(this.rtUrl.path, {
                           replaceUrl: true,
