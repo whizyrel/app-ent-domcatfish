@@ -7,8 +7,6 @@ import {
   FormBuilder,
 } from '@angular/forms';
 
-import { AES, enc } from 'crypto-js';
-
 import { SnackbarmsgComponent } from '../snackbarmsg/snackbarmsg.component';
 
 import { LoginProps } from '../interfaces/login-props';
@@ -71,22 +69,7 @@ export class AddAccountLoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // grab query
-    this.activatedRoute.queryParams.subscribe((param) => {
-      const { rt } = param;
-      this.returnURL = this._decEnc.aesDecryption(rt.toString());
-      let u = this.returnURL;
-        if (u.includes('view')) {
-          const splt = u.split('=');
-          const pid = this._decEnc.aesEncryption(splt[1]);
-          const url = `${splt[0]}=${pid}`;
-          const decUrl = this._decEnc.aesDecryption(pid);
-          console.log({url, pid, decUrl});
-          this.returnURL = url;
-        }
-      console.log({rt: this.returnURL});
-    });
-
+    this.initRt();
     // grab URLSegment
     this.activatedRoute.parent.parent.url.subscribe((URLSegment) => {
       let who = '';

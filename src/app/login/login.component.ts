@@ -116,7 +116,9 @@ export class LoginComponent implements OnInit {
       if (ps === null) {
         isUserLoggedIn = false;
       } else {
-        isUserLoggedIn = ps.every((cur) => cur !== null && cur !== undefined && cur.dt.email !== this.loginDetails.email) // false: user with email is logged in, true: user is not logged-in
+        isUserLoggedIn = ps.every((cur) => cur !== null &&
+          cur !== undefined &&
+          cur.dt.email !== this.loginDetails.email); // false: user with email is logged in, true: user is not logged-in
 
         // subtle case where ps is []
         if (ps.length === 0) {
@@ -324,7 +326,6 @@ export class LoginComponent implements OnInit {
       } else {
         j.path = [this.rtUrl];
       }
-
       this.rtUrl = j;
     });
   }

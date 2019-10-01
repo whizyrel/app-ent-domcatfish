@@ -128,8 +128,6 @@ export class CartService {
 
           const { em, crt: cartItems } = cart;
 
-          console.log('[get cart items] cart items gotten => ', {c: cartItems, cart});
-
           cartItems !== null && cartItems !== undefined && cartItems.length >= 1
             ? (cartArray = cartItems)
             : cartArray;

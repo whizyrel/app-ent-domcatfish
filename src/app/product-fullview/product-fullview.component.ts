@@ -47,7 +47,9 @@ export class ProductFullviewComponent implements OnInit {
   async ngOnInit() {
     await this.activatedRoute.queryParams.subscribe(async (param) => {
       const { st } = param;
+      console.log({st});
       this.pid = this._decEnc.aesDecryption(st.toString());
+      // console.log({pid: this.pid});
       await this.getProductDetails(this.pid);
       this.encURL = this._decEnc.aesEncryption(`/shop/view?st=${this.pid}`);
     });
