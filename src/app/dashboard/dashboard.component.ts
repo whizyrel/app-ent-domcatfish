@@ -125,15 +125,15 @@ export class DashboardComponent implements OnInit {
             .substring(0, 1)
             .toUpperCase()}${lastname.substring(1)}`;
 
-          this._googleApi.getUserImg(email).subscribe(
-            (data) => {
+          // this._googleApi.getUserImg(email).subscribe(
+            // (data) => {
               // pick image from success response from google api
-              this.userimg = '';
-            },
-            (error) => {
-              // this.userimg = `./assets/images/avatar2.png`;
-            }
-          );
+              // this.userimg = '';
+            // },
+            // (error) => {
+              this.userimg = `./assets/images/avatar2.png`;
+            // }
+          // );
         })()
       : (() => {
           this.what = `sign in`;
@@ -160,21 +160,21 @@ export class DashboardComponent implements OnInit {
         ? (() => {
             this.showInactvUser = true;
             this.inactive['forEach']((cur) => {
-              this._googleApi.getUserImg(cur.dt.email).subscribe(
-                (data) => {
+              // this._googleApi.getUserImg(cur.dt.email).subscribe(
+                // (data) => {
                   // put user img in active-false users in ionstore
                   cur.dt.img = `./assets/images/avatar3.png`;
 
                   // temporary use
                   // this.otherusrimg = `./assets/images/avatar3.png`;
                 },
-                (error) => {
+                // (error) => {
                   // cur.dt.img = `./assets/images/avatar2.png`;
 
                   // temporarily use
                   // this.otherusrimg = `./assets/images/avatar3.png`;
-                }
-              );
+                // }
+              // );
             });
           })()
         : (() => {
