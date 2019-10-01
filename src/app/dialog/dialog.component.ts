@@ -13,7 +13,9 @@ export class DialogComponent {
     @Inject(MAT_DIALOG_DATA) public data,
   ) {}
 
-  ngOnInit() { }
+  ngOnInit() {
+    console.log({d: this.data});
+  }
 
   onAction() {
     this.data.action();

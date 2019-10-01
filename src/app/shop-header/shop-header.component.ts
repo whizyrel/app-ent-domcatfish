@@ -244,8 +244,11 @@ OnInit, AfterContentChecked, AfterViewChecked {
             if (err) {
               // show dialog
               const dialogRef = this._dialog.showDialog({
-                data: {error: err},
-                action: () => this.router.navigate(['shop']),
+                error: {message: err.error.message},
+                action: () => {
+                  this.router.navigate(['/shop']);
+                  window.location.reload(true);
+                },
               });
               return;
             }
