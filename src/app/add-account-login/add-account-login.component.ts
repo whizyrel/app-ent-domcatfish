@@ -212,7 +212,23 @@ export class AddAccountLoginComponent implements OnInit {
 
                 // route back to original URL whence user came
                 // hence use param return URL
-                this.router.navigateByUrl(this.returnURL);
+                // this.router.navigateByUrl(this.returnURL);
+
+                this.who === 'user' ?
+                  (
+                    this.rtUrl === null ? this.router.navigate(['shop']) :
+                      this.router.navigate(
+                        this.rtUrl.path, {
+                          replaceUrl : true,
+                          queryParams: this.rtUrl.query
+                        })
+                  ) :
+                      this.rtUrl === null ?
+                        this.router.navigate([this.who, 'dashboard']) :
+                          this.router.navigate(this.rtUrl.path, {
+                            replaceUrl: true,
+                            queryParams: this.rtUrl.query
+                          });
               }
             },
             (error: HttpResponse) => {
@@ -305,7 +321,6 @@ export class AddAccountLoginComponent implements OnInit {
       } else {
         j.path = [this.rtUrl];
       }
-
       this.rtUrl = j;
     });
   }
