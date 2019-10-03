@@ -1,4 +1,4 @@
-<div class="w-100 d-flex" *ngIf="queryBar" (queryProgressBar)="showQuerybar($event)" progress-bar>
+<div class="w-100 d-none" progress-bar #progBar>
   <mat-progress-bar
     [color]="color"
     [mode]="mode"
@@ -21,9 +21,9 @@
         <img
           *ngIf="userimg !== '' && userimg !== ' ' && userimg !== undefined && userimg !== null; else sidebarImgElseBlock"
           src="{{userimg}}"
-          class="img-fluid d-flex m-auto pd-p5"
+          class="img-fluid d-flex m-auto pd-b-p5"
           alt="Profile Image"
-          style="width: 50px!important; height: 50px!important; border-radius: 50%;"
+          style="width: 45px!important; height: 50px!important; border-radius: 50%;"
         />
         <!-- User image -->
 
@@ -36,7 +36,7 @@
         <!-- Icon -->
 
         <!-- username and email-->
-        <div class="d-block m-auto">
+        <div class="d-block m-auto text-center">
           <p class="dark-grey-text mg-b-p5" style="margin: 0!important;">{{ username }}</p>
           <p class="grey-text " style="margin: 0!important;">{{active.dt.email}}</p>
         </div>
@@ -48,7 +48,9 @@
         <ul *ngFor="let sidebarLink of sidebarLinks" style="padding: 0; margin: 0;">
           <a *ngIf="sidebarLink.hasOwnProperty('children') === false" [routerLink]="[sidebarLink.link]"
           routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}" class="list-group-item list-group-item-action waves-effect item form-inline sidelinks dark-grey-text" style="display: flex!important;">
+          [routerLinkActiveOptions]="{exact: true}"
+          class="list-group-item list-group-item-action waves-effect item form-inline sidelinks dark-grey-text"
+          style="display: flex!important;">
             <i class="{{ sidebarLink.iconClass }}"></i><p class="show" style="margin: 0;" >{{sidebarLink.title}}</p></a
           >
           <li *ngIf="sidebarLink.hasOwnProperty('children') === true" class="list-group-item list-group-item-action waves-effect item form-inline sidelinks dark-grey-text d-flex">
@@ -60,7 +62,10 @@
                 <a [routerLink]="[{outlets: {dashboard: child.link}}]"
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact: true}"
-                class="waves-effect form-inline dark-grey-text d-flex w-100">
+                class="form-inline dark-grey-text d-flex w-100"
+                #sideRla="routerLinkActive"
+                (click)="showQuerybar(progBar, sideRla)"
+                >
                   <i class="{{child.iconClass}} mg-r-1"></i>
                   <p>{{child.title}}</p>
                 </a>

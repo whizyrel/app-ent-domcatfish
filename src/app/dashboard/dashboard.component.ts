@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterLinkActive } from '@angular/router';
 
 import { LinksService } from '../services/links.service';
 import { UsersActiveInactiveService } from '../services/users-active-inactive.service';
@@ -50,7 +50,6 @@ export class DashboardComponent implements OnInit {
   public mode = 'query';
   public value = 50;
   public bufferValue = 75;
-  public queryBar: boolean = true;
 
   constructor(
     private router: Router,
@@ -67,7 +66,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.value = 75;
     this.bufferValue = 90;
-    this.queryBar = true;
     this.sidebarLinks = this._linksService.getAdminDashboardSidebarLinks;
     this.links = this._linksService.getHomeNavbarLinks();
     this.soc_link = this._linksService.getSocialLinks();
@@ -85,6 +83,7 @@ export class DashboardComponent implements OnInit {
     const i = parseInt(el.id.split('-')[1]);
 
     // check if index is admin, else show dialog
+    // rewrite the call
     const isAdmin = this._users.isAdmin(i);
 
     if (isAdmin) {
@@ -104,9 +103,7 @@ export class DashboardComponent implements OnInit {
     console.log({el, e, i});
   }
 
-  initActive() {
-    this.queryBar = false;
-    // type mismatch
+  private initActive() {
     !Array.isArray(this._users.getUsersActive)
       ? (this.active = this._users.getUsersActive)
       : null;
@@ -143,7 +140,7 @@ export class DashboardComponent implements OnInit {
         })();
   }
 
-  initInactive() {
+  private initInactive() {
     // console.log(this._users.getUsersInactive.length);
     // type mismatch
     if (
@@ -239,8 +236,13 @@ export class DashboardComponent implements OnInit {
         })();
   }
 
-  public showQuerybar(status: boolean) {
-    this.queryBar = status;
+  public showQuerybar(el, rla) {
+    console.log({el, rla});
+    if (rla.isActive === false) {
+      el.classList.toggle('d-none');
+    } else {
+      el.classList.add('d-none');
+    }
   }
 
   public toggleSidebar () {
