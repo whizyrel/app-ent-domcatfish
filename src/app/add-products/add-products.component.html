@@ -194,20 +194,19 @@
                     [disabled]="addProductForm.invalid"
                     formenctype="multipart/form-data"
                   >
-                    Sign up
+                    submit
                   </button>
                 </mat-card-actions>
               </div>
             </div>
             <!-- upload images, submit button -->
           </mat-card-content>
+          <!-- spinner -->
+          <div *ngIf="showSpinner" class="spinner-container justify-content-center form-inline w-100" role="status">
+            <i class="fa fa-spinner fa-spin fa-2x mg-r-p5"></i> Loading...
+          </div>
         </mat-card>
       </div>
-    </div>
-
-    <!-- spinner -->
-    <div *ngIf="showSpinner" class="spinner-container justify-content-center form-inline w-100" role="status">
-      <i class="fa fa-spinner fa-spin fa-2x mg-r-p5"></i> Loading...
     </div>
   </form>
 </main>

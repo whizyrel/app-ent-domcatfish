@@ -31,8 +31,10 @@ export class AddProductsComponent implements OnInit {
   public packTypes: PackTypesProps[];
 
   private submitted: boolean = false;
+  public showSpinner: boolean = false;
 
   private files;
+  private urlArr: any[] = [];
 
   @Output() public queryProgressBar: EventEmitter<boolean> = new EventEmitter();
 
@@ -51,42 +53,55 @@ export class AddProductsComponent implements OnInit {
   }
 
   onSubmit() {
-    this.queryProgressBar.emit(true);
+    this.showSpinner = true;
     const productDetails: ProductsProps = this.addProductForm.getRawValue();
-    console.log({formDetails: productDetails, form: this.addProductForm});
+    console.log({formDetails: productDetails});
 
     if (
-      this.files === null
-      || this.files === undefined
-      || this.files.length < 1
+      this.files === null ||
+      this.files === undefined ||
+      this.files.length < 1
     ) {
-      this._dialog.showDialog({message: 'Please attach files'});
+      this._dialog.showDialog({
+        message: 'Please attach files',
+        action: () => this.showSpinner = false
+      });
       return;
     } else {
       if (
-        this.submitted === false
-        && this.addProductForm.valid
+        /* this.submitted === false
+        && */ this.addProductForm.valid
       ) {
         this.submitted = true;
+        // setTimeout(() => this.showSpinner = false, 15000);
         // get form data
         const formData: FormData = this.formData(productDetails);
+        console.log({f: this.grabFiles(null)});
         formData.append('imgs', this.grabFiles(null));
+        // productDetails.imgs = this.urlArr;
 
-        console.log({files: formData.has('imgs')});
         // post data
         this._productsService
-        .addProduct(formData, this.getActiveUser.id)
+        .addProduct(productDetails, this.getActiveUser.id)
         .subscribe(
           (data) => {
             this.queryProgressBar.emit(false);
             // show dialog
-            this._dialog.showDialog({message: 'Added successfully!'});
+            this._dialog.showDialog({
+              message: 'Added successfully!',
+              action: () => console.log('[admin] upload dialog closed'),
+            });
             console.log({data});
+            this.showSpinner = false;
           },
           (error) => {
             this.queryProgressBar.emit(false);
-            this._dialog.showDialog({message: 'Something went wrong!'});
+            this._dialog.showDialog({
+              message: 'Something went wrong!',
+              action: () => console.log('[admin] upload dialog closed'),
+            });
             console.log({error});
+            this.showSpinner = false;
           });
       }
     }
@@ -101,7 +116,6 @@ export class AddProductsComponent implements OnInit {
 
     for (let key in form) {
       addProductFormData.append(key, form[key]);
-      console.log({key, value: form[key]});
     }
 
     return addProductFormData;
@@ -109,15 +123,17 @@ export class AddProductsComponent implements OnInit {
 
   public grabFiles(e) {
     if (e !== null) {
-      let isFile = false;
-      if (e.target.files.length > 0) {
-        this.files = e.target.files.map((cur, i) => cur.item(i));
-        console.log({e, files: this.files});
+      let filesArr = Array.from(e.target.files);
+      console.log({filesArr});
+      if (filesArr.length > 0) {
+        this.files = filesArr;
+        /* filesArr.forEach(async (cur) => {
+          await this.urlArr.push(URL.createObjectURL(cur));
+        }); */
         return;
       }
       return;
     }
-
     return this.files;
   }
 
