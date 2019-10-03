@@ -260,4 +260,4 @@ export { AdminRoutes };
 export { ClientRoutes };
 export { ShopRoutes };
 
-export class RouteList {}
+export class RouteList { }

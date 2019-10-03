@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+
 import { AppRoutingModule } from '../app-routing.module';
 
 import { LoginAuthGuard } from '../guards/login-auth.guard';
@@ -107,22 +108,9 @@ const GuardsList = [
 const ComponentsList = [
   AppComponent,
   HomePageComponent,
-  VerifyComponent,
-  LoginComponent,
-  ForgotComponent,
-  SignupComponent,
   SnackbarmsgComponent,
-  DashboardComponent,
-  ShopComponent,
-  AddAccountLoginComponent,
-  AdminHomePageComponent,
-  RetrieveComponent,
-  AddProductsComponent,
-  ListProductsComponent,
-  ListUsersComponent,
-  ListOrdersComponent,
-  ListFeedbacksComponent,
   DialogComponent,
+  ShopComponent,
   ProductThumbnailComponent,
   ProductFullviewComponent,
   ShopHeaderComponent,
@@ -152,4 +140,23 @@ const ModulesList = [
   MatMenuModule
 ];
 
-export { ModulesList, ComponentsList, ServicesList };
+const SharedComponents = [
+  VerifyComponent,
+  ForgotComponent,
+  RetrieveComponent,
+  LoginComponent,
+  AddAccountLoginComponent,
+  SignupComponent
+]
+
+const AdminComponents = [
+  DashboardComponent,
+  AdminHomePageComponent,
+  AddProductsComponent,
+  ListProductsComponent,
+  ListUsersComponent,
+  ListOrdersComponent,
+  ListFeedbacksComponent
+];
+
+export { ModulesList, ComponentsList, ServicesList, AdminComponents, SharedComponents };
