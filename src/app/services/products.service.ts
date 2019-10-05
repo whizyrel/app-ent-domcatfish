@@ -40,7 +40,7 @@ export class ProductsService {
 
   addProduct(body, id): Observable<Object> {
     const _url = this.productUrls.add;
-    return this._httpClient.post<Object>(_url, body, {
+    return this._httpClient.post<FormData>(_url, body, {
       headers: new HttpHeaders({
         // 'Content-Type': 'application/json',
         'authorization': `Bearer ${id}`

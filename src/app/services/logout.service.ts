@@ -32,7 +32,8 @@ export class LogoutService {
       const { id, dt: {email} } = active;
 
       // go to backend
-      await this.logoutUserBackend(id).subscribe(async data => {
+      await this.logoutUserBackend(id)
+      .subscribe(async data => {
         console.log(`[Success] logout successful`);
 
         // clear cart
