@@ -17,6 +17,8 @@ import { CartStoreProps } from '../interfaces/cart-store-props';
 import { ForgotDetailsService } from '../services/forgot-details.service';
 import { InitSnackbarService } from '../services/init-snackbar.service';
 import { LocalStorageService } from '../services/local-storage.service';
+import { UsersActiveInactiveService } from '../services/users-active-inactive.service';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-forgot',
@@ -25,43 +27,37 @@ import { LocalStorageService } from '../services/local-storage.service';
 })
 export class ForgotComponent implements OnInit {
   public recoveryform: FormGroup;
-
-  private ionstrttl: string = 'ionstr';
-  private crtstrttl: string = 'crtstr';
-
-  public hide: boolean = true;
-  public submitted: boolean = false;
-
   public title: string = `debim`.toUpperCase();
 
-  public color: string = 'primary';
+  public hide: boolean = true;
 
+  public color: string = 'primary';
   public mode: string = 'query';
   public value: number = 25;
   public bufferValue: number = 75;
   public queryBar: boolean = false;
-
-  public email: string;
-  private clicked: boolean;
+  private clicked: boolean = false;
 
   private _response: HttpResponse;
+
+  public email: string;
+  private actvUser: SessStoreProps;
 
   constructor(
     private formBuilder: FormBuilder,
     private _forgotDetailsService: ForgotDetailsService,
     private _snackbarService: InitSnackbarService,
-    private _localStorage: LocalStorageService
+    private _localStorage: LocalStorageService,
+    private _users: UsersActiveInactiveService,
+    private _cartService: CartService
   ) {}
 
   ngOnInit() {
-    // submit button
-    this.clicked = false;
-
     // initialize email input field with active user
     this.actvUserCtrl();
 
     this.recoveryform = this.formBuilder.group({
-      email: new FormControl('', [
+      email: new FormControl(this.email, [
         Validators.required,
         Validators.pattern(
           // tslint:disable-next-line:max-line-length
@@ -81,7 +77,9 @@ export class ForgotComponent implements OnInit {
 
       const { email } = recoveryDetails;
 
-      this._forgotDetailsService.submitDetails(recoveryDetails).subscribe(
+      this._forgotDetailsService
+      .submitDetails(recoveryDetails)
+      .subscribe(
         (data: HttpResponse) => {
           this.queryBar = false;
           this.bufferValue = 100;
@@ -131,70 +129,31 @@ export class ForgotComponent implements OnInit {
       );
     }
   }
+
   protected actvUserCtrl() {
-    let actvUser: SessStoreProps;
-
-    // get active user email
-    const ions: SessStoreProps[] = JSON.parse(
-      this._localStorage.getItem(this.ionstrttl)
-    );
-
-    // grab input field
-    // const inputField = document.querySelector('[emailInput]');
+    this.actvUser = this._users.getUsersActive;
 
     // ions bypass for prod build error
-    ions !== null && ions !== undefined
+    this.actvUser !== null && this.actvUser !== undefined
       ? (() => {
-          actvUser = ions.find((cur) => cur.active);
-          actvUser !== null && actvUser !== undefined
-            ? (() => {
-                const {
-                  dt: { email: em },
-                } = actvUser;
-
-                this.email = em;
-                // inputField["value"] = em;
-              })()
-            : (this.email = '');
+          this.email = this.actvUser.dt.email;
         })()
-      : null;
-
-    return {
-      ions: ions,
-      actvUser: actvUser,
-    };
+      : this.email = '';
   }
+
   protected clearUserData(em: string) {
-    // get active user data
-    const { ions, actvUser } = this.actvUserCtrl();
-    // remove such user from ion store
-    actvUser !== null && actvUser !== undefined
+    this.actvUser !== null && this.actvUser !== undefined
       ? (() => {
-          // only clear data if ions is not null or undefined
-          ions !== null && actvUser !== undefined
-            ? (() => {
-                this._localStorage.setItem(
-                  this.ionstrttl,
-                  ions.filter((cur) => cur.dt.email !== em)
-                );
-              })()
-            : null;
+        // inactive users
+        const inactive = this._users.getUsersInactive;
+        // set inactive users
+        this._localStorage.setItem('ionstr', inactive);
+        this._users.setNextActive();
         })()
       : null;
 
-    // get cart Store
-    const cartStore: CartStoreProps[] = JSON.parse(
-      this._localStorage.getItem(this.crtstrttl)
-    );
-    // remove from ion store
-    cartStore !== null && cartStore !== undefined
-      ? (() => {
-          this._localStorage.setItem(
-            this.crtstrttl,
-            cartStore.filter((cur) => cur.em !== em)
-          );
-        })()
-      : null;
+    this._cartService.clearCart(this.actvUser.dt.email);
+    this._cartService.clearTempCart();
   }
 
   get status() {
