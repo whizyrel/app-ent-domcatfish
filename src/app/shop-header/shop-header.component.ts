@@ -269,11 +269,7 @@ OnInit, AfterContentChecked, AfterViewChecked {
             await this.initActive();
             await this.initInactive();
 
-            // route to shop - self, tentative
-            this.router.navigate(['/shop'], {
-              skipLocationChange: false,
-              replaceUrl: false,
-            });
+            window.location.reload(true);
           });
         })()
       : (() => {
