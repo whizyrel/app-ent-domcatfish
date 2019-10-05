@@ -33,8 +33,7 @@ export class AddProductsComponent implements OnInit {
   private submitted: boolean = false;
   public showSpinner: boolean = false;
 
-  private files;
-  private urlArr: any[] = [];
+  private files: File[];
 
   @Output() public queryProgressBar: EventEmitter<boolean> = new EventEmitter();
 
@@ -76,19 +75,17 @@ export class AddProductsComponent implements OnInit {
         // setTimeout(() => this.showSpinner = false, 15000);
         // get form data
         const formData: FormData = this.formData(productDetails);
-        console.log({f: this.grabFiles(null)});
-        formData.append('imgs', this.grabFiles(null));
-        // productDetails.imgs = this.urlArr;
+        this.appendImgs(this.files, formData);
 
         // post data
         this._productsService
-        .addProduct(productDetails, this.getActiveUser.id)
+        .addProduct(formData, this.getActiveUser.id)
         .subscribe(
-          (data) => {
+          (data: HttpResponse) => {
             this.queryProgressBar.emit(false);
             // show dialog
             this._dialog.showDialog({
-              message: 'Added successfully!',
+              message: data.message,
               action: () => console.log('[admin] upload dialog closed'),
             });
             console.log({data});
@@ -97,9 +94,12 @@ export class AddProductsComponent implements OnInit {
           (error) => {
             this.queryProgressBar.emit(false);
             this._dialog.showDialog({
-              message: 'Something went wrong!',
+              message: error.error.message,
               action: () => console.log('[admin] upload dialog closed'),
             });
+            if (error.status === 401 && error.error.message === "Session Expired!") {
+              window.location.reload(true);
+            }
             console.log({error});
             this.showSpinner = false;
           });
@@ -121,20 +121,19 @@ export class AddProductsComponent implements OnInit {
     return addProductFormData;
   }
 
+  private appendImgs(flArr, fd: FormData) {
+    flArr.forEach((cur, i) => {
+      fd.append(`imgs-${i}`, flArr[i]);
+    });
+  }
+
   public grabFiles(e) {
-    if (e !== null) {
-      let filesArr = Array.from(e.target.files);
-      console.log({filesArr});
-      if (filesArr.length > 0) {
-        this.files = filesArr;
-        /* filesArr.forEach(async (cur) => {
-          await this.urlArr.push(URL.createObjectURL(cur));
-        }); */
-        return;
-      }
-      return;
+    this.files = [];
+    const fl: FileList = e.target.files;
+    let filesArr: File[] = Array.from(fl);
+    if (fl.length > 0) {
+      this.files = filesArr;
     }
-    return this.files;
   }
 
   getErrorMessage(): object {
@@ -142,7 +141,7 @@ export class AddProductsComponent implements OnInit {
       titleError: () => {
         if (this.status.title.hasError) {
           return this.status.title.hasError('required')
-            ? 'You must enter a value'
+            ? 'a title is required'
             : (this.status.title.hasError('minlength')
               ? 'should be at least 5 characters long' : '');
         }
@@ -150,22 +149,22 @@ export class AddProductsComponent implements OnInit {
       packError: () => {
         if (this.status.pack.hasError) {
           return this.status.pack.hasError('required')
-            ? 'You select an option'
+            ? 'selecting an option is required'
             : '';
         }
       },
       weightError: () => {
         if (this.status.weight.hasError) {
           return this.status.weight.hasError('required')
-            ? 'You must enter a value'
+            ? 'a weight value is required'
             : (this.status.weight.hasError('min')
               ? 'minimum weight is 1' : '');
         }
       },
       quantityError: () => {
-        if (this.status.title.hasError) {
+        if (this.status.quantity.hasError) {
           return this.status.quantity.hasError('required')
-            ? 'You must enter a value'
+            ? 'a quantity is required'
             : (this.status.quantity.hasError('min')
               ? 'minimum quantity is 1' : '');
         }
@@ -173,7 +172,7 @@ export class AddProductsComponent implements OnInit {
       priceError: () => {
         if (this.status.price.hasError) {
           return this.status.price.hasError('required')
-            ? 'You must enter a value'
+            ? 'a price is required'
             : (this.status.price.hasError('min')
               ? 'minimum price is 1' : '');
         }
@@ -185,13 +184,6 @@ export class AddProductsComponent implements OnInit {
             : (this.status.description.hasError('minlength') ? 'minimum length is 10 characters...' : '');
         }
       },
-      // imgsError: () => {
-      //   if (this.status.imgs.hasError) {
-      //     return this.status.imgs.hasError('required')
-      //       ? 'please select the image'
-      //       : '';
-      //   }
-      // },
     };
   }
 
