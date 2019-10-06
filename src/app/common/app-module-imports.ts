@@ -21,6 +21,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 import { AppComponent } from '../app.component';
 import { HomePageComponent } from '../home-page/home-page.component';
@@ -137,7 +140,10 @@ const ModulesList = [
   MatSnackBarModule,
   MatSelectModule,
   MatDialogModule,
-  MatMenuModule
+  MatMenuModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule
 ];
 
 const SharedComponents = [
