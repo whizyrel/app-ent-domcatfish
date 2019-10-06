@@ -237,7 +237,6 @@ export class DashboardComponent implements OnInit {
   }
 
   public showQuerybar(el, rla) {
-    console.log({el, rla});
     if (rla.isActive === false) {
       el.classList.toggle('d-none');
     } else {
