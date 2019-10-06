@@ -27,6 +27,18 @@ export class ProductsService {
     });
   }
 
+  deleteProduct(pid: string, id: string): Observable<Object> {
+    const _url = `${this.productUrls.delete}${pid}`;
+    return this._httpClient.delete<Object>(_url, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${id}`
+      }),
+      observe: 'body',
+      responseType: 'json',
+    });
+  }
+
   getProductDetails(id: string): Observable<Object> {
     const _url = `${this.productUrls.details}${id}`;
     return this._httpClient.put<Object>(_url, {
@@ -42,7 +54,6 @@ export class ProductsService {
     const _url = this.productUrls.add;
     return this._httpClient.post<FormData>(_url, body, {
       headers: new HttpHeaders({
-        // 'Content-Type': 'application/json',
         'authorization': `Bearer ${id}`
       }),
       observe: 'body',
