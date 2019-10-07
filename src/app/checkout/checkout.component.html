@@ -59,7 +59,7 @@
                   <p class="my-0 mg-r-1" #name>{{ fullname }}</p>
                   <div class="form-row row d-none" style="width: 90%;" #nameField>
                     <div class="col-sm-12 w-100">
-                      <mat-form-field  class="w-100" appearance="outline">
+                      <mat-form-field appearance="outline" style="width: 80%;">
                         <input
                           matInput
                           formControlName="client"
@@ -73,10 +73,10 @@
                           getErrorMessage().clientError()
                         }}</mat-error>
                       </mat-form-field>
+                      <mat-icon class="d-none mg-l-1 mt-3" style="width: 10%;" (click)="showField(name, nameField, nameBtnf, nameBtns)" #nameBtns>done</mat-icon>
                     </div>
                   </div>
                   <mat-icon class="mg-l-1" (click)="showField(name, nameField, nameBtnf, nameBtns)" #nameBtnf>create</mat-icon>
-                  <mat-icon class="d-none mg-l-1" (click)="showField(name, nameField, nameBtnf, nameBtns)" #nameBtns>done</mat-icon>
                 </div>
 
                 <label class="mg-t-1 mg-b-p5 dark-grey-text" style="font-size: 15px; font-weight: bold">Billing Address</label>
@@ -84,7 +84,7 @@
                   <p class="my-0 mg-r-1" #addr>{{ address }}</p>
                   <div class="form-row row d-none" style="width: 90%;" #addressField>
                     <div class="col-sm-12 w-100">
-                      <mat-form-field  class="w-100" appearance="outline">
+                      <mat-form-field appearance="outline" style="width: 80%;">
                         <input
                           matInput
                           formControlName="address"
@@ -98,10 +98,10 @@
                           getErrorMessage().addressError()
                         }}</mat-error>
                       </mat-form-field>
+                      <mat-icon class="d-none mg-l-1 mt-3" style="width: 10%;" (click)="showField(addr, addressField, addBtnf, addBtns)" #addBtns>done</mat-icon>
                     </div>
                   </div>
                   <mat-icon class="mg-l-1" (click)="showField(addr, addressField, addBtnf, addBtns)" #addBtnf>create</mat-icon>
-                  <mat-icon class="d-none mg-l-1" (click)="showField(addr, addressField, addBtnf, addBtns)" #addBtns>done</mat-icon>
                 </div>
               </div>
 
