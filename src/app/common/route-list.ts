@@ -89,27 +89,10 @@ const AdminRoutes = [
             outlet: 'dashboard',
           },
           {
-            path: 'p',
-            children: [
-              {
-                path: 'full-view',
-                pathMatch: 'full',
-                component: ViewEditComponent,
-                outlet: 'dashboard',
-              },
-              {
-                path: '',
-                pathMatch: 'full',
-                component: ListProductsComponent,
-                outlet: '/(dashboard:list-products)',
-              },
-              {
-                path: '**',
-                pathMatch: 'full',
-                component: ListProductsComponent,
-                outlet: '/(dashboard:list-products)',
-              }
-            ]
+            path: 'full-view',
+            pathMatch: 'full',
+            component: ViewEditComponent,
+            outlet: 'dashboard',
           },
           {
             path: 'list-users',
