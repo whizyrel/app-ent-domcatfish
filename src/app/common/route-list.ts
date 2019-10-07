@@ -15,6 +15,7 @@ import { ListOrdersComponent } from '../list-orders/list-orders.component';
 import { ListFeedbacksComponent } from '../list-feedbacks/list-feedbacks.component';
 import { ProductFullviewComponent } from '../product-fullview/product-fullview.component';
 import { CheckoutComponent } from '../checkout/checkout.component';
+import { ViewEditComponent } from '../view-edit/view-edit.component';
 
 import { DashboardAuthGuard } from '../guards/dashboard-auth.guard';
 import { LoginAuthGuard } from '../guards/login-auth.guard';
@@ -88,6 +89,29 @@ const AdminRoutes = [
             outlet: 'dashboard',
           },
           {
+            path: 'p',
+            children: [
+              {
+                path: 'full-view',
+                pathMatch: 'full',
+                component: ViewEditComponent,
+                outlet: 'dashboard',
+              },
+              {
+                path: '',
+                pathMatch: 'full',
+                component: ListProductsComponent,
+                outlet: '/(dashboard:list-products)',
+              },
+              {
+                path: '**',
+                pathMatch: 'full',
+                component: ListProductsComponent,
+                outlet: '/(dashboard:list-products)',
+              }
+            ]
+          },
+          {
             path: 'list-users',
             pathMatch: 'full',
             component: ListUsersComponent,
@@ -108,12 +132,12 @@ const AdminRoutes = [
           {
             path: '',
             pathMatch: 'full',
-            redirectTo: '/admin/dashboard/(dashboard:add-products)',
+            redirectTo: '/admin/dashboard/(dashboard:list-products)',
           },
           {
             path: '**',
             pathMatch: 'full',
-            redirectTo: '/(dashboard:add-products)',
+            redirectTo: '/(dashboard:list-products)',
           },
         ],
       },

@@ -48,6 +48,7 @@ import { ProductFullviewComponent } from '../product-fullview/product-fullview.c
 import { ShopHeaderComponent } from '../shop-header/shop-header.component';
 import { ShopFooterComponent } from '../shop-footer/shop-footer.component';
 import { CheckoutComponent } from '../checkout/checkout.component';
+import { ViewEditComponent } from '../view-edit/view-edit.component';
 
 import { APIURLService } from '../services/apiurl.service';
 import { LoginService } from '../services/login.service';
@@ -118,7 +119,8 @@ const ComponentsList = [
   ProductFullviewComponent,
   ShopHeaderComponent,
   ShopFooterComponent,
-  CheckoutComponent
+  CheckoutComponent,
+  ViewEditComponent
 ];
 
 const ModulesList = [
