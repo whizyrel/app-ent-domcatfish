@@ -3,11 +3,11 @@
     <div class="w-100 d-block">
       <div class="d-block w-100">
         <label class="dark-grey-text fw-b fs-18 mb-0">Title</label>
-        <div class="d-flex w-100 my-2 fw-b form-inline">
-          <p class="d-flex mb-0" #titleBare>{{ product.title }}</p>
-          <mat-icon class="mg-l-p5" matSuffix #titleBareBtn>create</mat-icon>
+        <div class="d-flex w-100 my-2 fw-b form-inline" #bareTitle>
+          <p class="d-flex mb-0">{{ product.title }}</p>
+          <mat-icon class="mg-l-p5 cursor-p" matSuffix (click)="showField(bareTitle, titleFormField)">create</mat-icon>
         </div>
-        <div class="d-flex form-inline" #titleField>
+        <div class="d-none" #titleFormField>
           <mat-form-field class="" style="width: 90%;" appearance="outline">
             <mat-label> title </mat-label>
             <input
@@ -22,7 +22,7 @@
               getErrorMessage().clientError()
             }}</mat-error> -->
           </mat-form-field>
-          <mat-icon class="mg-l-1" matSuffix>done</mat-icon>
+          <mat-icon class="mg-l-1 mt-3 cursor-p" matSuffix (click)="showField(bareTitle, titleFormField)">done</mat-icon>
         </div>
       </div>
     </div>
