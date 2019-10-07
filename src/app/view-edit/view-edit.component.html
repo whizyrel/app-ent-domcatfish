@@ -1,3 +1,21 @@
-<p>
-  view-edit works!
-</p>
+<mat-card class="w-100 h-100">
+  <mat-card-content>
+    <div *ngIf="product !== undefined && product !== null; else elseBlock" class="w-100 d-block">
+      <div class="d-block">
+        <label class="dark-grey-text fw-b fs-18 mb-0">Title</label>
+        <p class="">{{ product.title }}</p>
+      </div>
+      <!-- <mat-form-field>
+        <mat-label>Title</mat-label>
+      </mat-form-field> -->
+    </div>
+
+    <!-- spinner -->
+    <ng-template #elseBlock>
+      <div *ngIf="showSpinner" class="justify-content-center w-100 mg-t-2" role="status">
+        <i class="fa fa-cog fa-pulse fa-2x mg-r-p5 m-auto"></i>
+        <p class="fw-b fs-12 mx-auto mt-4">setting up...</p>
+      </div>
+    </ng-template>
+  </mat-card-content>
+</mat-card>
