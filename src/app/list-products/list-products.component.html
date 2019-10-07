@@ -39,7 +39,7 @@
         <!-- Price Column -->
         <ng-container matColumnDef="price">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
-          <td mat-cell *matCellDef="let row"> {{row.price}} </td>
+          <td mat-cell *matCellDef="let row"> {{ row.price | currency:'NGN':'symbol-narrow' }} </td>
         </ng-container>
 
         <!-- Imageimg Column -->
