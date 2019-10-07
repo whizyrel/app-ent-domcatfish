@@ -123,7 +123,6 @@ OnInit, AfterContentChecked, AfterViewChecked {
             const found = usersCart.find(cur => tCart.PID === cur.PID);
             return found !== null && found !== undefined;
         });
-        console.log({tmpCart, usersCart, c: this.cart});
         return;
       } else {
         // observe else behaviour
