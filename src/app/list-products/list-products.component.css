@@ -12,6 +12,12 @@ table {
   .table, table {
     width: 330px;
   }
+  td {
+    font-size: 10px;
+  }
+  th {
+    font-size: 9px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -24,6 +30,7 @@ table {
   .table, table {
     width: 800px;
   }
+
 }
 
 td.mat-column-opt {
@@ -48,4 +55,14 @@ td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type, th.mat-header-cell:la
 
 .mat-form-field-wrapper {
   padding-bottom: 0!important;
+}
+
+.spinner-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-color: #fff;
+  opacity: 0.8;
 }

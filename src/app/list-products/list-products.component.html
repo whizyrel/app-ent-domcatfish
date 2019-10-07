@@ -1,4 +1,4 @@
-<main class="w-100 h-100 d-flex">
+<main class="w-100 h-100 d-block">
   <div class="d-block w-100 h-100">
     <div class="d-flex mx-auto my-2 justify-content-center" style="width: 80%;">
       <mat-card class="px-2 py-2 w-100">
@@ -12,7 +12,7 @@
     <div class="mat-elevation-z8" *ngIf="pList !== undefined && pList !== null">
       <table class="w-100" mat-table [dataSource]="dataSource" matSort>
 
-        <!-- Title Column -->
+        <!-- Title Corowlumn -->
         <ng-container matColumnDef="title">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
           <td mat-cell *matCellDef="let row"> {{row.title}} </td>
@@ -51,18 +51,18 @@
         <!-- Star Column -->
         <ng-container matColumnDef="opt">
           <th mat-header-cell *matHeaderCellDef> Action </th>
-          <td mat-cell *matCellDef="let element; row" id="">
+          <td mat-cell *matCellDef="let element" id="">
             <button mat-icon-button [matMenuTriggerFor]="menu">
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="takeID(element.PID)">
+              <button mat-menu-item (click)="deleteProduct(element.PID)">
                 <mat-icon>delete</mat-icon>
                 <span>delete</span>
               </button>
-              <button mat-menu-item (click)="takeID(element.PID)">
+              <button mat-menu-item (click)="navigate('../full-view', element.PID)">
                 <mat-icon>edit</mat-icon>
-                <span>edit</span>
+                <span>view & edit</span>
               </button>
             </mat-menu>
           </td>
@@ -74,6 +74,15 @@
       </table>
 
       <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+
+      <!-- spinner -->
+      <div *ngIf="showLoading" class="spinner-container justify-content-center form-inline w-100" role="status">
+        <i class="fa fa-trash fa-spin fa-2x mg-r-p5"></i> Loading...
+      </div>
+    </div>
+    <!-- spinner -->
+    <div *ngIf="showSpinner" class="justify-content-center form-inline w-100 mg-t-2" role="status">
+      <i class="fa fa-shopping-cart fa-spin fa-2x mg-r-p5"></i> Loading...
     </div>
   </div>
 </main>
