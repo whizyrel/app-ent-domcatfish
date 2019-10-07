@@ -41,9 +41,7 @@ export class DashboardAuthGuard implements CanActivate {
       // unencrypt - optional
       const ions: SessStoreProps[] = JSON.parse(
         this._localStorage.getItem(ionstrttl)
-      );;
-
-    console.log({ions});
+      );
 
       const md: string = window.localStorage.getItem('md');
 
@@ -53,8 +51,7 @@ export class DashboardAuthGuard implements CanActivate {
         // find active
         const actvUser: SessStoreProps = ions.find((cur) => {
           return cur.active === true;
-        });;
-        console.log({actvUser});
+        });
 
         actvUser !== undefined && actvUser !== null
           ? (() => {
@@ -68,17 +65,15 @@ export class DashboardAuthGuard implements CanActivate {
               // use sess validator
               this._sessVal.valSession(sessid).subscribe(
                 (data: ValSessRespProps) => {
-                  console.log({data});
-
                   data.message && accountType === role
                     ? resolve(true)
                     : (() => {
-                        who = 'user';
+                        who = 'user';                        
+                        reject(false);
                         this.router.navigate(['shop'], {
                           replaceUrl: true,
                           skipLocationChange: true,
                         });
-                        reject(false);
                       })();
                 },
                 (error: ValSessRespProps) => {
@@ -104,7 +99,7 @@ export class DashboardAuthGuard implements CanActivate {
 
                     // either way reject false
                     reject(false);
-                    this.router.navigate(['admin'], {
+                    this.router.navigate(['admin', 'login'], {
                       replaceUrl: true,
                       skipLocationChange: true,
                     });
