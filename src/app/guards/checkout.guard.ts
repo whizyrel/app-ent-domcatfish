@@ -30,7 +30,6 @@ export class CheckoutGuard implements CanActivate {
           const {dt: {email}} = activeUser;
 
           const cart = this._cartService.getCartItems(email);
-          console.log('[checkout guard]', {cart});
 
           if (cart !== null && cart !== undefined) {
             if (cart.length > 0) {

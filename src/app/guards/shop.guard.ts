@@ -95,7 +95,6 @@ export class ShopGuard implements CanActivate {
   }
 
   private isCheckoutRoute(s, resolve, reject) {
-    console.log({s: s.url});
     if (s.url.split('/').includes('checkout')) {
       const activeUser = this._users.getUsersActive;
       if (
@@ -103,9 +102,7 @@ export class ShopGuard implements CanActivate {
         activeUser !== undefined
       ) {
         const {dt: {email}} = activeUser;
-
         const cart = this._cartService.getCartItems(email);
-        console.log('[checkout guard]', {cart});
 
         if (cart !== null && cart !== undefined) {
           if (cart.length > 0) {

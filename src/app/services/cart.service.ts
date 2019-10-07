@@ -246,7 +246,6 @@ export class CartService {
     );
 
     // filter carts different from user. cart store can never be undefined || null
-    console.log({cartStore});
 
     if (cartStore !== null && cartStore !== undefined) {
       const othercarts: CartStoreProps[] = cartStore.filter((cur) => {

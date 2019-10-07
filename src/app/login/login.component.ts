@@ -177,7 +177,6 @@ export class LoginComponent implements OnInit {
                   this._localStorage.getItem(crtstrttl)
                 );
                 const crt: CartProps[] = this._cartService.getTempCartItems;
-                console.log('login', {crt, cartStore});
 
                 cartStore === null || cartStore === undefined
                   ? (() => {
@@ -185,7 +184,6 @@ export class LoginComponent implements OnInit {
                         em: userDetails.email,
                         crt,
                       });
-                      console.log({cartStoreArray});
                       this._localStorage.setItem(crtstrttl, cartStoreArray);
                     })()
                   : (() => {
@@ -194,14 +192,8 @@ export class LoginComponent implements OnInit {
                         em: userDetails.email,
                         crt,
                       });
-                      console.log('inside cartStore descision', {cartStore});
                       this._localStorage.setItem(crtstrttl, cartStore);
                     })();
-
-                console.log({
-                  CurrentlyLoggedInUserCartItems: this._cartService.getCartItems(userDetails.email),
-                  session: ions
-                });
 
                 this._snackbarService.showSnackBarFromComponent(
                   SnackbarmsgComponent,
@@ -308,7 +300,6 @@ export class LoginComponent implements OnInit {
   private initRt() {
     this.activatedRoute.queryParams.subscribe((params) => {
       const j: any = {};
-      console.log({params});
       if (Object.keys({}).length > 1) {
         this.rtUrl = this._decEnc.aesDecryption(params.rt, this.seckey) || null;
 

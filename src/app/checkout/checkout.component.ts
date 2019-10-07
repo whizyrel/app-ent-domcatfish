@@ -69,7 +69,6 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
   ngAfterContentChecked() {
     this.initUserDetails();
     this.initCart();
-    console.log('okay?!');
   }
 
   ngAfterContentInit() {
@@ -80,7 +79,6 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
     this.showSpinner = true;
     const details = {};
     if (this.checkoutform.valid && this.submitted === false) {
-      console.log({r: this.checkoutform.getRawValue()});
 
       // this.submitted = true;
       setTimeout(() => this.showSpinner = false, 15000);
@@ -90,9 +88,7 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
 
   private initCart() {
     if (this.activeUser !== null && this.activeUser !== undefined) {
-      console.log('[checkout - init cart] current user email', {e: this.activeUser.dt.email});
       this.cart = this._cartService.getCartItems(this.activeUser.dt.email);
-      console.log('[checkout] user\'s cart => ', {c: this.cart});
       if (this.cart['length'] < 1) {
         // route out to shop
         this.router.navigate(['shop']);
