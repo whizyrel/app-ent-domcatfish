@@ -117,6 +117,7 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
     this.activeUser = this._users.getUsersActive;
     this.fullname = `${this.activeUser.dt.firstname} ${this.activeUser.dt.lastname}`;
     this.address = this.activeUser.dt.address;
+    console.log({addr: this.address, actv: this.activeUser.dt});
   }
 
   formatCardNumber(e, f) {
