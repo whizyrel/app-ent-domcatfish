@@ -31,6 +31,16 @@ export class ViewEditComponent implements OnInit, AfterContentInit {
     this.getProductDetails();
   }
 
+  showField(d, f) {
+    d.classList.toggle('d-none');
+    if (d.classList.contains('d-flex')) {
+      d.classList.remove('d-flex');
+    } else {
+      d.classList.add('d-flex');
+    }
+    f.classList.toggle('d-none');
+  }
+
   private getProductDetails() {
     this._productsService
     .getProductDetails(this.pid)
