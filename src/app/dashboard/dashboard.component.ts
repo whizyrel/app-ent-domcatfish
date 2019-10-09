@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, AfterContentInit } from '@angular/core';
 import { Router, ActivatedRoute, RouterLinkActive } from '@angular/router';
 
 import { LinksService } from '../services/links.service';
@@ -23,7 +23,7 @@ import { SessStoreProps } from '../interfaces/sess-store-props';
     './css/style.min.css',
   ],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewChecked, AfterContentInit {
   public title = `Debim`.toUpperCase();
 
   public sidebarLinks: LinkProps[];
@@ -76,6 +76,15 @@ export class DashboardComponent implements OnInit {
 
     // encrypt return URL from add account LoginProps
     this.encURL = this._decEnc.aesEncryption('/admin/dashboard', this.seckey);
+  }
+
+  ngAfterViewChecked() {
+    this.initActive();
+    this.initInactive();
+  }
+
+  ngAfterContentInit() {
+    setInterval(() => {}, 10000);
   }
 
   oneClickLogin(el, e) {
@@ -199,7 +208,10 @@ export class DashboardComponent implements OnInit {
               // show dialog
               this._dialog.showDialog({
                 error: err,
-                action: () => console.log('[dialog] closed successfully')
+                action: () => {
+                  window.location.reload(true);
+                  console.log('[dialog] closed successfully');
+                }
               });
               return;
             }
