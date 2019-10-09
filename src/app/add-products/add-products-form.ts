@@ -1,8 +1,6 @@
 import {
   FormControl,
-  Validators,
-  FormGroup,
-  FormBuilder,
+  Validators
 } from '@angular/forms';
 
 import { PackTypesProps } from '../interfaces/pack-types-props';
