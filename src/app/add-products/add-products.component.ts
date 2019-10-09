@@ -54,7 +54,6 @@ export class AddProductsComponent implements OnInit {
   onSubmit() {
     this.showSpinner = true;
     const productDetails: ProductsProps = this.addProductForm.getRawValue();
-    console.log({formDetails: productDetails});
 
     if (
       this.files === null ||
@@ -88,7 +87,6 @@ export class AddProductsComponent implements OnInit {
               message: data.message,
               action: () => console.log('[admin] upload dialog closed'),
             });
-            console.log({data});
             this.showSpinner = false;
           },
           (error) => {
