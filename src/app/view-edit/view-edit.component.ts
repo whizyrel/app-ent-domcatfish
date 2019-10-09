@@ -16,6 +16,7 @@ export class ViewEditComponent implements OnInit, AfterContentInit {
   private pid: string;
 
   public product: ProductsProps;
+  public step = 0;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -57,5 +58,17 @@ export class ViewEditComponent implements OnInit, AfterContentInit {
     .subscribe((param) => {
       this.pid = this._decEnc.aesDecryption(param.p);
     });
+  }
+
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
   }
 }
