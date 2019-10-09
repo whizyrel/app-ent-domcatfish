@@ -24,6 +24,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { AppComponent } from '../app.component';
 import { HomePageComponent } from '../home-page/home-page.component';
@@ -145,7 +146,8 @@ const ModulesList = [
   MatMenuModule,
   MatTableModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule,
+  MatExpansionModule
 ];
 
 const SharedComponents = [
