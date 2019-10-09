@@ -1,332 +1,333 @@
 <div *ngIf="product !== undefined && product !== null; else elseBlock">
-  <mat-accordion class="example-headers-align">
-    <!-- title, pack -->
-    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
-      <mat-expansion-panel-header>
-        <mat-panel-title class="fw-b">
-          Title && Type
-        </mat-panel-title>
-        <mat-panel-description>
-          <!-- <mat-icon>account_circle</mat-icon> -->
-        </mat-panel-description>
-      </mat-expansion-panel-header>
+  <form [formGroup]="editProductForm" (ngSubmit)="onSubmit()">
+    <mat-accordion class="example-headers-align">
+      <!-- title, pack -->
+      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="fw-b">
+            Title & Type
+          </mat-panel-title>
+          <mat-panel-description>
+            <!-- <mat-icon>account_circle</mat-icon> -->
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-      <div class="form-row">
-        <!-- Title Column -->
-        <div class="col-sm-7">
-          <label class="dark-grey-text fw-b fs-15 mb-0 w-100 text-center">Title</label>
-          <div class="d-flex w-100 my-2 fw-b form-inline justify-content-center" #bareTitle>
-            <p class="d-flex mb-0">{{ product?.title }}</p>
-            <mat-icon class="mg-l-p5 cursor-p" matSuffix (click)="showField(bareTitle, titleFormField)" [inline]="true">create</mat-icon>
-          </div>
-          <div class="d-none" #titleFormField>
-            <mat-form-field class="w-90 w-sm-90 mt-2" appearance="outline">
-              <mat-label> title </mat-label>
-              <input
-                matInput
-                placeholder="title"
-                class="form-control-sm"
-                type="text"
-                required
-              />
-              <mat-icon matSuffix>person</mat-icon>
-              <!-- <mat-error *ngIf="status.title.invalid">{{
-                getErrorMessage().clientError()
-              }}</mat-error> -->
-            </mat-form-field>
-            <mat-icon class="mg-l-1 mt-3 cursor-p mg-r-p5" matSuffix (click)="showField(bareTitle, titleFormField)" [inline]="true">done</mat-icon>
-          </div>
-        </div>
-
-        <!-- Pack Column -->
-        <div class="col-sm-5">
-          <label class="dark-grey-text fw-b fs-15 mb-0 text-center w-100">Pack</label>
-          <div class="d-flex w-100 my-2 fw-b form-inline justify-content-center" #barePack>
-            <p class="d-flex mb-0">{{ product?.pack }}</p>
-            <mat-icon class="mg-l-p5 cursor-p" matSuffix
-            (click)="showField(barePack, packFormField)" [inline]="true">create</mat-icon>
-          </div>
-          <div class="d-none" #packFormField>
-            <mat-form-field class="w-90 w-sm-90 mt-2" appearance="outline">
-              <mat-label> pack </mat-label>
-              <mat-select class="form-control-sm form-inline" required>
-                <mat-option *ngFor="let packType of packTypes"
+        <div class="form-row">
+          <!-- Title Column -->
+          <div class="col-sm-7">
+            <label class="dark-grey-text fw-b fs-15 mb-0 w-100 text-center">Title</label>
+            <div class="d-flex w-100 my-2 fw-b form-inline justify-content-center" #bareTitle>
+              <p class="d-flex mb-0">{{ product?.title }}</p>
+              <mat-icon class="mg-l-p5 cursor-p" matSuffix (click)="showField(bareTitle, titleFormField)" [inline]="true">create</mat-icon>
+            </div>
+            <div class="d-none" #titleFormField>
+              <mat-form-field class="w-90 w-sm-90 mt-2" appearance="outline">
+                <mat-label> title </mat-label>
+                <input
+                  matInput
+                  placeholder="title"
+                  formControlName="title"
                   class="form-control-sm"
-                  [value]="packType.value"
-                >
-                  {{ packType.name }}
-                </mat-option>
-              </mat-select>
-              <mat-icon matSuffix>person</mat-icon>
-              <!-- <mat-error *ngIf="status.title.invalid">{{
-                getErrorMessage().clientError()
-              }}</mat-error> -->
-            </mat-form-field>
-            <mat-icon class="mg-l-1 mt-3 cursor-p" matSuffix
-            (click)="showField(barePack, packFormField)" [inline]="true">done</mat-icon>
+                  type="text"
+                  required
+                />
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error *ngIf="status.title.invalid">{{
+                  getErrorMessage().titleError()
+                }}</mat-error>
+              </mat-form-field>
+              <mat-icon class="mg-l-1 mt-3 cursor-p mg-r-p5" matSuffix (click)="showField(bareTitle, titleFormField)" [inline]="true">done</mat-icon>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <mat-action-row>
-        <button mat-button color="primary" (click)="nextStep()">Next</button>
-      </mat-action-row>
-    </mat-expansion-panel>
-
-    <!-- weight, price, quantity -->
-    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)">
-      <mat-expansion-panel-header>
-        <mat-panel-title class="fw-b">
-          Weight, Price && Quantity
-        </mat-panel-title>
-        <mat-panel-description>
-          <!-- <mat-icon>account_circle</mat-icon> -->
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-
-      <div class="form row mt-2 form-inline">
-        <!-- weight -->
-        <div class="col-sm-4">
-          <label class="dark-grey-text text-center fw-b fs-15 mb-0 w-100">Weight</label>
-          <div class="d-flex w-100 my-2 fw-b form-inline justify-content-center" #bareWeight>
-            <p class="d-flex mb-0 w-80 w-sm-90">{{ product?.weight }}kg</p>
-            <mat-icon class="mg-l-p5 cursor-p" matSuffix
-            (click)="showField(bareWeight, weightFormField)" [inline]="true">create</mat-icon>
-          </div>
-          <div class="d-none" #weightFormField>
-            <mat-form-field class="mx-auto w-90 w-sm-90 mt-2" appearance="outline">
-              <mat-label> weight </mat-label>
-              <input
-                matInput
-                placeholder="weight in kg"
-                class="form-control-sm"
-                type="number"
-                required
-              />
-              <mat-icon matSuffix>person</mat-icon>
-              <!-- <mat-error *ngIf="status.title.invalid">{{
-                getErrorMessage().clientError()
-              }}</mat-error> -->
-            </mat-form-field>
-            <mat-icon class="mg-l-1 mt-3 cursor-p" matSuffix
-            (click)="showField(bareWeight, weightFormField)" [inline]="true">done</mat-icon>
+          <!-- Pack Column -->
+          <div class="col-sm-5">
+            <label class="dark-grey-text fw-b fs-15 mb-0 text-center w-100">Pack</label>
+            <div class="d-flex w-100 my-2 fw-b form-inline justify-content-center" #barePack>
+              <p class="d-flex mb-0">{{ product?.pack }}</p>
+              <mat-icon class="mg-l-p5 cursor-p" matSuffix
+              (click)="showField(barePack, packFormField)" [inline]="true">create</mat-icon>
+            </div>
+            <div class="d-none" #packFormField>
+              <mat-form-field class="w-90 w-sm-90 mt-2" appearance="outline">
+                <mat-label> pack </mat-label>
+                <mat-select class="form-control-sm form-inline" [formControl]="status.pack" required>
+                  <mat-option *ngFor="let packType of packTypes"
+                    class="form-control-sm"
+                    [value]="packType.value"
+                  >
+                    {{ packType.name }}
+                  </mat-option>
+                </mat-select>
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error *ngIf="status.pack.invalid">{{
+                  getErrorMessage().packError()
+                }}</mat-error>
+              </mat-form-field>
+              <mat-icon class="mg-l-1 mt-3 cursor-p" matSuffix
+              (click)="showField(barePack, packFormField)" [inline]="true">done</mat-icon>
+            </div>
           </div>
         </div>
 
-        <!-- Price -->
-        <div class="col-sm-4 px-0">
-          <label class="dark-grey-text fw-b fs-15 mb-0 w-100 text-center">Price</label>
-          <div class="d-flex w-100 my-2 fw-b form-inline justify-content-center" #barePrice>
-            <p class="d-flex mb-0 w-80 w-sm-90">{{ product?.price | currency:'NGN':'symbol-narrow' }}</p>
-            <mat-icon class="mg-l-p5 cursor-p" matSuffix
-            (click)="showField(barePrice, priceFormField)" [inline]="true">create</mat-icon>
-          </div>
-          <div class="d-none" #priceFormField>
-            <mat-form-field class="w-90 w-sm-90 mt-2" appearance="outline">
-              <mat-label> Price </mat-label>
-              <input
-                matInput
-                placeholder="amount in Naira"
-                class="form-control-sm"
-                type="number"
-                required
-              />
-              <mat-icon matSuffix>person</mat-icon>
-              <!-- <mat-error *ngIf="status.title.invalid">{{
-                getErrorMessage().clientError()
-              }}</mat-error> -->
-            </mat-form-field>
-            <mat-icon [inline]="true" class="mg-l-1 mt-3 cursor-p" matSuffix
-            (click)="showField(barePrice, priceFormField)" [inline]="true">done</mat-icon>
-          </div>
-        </div>
+        <mat-action-row>
+          <button mat-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row>
+      </mat-expansion-panel>
 
-        <!-- Quantity -->
-        <div class="col-sm-4">
-          <label class="dark-grey-text fw-b fs-15 mb-0 text-center w-100">Quantity Available</label>
-          <div class="d-flex w-100 my-2 fw-b form-inline justify-content-center" #bareQuantity>
-            <p class="d-flex mb-0 w-80 w-sm-90">{{ product?.quantity }}</p>
-            <mat-icon class="mg-l-p5 cursor-p" matSuffix
-            (click)="showField(bareQuantity, quantityFormField)" [inline]="true">create</mat-icon>
-          </div>
-          <div class="d-none" #quantityFormField>
-            <mat-form-field class="w-90 w-sm-90 mt-2" appearance="outline">
-              <mat-label> quantity </mat-label>
-              <input
-                matInput
-                placeholder="quantity"
-                class="form-control-sm"
-                type="number"
-                required
-              />
-              <mat-icon matSuffix>person</mat-icon>
-              <!-- <mat-error *ngIf="status.title.invalid">{{
-                getErrorMessage().clientError()
-              }}</mat-error> -->
-            </mat-form-field>
-            <mat-icon class="mg-l-1 mt-3 cursor-p" matSuffix
-            (click)="showField(bareQuantity, quantityFormField)" [inline]="true">done</mat-icon>
-          </div>
-        </div>
-      </div>
+      <!-- weight, price, quantity -->
+      <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="fw-b">
+            Weight, Price & Quantity
+          </mat-panel-title>
+          <mat-panel-description>
+            <!-- <mat-icon>account_circle</mat-icon> -->
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-      <mat-action-row>
-        <button mat-button color="primary" (click)="nextStep()">Next</button>
-      </mat-action-row>
-    </mat-expansion-panel>
-
-    <!-- shippingFee, availability -->
-    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)">
-      <mat-expansion-panel-header>
-        <mat-panel-title class="fw-b">Shipping Fee && Availability</mat-panel-title>
-        <mat-panel-description>
-          <!-- <mat-icon>account_circle</mat-icon> -->
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-
-      <div class="form row mt-2 form-inline">
-        <!-- Shipping Fee -->
-        <div class="col-sm-6">
-          <label class="dark-grey-text fw-b fs-15 mb-0 w-100 text-center">Shipping Fee</label>
-          <div class="d-flex w-100 my-2 fw-b form-inline justify-content-center" #bareSf>
-            <p class="d-flex mb-0">{{ product.shippingFee | currency:'NGN':'symbol-narrow' }}</p>
-            <mat-icon class="mg-l-p5 cursor-p" matSuffix
-            (click)="showField(bareSf, sfFormField)" [inline]="true">create</mat-icon>
-          </div>
-          <div class="d-none" #sfFormField>
-            <mat-form-field class="w-90 w-sm-90 mt-2" appearance="outline">
-              <mat-label> shipping fee </mat-label>
-              <input
-                matInput
-                placeholder="amount in Naira"
-                class="form-control-sm"
-                type="number"
-                required
-              />
-              <mat-icon matSuffix>person</mat-icon>
-              <!-- <mat-error *ngIf="status.title.invalid">{{
-                getErrorMessage().clientError()
-              }}</mat-error> -->
-            </mat-form-field>
-            <mat-icon class="mg-l-1 mt-3 cursor-p" matSuffix
-            (click)="showField(bareSf, sfFormField)" [inline]="true">done</mat-icon>
-          </div>
-        </div>
-
-        <!-- Availability -->
-        <div class="col-sm-6">
-          <label class="dark-grey-text fw-b fs-15 mb-0 w-100 text-center">Availability</label>
-          <div class="d-flex w-100 my-2 fw-b form-inline justify-content-center" #bareAvail>
-            <p class="d-flex mb-0">{{ product.availability ? 'available' : 'not available' }}</p>
-            <mat-icon class="mg-l-p5 cursor-p" matSuffix
-            (click)="showField(bareAvail, availFormField)" [inline]="true">create</mat-icon>
-          </div>
-          <div class="d-none" #availFormField>
-            <mat-form-field class="w-sm-90 w-90 mt-2" appearance="outline">
-              <mat-label> quantity </mat-label>
-              <mat-select class="form-control-sm form-inline" required>
-                <mat-option
+        <div class="form row mt-2 form-inline">
+          <!-- weight -->
+          <div class="col-sm-4">
+            <label class="dark-grey-text text-center fw-b fs-15 mb-0 w-100">Weight</label>
+            <div class="d-flex w-100 my-2 fw-b form-inline justify-content-center" #bareWeight>
+              <p class="d-flex mb-0 w-80 w-sm-90">{{ product?.weight }}kg</p>
+              <mat-icon class="mg-l-p5 cursor-p" matSuffix
+              (click)="showField(bareWeight, weightFormField)" [inline]="true">create</mat-icon>
+            </div>
+            <div class="d-none" #weightFormField>
+              <mat-form-field class="mx-auto w-90 w-sm-90 mt-2" appearance="outline">
+                <mat-label> weight </mat-label>
+                <input
+                  matInput
+                  placeholder="weight in kg"
+                  formControlName="weight"
                   class="form-control-sm"
-                  [value]="true"
-                >
-                  yes
-                </mat-option>
-                <mat-option
+                  type="number"
+                  required
+                />
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error *ngIf="status.weight.invalid">{{
+                  getErrorMessage().weightError()
+                }}</mat-error>
+              </mat-form-field>
+              <mat-icon class="mg-l-1 mt-3 cursor-p" matSuffix
+              (click)="showField(bareWeight, weightFormField)" [inline]="true">done</mat-icon>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="col-sm-4 px-0">
+            <label class="dark-grey-text fw-b fs-15 mb-0 w-100 text-center">Price</label>
+            <div class="d-flex w-100 my-2 fw-b form-inline justify-content-center" #barePrice>
+              <p class="d-flex mb-0 w-80 w-sm-90">{{ product?.price | currency:'NGN':'symbol-narrow' }}</p>
+              <mat-icon class="mg-l-p5 cursor-p" matSuffix
+              (click)="showField(barePrice, priceFormField)" [inline]="true">create</mat-icon>
+            </div>
+            <div class="d-none" #priceFormField>
+              <mat-form-field class="w-90 w-sm-90 mt-2" appearance="outline">
+                <mat-label> Price </mat-label>
+                <input
+                  matInput
+                  placeholder="amount in Naira"
+                  formControlName="price"
                   class="form-control-sm"
-                  [value]="false"
-                >
-                  no
-                </mat-option>
-              </mat-select>
-              <mat-icon matSuffix>person</mat-icon>
-              <!-- <mat-error *ngIf="status.title.invalid">{{
-                getErrorMessage().clientError()
-              }}</mat-error> -->
-            </mat-form-field>
-            <mat-icon class="mg-l-1 mt-3 cursor-p" matSuffix
-            (click)="showField(bareAvail, availFormField)" [inline]="true">done</mat-icon>
+                  type="number"
+                  required
+                />
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error *ngIf="status.price.invalid">{{
+                  getErrorMessage().priceError()
+                }}</mat-error>
+              </mat-form-field>
+              <mat-icon [inline]="true" class="mg-l-1 mt-3 cursor-p" matSuffix
+              (click)="showField(barePrice, priceFormField)" [inline]="true">done</mat-icon>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <mat-action-row>
-        <button mat-button color="primary" (click)="nextStep()">Next</button>
-      </mat-action-row>
-    </mat-expansion-panel>
-
-    <!-- shipping info, description -->
-    <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)">
-      <mat-expansion-panel-header>
-        <mat-panel-title class="fw-b">
-          Description && Shipping Info
-        </mat-panel-title>
-        <mat-panel-description>
-          <!-- <mat-icon>account_circle</mat-icon> -->
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-
-      <div class="form-row mt-2 form-inline">
-        <!-- Shipping Info -->
-        <div class="col-sm-6">
-          <label class="dark-grey-text fw-b fs-15 mb-0 w-100 text-center">Shipping Info</label>
-          <div class="d-flex w-100 my-2 fw-b form-inline justify-content-center" #bareSi>
-            <p class="d-flex mb-0 w-80 w-sm-90">{{ product.shippingInfo }}</p>
-            <mat-icon class="mg-l-p5 cursor-p" matSuffix
-            (click)="showField(bareSi, siFormField)" [inline]="true">create</mat-icon>
-          </div>
-          <div class="d-none" #siFormField>
-            <mat-form-field class="w-80 w-sm-90 mt-2" appearance="outline">
-              <mat-label> shipping info </mat-label>
-              <textarea
-                matInput
-                placeholder="What about the shipping should clients know?"
-                class="form-control-sm"
-                type="text"
-                required>
-              </textarea>
-              <!-- <mat-error *ngIf="status.title.invalid">{{
-                getErrorMessage().clientError()
-              }}</mat-error> -->
-            </mat-form-field>
-            <mat-icon class="mg-l-1 mt-3 cursor-p" matSuffix
-            (click)="showField(bareSi, siFormField)" [inline]="true">done</mat-icon>
+          <!-- Quantity -->
+          <div class="col-sm-4">
+            <label class="dark-grey-text fw-b fs-15 mb-0 text-center w-100">Quantity Available</label>
+            <div class="d-flex w-100 my-2 fw-b form-inline justify-content-center" #bareQuantity>
+              <p class="d-flex mb-0 w-80 w-sm-90">{{ product?.quantity }}</p>
+              <mat-icon class="mg-l-p5 cursor-p" matSuffix
+              (click)="showField(bareQuantity, quantityFormField)" [inline]="true">create</mat-icon>
+            </div>
+            <div class="d-none" #quantityFormField>
+              <mat-form-field class="w-90 w-sm-90 mt-2" appearance="outline">
+                <mat-label> quantity </mat-label>
+                <input
+                  matInput
+                  placeholder="quantity"
+                  formControlName="quantity"
+                  class="form-control-sm"
+                  type="number"
+                  required
+                />
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error *ngIf="status.quantity.invalid">{{
+                  getErrorMessage().quantityError()
+                }}</mat-error>
+              </mat-form-field>
+              <mat-icon class="mg-l-1 mt-3 cursor-p" matSuffix
+              (click)="showField(bareQuantity, quantityFormField)" [inline]="true">done</mat-icon>
+            </div>
           </div>
         </div>
 
-        <!-- description -->
-        <div class="col-sm-6">
-          <label class="dark-grey-text fw-b fs-15 mb-0 w-100 text-center ">Description</label>
-          <div class="d-flex w-100 my-2 fw-b form-inline justify-content-center" #bareDesc>
-            <p class="d-flex mb-0 w-80 w-sm-90">{{ product.description}}</p>
-            <mat-icon class="mg-l-p5 cursor-p" matSuffix
-            (click)="showField(bareDesc, descFormField)" [inline]="true">create</mat-icon>
+        <mat-action-row>
+          <button mat-button color="warn" (click)="prevStep()">Previous</button>
+          <button mat-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+      <!-- shippingFee, availability -->
+      <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="fw-b">Shipping Fee & Availability</mat-panel-title>
+          <mat-panel-description>
+            <!-- <mat-icon>account_circle</mat-icon> -->
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="form row mt-2 form-inline">
+          <!-- Shipping Fee -->
+          <div class="col-sm-6">
+            <label class="dark-grey-text fw-b fs-15 mb-0 w-100 text-center">Shipping Fee</label>
+            <div class="d-flex w-100 my-2 fw-b form-inline justify-content-center" #bareSf>
+              <p class="d-flex mb-0">{{ product.shippingFee | currency:'NGN':'symbol-narrow' }}</p>
+              <mat-icon class="mg-l-p5 cursor-p" matSuffix
+              (click)="showField(bareSf, sfFormField)" [inline]="true">create</mat-icon>
+            </div>
+            <div class="d-none" #sfFormField>
+              <mat-form-field class="w-90 w-sm-90 mt-2" appearance="outline">
+                <mat-label> shipping fee </mat-label>
+                <input
+                  matInput
+                  placeholder="amount in Naira"
+                  formControlName="shippingFee"
+                  class="form-control-sm"
+                  type="number"
+                  required
+                />
+                <mat-icon matSuffix>person</mat-icon>
+              </mat-form-field>
+              <mat-icon class="mg-l-1 mt-3 cursor-p" matSuffix
+              (click)="showField(bareSf, sfFormField)" [inline]="true">done</mat-icon>
+            </div>
           </div>
-          <div class="d-none" #descFormField>
-            <mat-form-field class="w-80 w-sm-90 mt-2" appearance="outline">
-              <mat-label> description </mat-label>
-              <textarea
-                matInput
-                placeholder="description of product"
-                class="form-control-sm"
-                type="number"
-                required>
-              </textarea>
-              <!-- <mat-error *ngIf="status.title.invalid">{{
-                getErrorMessage().clientError()
-              }}</mat-error> -->
-            </mat-form-field>
-            <mat-icon class="mg-l-1 mt-3 cursor-p" matSuffix
-            (click)="showField(bareDesc, descFormField)" [inline]="true">done</mat-icon>
+
+          <!-- Availability -->
+          <div class="col-sm-6">
+            <label class="dark-grey-text fw-b fs-15 mb-0 w-100 text-center">Availability</label>
+            <div class="d-flex w-100 my-2 fw-b form-inline justify-content-center" #bareAvail>
+              <p class="d-flex mb-0">{{ product.availability ? 'available' : 'not available' }}</p>
+              <mat-icon class="mg-l-p5 cursor-p" matSuffix
+              (click)="showField(bareAvail, availFormField)" [inline]="true">create</mat-icon>
+            </div>
+            <div class="d-none" #availFormField>
+              <mat-form-field class="w-sm-90 w-90 mt-2" appearance="outline">
+                <mat-label> quantity </mat-label>
+                <mat-select class="form-control-sm form-inline" [formControl]="status.availability" required>
+                  <mat-option
+                    class="form-control-sm"
+                    [value]="true"
+                  >
+                    yes
+                  </mat-option>
+                  <mat-option
+                    class="form-control-sm"
+                    [value]="false"
+                  >
+                    no
+                  </mat-option>
+                </mat-select>
+                <mat-icon matSuffix>person</mat-icon>
+              </mat-form-field>
+              <mat-icon class="mg-l-1 mt-3 cursor-p" matSuffix
+              (click)="showField(bareAvail, availFormField)" [inline]="true">done</mat-icon>
+            </div>
           </div>
         </div>
-      </div>
 
-      <mat-action-row>
-        <button mat-button color="warn" (click)="prevStep()">Previous</button>
-        <button mat-button color="primary" (click)="nextStep()">Next</button>
-      </mat-action-row>
-    </mat-expansion-panel>
-  </mat-accordion>
+        <mat-action-row>
+          <button mat-button color="warn" (click)="prevStep()">Previous</button>
+          <button mat-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+      <!-- shipping info, description -->
+      <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="fw-b">
+            Description & Shipping Info
+          </mat-panel-title>
+          <mat-panel-description>
+            <!-- <mat-icon>account_circle</mat-icon> -->
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="form-row mt-2 form-inline">
+          <!-- Shipping Info -->
+          <div class="col-sm-6">
+            <label class="dark-grey-text fw-b fs-15 mb-0 w-100 text-center">Shipping Info</label>
+            <div class="d-flex w-100 my-2 fw-b form-inline justify-content-center" #bareSi>
+              <p class="d-flex mb-0 w-80 w-sm-90">{{ product.shippingInfo }}</p>
+              <mat-icon class="mg-l-p5 cursor-p" matSuffix
+              (click)="showField(bareSi, siFormField)" [inline]="true">create</mat-icon>
+            </div>
+            <div class="d-none" #siFormField>
+              <mat-form-field class="w-80 w-sm-90 mt-2" appearance="outline">
+                <mat-label> shipping info </mat-label>
+                <textarea
+                  matInput
+                  placeholder="What about the shipping should clients know?"
+                  formControlName="shippingInfo"
+                  class="form-control-sm"
+                  required>
+                </textarea>
+              </mat-form-field>
+              <mat-icon class="mg-l-1 mt-3 cursor-p" matSuffix
+              (click)="showField(bareSi, siFormField)" [inline]="true">done</mat-icon>
+            </div>
+          </div>
+
+          <!-- description -->
+          <div class="col-sm-6">
+            <label class="dark-grey-text fw-b fs-15 mb-0 w-100 text-center ">Description</label>
+            <div class="d-flex w-100 my-2 fw-b form-inline justify-content-center" #bareDesc>
+              <p class="d-flex mb-0 w-80 w-sm-90">{{ product.description}}</p>
+              <mat-icon class="mg-l-p5 cursor-p" matSuffix
+              (click)="showField(bareDesc, descFormField)" [inline]="true">create</mat-icon>
+            </div>
+            <div class="d-none" #descFormField>
+              <mat-form-field class="w-80 w-sm-90 mt-2" appearance="outline">
+                <mat-label> description </mat-label>
+                <textarea
+                  matInput
+                  placeholder="description of product"
+                  formControlName="description"
+                  class="form-control-sm"
+                  type="number"
+                  required>
+                </textarea>
+                <mat-error *ngIf="status.shippingInfo.invalid">{{
+                  getErrorMessage().descriptionError()
+                }}</mat-error>
+              </mat-form-field>
+              <mat-icon class="mg-l-1 mt-3 cursor-p" matSuffix
+              (click)="showField(bareDesc, descFormField)" [inline]="true">done</mat-icon>
+            </div>
+          </div>
+        </div>
+
+        <mat-action-row>
+          <button mat-button color="warn" (click)="prevStep()">Previous</button>
+          <button mat-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </form>
 </div>
 
 <!-- spinner -->
