@@ -31,9 +31,6 @@ export class AddProductsForm {
         Validators.required,
         Validators.minLength(15)
       ]),
-      // imgs: new FormControl('', [
-      //   Validators.required,
-      // ]),
       availability: new FormControl('', [
         // Validators.required,
       ]),
