@@ -107,9 +107,9 @@
       <!--Grid column-->
       <div class="col-md-6 text-center">
         <h4 class="my-4 h4">Additional information</h4>
-        <p [hidden]="info === undefined" *ngIf="info !== undefined">{{info.description}}</p>
-        <p [hidden]="info === undefined" *ngIf="info !== undefined" class="pd-t-1 m-0">Fee for shipping just this item: {{info.shippingFee}}</p>
-        <p [hidden]="info === undefined" *ngIf="info !== undefined" class="pd-t-p5">{{info.shippingInfo}}</p>
+        <p [hidden]="info === undefined" *ngIf="info !== undefined">{{ info.description }}</p>
+        <p [hidden]="info === undefined" *ngIf="info !== undefined" class="pd-t-1 m-0">Fee for shipping just this item: {{ info.shippingFee | currency:'NGN':'symbol-narrow' }}</p>
+        <p [hidden]="info === undefined" *ngIf="info !== undefined" class="pd-t-p5">{{ info.shippingInfo }}</p>
       </div>
       <!--Grid column-->
     </div>
