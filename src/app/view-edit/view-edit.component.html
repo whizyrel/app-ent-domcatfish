@@ -1,4 +1,13 @@
-<div *ngIf="product !== undefined && product !== null; else elseBlock">
+<div *ngIf="product !== undefined && product !== null; else elseBlock" class="m-auto" style="max-width: 800px">
+  <div class="w-100 d-flex form-inline mt-2 mb-4">
+    <label class="fw-b mg-b-p5 d-flex form-inline w-100">Product Images <p class="d-flex ml-auto form-inline"><i class="fa fa-plus fa-2x pl-2 my-auto mr-2"></i>add image</p></label>
+    <div class="form-row">
+      <div *ngFor="let img of product?.imgs"  class="col-sm-6 col-md-4 col-lg-3">
+        <img class="w-100 my-2 border border-primary border-dark rounded p-2 product-imgs" [src]="img" alt="product image">
+      </div>
+    </div>
+  </div>
+
   <form [formGroup]="editProductForm" (ngSubmit)="onSubmit()">
     <mat-accordion class="example-headers-align">
       <!-- title, pack -->
