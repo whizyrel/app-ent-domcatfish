@@ -154,6 +154,7 @@ AfterContentChecked {
     .queryParams
     .subscribe((param) => {
       this.pid = this._decEnc.aesDecryption(param.p);
+      this.getProductDetails();
     });
   }
 
