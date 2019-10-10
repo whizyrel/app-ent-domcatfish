@@ -120,7 +120,7 @@
           <div class="col-sm-4 px-0">
             <label class="dark-grey-text fw-b fs-15 mb-0 w-100 text-center">Price</label>
             <div class="d-flex w-100 my-2 fw-b form-inline justify-content-center" #barePrice>
-              <p class="d-flex mb-0 w-80 w-sm-90">{{ product?.price | currency:'NGN':'symbol-narrow' }}</p>
+              <p class="d-flex mb-0 w-80 w-sm-80">{{ product?.price | currency:'NGN':'symbol-narrow' }}</p>
               <mat-icon class="mg-l-p5 cursor-p" matSuffix
               (click)="showField(barePrice, priceFormField)" [inline]="true">create</mat-icon>
             </div>
@@ -149,12 +149,12 @@
           <div class="col-sm-4">
             <label class="dark-grey-text fw-b fs-15 mb-0 text-center w-100">Quantity Available</label>
             <div class="d-flex w-100 my-2 fw-b form-inline justify-content-center" #bareQuantity>
-              <p class="d-flex mb-0 w-80 w-sm-90">{{ product?.quantity }}</p>
+              <p class="d-flex mb-0 w-80 w-sm-80">{{ product?.quantity }}</p>
               <mat-icon class="mg-l-p5 cursor-p" matSuffix
               (click)="showField(bareQuantity, quantityFormField)" [inline]="true">create</mat-icon>
             </div>
             <div class="d-none" #quantityFormField>
-              <mat-form-field class="w-90 w-sm-90 mt-2" appearance="outline">
+              <mat-form-field class="w-90 w-sm-80 mt-2" appearance="outline">
                 <mat-label> quantity </mat-label>
                 <input
                   matInput
@@ -323,11 +323,14 @@
 
         <mat-action-row>
           <button mat-button color="warn" (click)="prevStep()">Previous</button>
-          <button mat-button color="primary" (click)="nextStep()">Next</button>
         </mat-action-row>
       </mat-expansion-panel>
     </mat-accordion>
   </form>
+
+  <div class="mt-3 d-flex w-100 pt-1 pb-1" style="height: fit-content;">
+    <button mat-raised-button class="ml-auto" (click)="onSubmit()">save changes</button>
+  </div>
 </div>
 
 <!-- spinner -->
