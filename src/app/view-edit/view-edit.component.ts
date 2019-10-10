@@ -131,11 +131,19 @@ AfterContentChecked {
     f.classList.toggle('d-none');
   }
 
+  private initActive() {
+    this.activeUser = this._users.getUsersActive;
+  }
+
   private getProductDetails() {
     this._productsService
     .getProductDetails(this.pid)
     .subscribe((data: HttpResponse) => {
       this.product = data.doc;
+      this.iterateObj(
+        this.product,
+        (prop, obj) => this.status[prop].setValue(obj[prop])
+      );
     }, (error: HttpResponse) => {
       console.log({error});
     });
