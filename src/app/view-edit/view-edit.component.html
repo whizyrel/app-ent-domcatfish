@@ -91,12 +91,12 @@
           <div class="col-sm-4">
             <label class="dark-grey-text text-center fw-b fs-15 mb-0 w-100">Weight</label>
             <div class="d-flex w-100 my-2 fw-b form-inline justify-content-center" #bareWeight>
-              <p class="d-flex mb-0 w-80 w-sm-90">{{ product?.weight }}kg</p>
+              <p class="d-flex mb-0 w-80 w-sm-80">{{ product?.weight }}kg</p>
               <mat-icon class="mg-l-p5 cursor-p" matSuffix
               (click)="showField(bareWeight, weightFormField)" [inline]="true">create</mat-icon>
             </div>
             <div class="d-none" #weightFormField>
-              <mat-form-field class="mx-auto w-90 w-sm-90 mt-2" appearance="outline">
+              <mat-form-field class="mx-auto w-90 w-sm-80 mt-2" appearance="outline">
                 <mat-label> weight </mat-label>
                 <input
                   matInput
