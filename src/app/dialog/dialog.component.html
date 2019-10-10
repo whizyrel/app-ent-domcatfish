@@ -7,12 +7,12 @@
     }}</p>
 
     <p *ngIf="data.error.status === 401 && data.error.statusText === 'Session Expired!'; else elseFirstBlock" class="d-block w-100 dark-grey-text" style="font-size: 12px;">{{
-      data.error.error.message
+      data.error.message
     }}</p>
 
     <ng-template #elseFirstBlock>
       <p class="d-block w-100 dark-grey-text" style="font-size: 12px;">{{
-        data.error.error.message
+        data.error.message
       }}</p>
     </ng-template>
   </div>
