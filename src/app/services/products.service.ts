@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
@@ -14,7 +15,22 @@ import { ApiUrlsProps } from '../interfaces/api-urls-props';
 export class ProductsService {
   protected productUrls: ApiUrlsProps = this.apiUrls.productsUrls;
 
-  constructor(private apiUrls: APIURLService, private _httpClient: HttpClient) { }
+  constructor(
+    private apiUrls: APIURLService,
+    private _httpClient: HttpClient
+  ) { }
+
+  modifyProductDetails(pid: string, body, sessid): Observable<Object> {
+    const _url = `${this.productUrls.modify}${pid}`;
+    return this._httpClient.patch<Object>(_url, body, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${sessid}`
+      }),
+      observe: 'body',
+      responseType: 'json',
+    });
+  }
 
   get getProductList(): Observable<Object> {
     const _url = this.productUrls.list;
