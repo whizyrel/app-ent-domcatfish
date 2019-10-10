@@ -48,7 +48,77 @@ AfterContentChecked {
   }
 
   ngAfterContentInit() {
-    this.getProductDetails();
+    setInterval(() => {}, 10000);
+  }
+
+  ngAfterContentChecked() {
+    this.initActive();
+  }
+
+  onSubmit() {
+    console.log({
+      rv: this.editProductForm.getRawValue(),
+      bool: this.editProductForm.dirty,
+      cv: this.changedVal
+    });
+
+    if (!this.editProductForm.dirty) {
+      this._dialog.showDialog({
+        action: () => console.log('[dialog] closed Successfully!'),
+        error: {message: 'no changes were made'},
+      })
+      return;
+    }
+
+    this._productsService
+    .modifyProductDetails(
+      this.pid,
+      this.changedVal,
+      this.activeUser.id
+    )
+    .subscribe(
+      (data: HttpResponse) => {
+        console.log({data});
+        this._dialog.showDialog({
+          action: () => console.log('[dialog] closed Successfully!'),
+          message: {message: data.message},
+        });
+
+        this.getProductDetails();
+      },
+      (error: HttpResponse) => {
+        console.log({error});
+        this._dialog.showDialog({
+          action: () => console.log('[dialog] closed Successfully!'),
+          error: {message: error.error.message},
+        });
+      }
+    );
+  }
+
+  get changedVal() {
+    const d = [];
+    this.iterateObj(
+      this.product,
+      (prop, obj) => {
+        if (this.status[prop].dirty) {
+          d.push({key: prop, val: this.status[prop].value});
+        }
+      }
+    );
+    return d;
+  }
+
+  private iterateObj(obj: ProductsProps, cb) {
+    for (let prop in obj) {
+      if (
+        prop !== 'PID' &&
+        prop !== '_id' &&
+        prop !== 'imgs'
+      ) {
+          cb(prop, obj);
+        }
+    }
   }
 
   showField(d, f) {
