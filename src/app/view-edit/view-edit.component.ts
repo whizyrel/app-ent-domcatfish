@@ -19,13 +19,16 @@ import { AddProductsForm } from '../add-products/add-products-form';
   templateUrl: './view-edit.component.html',
   styleUrls: ['./view-edit.component.css']
 })
-export class ViewEditComponent implements OnInit, AfterContentInit {
+export class ViewEditComponent implements OnInit,
+AfterContentInit,
+AfterContentChecked {
   public editProductForm: FormGroup;
   private pid: string;
 
   public product: ProductsProps;
   public step = 0;
 
+  private activeUser: SessStoreProps;
   public packTypes: PackTypesProps[];
 
   constructor(
@@ -33,7 +36,9 @@ export class ViewEditComponent implements OnInit, AfterContentInit {
     private formBuilder: FormBuilder,
     private _decEnc: DecEncService,
     private _productsService: ProductsService,
-    private productForm: AddProductsForm
+    private productForm: AddProductsForm,
+    private _users: UsersActiveInactiveService,
+    private _dialog: DialogService
   ) { }
 
   ngOnInit() {
