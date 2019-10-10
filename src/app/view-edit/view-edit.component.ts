@@ -1,13 +1,17 @@
-import { Component, OnInit, AfterContentInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit, AfterContentChecked } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { DecEncService } from '../services/dec-enc.service';
 import { ProductsService } from '../services/products.service';
+import { UsersActiveInactiveService } from '../services/users-active-inactive.service';
+import { DialogService } from '../services/dialog.service';
 
 import { HttpResponse } from '../interfaces/http-response';
 import { PackTypesProps } from '../interfaces/pack-types-props';
 import { ProductsProps } from '../interfaces/products-props';
+import { SessStoreProps } from '../interfaces/sess-store-props';
+
 import { AddProductsForm } from '../add-products/add-products-form';
 
 @Component({
