@@ -207,7 +207,7 @@ export class DashboardComponent implements OnInit, AfterViewChecked, AfterConten
               console.log(`[error] logging out`, {err});
               // show dialog
               this._dialog.showDialog({
-                error: err,
+                error: {message: err.error.message},
                 action: () => {
                   window.location.reload(true);
                   console.log('[dialog] closed successfully');
