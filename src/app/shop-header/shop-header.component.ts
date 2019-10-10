@@ -2,8 +2,6 @@ import { Component, OnInit, Input, AfterContentChecked, AfterViewChecked, AfterC
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { DialogComponent } from '../dialog/dialog.component';
-
 import { LinksService } from '../services/links.service';
 import { UsersActiveInactiveService } from '../services/users-active-inactive.service';
 import { GoogleImgService } from '../services/google-img.service';
@@ -70,6 +68,7 @@ OnInit, AfterContentChecked, AfterViewChecked {
   ngAfterContentChecked() {
     this.initCart();
   }
+
   ngAfterViewChecked() {
     this.initActive();
     this.initInactive();
