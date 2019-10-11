@@ -8,6 +8,7 @@ import { LoginAuthGuard } from '../guards/login-auth.guard';
 import { DashboardAuthGuard } from '../guards/dashboard-auth.guard';
 import { ShopGuard } from '../guards/shop.guard';
 import { AddAccountGuard } from '../guards/add-account.guard';
+import { ViewEditGuard } from '../guards/add-account.guard';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
@@ -80,6 +81,7 @@ const ServicesList = [
   DashboardAuthGuard,
   ShopGuard,
   AddAccountGuard,
+  ViewEditGuard,
   APIURLService,
   LinksService,
   LoginService,
