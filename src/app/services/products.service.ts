@@ -20,6 +20,39 @@ export class ProductsService {
     private _httpClient: HttpClient
   ) { }
 
+  deleteImage(pid: string, imgURL, sessid): Observable<Object> {
+    const _url = `${this.productUrls.deletePhoto}${pid}/?url=${imgURL}`;
+    return this._httpClient.delete<FormData>(_url, {
+      headers: new HttpHeaders({
+        'authorization': `Bearer ${sessid}`
+      }),
+      observe: 'body',
+      responseType: 'json',
+    });
+  }
+
+  replaceImage(pid: string, body, sessid): Observable<Object> {
+    const _url = `${this.productUrls.replacePhoto}${pid}`;
+    return this._httpClient.patch<FormData>(_url, body, {
+      headers: new HttpHeaders({
+        'authorization': `Bearer ${sessid}`
+      }),
+      observe: 'body',
+      responseType: 'json',
+    });
+  }
+
+  addImage(pid: string, sessid): Observable<Object> {
+    const _url = `${this.productUrls.addPhotos}${pid}`;
+    return this._httpClient.post<FormData>(_url, null, {
+      headers: new HttpHeaders({
+        'authorization': `Bearer ${sessid}`
+      }),
+      observe: 'body',
+      responseType: 'json',
+    });
+  }
+
   modifyProductDetails(pid: string, body, sessid): Observable<Object> {
     const _url = `${this.productUrls.modify}${pid}`;
     return this._httpClient.patch<Object>(_url, body, {
