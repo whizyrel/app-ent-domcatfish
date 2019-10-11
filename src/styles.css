@@ -30,8 +30,18 @@ app-snackbarmsg {
   width: fit-content !important;
   z-index: 100 !important;
 }
-/* My library */
 
+.spinner-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-color: #fff;
+  opacity: 0.8;
+}
+
+/* My library */
 .fs-5 {
   font-size: 5px;
 }
