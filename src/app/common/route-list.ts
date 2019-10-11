@@ -22,6 +22,7 @@ import { LoginAuthGuard } from '../guards/login-auth.guard';
 import { ShopGuard } from '../guards/shop.guard';
 import { AddAccountGuard } from '../guards/add-account.guard';
 import { CheckoutGuard } from '../guards/checkout.guard';
+import { ViewEditGuard } from '../guards/view-edit.guard';
 
 const AdminRoutes = [
       {
@@ -93,6 +94,7 @@ const AdminRoutes = [
             pathMatch: 'full',
             component: ViewEditComponent,
             outlet: 'dashboard',
+            canActivate: [ViewEditGuard] 
           },
           {
             path: 'list-users',
