@@ -66,7 +66,7 @@ AfterContentChecked {
       this._dialog.showDialog({
         action: () => console.log('[dialog] closed Successfully!'),
         error: {message: 'no changes were made'},
-      })
+      });
       return;
     }
 
