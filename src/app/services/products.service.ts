@@ -42,9 +42,9 @@ export class ProductsService {
     });
   }
 
-  addImage(pid: string, sessid): Observable<Object> {
+  addImage(pid: string, body, sessid): Observable<Object> {
     const _url = `${this.productUrls.addPhotos}${pid}`;
-    return this._httpClient.post<FormData>(_url, null, {
+    return this._httpClient.post<FormData>(_url, body, {
       headers: new HttpHeaders({
         'authorization': `Bearer ${sessid}`
       }),
