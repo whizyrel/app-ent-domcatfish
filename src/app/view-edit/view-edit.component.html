@@ -1,9 +1,24 @@
 <div *ngIf="product !== undefined && product !== null; else elseBlock" class="m-auto" style="max-width: 800px">
   <div class="w-100 d-flex form-inline mt-2 mb-4">
-    <label class="fw-b mg-b-p5 d-flex form-inline w-100">Product Images <p class="d-flex ml-auto form-inline"><i class="fa fa-plus fa-2x pl-2 my-auto mr-2"></i>add image</p></label>
+    <label class="fw-b mg-b-p5 d-flex form-inline w-100">Product Images <p class="d-flex ml-auto form-inline fs-10">hover the images to add, delete & replace</p></label>
     <div class="form-row">
-      <div *ngFor="let img of product?.imgs"  class="col-sm-6 col-md-4 col-lg-3">
-        <img class="w-100 my-2 border border-primary border-dark rounded p-2 product-imgs" [src]="img" alt="product image">
+      <div *ngFor="let img of product?.imgs; index as i"  class="col-sm-6 col-md-4">
+        <img class="w-100 my-2 p-3 product-imgs" [src]="img" alt="product image">
+        <div *ngIf="img !== null && img !== undefined" #overlay class="img-overlay d-flex">
+          <div class="ml-auto w-10 d-block my-auto mr-2">
+            <i class="far fa-trash-alt" (click)="deleteImage(img)" style="font-size: 1.3em; color: #17a2b8; z-index: 1000;" data-toggle="tooltip" title="delete this image"></i>
+
+            <label class="m-0 p-0 d-block">
+              <i class="far fa-edit" style="font-size: 1.3em; color: #17a2b8; z-index: 1000;" data-toggle="tooltip" title="replace this image">
+                <input type="file" class="d-none" (change)="grabFile($event, 'replace')" multiple>
+              </i>
+
+              <i class="far fa-plus-square" style="font-size: 1.3em; color: #17a2b8; z-index: 1000;" data-toggle="tooltip" title="add another image">
+                <input type="file" class="d-none" (change)="grabFile($event, 'add')" multiple>
+              </i>
+            </label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -58,12 +73,12 @@
               (click)="showField(barePack, packFormField)" [inline]="true">create</mat-icon>
             </div>
             <div class="d-none" #packFormField>
-              <mat-form-field class="w-90 w-sm-90 mt-2" appearance="outline">
+              <mat-form-field class="w-90 w-sm-90 mt-2" appearance="outline" [floatLabel]="auto">
                 <mat-label> pack </mat-label>
-                <mat-select class="form-control-sm form-inline" [formControl]="status.pack" required>
+                <mat-select class="form-control-sm form-inline" formControlName="pack" required>
                   <mat-option *ngFor="let packType of packTypes"
                     class="form-control-sm"
-                    [value]="packType.value"
+                    value="{{packType.value}}"
                   >
                     {{ packType.name }}
                   </mat-option>
@@ -80,7 +95,7 @@
         </div>
 
         <mat-action-row>
-          <button mat-button color="primary" (click)="nextStep()">Next</button>
+          <button mat-button color="primary" type="button" (click)="nextStep($event)">Next</button>
         </mat-action-row>
       </mat-expansion-panel>
 
@@ -185,8 +200,8 @@
         </div>
 
         <mat-action-row>
-          <button mat-button color="warn" (click)="prevStep()">Previous</button>
-          <button mat-button color="primary" (click)="nextStep()">Next</button>
+          <button mat-button color="warn" type="button" (click)="prevStep($event)">Previous</button>
+          <button mat-button color="primary" type="button" (click)="nextStep($event)">Next</button>
         </mat-action-row>
       </mat-expansion-panel>
 
@@ -260,8 +275,8 @@
         </div>
 
         <mat-action-row>
-          <button mat-button color="warn" (click)="prevStep()">Previous</button>
-          <button mat-button color="primary" (click)="nextStep()">Next</button>
+          <button mat-button color="warn" type="button" (click)="prevStep($event)">Previous</button>
+          <button mat-button color="primary" type="button" (click)="nextStep($event)">Next</button>
         </mat-action-row>
       </mat-expansion-panel>
 
@@ -331,14 +346,19 @@
         </div>
 
         <mat-action-row>
-          <button mat-button color="warn" (click)="prevStep()">Previous</button>
+          <button mat-button color="warn" type="button" (click)="prevStep()">Previous</button>
         </mat-action-row>
       </mat-expansion-panel>
     </mat-accordion>
+
+    <div class="mt-3 d-flex w-100 pt-1 pb-1" style="height: fit-content;">
+      <button mat-raised-button class="ml-auto" type="submit">save changes</button>
+    </div>
   </form>
 
-  <div class="mt-3 d-flex w-100 pt-1 pb-1" style="height: fit-content;">
-    <button mat-raised-button class="ml-auto" (click)="onSubmit()">save changes</button>
+  <div *ngIf="showSpinner" class="spinner-container d-flex justify-content-center form-inline" role="status">
+    <i class="fa fa-spinner fa-spin fa-2x mg-r-p5"></i>
+    <p class="fw-b fs-12 ml-1">processing...</p>
   </div>
 </div>
 
