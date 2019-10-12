@@ -50,14 +50,55 @@ AfterContentChecked {
   }
 
   ngAfterContentInit() {
-    setInterval(() => {}, 10000);
+    // setInterval(() => {}, 120000);
   }
 
   ngAfterContentChecked() {
     this.initActive();
   }
 
+  public deleteImage(url) {
+    console.log({url});
+    this._productsService.deleteImage(this.pid, url, this.activeUser.id);
+  }
+
+  private replaceImage(fd: FormData) {
+    // make formdata, upload
+    this._productsService.replaceImage(this.pid, fd, this.activeUser.id);
+  }
+
+  private addImage(fd: FormData) {
+    // make formdata, upload
+    this._productsService.addImage(this.pid, fd, this.activeUser.id);
+  }
+
+  grabFile(e, which) {
+    const fileList = e.target.files;
+    const fileArr = Array.from(e.target.files);
+    const formData = new FormData();
+
+    if (fileArr.length < 1) {
+      this._dialog.showDialog({
+        action: () => console.log(`[dialog] closed Successfully!`),
+        message: `'No file selected`
+      });
+      return;
+    } else {
+      fileArr.forEach((cur, i) => {
+        formData.append(`img-${i}`, fileList.item(i));
+      });
+
+      if (which === 'add') {
+        this.addImage(formData);
+      } else if (which === 'replace') {
+        this.replaceImage(formData);
+      }
+      return;
+    }
+  }
+
   onSubmit() {
+    this.showSpinner = true;
     console.log({
       rv: this.editProductForm.getRawValue(),
       bool: this.editProductForm.dirty,
