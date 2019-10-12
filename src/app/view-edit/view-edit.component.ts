@@ -129,6 +129,15 @@ AfterContentChecked {
       d.classList.add('d-flex');
     }
     f.classList.toggle('d-none');
+    this.initValues();
+  }
+
+  public initValues() {
+    const changes = this.changedVal;
+
+    for (let prop of changes) {
+      this.product[prop.key] = this.status[prop.key].value;
+    }
   }
 
   private initActive() {
