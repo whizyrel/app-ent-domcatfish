@@ -102,7 +102,7 @@ AfterContentChecked {
       this.product,
       (prop, obj) => {
         if (this.status[prop].dirty) {
-          d.push({key: prop, val: this.status[prop].value});
+          d.push({key: prop, value: this.status[prop].value});
         }
       }
     );
