@@ -217,11 +217,15 @@ AfterContentChecked {
     this.step = index;
   }
 
-  nextStep() {
+  nextStep(e) {
+    e.stopImmediatePropagation();
+    e.stopPropagation();
     this.step++;
   }
 
-  prevStep() {
+  prevStep(e) {
+    e.stopImmediatePropagation();
+    e.stopPropagation();
     this.step--;
   }
 }
