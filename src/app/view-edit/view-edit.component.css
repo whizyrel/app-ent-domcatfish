@@ -5,9 +5,21 @@
   height: 280px;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 576px) and (max-width: 767px) {
   .product-imgs {
-    height: 150px;
+    height: 280px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+  .product-imgs {
+    height: 180px;
+  }
+}
+
+@media (min-width: 993px) {
+  .product-imgs {
+    height: 280px;
   }
   .h-sm-90 {
     height: 90%;
@@ -29,4 +41,12 @@
     margin: auto;
     padding-left: 0!important;
   }
+}
+
+.img-overlay {
+  position: absolute;
+  left: 80%;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
