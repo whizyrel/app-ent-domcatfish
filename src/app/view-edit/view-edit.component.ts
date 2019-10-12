@@ -78,15 +78,18 @@ AfterContentChecked {
     )
     .subscribe(
       (data: HttpResponse) => {
+        this.showSpinner = false;
+
         console.log({data});
         this._dialog.showDialog({
           action: () => console.log('[dialog] closed Successfully!'),
-          message: {message: data.message},
+          message: data.message,
         });
 
         this.getProductDetails();
       },
       (error: HttpResponse) => {
+        this.showSpinner = false;
         console.log({error});
         this._dialog.showDialog({
           action: () => console.log('[dialog] closed Successfully!'),
