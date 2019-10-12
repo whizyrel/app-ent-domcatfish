@@ -28,6 +28,8 @@ AfterContentChecked {
   public product: ProductsProps;
   public step = 0;
 
+  public showSpinner: boolean = false;
+
   private activeUser: SessStoreProps;
   public packTypes: PackTypesProps[];
 
