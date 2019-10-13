@@ -207,7 +207,10 @@ export class DashboardComponent implements OnInit, AfterViewChecked, AfterConten
               console.log(`[error] logging out`, {err});
               // show dialog
               this._dialog.showDialog({
-                error: {message: err.error.message},
+                error: {
+                  message: err.hasOwnProperty('error') ?
+                  err.error.message : 'Network Error!'
+                },
                 action: () => {
                   window.location.reload(true);
                   console.log('[dialog] closed successfully');

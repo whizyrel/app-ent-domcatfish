@@ -252,7 +252,9 @@ OnInit, AfterContentChecked, AfterViewChecked {
             if (err) {
               // show dialog
               const dialogRef = this._dialog.showDialog({
-                error: {message: err.error.message},
+                error: {message: err.hasOwnProperty('error') ?
+                err.error.message : 'Network Error!'
+              },
                 action: () => {
                   this.router.navigate(['/shop']);
                   window.location.reload(true);
