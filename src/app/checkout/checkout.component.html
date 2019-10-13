@@ -116,18 +116,17 @@
                       placeholder="1234 5678 9123 4567"
                       class="form-control-sm"
                       type="text"
-                      maxlength="{{cardMaxLength || 16}}"
+                      minlength="{{ cardMinLength || 16 }}"
                       required
                       #card
-                      (keyup)="handleField(card, mm)"
+                      (keyup)="handleCardField(card, mm)"
                       (keydown)="validateInput($event)"
-                      (keydown)="formatCardNumber($event, card)"
                     />
                     <mat-icon [inline]="true" matSuffix>credit_card</mat-icon>
                     <mat-error *ngIf="status.cardnumber.invalid">{{
                       getErrorMessage().cardnumberError()
                     }}</mat-error>
-                    <mat-hint align="end">{{ card.value?.length }}/{{ cardMaxLength || 16 }}</mat-hint>
+                    <mat-hint align="end">{{ card.value?.length }}/{{ cardMinLength || 16 }}</mat-hint>
                   </mat-form-field>
                 </div>
               </div>

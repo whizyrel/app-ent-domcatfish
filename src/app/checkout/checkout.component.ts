@@ -160,6 +160,21 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
     this.address = this.status.address.value;
   }
 
+  handleCardField(card, n) {
+    card.addEventListener('mouseout', (e) => {
+      if (card.value.length >= card.minLength) {
+        n.focus();
+      }
+    });
+
+    // for mobile deviced
+    card.addEventListener('focusout', (e) => {
+      if (card.value.length >= card.minLength) {
+        n.focus();
+      }
+    });
+  }
+
   handleField(p, n) {
     if (p.value.length === p.maxLength) {
       n.focus();
