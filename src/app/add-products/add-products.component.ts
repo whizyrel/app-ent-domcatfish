@@ -186,4 +186,8 @@ export class AddProductsComponent implements OnInit {
   public get status() {
     return this.addProductForm.controls;
   }
+
+  public openFileDialog(el) {
+    el.click();
+  }
 }

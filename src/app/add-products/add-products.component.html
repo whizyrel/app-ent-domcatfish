@@ -179,25 +179,27 @@
             </div>
             <!-- description, shipping info -->
             <!-- images, submit button -->
-            <div class="form-row form-inline">
-              <div class="col col-6">
-                <input #imgfield type="file" class="form-control-sm w-100 " (change)="grabFiles($event)" accept="image/*" name="imgs" formenctype="multipart/form-data" upload-btn required multiple>
-              </div>
+            <div class="md-flex form-inline">
+              <label class="my-0 p-0 mr-auto">
+                <button mat-raised-button type="button" color="primary" (click)="openFileDialog(upldBtn)">
+                select photos
+                  <input #imgfield type="file" class="d-none" (change)="grabFiles($event)" accept="image/*" name="imgs" formenctype="multipart/form-data" #upldBtn required multiple>
+                </button>
+              </label>
+
               <!-- Button -->
-              <div class="col-6">
-                <mat-card-actions class="form-group pt-2 w-100 d-flex">
-                  <button
-                    class="d-flex pd-t-p5 pd-b-p5 pd-l-2 pd-r-2 ml-auto"
-                    mat-raised-button
-                    color="primary"
-                    type="submit"
-                    [disabled]="addProductForm.invalid"
-                    formenctype="multipart/form-data"
-                  >
-                    submit
-                  </button>
-                </mat-card-actions>
-              </div>
+              <mat-card-actions class="my-0 mr-1">
+                <button
+                  class="d-flex"
+                  mat-raised-button
+                  color="primary"
+                  type="submit"
+                  [disabled]="addProductForm.invalid"
+                  formenctype="multipart/form-data"
+                >
+                  submit
+                </button>
+              </mat-card-actions>
             </div>
             <!-- upload images, submit button -->
           </mat-card-content>
