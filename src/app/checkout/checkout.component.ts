@@ -37,6 +37,7 @@ export class CheckoutComponent implements OnInit, AfterContentInit, AfterContent
   public submitted: boolean = false;
 
   public cardMaxLength: number;
+  public cardMinLength: number;
   public fullname: string;
   public address: string;
   public showSpinner: boolean = false;

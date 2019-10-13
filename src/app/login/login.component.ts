@@ -144,6 +144,7 @@ export class LoginComponent implements OnInit {
                 data.hasOwnProperty('userDetails')
               ) {
                 const { message, sessid, userDetails } = data;
+                console.log({userDetails});
 
                 const ionarray: SessStoreProps[] = [];
                 const cartStoreArray: CartStoreProps[] = [];

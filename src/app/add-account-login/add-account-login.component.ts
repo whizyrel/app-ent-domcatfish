@@ -138,6 +138,7 @@ export class AddAccountLoginComponent implements OnInit {
                 data.hasOwnProperty('userDetails')
               ) {
                 const { message, sessid, userDetails } = data;
+                console.log({userDetails});
 
                 const ionarray: SessStoreProps[] = [];
                 const cartStoreArray: CartStoreProps[] = [];
@@ -170,20 +171,17 @@ export class AddAccountLoginComponent implements OnInit {
 
                         // push to localStorage
                         this._localStorage.setItem(ionstrttl, ps);
-                        console.log(`[Add account] user added successfully`);
                       })();
                 }
 
                 // considered add-account-login
                 // if crtstr === null do previous else push new into it
                 // get cartStore first
-                console.log(`setting cart store`);
                 const cartStore: CartStoreProps[] | null = JSON.parse(
                   this._localStorage.getItem(crtstrttl)
                 );
 
                 const crt: CartProps[] = this._cartService.getTempCartItems;
-                console.log('login', {crt, cartStore});
 
                 cartStore === null || cartStore === undefined
                   ? (() => {
@@ -191,7 +189,6 @@ export class AddAccountLoginComponent implements OnInit {
                         em: userDetails.email,
                         crt,
                       });
-                      console.log({cartStoreArray});
                       this._localStorage.setItem(crtstrttl, cartStoreArray);
                     })()
                   : (() => {
@@ -200,7 +197,6 @@ export class AddAccountLoginComponent implements OnInit {
                         em: userDetails.email,
                         crt,
                       });
-                      console.log('inside cartStore descision', {cartStore});
                       this._localStorage.setItem(crtstrttl, cartStore);
                     })();
 
