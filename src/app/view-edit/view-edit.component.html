@@ -10,15 +10,21 @@
 
             <label class="m-0 p-0 d-block">
               <i class="far fa-edit" style="font-size: 1.3em; color: #17a2b8; z-index: 1000;" data-toggle="tooltip" title="replace this image">
-                <input type="file" class="d-none" (change)="grabFile($event, 'replace')" multiple>
+                <input type="file" class="d-none" (change)="grabFile($event, 'replace', img)" multiple>
               </i>
+            </label>
 
+            <label class="m-0 p-0 d-block">
               <i class="far fa-plus-square" style="font-size: 1.3em; color: #17a2b8; z-index: 1000;" data-toggle="tooltip" title="add another image">
                 <input type="file" class="d-none" (change)="grabFile($event, 'add')" multiple>
               </i>
             </label>
           </div>
         </div>
+      </div>
+      <div *ngIf="showImgSpinner" class="spinner-container d-flex justify-content-center form-inline" role="status">
+        <i class="fa fa-spinner fa-spin fa-2x mg-r-p5"></i>
+        <p class="fw-b fs-12 ml-1">uploading...</p>
       </div>
     </div>
   </div>

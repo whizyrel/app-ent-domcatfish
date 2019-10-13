@@ -29,6 +29,7 @@ AfterContentChecked {
   public step = 0;
 
   public showSpinner: boolean = false;
+  public showImgSpinner: boolean = false;
 
   private activeUser: SessStoreProps;
   public packTypes: PackTypesProps[];
@@ -58,21 +59,78 @@ AfterContentChecked {
   }
 
   public deleteImage(url) {
-    console.log({url});
-    this._productsService.deleteImage(this.pid, url, this.activeUser.id);
+    this.showImgSpinner = true;
+    this._productsService
+    .deleteImage(this.pid, url, this.activeUser.id)
+    .subscribe((data: HttpResponse) => {
+      this.showImgSpinner = false;
+      this._dialog.showDialog({
+        action: () => console.log(`[dialog] closed Successfully!`),
+        message: data.message,
+      });
+      this.getProductDetails();
+    }, (error: HttpResponse) => {
+      this.showImgSpinner = false;
+      console.log({error});
+      this._dialog.showDialog({
+        action: () => console.log(`[dialog] closed Successfully!`),
+        error: {message: error.error.message},
+      });
+      this.getProductDetails();
+    });
   }
 
   private replaceImage(fd: FormData) {
+    this.showImgSpinner = true;
     // make formdata, upload
-    this._productsService.replaceImage(this.pid, fd, this.activeUser.id);
+    this._productsService
+    .replaceImage(this.pid, fd, this.activeUser.id)
+    .subscribe((data: HttpResponse) => {
+      this.showImgSpinner = false;
+      console.log({data});
+      this._dialog.showDialog({
+        action: () => console.log(`[dialog] closed Successfully!`),
+        message: data.message,
+      });
+      this.getProductDetails();
+    }, (error: HttpResponse) => {
+      this.showImgSpinner = false;
+      console.log({error});
+      this._dialog.showDialog({
+        action: () => console.log(`[dialog] closed Successfully!`),
+        error: {message: error.error.message},
+      });
+      this.getProductDetails();
+    });
   }
 
   private addImage(fd: FormData) {
+    this.showImgSpinner = true;
     // make formdata, upload
-    this._productsService.addImage(this.pid, fd, this.activeUser.id);
+    this._productsService
+    .addImage(this.pid, fd, this.activeUser.id)
+    .subscribe((data: HttpResponse) => {
+      this.showImgSpinner = false;
+      console.log({data});
+      this._dialog.showDialog({
+        action: () => console.log(`[dialog] closed Successfully!`),
+        message: data.message,
+      });
+      this.getProductDetails();
+    }, (error: HttpResponse) => {
+      this.showImgSpinner = false;
+      console.log({error});
+      this._dialog.showDialog({
+        action: () => console.log(`[dialog] closed Successfully!`),
+        error: {message: error.error.message},
+      });
+      this.getProductDetails();
+    });
   }
 
-  grabFile(e, which) {
+  grabFile(e, which, url = null) {
+    e.stopImmediatePropagation();
+    e.stopPropagation();
     const fileList = e.target.files;
     const fileArr = Array.from(e.target.files);
     const formData = new FormData();
@@ -91,10 +149,13 @@ AfterContentChecked {
       if (which === 'add') {
         this.addImage(formData);
       } else if (which === 'replace') {
+        formData.append('imgURL', url);
         this.replaceImage(formData);
       }
+      this.getProductDetails();
       return;
     }
+    e.preventDefault();
   }
 
   onSubmit() {
@@ -138,6 +199,7 @@ AfterContentChecked {
           action: () => console.log('[dialog] closed Successfully!'),
           error: {message: error.error.message},
         });
+        this.getProductDetails();
       }
     );
   }
