@@ -182,7 +182,7 @@
             <div class="md-flex form-inline">
               <label class="my-0 p-0 mr-auto">
                 <button mat-raised-button type="button" color="primary" (click)="openFileDialog(upldBtn)">
-                select photos
+                  {{ upldDirective }}
                   <input #imgfield type="file" class="d-none" (change)="grabFiles($event)" accept="image/*" name="imgs" formenctype="multipart/form-data" #upldBtn required multiple>
                 </button>
               </label>

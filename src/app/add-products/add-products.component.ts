@@ -33,6 +33,8 @@ export class AddProductsComponent implements OnInit {
 
   private files: File[];
 
+  public upldDirective: string = 'select photos';
+
   @Output() public queryProgressBar: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
@@ -129,6 +131,7 @@ export class AddProductsComponent implements OnInit {
     let filesArr: File[] = Array.from(fl);
     if (fl.length > 0) {
       this.files = filesArr;
+      this.upldDirective = `${filesArr.length} photos selected`;
     }
   }
 
