@@ -1,5 +1,7 @@
 main {
   background: #fff;
+  min-height: calc(100vh - 220px);
+  height: fit-content;
 }
 .shop-btn {
   position: sticky;
@@ -32,6 +34,22 @@ p {
     margin-top: 7rem!important;
   }
 }
+
+
+/* Ipad - portrait */
+@media (min-width: 768px) and (max-height: 1024px) {
+  .container {
+    margin-top: 7rem!important;
+  }
+}
+
+/* Ipad Pro - portrait */
+@media (width: 1024px) and (height: 1366px) {
+  .container {
+    margin-top: 20rem!important;
+  }
+}
+
 .carousel-control-prev {
-    display: flex;
+  display: flex;
 }
