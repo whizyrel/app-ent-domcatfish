@@ -82,8 +82,15 @@ export class ListProductsComponent implements OnInit {
     .subscribe((data: HttpResponse) => {
       this.pList = data.docs;
       this.dataSource = new MatTableDataSource(this.pList);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+
+      window.onpageshow = (e) => {
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      };
+      window.onload = (e) => {
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      };
       this.showSpinner = false;
     },
     (error: HttpResponse) => {
