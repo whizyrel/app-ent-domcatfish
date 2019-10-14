@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../services/products.service';
 import { UsersActiveInactiveService } from '../services/users-active-inactive.service';
 import { DecEncService } from '../services/dec-enc.service';
+import { DialogService } from '../services/dialog.service';
 
 import { ProductsProps } from '../interfaces/products-props';
 import { HttpResponse } from '../interfaces/http-response';
@@ -40,7 +41,8 @@ export class ListProductsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private _productsService: ProductsService,
     private _users: UsersActiveInactiveService,
-    private _decEnc: DecEncService
+    private _decEnc: DecEncService,
+    private _dialog: DialogService
   ) { }
 
   ngOnInit() {
@@ -59,12 +61,20 @@ export class ListProductsComponent implements OnInit {
     this.showLoading = true;
     this._productsService
     .deleteProduct(pid, this.activeUser.id)
-    .subscribe((data) => {
-      this.getProductsList()
+    .subscribe((data: HttpResponse) => {
+      this.getProductsList();
       this.showLoading = false;
-    }, (error) => {
+      this._dialog.showDialog({
+        action: () => console.log(`[dialog] closed Successfully!`),
+        message: data.message
+      });
+    }, (error: HttpResponse) => {
       console.log({error});
       this.showLoading = false;
+      this._dialog.showDialog({
+        action: () => console.log(`[dialog] closed Successfully!`),
+        error: {message: error.error.message}
+      });
     });
   }
 
