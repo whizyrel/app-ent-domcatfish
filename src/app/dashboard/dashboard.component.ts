@@ -208,8 +208,11 @@ export class DashboardComponent implements OnInit, AfterViewChecked, AfterConten
               // show dialog
               this._dialog.showDialog({
                 error: {
-                  message: err.hasOwnProperty('error') ?
-                  err.error.message : 'Network Error!'
+                  message: err.error.hasOwnProperty('message') ?
+                    err.error.message :
+                    err.status === 0 ?
+                      'Network Error!' :
+                      'Internal Server Error!'
                 },
                 action: () => {
                   window.location.reload(true);

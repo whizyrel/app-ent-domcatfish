@@ -74,7 +74,13 @@ AfterContentChecked {
       console.log({error});
       this._dialog.showDialog({
         action: () => console.log(`[dialog] closed Successfully!`),
-        error: {message: error.error.message},
+        error: {
+          message: error.error.hasOwnProperty('message') ?
+            error.error.message :
+            error.status === 0 ?
+              'Network Error!' :
+              'Internal Server Error!'
+        },
       });
       this.getProductDetails();
     });
@@ -98,7 +104,13 @@ AfterContentChecked {
       console.log({error});
       this._dialog.showDialog({
         action: () => console.log(`[dialog] closed Successfully!`),
-        error: {message: error.error.message},
+        error: {
+          message: error.error.hasOwnProperty('message') ?
+            error.error.message :
+            error.status === 0 ?
+              'Network Error!' :
+              'Internal Server Error!'
+        },
       });
       this.getProductDetails();
     });
@@ -122,7 +134,13 @@ AfterContentChecked {
       console.log({error});
       this._dialog.showDialog({
         action: () => console.log(`[dialog] closed Successfully!`),
-        error: {message: error.error.message},
+        error: {
+          message: error.error.hasOwnProperty('message') ?
+            error.error.message :
+            error.status === 0 ?
+              'Network Error!' :
+              'Internal Server Error!'
+        },
       });
       this.getProductDetails();
     });
@@ -138,7 +156,7 @@ AfterContentChecked {
     if (fileArr.length < 1) {
       this._dialog.showDialog({
         action: () => console.log(`[dialog] closed Successfully!`),
-        message: `'No file selected`
+        message: `No file selected`
       });
       return;
     } else {
@@ -197,7 +215,13 @@ AfterContentChecked {
         console.log({error});
         this._dialog.showDialog({
           action: () => console.log('[dialog] closed Successfully!'),
-          error: {message: error.error.message},
+          error: {
+            message: error.error.hasOwnProperty('message') ?
+              error.error.message :
+              error.status === 0 ?
+                'Network Error!' :
+                'Internal Server Error!'
+          },
         });
         this.getProductDetails();
       }
